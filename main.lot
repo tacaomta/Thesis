@@ -1,0 +1,23 @@
+\babel@toc {english}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces The settings used for generating the datasets.}}{18}{table.caption.45}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces The hyper parameters of classifiers}}{38}{table.caption.66}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces Summary of the synthetic toy datasets used for GRN inference, including network sizes, number of networks, and interaction statistics }}{40}{table.caption.69}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces Summary of the \textit {E.coli} dataset used for GRN inference, including network sizes, number of networks, and interaction statistics }}{42}{table.caption.71}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces The structure of the autoencoder model.}}{55}{table.caption.95}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Parameters of the training.}}{55}{table.caption.96}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {A.1}{\ignorespaces AUPR performance of different inference methods on the \textit {E. coli} dataset with network size 10 (Samples 1--5).}}{72}{table.caption.133}%
+\contentsline {table}{\numberline {A.2}{\ignorespaces AUPR performance of different inference methods on the \textit {E. coli} dataset with network size 10 (Samples 6--10 and average).}}{73}{table.caption.134}%
+\contentsline {table}{\numberline {A.3}{\ignorespaces AUPR performance of different inference methods on the \textit {E. coli} dataset with network size 50. Models are trained and evaluated on networks of the same size. Results are reported for four independent network samples, each evaluated on two test time series. The final column reports the average AUPR across all samples. The best performing method in each data is highlighted in bold.}}{73}{table.caption.135}%
+\contentsline {table}{\numberline {A.4}{\ignorespaces AUPR performance of different inference methods on the \textit {E. coli} dataset with network size 100. Models are trained and evaluated on networks of the same size. Results are reported for four independent network samples, each evaluated on two test time series. The final column reports the average AUPR across all samples. The best performing method in each data is highlighted in bold.}}{74}{table.caption.136}%
+\contentsline {table}{\numberline {A.5}{\ignorespaces Detailed AUPR results of the GNB model on size-10 networks with testing size 10. For each training set size, the highest AUPR value across time series realizations is highlighted in bold.}}{75}{table.caption.138}%
+\contentsline {table}{\numberline {A.6}{\ignorespaces Detailed AUPR results of the GNB model with testing size 50. For each training set size, the highest AUPR value across time series realizations is highlighted in bold.}}{76}{table.caption.139}%
+\contentsline {table}{\numberline {A.7}{\ignorespaces Detailed AUPR results of the GNB model with testing size 100. For each training set size, the highest AUPR value across time series realizations is highlighted in bold.}}{76}{table.caption.140}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {B.1}{\ignorespaces Performance metrics (mean ± standard deviation) on multi-level discretization datasets across varying numbers of observed time steps \(K\).}}{78}{table.caption.143}%
+\contentsline {table}{\numberline {B.2}{\ignorespaces Performance metrics (mean ± standard deviation) on Boolean datasets across varying numbers of observed time steps \(K\).}}{79}{table.caption.144}%

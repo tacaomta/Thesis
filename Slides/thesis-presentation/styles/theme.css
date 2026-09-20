@@ -1,0 +1,53 @@
+:root {
+    --csc-navy: #173f5f;
+    --csc-blue: #20639b;
+    --csc-teal: #2a9d8f;
+    --csc-accent: #e9c46a;
+    --csc-bg: #f8fafb;
+    --csc-surface: #ffffff;
+    --csc-text: #24313a;
+    --csc-muted: #64748b;
+    --csc-border: #dce4e9;
+}
+
+.slidev-layout {
+    background: var(--csc-bg);
+    color: var(--csc-text);
+    font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 {
+    color: var(--csc-navy);
+    font-weight: 650;
+    letter-spacing: -0.02em;
+}
+
+.slidev-layout h1 {
+    font-size: 2.4rem;
+}
+
+.slidev-layout h2 {
+    font-size: 1.8rem;
+}
+
+.slidev-layout p {
+    color: var(--csc-text);
+}
+
+.slidev-layout strong {
+    color: var(--csc-navy);
+}
+
+.csc-accent {
+    color: var(--csc-teal);
+}
+
+.csc-divider {
+    width: 64px;
+    height: 4px;
+    margin-top: 14px;
+    border-radius: 2px;
+    background: var(--csc-teal);
+}

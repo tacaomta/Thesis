@@ -1,0 +1,32 @@
+[0] Config.pm:328> INFO - This is Biber 2.21
+[0] Config.pm:331> INFO - Logfile is 'main.blg'
+[150] biber-MSWIN64:342> INFO - === 
+[202] Biber.pm:421> INFO - Reading 'main.bcf'
+[383] Biber.pm:1002> INFO - Found 96 citekeys in bib section 0
+[404] Biber.pm:4487> INFO - Processing section 0
+[417] Biber.pm:4678> INFO - Looking for bibtex file 'example.bib' for section 0
+[485] bibtex.pm:1713> INFO - LaTeX decoding ...
+[617] bibtex.pm:1519> INFO - Found BibTeX data source 'example.bib'
+[1543] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1543] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1543] Biber.pm:4307> INFO - Sorting list 'nyt/global//global/global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[1543] Biber.pm:4313> INFO - No sort tailoring available for locale 'en-US'
+[1720] bbl.pm:676> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[1820] bbl.pm:779> INFO - Output to main.bbl
+[1821] Biber.pm:132> WARN - Possible typo (case mismatch) between datasource keys: 'huynhthu2010' and 'HuynhThu2010' in file 'example.bib'
+[1821] Biber.pm:132> WARN - Possible typo (case mismatch) between datasource keys: 'faith2007' and 'Faith2007' in file 'example.bib'
+[1821] Biber.pm:132> WARN - Possible typo (case mismatch) between datasource keys: 'Margolin2006' and 'margolin2006' in file 'example.bib'
+[1821] Biber.pm:132> WARN - Duplicate entry key: 'Zou2005' in file 'example.bib', skipping ...
+[1821] Biber.pm:132> WARN - Duplicate entry key: 'Barman2017' in file 'example.bib', skipping ...
+[1821] Biber.pm:132> WARN - inproceedings entry 'FridAdar2018' (example.bib): Invalid format '4--7 April 2018' of date field 'date' - ignoring
+[1821] Biber.pm:132> WARN - inproceedings entry 'Forestier2017' (example.bib): Invalid format '9--12 December 2017' of date field 'date' - ignoring
+[1821] Biber.pm:132> WARN - inproceedings entry 'Leznik2021' (example.bib): Invalid format '19--23 April 2021' of date field 'date' - ignoring
+[1821] Biber.pm:132> WARN - inproceedings entry 'Parmar2021' (example.bib): Invalid format '20--25 June 2021' of date field 'date' - ignoring
+[1821] Biber.pm:132> WARN - inproceedings entry 'Cheng2018' (example.bib): Invalid format '24--27 June 2018' of date field 'date' - ignoring
+[1821] Biber.pm:132> WARN - inproceedings entry 'Karita2019' (example.bib): Invalid format '12--17 May 2019' of date field 'date' - ignoring
+[1822] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\nangb\AppData\Local\Temp\biber_tmp_OeVD\0a7c5e67b4d952eac587450a692dc29d_19012.utf8, line 2, warning: 38 characters of junk seen at toplevel
+[1822] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\nangb\AppData\Local\Temp\biber_tmp_OeVD\0a7c5e67b4d952eac587450a692dc29d_19012.utf8, line 203, warning: 252 characters of junk seen at toplevel
+[1822] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\nangb\AppData\Local\Temp\biber_tmp_OeVD\0a7c5e67b4d952eac587450a692dc29d_19012.utf8, line 346, warning: 12 characters of junk seen at toplevel
+[1822] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\nangb\AppData\Local\Temp\biber_tmp_OeVD\0a7c5e67b4d952eac587450a692dc29d_19012.utf8, line 376, warning: 9 characters of junk seen at toplevel
+[1822] Biber.pm:132> WARN - BibTeX subsystem: C:\Users\nangb\AppData\Local\Temp\biber_tmp_OeVD\0a7c5e67b4d952eac587450a692dc29d_19012.utf8, line 393, warning: 252 characters of junk seen at toplevel
+[1822] Biber.pm:134> INFO - WARNINGS: 16

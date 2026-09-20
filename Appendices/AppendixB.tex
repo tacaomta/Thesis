@@ -1,0 +1,423 @@
+% Appendix B
+
+\chapter{Supplementary Materials for Chapter 3} % Main appendix title
+
+\label{AppendixB} % For referencing this appendix elsewhere, use \ref{AppendixA}
+
+\section{Algorithm for Synthetic Dataset Generation Based on the Barabási–Albert Model}
+
+\subsection*{Algorithm S1}
+\begin{algorithm}
+\caption{RandomUpdateFunction}
+\label{alg:random_update_function}
+\begin{algorithmic}[1]
+\Require Graph $G(V, A)$
+\For{\textbf{each} $v \in V$}
+    \State let $u_1, u_2, \dots, u_k$ genes regulating $v$ in $G$
+    \State let $l_1, l_2, \dots, l_k, l$ the discretization level of $u_1, u_2, \dots, u_k$  and $v$
+    \For{\textbf{each} $x \in \{0, \dots, l_1 - 1\} \times \{0, \dots, l_2 - 1\} \times \dots \times \{0, \dots, l_k - 1\}$}
+        \State $F_v(x) \gets \text{randint}(0, l - 1)$ \Comment{a random integer between 0 and $l-1$}
+    \EndFor
+\EndFor
+\State \Return $\{F_v | v \in V\}$
+\end{algorithmic}
+\end{algorithm}
+\par
+
+\subsection*{Algorithm S2}
+\begin{algorithm}
+\caption{RandomGeneExpression}
+\label{alg:random_gene_exression}
+\begin{algorithmic}[1]
+\Require Graph $G(V, A)$, update functions $F_v$, observed time step $K$
+\For{\textbf{each} $v \in V$}
+    \State let the discretization level of $v$
+    \State $v(0) \gets \text{randint}(0, l - 1)$\Comment{a random integer between 0 and $l-1$}
+\EndFor
+\For{$t = 1$ to $K$}
+    \For{each $v \in V$}
+        \State let $v$: $u_1, u_2, \dots, u_k$ genes regulating $v$ in $G$
+        \State $x = (u_1(t-1), u_2(t-1), \dots, u_k(t-1))$
+        \State $v(t+1) \gets F_v(x)$
+    \EndFor
+\EndFor
+\State \Return $\{v(t) | v \in V, t \in \{0, \dots, K\}\}$
+\end{algorithmic}
+\end{algorithm}
+
+\section{Detailed performance results on the \textit{E. coli}  dataset}\label{sec11}
+This section provides the complete quantitative results underlying the performance analysis reported in the subsection "Performance on \textit{E. coli} datasets" (see in the main text). While the main text focuses on aggregated trends and comparative observations, the tables presented here report detailed AUPR scores for individual network samples and time series across different network sizes. Specifically, Tables ~\ref{tab:size10_part1}, ~\ref{tab:size10_part2}, ~\ref{tab:size50}, and ~\ref{tab:size100} summarize the performance of all evaluated methods on networks of size 10, 50, and 100, respectively. These results are included to support reproducibility, facilitate fine-grained comparison among methods, and provide additional insight into performance variability across samples and experimental settings.
+
+\begin{table*}[!h]
+\centering
+\caption{AUPR performance of different inference methods on the \textit{E. coli} dataset with network size 10 (Samples 1--5).}
+\label{tab:size10_part1}
+{\renewcommand{\arraystretch}{0.6}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{lcccccccccc}
+\toprule
+Model
+& \multicolumn{10}{c}{Network size 10 (Samples 1--5)} \\
+\cmidrule(lr){2-11}
+& \multicolumn{2}{c}{Sample 1}
+& \multicolumn{2}{c}{Sample 2}
+& \multicolumn{2}{c}{Sample 3}
+& \multicolumn{2}{c}{Sample 4}
+& \multicolumn{2}{c}{Sample 5} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+\cmidrule(lr){8-9}\cmidrule(lr){10-11}
+& S1 & S2 & S1 & S2 & S1 & S2 & S1 & S2 & S1 & S2 \\
+\midrule
+LR
+& 0.3077 & 0.3852 & 0.5803 & 0.6818 & 0.8626 & 0.9311
+& 0.9292 & 0.9760 & 0.5277 & 0.5162 \\
+DT
+& 0.3000 & 0.3179 & 0.3558 & 0.3808 & 0.6778 & 0.4760
+& 0.1714 & 0.2722 & 0.4174 & 0.3253 \\
+RF
+& \textbf{0.6873} & 0.2810 & 0.5460 & \textbf{0.7145} & 0.9111 & 0.8111
+& 0.9111 & 0.9167 & 0.6778 & 0.5242 \\
+KNN
+& 0.5315 & 0.2683 & 0.3705 & 0.6684 & 0.5639 & 0.4861
+& 0.8017 & 0.6222 & \textbf{0.7485} & 0.4899 \\
+XGBoost
+& 0.6236 & 0.6370 & 0.5338 & 0.6964 & 0.9229 & \textbf{0.9826}
+& 0.9271 & \textbf{1.0000} & 0.4439 & 0.4576 \\
+LGBM
+& 0.6603 & \textbf{0.6395} & 0.5915 & 0.6998 & 0.9181 & 0.9602
+& 0.9404 & 0.9905 & 0.4429 & 0.5047 \\
+MLP
+& 0.4376 & 0.3069 & \textbf{0.6487} & 0.6322 & \textbf{0.9322} & 0.7100
+& 0.9247 & 0.9826 & 0.5258 & \textbf{0.5920} \\
+GNB
+& 0.5099 & 0.5099 & 0.6327 & 0.6327 & 0.6356 & 0.6107
+& \textbf{0.9556} & \textbf{0.9556} & 0.5148 & 0.5503 \\
+\midrule
+Baseline
+& 0.1663 & 0.1746 & 0.1572 & 0.1594 & 0.1398 & 0.1360
+& 0.1368 & 0.1356 & 0.2696 & 0.2639 \\
+Jump3
+& 0.1946 & 0.1946 & 0.1398 & 0.1398 & 0.1097 & 0.1097
+& 0.1041 & 0.1041 & 0.2373 & 0.2373 \\
+Inferelator
+& 0.1439 & 0.1213 & 0.1679 & 0.1905 & 0.0970 & 0.1161
+& 0.1153 & 0.1815 & 0.2518 & 0.2945 \\
+CLR-lag
+& 0.1653 & 0.1829 & 0.2138 & 0.2177 & 0.1145 & 0.1702
+& 0.1136 & 0.1993 & 0.2820 & 0.2561 \\
+TSNI
+& 0.1429 & 0.1537 & 0.1732 & 0.1434 & 0.1982 & 0.2621
+& 0.3033 & 0.1701 & 0.3154 & 0.2206 \\
+G1DBN
+& 0.1485 & 0.1803 & 0.1590 & 0.1443 & 0.1736 & 0.1115
+& 0.2633 & 0.1287 & 0.2523 & 0.3205 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+
+\begin{table*}[!h]
+\centering
+\caption{AUPR performance of different inference methods on the \textit{E. coli} dataset with network size 10 (Samples 6--10 and average).}
+\label{tab:size10_part2}
+{\renewcommand{\arraystretch}{0.6}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{lccccccccccc}
+\toprule
+Model
+& \multicolumn{10}{c}{Network size 10 (Samples 6--10)}
+& Average \\
+\cmidrule(lr){2-11}
+& \multicolumn{2}{c}{Sample 6}
+& \multicolumn{2}{c}{Sample 7}
+& \multicolumn{2}{c}{Sample 8}
+& \multicolumn{2}{c}{Sample 9}
+& \multicolumn{2}{c}{Sample 10}
+& \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+\cmidrule(lr){8-9}\cmidrule(lr){10-11}
+& S1 & S2 & S1 & S2 & S1 & S2 & S1 & S2 & S1 & S2 & \\
+\midrule
+LR
+& \textbf{0.6400} & \textbf{0.7022} & 0.6465 & 0.2051 & 0.7677 & 0.7876
+& 0.1254 & 0.1089 & 0.2276 & 0.2083 & 0.5559 \\
+DT
+& 0.2808 & 0.3344 & 0.1381 & \textbf{0.6106} & 0.3804 & 0.5342
+& 0.1263 & 0.1208 & 0.2428 & 0.2059 & 0.3334 \\
+RF
+& 0.4399 & 0.5709 & 0.6183 & 0.1548 & 0.7376 & 0.7376
+& 0.4000 & 0.0500 & 0.1056 & 0.1056 & 0.5450 \\
+KNN
+& 0.4915 & 0.3535 & 0.4240 & 0.1464 & 0.7614 & 0.6126
+& 0.2611 & 0.2000 & 0.1680 & 0.1819 & 0.4576 \\
+XGBoost
+& 0.3621 & 0.5192 & 0.3097 & 0.2175 & 0.9007 & 0.8931
+& 0.1266 & 0.1104 & 0.1735 & 0.1800 & 0.5509 \\
+LGBM
+& 0.4043 & 0.5452 & \textbf{0.9024} & 0.2299 & \textbf{0.9106} & 0.8946
+& 0.1278 & 0.1170 & 0.1632 & 0.1873 & \textbf{0.5915} \\
+MLP
+& 0.5673 & 0.5815 & 0.3363 & 0.3082 & 0.9075 & \textbf{0.9180}
+& 0.1129 & 0.1128 & 0.1645 & 0.1847 & 0.5443 \\
+GNB
+& 0.4207 & 0.4551 & 0.6061 & 0.6094 & 0.6309 & 0.6550
+& \textbf{0.4017} & \textbf{0.2877} & \textbf{0.3713} & \textbf{0.3773} & 0.5661 \\
+\midrule
+Baseline
+& 0.2107 & 0.2017 & 0.1019 & 0.0988 & 0.2187 & 0.2160
+& 0.1234 & 0.1164 & 0.2266 & 0.2368 & 0.1745 \\
+Jump3
+& 0.3195 & 0.3195 & 0.0907 & 0.0907 & 0.2077 & 0.2077
+& 0.0924 & 0.0924 & 0.2430 & 0.2430 & 0.1739 \\
+Inferelator
+& 0.1793 & 0.2938 & 0.0389 & 0.0624 & 0.2762 & 0.1179
+& 0.1323 & 0.0936 & 0.2135 & 0.2925 & 0.1690 \\
+CLR-lag
+& 0.2192 & 0.3492 & 0.0829 & 0.1050 & 0.2123 & 0.2171
+& 0.1212 & 0.1261 & 0.2857 & 0.2662 & 0.1950 \\
+TSNI
+& 0.3722 & 0.2487 & 0.1820 & 0.1231 & 0.2666 & 0.2784
+& 0.1306 & 0.1296 & 0.2241 & 0.2351 & 0.2137 \\
+G1DBN
+& 0.2808 & 0.2084 & 0.1033 & 0.0825 & 0.2297 & 0.2759
+& 0.1000 & 0.1000 & 0.2331 & 0.1983 & 0.1847 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+
+
+
+
+
+\begin{table*}[!t]
+\centering
+\caption{AUPR performance of different inference methods on the \textit{E. coli} dataset with network size 50. Models are trained and evaluated on networks of the same size. Results are reported for four independent network samples, each evaluated on two test time series. The final column reports the average AUPR across all samples. The best performing method in each data is highlighted in bold.}
+\label{tab:size50}
+{\renewcommand{\arraystretch}{0.8}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lcccccccc c}
+\toprule
+Model
+& \multicolumn{8}{c}{Network size 50 (Samples and time series)}
+& Average \\
+\cmidrule(lr){2-9}
+& \multicolumn{2}{c}{Sample 1}
+& \multicolumn{2}{c}{Sample 2}
+& \multicolumn{2}{c}{Sample 3}
+& \multicolumn{2}{c}{Sample 4}
+& \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
+& S1 & S2 & S1 & S2 & S1 & S2 & S1 & S2 & \\
+\midrule
+LR
+& 0.1619 & 0.0703 & 0.0931 & 0.1441 & 0.0732 & 0.0955 & 0.0761 & 0.0663 & 0.0976 \\
+DT
+& 0.1043 & 0.2552 & 0.1338 & 0.1849 & 0.1856 & 0.3494 & 0.1911 & 0.1508 & 0.1944 \\
+RF
+& 0.0593 & 0.0182 & 0.1664 & \textbf{0.3088} & 0.0692 & 0.0188 & 0.1762 & 0.1433 & 0.1200 \\
+KNN
+& 0.1859 & 0.0540 & 0.0897 & 0.0905 & 0.0432 & 0.0419 & 0.1463 & 0.1406 & 0.0990 \\
+XGBoost
+& 0.1498 & 0.0757 & 0.1004 & 0.1884 & \textbf{0.2365} & 0.0923 & 0.1192 & 0.1148 & 0.1346 \\
+LGBM
+& \textbf{0.4383} & 0.0765 & 0.1100 & 0.1988 & 0.2242 & 0.0936 & 0.1345 & 0.1583 & 0.1793 \\
+MLP
+& 0.2958 & 0.0785 & 0.1150 & 0.1764 & 0.0922 & 0.0637 & 0.1216 & 0.1295 & 0.1341 \\
+GNB
+& 0.4207 & \textbf{0.4790} & \textbf{0.2996} & 0.2929 & \textbf{0.4240} & \textbf{0.3910}
+& \textbf{0.2697} & \textbf{0.2657} & \textbf{0.3553} \\
+\midrule
+Baseline
+& 0.0378 & 0.0373 & 0.0445 & 0.0434 & 0.0398 & 0.0392 & 0.0495 & 0.0502 & 0.0427 \\
+Jump3
+& 0.0451 & 0.0451 & 0.0475 & 0.0475 & 0.0589 & 0.0589 & 0.0492 & 0.0492 & 0.0502 \\
+Inferelator
+& 0.0406 & 0.0352 & 0.0477 & 0.0517 & 0.0293 & 0.0387 & 0.0400 & 0.0364 & 0.0400 \\
+CLR-lag
+& 0.0409 & 0.0350 & 0.0472 & 0.0401 & 0.0364 & 0.0508 & 0.0546 & 0.0534 & 0.0448 \\
+TSNI
+& 0.0482 & 0.0334 & 0.0498 & 0.0451 & 0.0442 & 0.0590 & 0.0506 & 0.0471 & 0.0472 \\
+G1DBN
+& 0.0400 & 0.0373 & 0.0439 & 0.0450 & 0.0387 & 0.0396 & 0.0481 & 0.0490 & 0.0427 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+
+
+\begin{table*}[!h]
+\centering
+\caption{AUPR performance of different inference methods on the \textit{E. coli} dataset with network size 100. Models are trained and evaluated on networks of the same size. Results are reported for four independent network samples, each evaluated on two test time series. The final column reports the average AUPR across all samples. The best performing method in each data is highlighted in bold.}
+\label{tab:size100}
+{\renewcommand{\arraystretch}{0.6}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{lcccccccc c}
+\toprule
+Model
+& \multicolumn{8}{c}{Network size 100 (Samples and time series)}
+& Average \\
+\cmidrule(lr){2-9}
+& \multicolumn{2}{c}{Sample 1}
+& \multicolumn{2}{c}{Sample 2}
+& \multicolumn{2}{c}{Sample 3}
+& \multicolumn{2}{c}{Sample 4}
+& \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
+& S1 & S2 & S1 & S2 & S1 & S2 & S1 & S2 & \\
+\midrule
+LR
+& 0.0332 & 0.0307 & 0.0391 & 0.0374 & 0.0521 & 0.0563 & 0.0336 & 0.0374 & 0.0400 \\
+DT
+& 0.3146 & 0.2220 & 0.1845 & 0.2078 & 0.1674 & 0.1553 & 0.1695 & 0.2176 & 0.2048 \\
+RF
+& 0.1745 & 0.0461 & 0.1309 & 0.1546 & 0.1171 & 0.1357 & 0.1024 & 0.1019 & 0.1204 \\
+KNN
+& 0.0124 & 0.0124 & 0.0858 & 0.0124 & 0.0124 & 0.1394 & 0.1163 & 0.0123 & 0.0504 \\
+XGBoost
+& 0.0595 & 0.0312 & 0.0600 & 0.0446 & 0.0469 & 0.0645 & 0.0473 & 0.0515 & 0.0507 \\
+LGBM
+& 0.0611 & 0.0325 & 0.0493 & 0.0462 & 0.0582 & 0.0576 & 0.0428 & 0.0458 & 0.0492 \\
+MLP
+& 0.0454 & 0.0317 & 0.0430 & 0.0422 & 0.0490 & 0.0522 & 0.0489 & 0.0628 & 0.0469 \\
+GNB
+& \textbf{0.3579} & \textbf{0.3511} & \textbf{0.3086} & \textbf{0.3018}
+& \textbf{0.3817} & \textbf{0.3897} & \textbf{0.2571} & \textbf{0.2424}
+& \textbf{0.3238} \\
+\midrule
+Baseline
+& 0.0254 & 0.0251 & 0.0254 & 0.0251 & 0.0252 & 0.0249 & 0.0250 & 0.0252 & 0.0252 \\
+Jump3
+& 0.0390 & 0.0390 & 0.0281 & 0.0281 & 0.0280 & 0.0280 & 0.0282 & 0.0282 & 0.0308 \\
+Inferelator
+& 0.0280 & 0.0239 & 0.0281 & 0.0255 & 0.0212 & 0.0364 & 0.0244 & 0.0275 & 0.0269 \\
+CLR-lag
+& 0.0235 & 0.0251 & 0.0269 & 0.0270 & 0.0260 & 0.0254 & 0.0238 & 0.0233 & 0.0251 \\
+TSNI
+& 0.0279 & 0.0250 & 0.0266 & 0.0290 & 0.0330 & 0.0259 & 0.0285 & 0.0264 & 0.0278 \\
+G1DBN
+& 0.0255 & 0.0249 & 0.0261 & 0.0262 & 0.0277 & 0.0324 & 0.0246 & 0.0255 & 0.0266 \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+
+
+\clearpage
+
+\section{Effect of Training Data Size and Test Network Scale on GNB Performance}
+To support the analysis presented in the main manuscript, this section reports detailed experimental results examining the effect of training data size and test network scale on the predictive performance of the GNB model. Detailed quantitative results for each experimental setting are presented in Tables ~\ref{tab:supp_test10}, ~\ref{tab:supp_test50}, and ~\ref{tab:supp_test100}.
+\begin{table}[!h]
+\centering
+\caption{Detailed AUPR results of the GNB model on size-10 networks with testing size 10. For each training set size, the highest AUPR value across time series realizations is highlighted in bold.}
+\label{tab:supp_test10}
+{\renewcommand{\arraystretch}{0.9}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{c cccc}
+\toprule
+Sample & TS & 5k & 10k & 20k \\
+\midrule
+1 & S1 & 0.5159 & 0.5159 & 0.5099 \\
+  & S2 & 0.5159 & 0.5159 & 0.5099 \\
+
+2 & S1 & 0.6383 & 0.6383 & 0.6327 \\
+  & S2 & 0.6383 & 0.6383 & 0.6327 \\
+
+3 & S1 & 0.7203 & 0.7770 & 0.6356 \\
+  & S2 & 0.6601 & 0.6806 & 0.6107 \\
+
+4 & S1 & \textbf{0.9556} & \textbf{0.9556} & \textbf{0.9556} \\
+  & S2 & \textbf{0.9556} & \textbf{0.9556} & \textbf{0.9556} \\
+
+5 & S1 & 0.5080 & 0.5376 & 0.5148 \\
+  & S2 & 0.5542 & 0.5627 & 0.5503 \\
+
+6 & S1 & 0.3925 & 0.3910 & 0.4207 \\
+  & S2 & 0.4470 & 0.4456 & 0.4551 \\
+
+7 & S1 & 0.6061 & 0.6061 & 0.6061 \\
+  & S2 & 0.6094 & 0.6094 & 0.6094 \\
+
+8 & S1 & 0.6398 & 0.6267 & 0.6309 \\
+  & S2 & 0.6550 & 0.6497 & 0.6550 \\
+
+9 & S1 & 0.2828 & 0.2817 & 0.4017 \\
+  & S2 & 0.2857 & 0.2817 & 0.2877 \\
+
+10 & S1 & 0.4470 & 0.4470 & 0.3713 \\
+   & S2 & 0.4271 & 0.4530 & 0.3773 \\
+\midrule
+\multicolumn{2}{c}{Average}
+& 0.5727 & 0.5785 & 0.5661 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\begin{table}[!h]
+\centering
+\caption{Detailed AUPR results of the GNB model with testing size 50. For each training set size, the highest AUPR value across time series realizations is highlighted in bold.}
+\label{tab:supp_test50}
+{\renewcommand{\arraystretch}{0.9}
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{c cccc}
+\toprule
+Sample & TS & 5k & 10k & 20k \\
+\midrule
+1 & S1 & 0.3820 & 0.4044 & 0.4207 \\
+  & S2 & \textbf{0.4756} & \textbf{0.4806} & \textbf{0.4790} \\
+
+2 & S1 & 0.3009 & 0.3016 & 0.2996 \\
+  & S2 & 0.2877 & 0.2944 & 0.2929 \\
+
+3 & S1 & 0.4260 & 0.4252 & 0.4240 \\
+  & S2 & 0.3811 & 0.3809 & 0.3910 \\
+
+4 & S1 & 0.2796 & 0.2703 & 0.2697 \\
+  & S2 & 0.2571 & 0.2568 & 0.2657 \\
+\midrule
+Average &  & 0.3487 & 0.3518 & 0.3553 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+%\clearpage
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+
+
+\begin{table}[!t]
+\vspace*{-\baselineskip}
+\centering
+\caption{Detailed AUPR results of the GNB model with testing size 100. For each training set size, the highest AUPR value across time series realizations is highlighted in bold.}
+\label{tab:supp_test100}
+{\renewcommand{\arraystretch}{0.9}
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{c cccc}
+\toprule
+Sample & TS & 5k & 10k & 20k \\
+\midrule
+1 & S1 & 0.3612 & 0.3634 & 0.3579 \\
+  & S2 & 0.3607 & 0.3608 & 0.3511 \\
+
+2 & S1 & 0.2975 & 0.3040 & 0.3086 \\
+  & S2 & 0.3014 & 0.3054 & 0.3018 \\
+
+3 & S1 & 0.3656 & 0.3758 & 0.3817 \\
+  & S2 & \textbf{0.3799} & \textbf{0.3817} & \textbf{0.3897} \\
+
+4 & S1 & 0.2585 & 0.2586 & 0.2571 \\
+  & S2 & 0.2540 & 0.2499 & 0.2424 \\
+\midrule
+Average &  & 0.3224 & 0.3249 & 0.3238 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+

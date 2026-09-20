@@ -1,0 +1,93 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{Declaration of Authorship}{iii}{section*.1}%
+\contentsline {chapter}{Abstract}{vi}{section*.2}%
+\contentsline {chapter}{Acknowledgements}{vii}{section*.3}%
+\contentsline {chapter}{\numberline {1}General Introduction}{1}{chapter.8}%
+\contentsline {section}{\numberline {1.1}Background and Motivation}{1}{section.9}%
+\contentsline {section}{\numberline {1.2}Problem Statement}{1}{section.10}%
+\contentsline {subsection}{\numberline {1.2.1}Research Objectives and Scope}{2}{subsection.11}%
+\contentsline {section}{\numberline {1.3}Research Challenges}{2}{section.12}%
+\contentsline {section}{\numberline {1.4}Overview of Methods and Thesis Organization}{3}{section.13}%
+\contentsline {section}{\numberline {1.5}Summary}{4}{section.14}%
+\contentsline {chapter}{\numberline {2}A Mutual Information-based Multiple Level Discretization Network Inference from Time-series Gene Expression Profiles}{5}{chapter.15}%
+\contentsline {section}{\numberline {2.1}Abstract}{5}{section.16}%
+\contentsline {section}{\numberline {2.2}Introduction}{6}{section.17}%
+\contentsline {subsection}{\numberline {2.2.1}Motivation}{6}{subsection.18}%
+\contentsline {subsection}{\numberline {2.2.2}Problem Statement}{7}{subsection.19}%
+\contentsline {subsection}{\numberline {2.2.3}Existing Solutions}{7}{subsection.20}%
+\contentsline {subsection}{\numberline {2.2.4}Research Objectives}{8}{subsection.21}%
+\contentsline {subsection}{\numberline {2.2.5}Outline of the Chapter}{8}{subsection.22}%
+\contentsline {section}{\numberline {2.3}Backgrounds}{9}{section.23}%
+\contentsline {subsection}{\numberline {2.3.1}Overview of gene regulatory network inference}{9}{subsection.24}%
+\contentsline {subsection}{\numberline {2.3.2}Related Works}{9}{subsection.25}%
+\contentsline {section}{\numberline {2.4}Materials and Methodology}{11}{section.26}%
+\contentsline {subsection}{\numberline {2.4.1}Materials}{11}{subsection.27}%
+\contentsline {subsubsection}{A discretization network model}{11}{section*.28}%
+\contentsline {subsubsection}{The discretization network inference problem}{12}{section*.29}%
+\contentsline {subsubsection}{Structure performance metrics}{12}{section*.30}%
+\contentsline {subsubsection}{Mutual information}{13}{section*.31}%
+\contentsline {subsection}{\numberline {2.4.2}Methodology}{13}{subsection.32}%
+\contentsline {subsubsection}{Discretization}{14}{section*.34}%
+\contentsline {subsubsection}{MIFS and SWAP subroutines}{16}{section*.39}%
+\contentsline {section}{\numberline {2.5}Experiments, Results, and Discussions}{17}{section.42}%
+\contentsline {subsection}{\numberline {2.5.1}Experiments}{17}{subsection.43}%
+\contentsline {subsection}{\numberline {2.5.2}Results}{17}{subsection.44}%
+\contentsline {subsection}{\numberline {2.5.3}Discussions}{20}{subsection.52}%
+\contentsline {section}{\numberline {2.6}Conclusion \& Future Studies}{21}{section.53}%
+\contentsline {subsection}{\numberline {2.6.1}Conclusion}{21}{subsection.54}%
+\contentsline {subsection}{\numberline {2.6.2}Future Studies}{21}{subsection.55}%
+\contentsline {chapter}{\numberline {3}A Representation Learning Framework for Gene Regulatory Network Inference from Time-series Expression Data}{31}{chapter.56}%
+\contentsline {section}{\numberline {3.1}Abstract}{31}{section.57}%
+\contentsline {section}{\numberline {3.2}Introduction}{32}{section.58}%
+\contentsline {section}{\numberline {3.3}Materials and methods}{34}{section.59}%
+\contentsline {subsection}{\numberline {3.3.1}Related works}{34}{subsection.60}%
+\contentsline {subsection}{\numberline {3.3.2}Performance Metrics}{34}{subsection.61}%
+\contentsline {section}{\numberline {3.4}Our proposed model}{35}{section.62}%
+\contentsline {subsection}{\numberline {3.4.1}Data representation}{35}{subsection.63}%
+\contentsline {subsection}{\numberline {3.4.2}The model}{36}{subsection.64}%
+\contentsline {section}{\numberline {3.5}Experimental Result}{38}{section.67}%
+\contentsline {subsection}{\numberline {3.5.1}Performance on Toy datasets}{38}{subsection.68}%
+\contentsline {subsection}{\numberline {3.5.2}Performance on Escherichia coli datasets}{39}{subsection.70}%
+\contentsline {subsection}{\numberline {3.5.3}Running time}{41}{subsection.76}%
+\contentsline {section}{\numberline {3.6}Discussion and Conclusion}{43}{section.77}%
+\contentsline {chapter}{\numberline {4}Synthesizing the Time-series Gene Expression Data to Enhance the Network Inference Performance Using the Autoencoder}{49}{chapter.78}%
+\contentsline {section}{\numberline {4.1}Abstract}{49}{section.79}%
+\contentsline {section}{\numberline {4.2}Introduction}{49}{section.80}%
+\contentsline {section}{\numberline {4.3}Materials and Methods}{51}{section.81}%
+\contentsline {subsection}{\numberline {4.3.1}Discretized Network Model}{51}{subsection.82}%
+\contentsline {subsection}{\numberline {4.3.2}Network Inference Problem}{51}{subsection.84}%
+\contentsline {subsection}{\numberline {4.3.3}Structural Performance Metrics}{52}{subsection.86}%
+\contentsline {subsection}{\numberline {4.3.4}Network Inference Method}{52}{subsection.90}%
+\contentsline {subsection}{\numberline {4.3.5}Autoencoder Model}{52}{subsection.91}%
+\contentsline {section}{\numberline {4.4}Our Proposed Method}{53}{section.92}%
+\contentsline {subsection}{\numberline {4.4.1}Synthesis of Gene Expression}{53}{subsection.94}%
+\contentsline {subsection}{\numberline {4.4.2}Inference of GRN}{55}{subsection.97}%
+\contentsline {section}{\numberline {4.5}Experimental Results}{55}{section.98}%
+\contentsline {subsection}{\numberline {4.5.1}Experiment Setup}{55}{subsection.99}%
+\contentsline {subsection}{\numberline {4.5.2}Results of Structural Performance}{56}{subsection.102}%
+\contentsline {subsection}{\numberline {4.5.3}Results of Dynamic Accuracy}{58}{subsection.103}%
+\contentsline {subsection}{\numberline {4.5.4}Results of Similarity of Synthesized Expressions}{59}{subsection.106}%
+\contentsline {section}{\numberline {4.6}Discussion and Conclusions}{60}{section.108}%
+\contentsline {chapter}{\numberline {5}General Discussion, Limitations, and Future Directions}{63}{chapter.109}%
+\contentsline {section}{\numberline {5.1}General Overview of the Thesis}{63}{section.110}%
+\contentsline {section}{\numberline {5.2}Cross-Method Discussion and Integration of Findings}{64}{section.111}%
+\contentsline {subsection}{\numberline {5.2.1}Data Representation as a Core Factor in GRN Inference}{64}{subsection.112}%
+\contentsline {subsection}{\numberline {5.2.2}Structural Accuracy vs Dynamic Accuracy}{65}{subsection.113}%
+\contentsline {subsection}{\numberline {5.2.3}Scalability and Network Complexity}{66}{subsection.114}%
+\contentsline {section}{\numberline {5.3}Limitations of the Proposed Approaches}{66}{section.115}%
+\contentsline {subsection}{\numberline {5.3.1}Multimodality of the Network Inference Problem}{66}{subsection.116}%
+\contentsline {subsection}{\numberline {5.3.2}Limitations of Mutual Information-Based Selection}{66}{subsection.117}%
+\contentsline {subsection}{\numberline {5.3.3}Limitations in Direction and Sign Determination}{67}{subsection.118}%
+\contentsline {subsection}{\numberline {5.3.4}Limitations of Synthetic Data Generation}{67}{subsection.119}%
+\contentsline {section}{\numberline {5.4}Future Research Directions}{68}{section.120}%
+\contentsline {subsection}{\numberline {5.4.1}Beyond Greedy Search: Advanced Optimization Strategies}{68}{subsection.121}%
+\contentsline {subsection}{\numberline {5.4.2}Causal and Mechanistic Inference}{68}{subsection.122}%
+\contentsline {subsection}{\numberline {5.4.3}Integration of Prior Biological Knowledge}{68}{subsection.123}%
+\contentsline {subsection}{\numberline {5.4.4}Extension to Other Data Types}{69}{subsection.124}%
+\contentsline {section}{\numberline {5.5}Concluding Remarks}{69}{section.125}%
+\contentsline {chapter}{\numberline {A}Supplementary Materials for Chapter 3}{71}{appendix.126}%
+\contentsline {section}{\numberline {A.1}Algorithm for Synthetic Dataset Generation Based on the Barabási–Albert Model}{71}{section.127}%
+\contentsline {section}{\numberline {A.2}Detailed performance results on the \textit {E. coli} dataset}{71}{section.132}%
+\contentsline {section}{\numberline {A.3}Effect of Training Data Size and Test Network Scale on GNB Performance}{75}{section.137}%
+\contentsline {chapter}{\numberline {B}Supplementary Materials for Chapter 4}{77}{appendix.141}%
+\contentsline {chapter}{Bibliography}{81}{appendix*.145}%

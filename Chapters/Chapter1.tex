@@ -1,0 +1,90 @@
+% Chapter 1
+
+\chapter{General Introduction} % Main chapter title
+
+\label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+
+%----------------------------------------------------------------------------------------
+
+% Define some commands to keep the formatting separated from the content 
+\newcommand{\keyword}[1]{\textbf{#1}}
+\newcommand{\tabhead}[1]{\textbf{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{\bfseries#1}}
+\newcommand{\option}[1]{\texttt{\itshape#1}}
+
+%----------------------------------------------------------------------------------------
+
+\section{Background and Motivation}
+Understanding how genes interact to control cellular processes is one of the central goals of systems biology. Genes rarely function in isolation; instead, they form intricate regulatory systems in which transcription factors, signaling molecules, and noncoding RNAs coordinate to regulate expression levels dynamically. These complex interactions are often represented as Gene Regulatory Networks (GRNs), where nodes correspond to genes and edges represent regulatory relationships such as activation or repression. Accurately reconstructing GRNs provides fundamental insights into the mechanisms underlying development, disease progression, and cellular responses to environmental changes.
+
+Over the past decades, the rapid advancement of high throughput sequencing technologies such as microarrays and RNA-seq has made it possible to measure the expression levels of thousands of genes simultaneously across multiple time points. These time-series gene expression datasets capture the dynamic behavior of transcriptional regulation, offering a valuable resource for inferring causal and temporal dependencies among genes. However, despite these advances, the task of accurately inferring GRNs from time series data remains a formidable challenge due to noise, limited sample sizes, and the nonlinear and stochastic nature of gene regulation.
+
+The motivation for this research arises from the need to develop robust, scalable, and data efficient approaches to infer biologically meaningful networks from complex and often sparse time series data. A deeper understanding of regulatory relationships can significantly enhance predictive modeling in systems biology and contribute to practical applications such as biomarker discovery, drug target identification, and personalized medicine.
+
+%----------------------------------------------------------------------------------------
+
+\section{Problem Statement}
+
+Inferring GRNs from time-series gene expression data involves uncovering the structure of gene–gene regulatory relationships based on observed expression dynamics. However, several major obstacles hinder this process:
+\begin{itemize}
+\item Nonlinearity and temporal dependency: Gene regulation often involves nonlinear relationships and delayed interactions that simple correlation-based or linear models fail to capture.
+
+\item Discretization and data representation: Many information-theoretic methods require discretized expression values, yet choosing an appropriate discretization strategy that preserves temporal information and minimizes information loss remains difficult.
+
+\item Scalability and dataset heterogeneity: Biological datasets vary in scale, dimension, and noise characteristics, making it hard to construct models that generalize across studies of different sample sizes.
+
+\item Data scarcity and imbalance: In many biological experiments, the number of time points or replicates is limited, which restricts the model’s ability to learn robust patterns and increases overfitting risk.
+\end{itemize}
+These challenges motivate the development of a comprehensive framework that can (i) effectively model nonlinear and dynamic dependencies, (ii) maintain performance across datasets of varying scales, and (iii) enhance learning through data synthesis or augmentation.
+
+\subsection{Research Objectives and Scope}
+
+The overall objective of this dissertation is to advance the inference of gene regulatory networks from time-series gene expression profiles by addressing the limitations of discretization, model scalability, and data scarcity. Specifically, the research focuses on three main directions:
+\begin{itemize}
+\item Developing a mutual information–based multiple level discretization framework to improve sensitivity and robustness in network inference from temporal gene expression data.
+
+\item Designing a cross-size scalable model that allows consistent and transferable network reconstruction across datasets of different dimensions and sample sizes.
+
+\item Proposing an autoencoder-based synthesis approach for generating realistic time-series gene expression data to augment limited datasets and enhance network inference performance.
+\end{itemize}
+The research is primarily computational and data-driven, combining techniques from information theory, machine learning, and systems biology. While the study is validated through benchmark datasets and simulation frameworks, the ultimate goal is to build methodological foundations that can be extended to real-world biological systems.
+%----------------------------------------------------------------------------------------
+
+\section{Research Challenges}
+
+The task of GRN inference from time-series data poses unique challenges that require methodological innovations:
+\begin{itemize}
+\item Capturing nonlinear dependencies: Biological systems are inherently nonlinear; thus, linear correlation or regression-based models are often insufficient. Mutual information (MI) offers a nonparametric approach to quantify nonlinear associations, but its effectiveness depends strongly on data discretization quality.
+
+\item Balancing information loss and noise: Discretization tends to simplify expression signals but risks removing subtle temporal dynamics. An adaptive multiple level discretization scheme can help preserve information content while improving interpretability.
+
+\item Scalability across datasets: In many real-world cases, training data and test data differ in size or sampling frequency. Models that rely heavily on data scale often fail to generalize. Therefore, a cross-size learning framework is essential for robust reconstruction across heterogeneous datasets.
+
+\item Limited and imbalanced data: Biological experiments often produce short time-series with few replicates. Data synthesis using generative deep learning such as autoencoders can help overcome this issue by producing realistic synthetic samples that mimic genuine gene expression dynamics.
+\end{itemize}
+Addressing these challenges collectively forms the foundation of this dissertation.
+
+%----------------------------------------------------------------------------------------
+
+\section{Overview of Methods and Thesis Organization}
+This dissertation is composed of three main studies, each corresponding to a publication that tackles a specific aspect of the GRN inference problem.
+\begin{itemize}
+\item Chapter~\ref{Chapter1}: \textbf{\textit{General Introduction}}
+
+This chapter provides the background and motivation for gene regulatory network inference in systems biology. It reviews fundamental concepts of gene regulation, time-series gene expression analysis, and existing computational approaches for GRN reconstruction. The chapter further formulates the core problem addressed in this dissertation and discusses key research challenges, including data sparsity, noise, nonlinearity, scalability, and the trade-off between structural and dynamic accuracy.
+\item Chapter ~\ref{Chapter2}: \textbf{\textit{A Mutual Information-based Multiple Level Discretization Network Inference from Time-series Gene Expression Profiles}}
+
+This chapter introduces a novel discretization framework that integrates adaptive binning with information-theoretic dependency estimation. The method enhances MI-based GRN inference by preserving dynamic signal patterns while reducing noise sensitivity.
+\item Chapter ~\ref{Chapter3}: \textbf{\textit{A Representaion Learning Framework for Gene Regulatory Network Inference from Time-series Expression Data}}
+
+The second study presents a scalable modeling strategy that aligns GRN structures inferred from datasets of varying sizes. By applying regularized structure optimization and parameter sharing, the model achieves improved consistency and generalization across datasets.
+
+\item Chapter ~\ref{Chapter4}: \textbf{\textit{Synthesizing Time-series Gene Expression Data to Enhance Network Inference Performance Using the Autoencoder}}
+
+The third study focuses on data augmentation through deep learning. A temporal autoencoder is designed to learn compact latent representations and generate synthetic gene expression trajectories. These synthetic data are combined with real samples to improve inference accuracy and stability.
+\end{itemize}
+
+Finally, Chapter ~\ref{Chapter5} concludes the dissertation with an integrated discussion of findings, contributions, and potential directions for future research in gene regulatory network modeling and computational biology.
+\section{Summary}
+In summary, this dissertation seeks to advance the field of gene regulatory network inference by proposing a unified and systematic framework that integrates discretization, scalability, and data synthesis. Through these three interconnected studies, the research aims to contribute novel computational methodologies for decoding the dynamic and nonlinear mechanisms of gene regulation from time-series gene expression data, ultimately enhancing our ability to model and interpret complex biological systems.

@@ -74,8 +74,10 @@ const toNormalized = values =>
 function createChart() {
   if (!chartRef.value) return
 
-  chart = echarts.init(chartRef.value)
-
+ // chart = echarts.init(chartRef.value)
+   const chart = echarts.init(chartRef.value, null, {
+  renderer: 'svg'
+})
 
 const option = {
   animation: true,
@@ -439,6 +441,7 @@ onBeforeUnmount(() => {
     chart = null
   }
 })
+
 </script>
 
 <style scoped>

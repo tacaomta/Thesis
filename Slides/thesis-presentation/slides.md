@@ -152,3 +152,32 @@ eyebrow: RESULTS - ARTIFICIAL DATASET
 ---
 
 <IncomingLinksResults />
+---
+layout: default
+title: How Well Does the Inferred Network Recover the True Structure?
+eyebrow: RESULTS - ECOLI DATASET
+---
+
+<StructuralAccuracy />
+---
+layout: default
+title: How Well Does the Model Explain the Underlying Mechanism?
+eyebrow: RESULTS - ECOLI DATASET
+---
+
+<DynamicsAccuracy />
+---
+layout: default
+title: How Does Computational Efficiency Vary Across Methods?
+eyebrow: RUNNING TIME
+---
+
+<RunningTime />
+---
+layout: default
+title: What Have We Achieved, and What Remains to Be Improved?
+eyebrow: CONCLUSION
+---
+
+<Conclusion />
+<!-- CHAPTER 3 -->

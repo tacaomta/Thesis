@@ -180,4 +180,49 @@ eyebrow: CONCLUSION
 ---
 
 <Conclusion />
+---
+layout: default
+title: Why do existing machine learning frameworks still fail to generalize?
+eyebrow: RESEARCH GAP 02
+---
+<RepresentationMotivations />
+
 <!-- CHAPTER 3 -->
+<!--“In the first publication, I focused on the inference method. By introducing multiple-level discretization, we can preserve more information from gene expression dynamics than a purely Boolean representation.
+However, when moving toward machine learning, another question arises: how should a regulatory relationship be represented so that a learning model can actually learn from it? -->
+---
+layout: default
+title: How Do We Represent Regulatory Relationships for Machine Learning?
+eyebrow: PROPOSED FRAMEWORK
+---
+<LearningFramework />
+---
+layout: default
+title: How is gene profile reformulated into a binary classification task?
+eyebrow: DATA REPRESENTATION
+---
+<DataRepresentation />
+---
+layout: default
+title: What unique advantages does the unified representation offer?
+eyebrow: METHODOLOGICAL HIGTLIGHTS
+---
+<MethodAdvantages />
+---
+layout: default
+title: How were the datasets and evaluation metrics configured?
+eyebrow: EXPERIMENTAL SETUP
+---
+<ExperimentalSetup />
+---
+layout: default
+title: How did models perform on scale-free topological networks?
+eyebrow: RESULTS - TOPOLOGICAL NETWORKS
+---
+<AUPRToys />
+---
+layout: default
+title: Does the framework outperform traditional GRN inference methods on biological data?
+eyebrow: RESULTS - BIOLOGICAL NETWORKS
+---
+<AUPREcoli />

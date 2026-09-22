@@ -196,24 +196,24 @@ function createOption(data, title) {
             color: '#08B6F3'
           },
 
-        //   label: {
-        //     show: true,
+          label: {
+            show: true,
+            rotate:90,
 
-        //     position: 'top',
+            position: 'top',
 
-        //     formatter: params => {
-        //       const item = data[params.dataIndex]
+            formatter: params => {
+              const item = data[params.dataIndex]
 
-        //       return (
-        //         `${item.mean.toFixed(3)}\n` +
-        //         `±${item.std.toFixed(3)}`
-        //       )
-        //     },
+              return (
+                `${item.mean.toFixed(3)}`
+              )
+            },
 
-        //     color: '#24313A',
-        //     fontSize: 8,
-        //     lineHeight: 11
-        //   }
+            color: '#24313A',
+            fontSize: 8,
+            lineHeight: 11
+          }
         })),
 
         barMaxWidth: 38,

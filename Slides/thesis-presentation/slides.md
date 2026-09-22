@@ -226,3 +226,28 @@ title: Does the framework outperform traditional GRN inference methods on biolog
 eyebrow: RESULTS - BIOLOGICAL NETWORKS
 ---
 <AUPREcoli />
+---
+layout: default
+title: Can models trained on small networks effectively infer large-scale GRNs?
+eyebrow: RESULTS - KEY FINDINGS
+---
+<KeyFindings />
+---
+layout: default
+title: Can the Model Maintain Its Performance with Fewer Time Steps?
+eyebrow: RESULTS - KEY FINDINGS
+---
+<TimeStepVariation />
+---
+layout: default
+title: What are the computational cost advantages of small-network training?
+eyebrow: COMPUTATIONAL PERFORMANCE
+---
+<ComputationalComparison />
+<!--From a computational standpoint, training on small networks saves 15% to 25% in training time compared to large-scale training. Furthermore, while traditional methods have to re-compute everything from scratch for every new dataset, our pre-trained classifiers run online inference in a fraction of a second.-->
+---
+layout: default
+title: What are the operational requirements and scope of applicability?
+eyebrow: LIMITATION & DEVELOPMENT
+---
+<LimitationDevelopment />

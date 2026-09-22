@@ -251,3 +251,9 @@ title: What are the operational requirements and scope of applicability?
 eyebrow: LIMITATION & DEVELOPMENT
 ---
 <LimitationDevelopment />
+---
+layout: default
+title: What are the main contributions of this representation learning framework?
+eyebrow: CONCLUSION
+---
+<LearningConclusion />

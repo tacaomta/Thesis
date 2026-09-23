@@ -186,7 +186,6 @@ title: Why do existing machine learning frameworks still fail to generalize?
 eyebrow: RESEARCH GAP 02
 ---
 <RepresentationMotivations />
-
 <!-- CHAPTER 3 -->
 <!--“In the first publication, I focused on the inference method. By introducing multiple-level discretization, we can preserve more information from gene expression dynamics than a purely Boolean representation.
 However, when moving toward machine learning, another question arises: how should a regulatory relationship be represented so that a learning model can actually learn from it? -->
@@ -202,36 +201,42 @@ title: How is gene profile reformulated into a binary classification task?
 eyebrow: DATA REPRESENTATION
 ---
 <DataRepresentation />
+<!--To solve these limitations, we reframe the entire problem. Instead of predicting the whole network at once, we transform GRN inference into a pairwise binary classification task. For any candidate gene pair, we simply concatenate their expression time-series profiles into a single fixed-length vector and pair it with a binary interaction label.-->
 ---
 layout: default
 title: What unique advantages does the unified representation offer?
 eyebrow: METHODOLOGICAL HIGTLIGHTS
 ---
 <MethodAdvantages />
+<!--What makes this representation so effective? First, it’s completely assumption-free—the model learns temporal dependencies implicitly without manual time-lag tuning. Second, it encodes structure and time dynamics together. And most importantly, because feature length depends only on time steps $T$ rather than gene count, it creates a scale-invariant feature space.-->
 ---
 layout: default
 title: How were the datasets and evaluation metrics configured?
 eyebrow: EXPERIMENTAL SETUP
 ---
 <ExperimentalSetup />
+<!--Moving on to our experimental setup, we evaluated the framework on two benchmarks: synthetic scale-free Barabási–Albert networks and realistic E. coli networks from GeneNetWeaver. Because true interactions are extremely sparse in biological systems, we chose AUPR as our primary evaluation metric over ROC.-->
 ---
 layout: default
 title: How did models perform on scale-free topological networks?
 eyebrow: RESULTS - TOPOLOGICAL NETWORKS
 ---
 <AUPRToys />
+<!--On the synthetic topological datasets, every single machine learning model outperformed the random baseline. Random Forest delivered the highest overall accuracy across all network sizes. Interestingly, Gaussian Naive Bayes was the only model whose performance actually improved as network size grew, thanks to its strong probabilistic inductive bias-->
 ---
 layout: default
 title: Does the framework outperform traditional GRN inference methods on biological data?
 eyebrow: RESULTS - BIOLOGICAL NETWORKS
 ---
 <AUPREcoli />
+<!--When tested on biological E. coli networks, the performance gap expanded even further. The supervised learning models achieved dramatically higher AUPR scores than traditional algorithms like Jump3 or Inferelator. GNB consistently emerged as the most reliable model across all network dimensions.-->
 ---
 layout: default
 title: Can models trained on small networks effectively infer large-scale GRNs?
 eyebrow: RESULTS - KEY FINDINGS
 ---
 <KeyFindings />
+<!--Now, let's highlight our key discovery: scale invariance. A GNB model trained exclusively on small 10-gene networks achieved an AUPR of 0.373 on 50-gene networks and 0.333 on 100-gene networks. This actually matches or beats models trained directly on large networks, proving that interaction-level knowledge transfers seamlessly across scales.-->
 ---
 layout: default
 title: Can the Model Maintain Its Performance with Fewer Time Steps?
@@ -251,9 +256,39 @@ title: What are the operational requirements and scope of applicability?
 eyebrow: LIMITATION & DEVELOPMENT
 ---
 <LimitationDevelopment />
+<!--To be realistic about deployment, there is one key operational constraint: the test time-series length must match or exceed the training length $T$. For shorter profiles, temporal extension techniques are required. Nevertheless, the representation has proven remarkably robust across both discrete and continuous data types.-->
 ---
 layout: default
 title: What are the main contributions of this representation learning framework?
 eyebrow: CONCLUSION
 ---
 <LearningConclusion />
+<!--To conclude, this work introduces a novel, scale-invariant representation that reformulates GRN inference into a binary classification problem. By removing time-lag heuristics and enabling cross-network data transfer, it effectively overcomes class imbalance and offers a highly scalable tool for systems biology. Thank you for your attention!-->
+---
+layout: default
+title:  Why is time-series data scarcity a critical bottleneck in GRN inference?
+eyebrow: RESEARCH GAP 03
+---
+<ResearchGap03 />
+<!--Welcome everyone. To kick off our presentation, let's look at a major bottleneck in systems biology: data scarcity. While reconstructing gene regulatory networks requires observing temporal expression patterns over many time steps, real biological experiments are heavily constrained by high costs and technical limitations. Having too few time points directly undermines the accuracy of our network inference algorithms-->
+---
+layout: default
+title:  Why do conventional data augmentation methods fail on sparse transcriptomic data?
+eyebrow: LIMITATIONS OF EXISTING METHODS
+---
+<LimitationsExistingMethods />
+<!--Now, you might ask: why not just use standard data augmentation like GANs? Well, GANs are notoriously hard to train on small datasets and frequently suffer from mode collapse. Other synthetic generators rely on overly rigid assumptions. What we desperately need is a simple, stable generative framework that can learn effectively even from a handful of temporal observations.-->
+---
+layout: default
+title:  Can an Autoencoder framework synthesize realistic time-series expression data to restore GRN inference accuracy?
+eyebrow: RESEARCH GOALS & HYPOTHESIS
+---
+<ResearchGoals />
+<!--To address this gap, this study asks a fundamental question: Can an Autoencoder learn from a short time series and synthesize remaining time steps reliably? We hypothesize that by encoding adjacent time-step pairs, the model can iteratively generate future time steps, effectively supplementing the missing data and boosting downstream network inference algorithms like MIDNI.-->
+---
+layout: default
+title:  How is the end-to-end Synthetic-MIDNI framework structured?
+eyebrow: ARCHITECHTURAL OVERVIEW
+---
+<SyntheticFramework />
+<!--Here is the complete workflow of the Synthetic-MIDNI pipeline. First, raw discretized time-series data is reformatted into concatenated pairwise vectors. Next, we train a custom Autoencoder on these state transitions. The trained model then autoregressively generates the remaining time steps. Finally, both original and synthetic data are fed into the MIDNI algorithm for network reconstruction.-->

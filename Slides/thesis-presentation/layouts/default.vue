@@ -44,8 +44,8 @@ const eyebrow = computed(() => currentFrontmatter.value?.eyebrow || '')
 .slide-header {
   position: absolute;
   top: 25px;
-  left: 64px;
-  right: 64px;
+  left: 50px;
+  right: 30px;
   z-index: 20;
 }
 .eyebrow {

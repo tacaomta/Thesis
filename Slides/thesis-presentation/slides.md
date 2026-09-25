@@ -292,3 +292,59 @@ eyebrow: ARCHITECHTURAL OVERVIEW
 ---
 <SyntheticFramework />
 <!--Here is the complete workflow of the Synthetic-MIDNI pipeline. First, raw discretized time-series data is reformatted into concatenated pairwise vectors. Next, we train a custom Autoencoder on these state transitions. The trained model then autoregressively generates the remaining time steps. Finally, both original and synthetic data are fed into the MIDNI algorithm for network reconstruction.-->
+---
+layout: default
+title:  How does pairwise temporal vector concatenation preserve transition dynamics?
+eyebrow: FEATURE ENGINEERING
+---
+<FeatureEngineering />
+<!--A critical innovation here lies in data representation. Instead of feeding single time steps, we concatenate expression values from two consecutive steps, $t_i$ and $t_{i+1}$. This $2n$-dimensional vector explicitly captures state-transition relationships, giving the neural network the exact temporal signals it needs to predict the next time step.-->
+---
+layout: default
+title:   What is the design and parameter configuration of the generative Autoencoder?
+eyebrow: AUTOENCODER ARCHITECTURE
+---
+<DeepLearningArchitecture />
+<!--Let's examine the Autoencoder architecture itself. We chose a lightweight 3-hidden-layer design with a 32-neuron bottleneck layer. Why keep it compact? Because a smaller architecture prevents overfitting on limited biological samples and keeps training stable. It uses ReLU activations in hidden layers and minimizes mean squared error during training.-->
+---
+layout: default
+title:   How does the model perform iterative auto-regressive time-series synthesis?
+eyebrow: GENERATIVE MECHANISM
+---
+<GenerativeMechanism />
+<!--So how does the model actually generate new time points? It works iteratively. When you pass $\mathbf{T}(t_i \oplus t_{i+1})$ into the trained model, it outputs the predicted state for $\mathbf{T}(t_{i+1} \oplus t_{i+2})$. We extract the newly predicted time point and loop it back into the model as input for the next step, repeating this until we reach our target series length.-->
+---
+layout: default
+title:   How Was the Experimental Setup Designed?
+eyebrow: EXPERIMENTAL SETUP
+---
+<ExperimentalSetup04 />
+<!--To evaluate performance rigorously, we generated 20 scale-free ground truth networks representing 50-gene and 100-gene biological systems. We fixed the total trajectory length at 100 time steps while systematically varying observed steps $K$ from 10 to 90. This allowed us to benchmark inference improvements under varying degrees of data availability. This brings us to our evaluation metrics.-->
+---
+layout: default
+title:  Which Metrics Are Used to Evaluate GRN Inference?
+eyebrow: EVALUATION METRICS
+---
+<EvaluationMetrics />
+<!--We evaluated performance using four quantitative metrics. Precision, Recall, and Structural Accuracy measure how accurately edge connections match ground truth networks. Meanwhile, Dynamic Accuracy calculates trajectory preservation using Hamming distance across time steps. Let's now examine the structural performance results on multi-level ternary data.-->
+---
+layout: default
+title:  How well performance gains on ternary datasets?
+eyebrow: RESULTS - TERNARY DATASETS
+---
+<TernaryDatasetsRecovery />
+<!--Looking at the results for ternary datasets, solid lines—representing synthetic data augmentation—consistently outshine the dashed baseline lines. Crucially, the improvement is largest at $K=10$ and $K=20$, proving that synthetic data provides the highest value precisely when experimental samples are most scarce. Let's see if these gains hold true for Boolean datasets as well.-->
+---
+layout: default
+title:  How well performance gains on Boolean datasets?
+eyebrow: RESULTS - BOOLEAN DATASETS
+---
+<BooleanDatasetsRecovery />
+<!--Moving to Boolean datasets, we observe the exact same positive trend. Synthetic data enhances inference performance without introducing negative artifacts. Interestingly, smaller 50-gene networks saw larger recall boosts, whereas larger 100-gene networks achieved higher precision gains. Having confirmed structural recovery, let's transition to evaluating dynamic fidelity.-->
+---
+layout: default
+title:  How well performance gains on Boolean datasets?
+eyebrow: RESULTS - DYNAMICS FIDELITY
+---
+<DynamicsFidelity />
+<!--Now, addressing dynamic accuracy: you might notice a slight downward trend as time steps increase. This happens because synthetic-driven networks are evaluated over the entire 100-step timeline, while original data is tested over shorter $K$ steps. Nevertheless, dynamic accuracy remains well above 97%, proving that generated time-series retain strong biological state fidelity. Next, let's examine data diversity.-->

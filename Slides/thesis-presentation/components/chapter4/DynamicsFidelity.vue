@@ -72,7 +72,7 @@ function buildOption() {
 
     /* Locked Y-axis range, per requirement:
        Ternary: 0.95 -> 1.10 | Boolean: 0.97 -> 1.10 */
-    const yMin = isTernary ? 0.95 : 0.97
+    const yMin = isTernary ? 0.95 : 0.95
     const yMax = 1.00
 
     grids.push({

@@ -343,8 +343,29 @@ eyebrow: RESULTS - BOOLEAN DATASETS
 <!--Moving to Boolean datasets, we observe the exact same positive trend. Synthetic data enhances inference performance without introducing negative artifacts. Interestingly, smaller 50-gene networks saw larger recall boosts, whereas larger 100-gene networks achieved higher precision gains. Having confirmed structural recovery, let's transition to evaluating dynamic fidelity.-->
 ---
 layout: default
-title:  How well performance gains on Boolean datasets?
+title: How Well Is Dynamic Fidelity Preserved?
 eyebrow: RESULTS - DYNAMICS FIDELITY
 ---
 <DynamicsFidelity />
 <!--Now, addressing dynamic accuracy: you might notice a slight downward trend as time steps increase. This happens because synthetic-driven networks are evaluated over the entire 100-step timeline, while original data is tested over shorter $K$ steps. Nevertheless, dynamic accuracy remains well above 97%, proving that generated time-series retain strong biological state fidelity. Next, let's examine data diversity.-->
+---
+layout: default
+title: How Diverse Are the Synthesized Expression Profiles?
+eyebrow: RESULTS - DATA DIVERSITY ANALYSIS
+---
+<DataDiversity />
+<!--A fascinating aspect of this method is data diversity. When executing the autoencoder multiple times, generated expression matrices differ significantly, exhibiting a similarity index around 0.35 to 0.40. Remarkably, downstream network inference remains stable across these diverse profiles. This mirrors real biology, where distinct expression fluctuations stem from the same core regulatory network. Let's move to our conclusion.-->
+---
+layout: default
+title: What are Key Findings and Biological Significance?
+eyebrow: SUMMARY AND IMPLICATIONS
+---
+<SummaryOfCoreFindings />
+<!--To summarize our core findings, this study proves that a lightweight autoencoder can effectively synthesize temporal gene expression data to overcome sample scarcity. By augmenting short experimental series, researchers can reconstruct significantly more accurate gene regulatory networks without incurring heavy laboratory expenses. Finally, let's discuss future research horizons.-->
+---
+layout: default
+title: Where Can This Research Go Next?
+eyebrow: FUTURE HORIZONS
+---
+<FutureHorizons />
+<!--Looking forward, there are several promising avenues for future research. Integrating Graph Neural Networks could help model structural topologies directly. Transitioning to continuous-valued modeling will eliminate discretization artifacts. Finally, validating this method on clinical transcriptomic datasets—such as rare disease models—will unlock immense real-world value. Thank you for your time, and I am happy to take any questions!-->

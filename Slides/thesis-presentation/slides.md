@@ -1,4 +1,6 @@
 ---
+title: "GRN Inference — PhD Thesis"
+titleTemplate: "%s"
 layout: thesis-cover
 ---
 
@@ -7,8 +9,8 @@ layout: thesis-cover
 </template>
 ---
 layout: default
-title: From Better Inference to Better Data
-eyebrow: THESIS OVERVIEW
+title: "From Better Inference to Better Data"
+eyebrow: "THESIS OVERVIEW"
 ---
 
 <ThesisOverview />

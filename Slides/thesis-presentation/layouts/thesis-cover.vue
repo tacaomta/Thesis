@@ -30,7 +30,7 @@
         </div>
         <div class="person-row">
           <span class="person-label">Supervisor</span>
-          <span class="person-value">Dr. Yung Keun Kwon</span>
+          <span class="person-value">Prof. Yung Keun Kwon</span>
         </div>
       </div>
     </div>

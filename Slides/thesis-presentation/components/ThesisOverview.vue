@@ -46,7 +46,7 @@ const items = [
     id: '01',
     label: 'BACKGROUND',
     title: 'Research Problem',
-    paper: 'Why time-series data?',
+    paper: 'What is Gene Regulatory Network and Why is Time-Series Data?',
     question: 'How can regulatory relationships be uncovered from limited and complex time-series gene expression data?',
     contribution: 'Define the research challenges, gaps, and objectives of the thesis.'
   },
@@ -60,11 +60,11 @@ const items = [
   },
   {
     id: '03',
-    label: 'REPRESENTATION LEARNING',
-    title: 'Learning Representations for GRN Inference',
+    label: 'TASK TRANSFORMATION',
+    title: 'Task Transformation Framework for GRN Inference',
     paper: 'Issue 2',
     question: 'Can informative representations be learned automatically from time-series expression data?',
-    contribution: 'Develop a representation learning framework for GRN inference.'
+    contribution: 'Develop a Scale-Invariant Task Transformation Framework for GRN inference.'
   },
   {
     id: '04',
@@ -83,16 +83,23 @@ const nextItem = () => {
   selected.value = (selected.value + 1) % items.length
 }
 const handleKeydown = (event) => {
-  if (event.code === 'Space') {
-    event.preventDefault()
-    nextItem()
-  }
+  if (event.code !== 'Space') return
+
+  /* Stop the framework's own Space handler (usually bound in
+     capture phase for slide navigation) from swallowing this
+     event before it reaches us. */
+  event.preventDefault()
+  event.stopPropagation()
+
+  nextItem()
 }
 onMounted(() => {
-  window.addEventListener('keydown', handleKeydown)
+  /* capture: true so we intercept Space before a parent
+     slide-navigation listener (also likely capture-phase) does */
+  window.addEventListener('keydown', handleKeydown, true)
 })
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeydown)
+  window.removeEventListener('keydown', handleKeydown, true)
 })
 </script>
 <style scoped>

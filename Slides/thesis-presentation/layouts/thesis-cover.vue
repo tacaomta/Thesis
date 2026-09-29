@@ -159,7 +159,7 @@ h1 {
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid #dce4e9;
-  padding-top: 13px;
+  padding-top: 23px;
 }
 .lab-name {
   color: #64748b;

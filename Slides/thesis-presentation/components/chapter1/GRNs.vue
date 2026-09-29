@@ -13,13 +13,13 @@
           <div>
             <span class="notation-label">Node</span>
             <span class="arrow">→</span>
-            <span>Gene</span>
+            <span>Gene (Regulator and Target)</span>
           </div>
 
           <div>
             <span class="notation-label">Directed edge</span>
             <span class="arrow">→</span>
-            <span>Regulatory influence</span>
+            <span>Regulatory influence (Enhancer and Inhibitor)</span>
           </div>
         </div>
       </section>

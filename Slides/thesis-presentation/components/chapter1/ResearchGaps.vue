@@ -40,7 +40,7 @@
         <div class="gap-content">
           <div class="gap-meta">
             <span class="gap-tag">GAP 01</span>
-            <span class="publication">Publication 1</span>
+            <span class="publication">Issue 1</span>
           </div>
 
           <h2>Limited regulatory-state representation</h2>
@@ -100,7 +100,7 @@
         <div class="gap-content">
           <div class="gap-meta">
             <span class="gap-tag">GAP 02</span>
-            <span class="publication">Publication 2</span>
+            <span class="publication">Issue 2</span>
           </div>
 
           <h2>Limited representation for machine learning</h2>
@@ -166,7 +166,7 @@
         <div class="gap-content">
           <div class="gap-meta">
             <span class="gap-tag">GAP 03</span>
-            <span class="publication">Publication 3</span>
+            <span class="publication">Issue 3</span>
           </div>
 
           <h2>Limited observations for GRN inference</h2>
@@ -207,12 +207,23 @@
 
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { useNav } from '@slidev/client'
+
+const { currentPage } = useNav()
+
+watch(currentPage, () => {
+  visibleCount.value = 0
+})
 
 const visibleCount = ref(0)
 
 function handleKeydown(event) {
   if (event.code !== 'Space') return
+
+  if (event.repeat) return
+
+  if (!currentPage.value) return
 
   event.preventDefault()
   event.stopPropagation()

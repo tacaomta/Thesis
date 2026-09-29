@@ -307,13 +307,16 @@
 </template>
 
 <script>
-import {
-    ref,
-    onMounted,
-    onBeforeUnmount
-} from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+
+import { useNav } from '@slidev/client'
+
+const { currentPage } = useNav()
 
 const step = ref(0)
+watch(currentPage, () => {
+  step.value = 0
+})
 
 function nextStep() {
     if (step.value < 2) {

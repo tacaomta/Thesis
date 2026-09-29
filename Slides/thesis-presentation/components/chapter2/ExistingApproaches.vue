@@ -203,12 +203,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { useNav } from '@slidev/client'
+
+const { currentPage } = useNav()
 
 const visibleCount = ref(0)
+watch(currentPage, () => {
+  visibleCount.value = 0
+})
 
 function handleKeydown(event) {
   if (event.code !== 'Space') return
+  if (event.repeat) return
+
+  if (!currentPage.value) return
 
   event.preventDefault()
   event.stopPropagation()

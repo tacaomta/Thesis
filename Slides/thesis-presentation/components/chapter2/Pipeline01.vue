@@ -1,7 +1,7 @@
 <template>
   <div class="proposed-model-slide">
     <div class="intro">
-      A three-stage framework that connects gene expression representation,
+      A four-stage framework that connects gene expression representation,
       network inference, and performance evaluation.
     </div>
 
@@ -105,12 +105,12 @@
 
           <p>
             Transform continuous expression values
-            into informative discrete states while
+            into multiple discrete states while
             preserving more information than Boolean models.
           </p>
 
           <div class="stage-tags">
-            <span class="highlight-tag">3 levels</span>
+            <span class="highlight-tag">2 + 3 levels</span>
             <span>Discrete states</span>
             <span>Noise-aware</span>
           </div>
@@ -268,7 +268,7 @@
 
           <div class="stage-tags">
             <span>Structural accuracy</span>
-            <span>Dynamic accuracy</span>
+            <span>Dynamics accuracy</span>
           </div>
         </div>
       </section>

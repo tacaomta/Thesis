@@ -17,7 +17,6 @@ layout: thesis-cover
 
 -This work was conducted under the supervision of Professor Yung Keun Kwon.
 -->
-
 ---
 layout: default
 title: "From Better Inference to Better Data"
@@ -44,7 +43,6 @@ This work addresses the question: **“Can informative representations be learne
 Finally, I address the question: **“How can we improve GRN inference performance when only limited time-series gene expression data are available?”**
 
 To address this challenge, we use an **autoencoder to generate synthetic gene expression profiles**, and then validate the generated data through GRN inference methods.
-
 -->
 
 ---
@@ -63,7 +61,6 @@ eyebrow: GENE REGULATORY NETWORK
 -There are two main types of regulatory influence. An **enhancing or activating interaction** increases the expression of the target gene, while an **inhibitory interaction** decreases its expression.  
 -So, briefly, a **GRN is a set of genes connected by directed regulatory relationships**.
 -->
-
 ---
 layout: default
 title: What are we actually Trying to Infer?
@@ -83,7 +80,6 @@ However, what we really want to know is not just the expression levels themselve
 Therefore, by applying computational techniques and GRN inference methods, we try to reconstruct the **hidden regulatory network from the observed time-series gene expression profiles**.  
 In other words, **we observe gene expression, but we want to infer the regulatory relationships behind it**.  
 -->
-
 ---
 layout: default
 title: Why do Regulatory Genes Matter?
@@ -146,6 +142,27 @@ eyebrow: INFERENCE METHODS
 ---
 
 <CommonMethods />
+<!--
+So, what are the common approaches for GRN inference?
+There are several major categories of approaches, and each one has its own strengths and limitations.  
+**First, correlation-based methods.**  
+These methods measure the statistical correlation between pairs of genes. Common examples include **Pearson correlation** and **Spearman rank correlation**.  
+Their main advantage is that they are **simple, computationally efficient, and relatively easy to interpret**.  
+However, their main limitation is that they primarily capture **pairwise statistical associations**, and therefore may not capture more complex or nonlinear dependencies between genes.  
+**Second, information-theoretic methods.**  
+Methods such as **ARACNE** and **MIBNI** use information-theoretic measures, particularly **mutual information**, to capture statistical dependencies between genes.  
+The main advantage is that mutual information can capture **nonlinear statistical dependencies**, beyond what simple correlation can capture.  
+However, these methods can be sensitive to **how the dependency is estimated and how thresholds or other parameters are selected**. In addition, many MI-based approaches have computational challenges as the network size increases.  
+**Third, regression and machine learning-based methods.**  
+Examples include **GENIE3** and **TIGRESS**.  
+These approaches formulate GRN inference as a prediction or feature-selection problem and can model **multivariate relationships** and potentially more complex dependencies.  
+However, they can require **model selection and parameter tuning**, and their computational cost can become significant for large networks.  
+**Finally, dynamic or time-series models.**  
+Examples include **Dynamic Bayesian Networks**, or DBNs, and **ODE-based models**.  
+These methods explicitly model **temporal dependencies and gene expression dynamics**, making them particularly relevant to time-series data.  
+However, they often require **sufficient time points** and may rely on relatively strong assumptions about the underlying biological dynamics. They can also become   computationally challenging as the network size increases.  
+So, overall, different approaches make different trade-offs between **simplicity, the type of dependency they can capture, computational cost, and the amount of temporal information they require**.  
+-->
 ---
 layout: default
 title: What Have We Done to Improve?
@@ -153,6 +170,15 @@ eyebrow: RESEARCH GAPS
 ---
 
 <ResearchGaps />
+<!--
+So, what have we done to improve?  
+**First**, many existing inference methods represent gene regulation using binary states, which may oversimplify the expression dynamics observed in time-series data.  
+**To address this**, we developed a mixed binary-ternary discretization strategy that preserves more regulatory state information.  
+**Second**, the availability of large expression datasets is not always matched by representations that allow machine-learning models to effectively exploit the available information.  
+**To address this gap**, we developed a scale-invariant task transformation framework that transforms expression profiles into features suitable for GRN inference.  
+**Finally**, time-series gene expression datasets often contain only a limited number of observations, making it difficult to learn reliable regulatory relationships.  
+**To address this limitation**, we developed a data-generation approach that synthesizes additional time-series expression data to improve inference performance.  
+-->
 ---
 layout: default
 title: How is gene expression commonly represented for GRN inference?
@@ -160,6 +186,15 @@ eyebrow: EXISTING APPROACHES
 ---
 
 <ExistingApproaches />
+<!--
+### How is gene expression commonly represented for GRN inference?
+According to the **type of data processing**, existing methods can be divided into two groups.  
+**Real-value-based methods:**  
+In this group, there are some well-known methods such as **GENIE3, MRNET, TIGRESS, and NARROMI**. These approaches directly use continuous values, so they do not need any additional data representation method. Therefore, there is **no information loss** due to data representation. However, these models require more inference time and are sensitive to data noise.  
+**Boolean models:**  
+To speed up the inference process and handle noise sensitivity, **Boolean models** are widely used, where real-valued data are represented by **0 and 1**. **0** means an off or inhibition state, while **1** denotes an on or activation state. Some well-known methods include **MIBNI and GABNI**. These models require less inference time and are less sensitive to data noise. However, the main drawback is **information loss and dynamic variation due to the simplicity of the data representation**.  
+-->
+
 ---
 layout: default
 title: What Do We Want to Improve?
@@ -167,13 +202,30 @@ eyebrow: MOTIVATION
 ---
 
 <Motivations />
+<!--
+**What do we want to improve?**  
+*-First, we want to reduce the computational cost while being less sensitive to noise in gene expression measurements.*     
+*-At the same time, we aim to preserve more expression-level information than conventional Boolean representations.*    
+*-Finally, we want to improve both the accuracy of the inferred network structure and its dynamic behavior.*  
+-->
 ---
 layout: default
-title: What Do We Want to Improve?
-eyebrow: MOTIVATION
+title: What is the Pipeline?
+eyebrow: PIPELINE
 ---
 
 <Pipeline01 />
+<!--
+On the screen, you can see the pipeline of the proposed framework.
+It can be divided into **four main stages**.  
+**First, we prepare the gene expression profiles.**  
+**Second, the discretization stage.**  
+We transform continuous expression values into multiple discrete states — in our case, **two or three levels**, depending on the distribution of each gene.  
+**Third, we infer regulatory relationships** from the discretized time-series profiles using information-based feature selection. At this stage, **two routines are conducted**.  
+**Finally, we evaluate the inferred network** from both **structural and dynamic perspectives**.  
+Key contributions are stages 2 and 3.
+-->
+
 ---
 layout: default
 title: How Does the Discretization Network Model Represent Gene Dynamics?

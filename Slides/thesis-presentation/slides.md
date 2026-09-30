@@ -445,55 +445,95 @@ title: How is gene profile reformulated into a binary classification task?
 eyebrow: DATA REPRESENTATION
 ---
 <DataRepresentation />
-<!--To solve these limitations, we reframe the entire problem. Instead of predicting the whole network at once, we transform GRN inference into a pairwise binary classification task. For any candidate gene pair, we simply concatenate their expression time-series profiles into a single fixed-length vector and pair it with a binary interaction label.-->
+<!--
+"Let's look at how we represent the data to turn GRN inference into a task machine learning can solve."  
+"First, each gene Gi is represented as a time-series vector across T observed time points — this is our raw input."  
+"Next, to capture the relationship *between* two genes, we concatenate the regulator's and target's expression vectors into a single 2T-dimensional feature vector."  
+"Then, each gene pair is labeled 1 if a directed interaction exists in the gold standard, and 0 otherwise."  
+"Finally, applying this across all gene pairs gives us a fully labeled dataset, where each sample is one candidate regulatory interaction."  
+"In short, this representation turns GRN inference into a supervised binary classification problem — making it scalable and model-agnostic."
+-->
 ---
 layout: default
 title: What unique advantages does the unified representation offer?
 eyebrow: METHODOLOGICAL HIGTLIGHTS
 ---
 <MethodAdvantages />
-<!--What makes this representation so effective? First, it’s completely assumption-free—the model learns temporal dependencies implicitly without manual time-lag tuning. Second, it encodes structure and time dynamics together. And most importantly, because feature length depends only on time steps $T$ rather than gene count, it creates a scale-invariant feature space.-->
+<!--What makes this representation so effective? 
+First, it’s completely assumption-free—the model learns temporal dependencies implicitly without manual time-lag tuning.  
+Second, it encodes structure and time dynamics together.   
+And most importantly, because feature length depends only on time steps $T$ rather than gene count, it creates a scale-invariant feature space.
+-->
 ---
 layout: default
 title: How were the datasets and evaluation metrics configured?
 eyebrow: EXPERIMENTAL SETUP
 ---
 <ExperimentalSetup />
-<!--Moving on to our experimental setup, we evaluated the framework on two benchmarks: synthetic scale-free Barabási–Albert networks and realistic E. coli networks from GeneNetWeaver. Because true interactions are extremely sparse in biological systems, we chose AUPR as our primary evaluation metric over ROC.-->
+<!--
+*Moving on to our experimental setup, we evaluated the framework on two benchmarks: synthetic scale-free Barabási–Albert networks and realistic E. coli networks from GeneNetWeaver.*  
+*For the topological datasets, we tested three network sizes: 10, 50, and 100. The training set contains 20,000, 2,000, and 2,000 ground-truth networks for each size, respectively. The validation and test sets contain 2,000, 400, and 400 networks, respectively.*  
+*For the E. coli dataset, we also tested three network sizes: 10, 50, and 100. The training set contains 200, 20, and 20 network structures, respectively, with 100 time-series samples generated for each structure. The validation sets contain 20, 4, and 4 structures, while the test sets contain 10, 4, and 4 structures, respectively.*   
+*Because true regulatory interactions are extremely sparse in biological networks, we use AUPR as our primary evaluation metric rather than AUROC. AUPR ranges from 0 to 1, with a value closer to 1 indicating better performance.*  
+-->
 ---
 layout: default
 title: How did models perform on scale-free topological networks?
 eyebrow: RESULTS - TOPOLOGICAL NETWORKS
 ---
 <AUPRToys />
-<!--On the synthetic topological datasets, every single machine learning model outperformed the random baseline. Random Forest delivered the highest overall accuracy across all network sizes. Interestingly, Gaussian Naive Bayes was the only model whose performance actually improved as network size grew, thanks to its strong probabilistic inductive bias-->
+<!--
+-On the synthetic topological datasets, every single machine learning model outperformed the random baseline.   
+-Random Forest delivered the highest overall accuracy across all network sizes.   
+-Interestingly, Gaussian Naive Bayes was the only model whose performance actually improved as network size grew, thanks to its strong probabilistic inductive bias  
+-->
 ---
 layout: default
 title: Does the framework outperform traditional GRN inference methods on biological data?
 eyebrow: RESULTS - BIOLOGICAL NETWORKS
 ---
 <AUPREcoli />
-<!--When tested on biological E. coli networks, the performance gap expanded even further. The supervised learning models achieved dramatically higher AUPR scores than traditional algorithms like Jump3 or Inferelator. GNB consistently emerged as the most reliable model across all network dimensions.-->
+<!--
+When tested on biological E. coli networks, the performance gap expanded even further.   
+The supervised learning models achieved dramatically higher AUPR scores than traditional algorithms like Jump3 or Inferelator.   
+GNB consistently emerged as the most reliable model across all network dimensions.  
+-->
 ---
 layout: default
 title: Can models trained on small networks effectively infer large-scale GRNs?
 eyebrow: RESULTS - KEY FINDINGS
 ---
 <KeyFindings />
-<!--Now, let's highlight our key discovery: scale invariance. A GNB model trained exclusively on small 10-gene networks achieved an AUPR of 0.373 on 50-gene networks and 0.333 on 100-gene networks. This actually matches or beats models trained directly on large networks, proving that interaction-level knowledge transfers seamlessly across scales.-->
+<!--
+“Now, let’s highlight our key discovery: **scale invariance**.  
+We trained three GNB models using training sets of different sizes: 5,000, 10,000, and 20,000 network structures. After training, each model was evaluated on test networks with three different sizes: 10, 50, and 100 genes. We then compared these results with models trained directly on networks of the corresponding sizes.   
+The results are shown in the chart on the left.   
+We can highlight that a GNB model trained exclusively on small 10-gene networks achieved an AUPR of 0.373 on 50-gene networks and 0.333 on 100-gene networks. These results are comparable to, and in some cases better than, models trained directly on larger networks. This demonstrates that interaction-level knowledge can transfer effectively across different network scales.  
+The chart on the right shows the training time of the models. The results demonstrate that training on smaller networks can significantly reduce training time and computational resources, while maintaining comparable inference performance to models trained on larger networks.  
+-->
 ---
 layout: default
 title: Can the Model Maintain Its Performance with Fewer Time Steps?
 eyebrow: RESULTS - KEY FINDINGS
 ---
 <TimeStepVariation />
+<!--
+“Now, in real-world experiments, gene expression data often contain only a limited number of time points. Therefore, we conducted an experiment to investigate whether the model can maintain its performance with fewer time points.  
+We trained the models using three datasets with different numbers of time points: 10, 20, and 50, across the three network sizes. The results are shown in the chart on this slide.  
+Except for the size-10 networks, where fewer time points actually achieved better performance, the results are generally consistent across the different time-point settings. One possible explanation is that, for smaller networks, fewer time points may reduce noise and help the model make more accurate predictions.    
+More importantly, even with only 10 time points, the model still achieves relatively high inference performance in the other cases. This suggests that the proposed framework has promising potential for practical applications with limited time-series observations.”
+-->
 ---
 layout: default
 title: What are the computational cost advantages of small-network training?
 eyebrow: COMPUTATIONAL PERFORMANCE
 ---
 <ComputationalComparison />
-<!--From a computational standpoint, training on small networks saves 15% to 25% in training time compared to large-scale training. Furthermore, while traditional methods have to re-compute everything from scratch for every new dataset, our pre-trained classifiers run online inference in a fraction of a second.-->
+<!--
+From a computational standpoint, training on small networks saves 15% to 25% in training time compared to large-scale training.  
+Furthermore, while traditional methods have to re-compute everything from scratch for every new dataset,   
+our pre-trained classifiers run online inference in a fraction of a second.
+-->
 ---
 layout: default
 title: What are the operational requirements and scope of applicability?

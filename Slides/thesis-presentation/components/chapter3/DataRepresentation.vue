@@ -1,5 +1,12 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { useNav } from '@slidev/client'
+
+const { currentPage } = useNav()
+
+watch(currentPage, () => {
+  visibleCount.value = 0
+})
 
 const visibleCount = ref(0)
 
@@ -9,7 +16,7 @@ function handleKeydown(event) {
   event.preventDefault()
   event.stopPropagation()
 
-  if (visibleCount.value < 3) {
+  if (visibleCount.value < 4) {
     visibleCount.value += 1
   }
 }
@@ -34,17 +41,27 @@ onBeforeUnmount(() => {
           <div class="step-number">01</div>
 
           <div class="step-body">
-            <h2>Task Transformation</h2>
+            <h2>Expression Profile</h2>
 
             <p>
-              Reformulates network reconstruction into a
-              <strong>pairwise binary classification task</strong>.
+              Each gene <span class="gene">G<sub>i</sub></span>
+              is represented by its
+              <strong>time-series expression vector</strong>
+              over <em>T</em> observed time points.
             </p>
 
-            <div class="flow">
-              <span>Network reconstruction</span>
-              <span class="arrow">→</span>
-              <span class="highlight">Binary classification</span>
+            <div class="formula-box">
+              <span class="formula">
+                V<sub>i</sub>
+                =
+                { v<sub>i</sub><sup>(1)</sup>, v<sub>i</sub><sup>(2)</sup>, ..., v<sub>i</sub><sup>(T)</sup> }
+              </span>
+            </div>
+
+            <div class="dimension-note">
+              <span>v<sub>i</sub><sup>(t)</sup></span>
+              <span class="connector">=</span>
+              <strong>expression value of G<sub>i</sub> at time t</strong>
             </div>
           </div>
         </section>
@@ -56,13 +73,14 @@ onBeforeUnmount(() => {
           <div class="step-number">02</div>
 
           <div class="step-body">
-            <h2>Interaction Vector Representation</h2>
+            <h2>Pairwise Feature Vector</h2>
 
             <p>
-              Concatenates the expression time series of regulator
-              <span class="gene">V<sub>j</sub></span>
+              Concatenates the expression profiles of regulator
+              <span class="gene">G<sub>j</sub></span>
               and target
-              <span class="gene">V<sub>i</sub></span>.
+              <span class="gene">G<sub>i</sub></span>
+              into one feature vector.
             </p>
 
             <div class="formula-box">
@@ -82,7 +100,7 @@ onBeforeUnmount(() => {
               <span class="connector">⊕</span>
               <span>Target</span>
               <span class="connector">→</span>
-              <strong>2T-dimensional representation</strong>
+              <strong>2T-dimensional feature</strong>
             </div>
           </div>
         </section>
@@ -97,8 +115,9 @@ onBeforeUnmount(() => {
             <h2>Binary Class Labeling</h2>
 
             <p>
-              Each regulator–target pair is assigned a binary label
-              according to whether a directed regulatory interaction exists.
+              Each ordered gene pair is labeled according to whether
+              a directed regulatory interaction exists in the gold
+              standard network.
             </p>
 
             <div class="label-box">
@@ -122,9 +141,39 @@ onBeforeUnmount(() => {
         </section>
       </Transition>
 
+      <!-- Step 4 -->
+      <Transition name="fade-up">
+        <section v-if="visibleCount >= 4" class="step-card">
+          <div class="step-number">04</div>
+
+          <div class="step-body">
+            <h2>Labeled Dataset</h2>
+
+            <p>
+              Applying this transformation across all ordered gene
+              pairs yields a fully supervised dataset for GRN inference.
+            </p>
+
+            <div class="formula-box">
+              <span class="formula dataset-formula">
+                D
+                =
+                { ( <b>x</b><sup>(j,i)</sup>, y<sup>(j,i)</sup> ) }
+              </span>
+            </div>
+
+            <div class="dimension-note">
+              <span>Each sample</span>
+              <span class="connector">→</span>
+              <strong>one candidate regulatory interaction</strong>
+            </div>
+          </div>
+        </section>
+      </Transition>
+
     </div>
 
-    <div v-if="visibleCount < 3" class="space-hint">
+    <div v-if="visibleCount < 4" class="space-hint">
       Press SPACE to reveal the next step
     </div>
 
@@ -152,11 +201,11 @@ onBeforeUnmount(() => {
   min-height: 0;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
 
   align-items: stretch;
-  margin-top: 60px;
+  margin-top: 50px;
 }
 
 .step-card {
@@ -167,7 +216,7 @@ onBeforeUnmount(() => {
 
   min-width: 0;
 
-  padding: 22px 20px;
+  padding: 20px 16px;
 
   background: #ffffff;
   border: 1px solid #dce4e9;
@@ -196,14 +245,14 @@ onBeforeUnmount(() => {
    ========================= */
 
 .step-number {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  margin-bottom: 17px;
+  margin-bottom: 15px;
 
   border-radius: 50%;
 
@@ -211,7 +260,7 @@ onBeforeUnmount(() => {
   color: #173f5f;
 
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
 }
 
@@ -224,11 +273,11 @@ onBeforeUnmount(() => {
 }
 
 .step-body h2 {
-  margin: 0 0 13px;
+  margin: 0 0 11px;
 
   color: #173f5f;
 
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.3;
   font-weight: 650;
 }
@@ -238,13 +287,19 @@ onBeforeUnmount(() => {
 
   color: #64748b;
 
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 12.5px;
+  line-height: 1.55;
 }
 
 .step-body strong {
   color: #173f5f;
   font-weight: 650;
+}
+
+.step-body em {
+  color: #173f5f;
+  font-style: normal;
+  font-weight: 600;
 }
 
 .gene {
@@ -253,46 +308,12 @@ onBeforeUnmount(() => {
 }
 
 /* =========================
-   Step 1
-   ========================= */
-
-.flow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 9px;
-
-  margin-top: 24px;
-  padding: 14px 10px;
-
-  background: #f8fafb;
-  border: 1px solid #e5eaee;
-  border-radius: 6px;
-
-  color: #64748b;
-
-  font-size: 12px;
-  text-align: center;
-}
-
-.arrow {
-  color: #94a3b8;
-  font-size: 16px;
-}
-
-.highlight {
-  color: #20639b;
-  font-weight: 650;
-}
-
-/* =========================
-   Step 2
+   Formula box (steps 1, 2, 4)
    ========================= */
 
 .formula-box {
-  margin-top: 20px;
-  padding: 17px 10px;
+  margin-top: 18px;
+  padding: 15px 8px;
 
   display: flex;
   align-items: center;
@@ -309,8 +330,12 @@ onBeforeUnmount(() => {
   color: #173f5f;
 
   font-family: 'Times New Roman', serif;
-  font-size: 25px;
+  font-size: 19px;
   white-space: nowrap;
+}
+
+.dataset-formula {
+  font-size: 20px;
 }
 
 .dimension-note {
@@ -318,13 +343,13 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 7px;
+  gap: 6px;
 
-  margin-top: 13px;
+  margin-top: 12px;
 
   color: #64748b;
 
-  font-size: 11px;
+  font-size: 10.5px;
   text-align: center;
 }
 
@@ -337,11 +362,11 @@ onBeforeUnmount(() => {
 }
 
 /* =========================
-   Step 3
+   Step 3 — label box
    ========================= */
 
 .label-box {
-  margin-top: 20px;
+  margin-top: 18px;
 
   display: flex;
   flex-direction: column;
@@ -355,9 +380,9 @@ onBeforeUnmount(() => {
 .label-item {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 
-  padding: 14px 15px;
+  padding: 12px 13px;
 }
 
 .label-item.positive {
@@ -371,19 +396,19 @@ onBeforeUnmount(() => {
 .label-value {
   flex-shrink: 0;
 
-  min-width: 78px;
+  min-width: 68px;
 
   color: #173f5f;
 
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
 }
 
 .label-description {
   color: #64748b;
 
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.4;
 }
 
@@ -433,7 +458,13 @@ onBeforeUnmount(() => {
    Responsive
    ========================= */
 
-@media (max-width: 850px) {
+@media (max-width: 1100px) {
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
   .steps {
     grid-template-columns: 1fr;
     overflow-y: auto;

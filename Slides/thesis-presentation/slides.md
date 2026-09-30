@@ -233,6 +233,15 @@ eyebrow: DISCRETIZATION NETWORK MODEL
 ---
 
 <DiscretizationNetworkModel />
+<!--
+Before going into our proposed model, let us first take a quick look at some basic concepts of a **discrete-state network model**.  
+First, a discretized network can be represented as a **directed graph**.  
+We have a set **V**, which contains all the nodes in the network, and a set **A**, which represents the interactions between these nodes.  
+For each node *g*, its state at time *t* is represented by one of **l discrete values**, ranging from **0 to l minus 1**.  
+Now, suppose that a target node *g* is regulated by *k* other genes, from *u₁* to *uₖ*.  
+Then, the state of node *g* at time *t plus 1* is updated according to a **discrete function**, as shown on the screen.  
+In other words, the future state of a target gene is determined by the current states of its regulatory genes.  
+-->
 ---
 layout: default
 title: How Do We Evaluate an Inferred Network?
@@ -240,6 +249,15 @@ eyebrow: PERFORMANCE EVALUATION
 ---
 
 <NetworkInference />
+<!--
+We evaluate the inferred networks from two perspectives: **dynamics and structure**.  
+For the **dynamics**, first, we define the gene-wise dynamics consistency, \(C(v,v')\), as the similarity between the discretized trajectories of the observed gene expression, \(v(t)\), and the estimated gene expression, \(v'(t)\).   
+Then, the **dynamics accuracy** is defined as the average gene-wise dynamics consistency across all genes.  
+For the **structural evaluation**, we use three metrics: **Precision, Recall, and Structural Accuracy**.  
+**Precision** measures the proportion of inferred regulatory interactions that are actually correct.   
+**Recall** measures the proportion of true regulatory interactions that are successfully recovered.  
+Finally, **Structural Accuracy** measures the overall agreement between the inferred network and the ground-truth network structure.
+-->
 ---
 layout: default
 title: What is the experimental framwork?
@@ -247,6 +265,15 @@ eyebrow: METHODOLOGY
 ---
 
 <Methodology />
+<!--
+Let me now give you an overview of the proposed framework.  
+We start with a **two-dimensional microarray of real-valued gene expression data**, which is observed from an underlying regulatory network. Importantly, **the original network itself is unseen during the inference process**.  
+First, this input expression matrix is converted into a **discretized expression dataset** using the K-means discretization algorithm.  
+Then, the **K value is determined based on a validity index for each gene**. In this study, K can be either **2 or 3**, depending on the expression distribution of each gene.  
+Next, the discretized data are fed into the **MIFS and SWAP subroutines** to identify the regulatory genes for each target gene.  
+Based on the inferred regulatory relationships, we reconstruct the **prediction network**. At the same time, the prediction network provides the corresponding **inferred discretized expression values**.  
+Finally, at the evaluation stage, we compare the **inferred network with the ground-truth network** to evaluate the structural accuracy. For the dynamics accuracy, we compare the **observed and inferred discretized expression matrices**.
+-->
 ---
 layout: default
 title: How Do We Determine the Optimal Discretization Level?
@@ -254,6 +281,11 @@ eyebrow: DISCRETIZATION
 ---
 
 <Discretization />
+<!--As mentioned above, in our study, the discretization level of each gene can be either two or three.  
+To determine the optimal level, we apply a validity index, which is defined as the ratio of the Intra value to the Inter value.   
+The Intra value is the average squared distance between data points and their corresponding centroids.   
+The Inter value is the minimum squared distance between two different centroids. Therefore, the optimal discretization level is selected by minimizing the validity index.
+-->
 ---
 layout: default
 title: How Are Potential Regulators Selected and Refined?
@@ -262,7 +294,15 @@ eyebrow: FEATURE SELECTION
 
 <FeatureSelectionStage />
 <!--
-First, MIFS constructs the candidate regulator set. However, MIFS is based on an approximate dependency measure and may not identify the optimal set. Therefore, we introduce the SWAP routine to iteratively refine this set.
+* For each target gene g₀, MIFS selects a set of k potential regulator genes. The value of k is a user-defined parameter. In this study, the maximum value of k is 8.
+* MIFS can be described in 3 steps:  
+  * Step 1: Select a gene that maximizes the mutual information with g₀.   
+  * Next, select the gene that maximizes the mutual information with g₀ while considering its dependency on the already selected candidates.   
+  * Repeat Step 2 until the desired number of k candidates has been selected.  
+
+The main drawback of the MIFS subroutine is that it does not compute the exact multivariate mutual information and may fail to find the optimal set of regulatory variables.  
+To overcome this problem, we propose a simple iterative SWAP subroutine to improve the dynamics accuracy by swapping the same number of variables between the selected and unselected sets.  
+The swapping process is repeated until the gene-wise dynamics consistency reaches 1.0, meaning that there is no further improvement, or until the number of potential candidates in the selected set equals k.  
 -->
 ---
 layout: default
@@ -271,6 +311,11 @@ eyebrow: DATASETS
 ---
 
 <Datasets01 />
+<!--
+*We tested the proposed method using two types of datasets: Artificial Discretized and GNW datasets.*  
+*The Artificial Discretized dataset consists of 20 network groups, with network sizes ranging from 10 to 200. Each group contains 20 randomly generated networks, resulting in a total of 400 networks.*   
+*The GNW dataset consists of 4 network groups with network sizes of 50, 100, 200, and 300. Each group contains 20 networks, a total of 80 networks were tested.*
+-->
 ---
 layout: default
 title: How Does Three-Level Proportion Vary?
@@ -278,6 +323,11 @@ eyebrow: THREE-LEVEL PROPORTION
 ---
 
 <Proportion />
+<!--
+We first examined the proportion of three-level discretized genes in the networks.   
+As shown in the figure, the proportions of the binarized and three-level discretized genes are considerably similar to each other.  
+This indicates that three-level discretization is observed as frequently as two-level discretization in our method.  
+-->
 ---
 layout: default
 title: Does the Proposed Method Perform Well across All Metrics?
@@ -285,6 +335,15 @@ eyebrow: RESULTS - ARTIFICIAL DATASET
 ---
 
 <ArtificialResults />
+<!--
+* This figure shows the performance of our method on the Artificial Discretized dataset using four evaluation metrics.
+* The X-axis represents the network size, ranging from 10 to 200, while the Y-axis shows the average value of each performance metric.
+* Looking at the figure, we can see that:  
+  * Dynamics accuracy consistently reaches a perfect value of 1.0 across all network sizes.   
+  * Structural accuracy remains above 0.9.  
+  * Precision and recall decrease as the network size increases, but both remain above 0.5 at a network size of 200.  
+* In short, our method shows reliable performance on this dataset.  
+-->
 ---
 layout: default
 title: How Does Network Complexity Affect Inference Performance?
@@ -292,6 +351,13 @@ eyebrow: RESULTS - ARTIFICIAL DATASET
 ---
 
 <IncomingLinksResults />
+<!--
+* We also show the performance on this dataset by grouping the number of regulatory genes for each target gene in the gold-standard network, as shown on this slide.
+* As the number of incoming links increases, the performance metrics decrease because a larger number of incoming links indicates a more difficult inference problem.
+* As shown in this figure:
+  * Dynamics accuracy remains almost stable, even in the most difficult case, when the number of incoming links is 8.
+  * Precision and recall remain above 0.4.
+-->
 ---
 layout: default
 title: How Well Does the Inferred Network Recover the True Structure?
@@ -299,6 +365,12 @@ eyebrow: RESULTS - ECOLI DATASET
 ---
 
 <StructuralAccuracy />
+<!--
+*This slide shows the structural accuracy of our method and four comparison methods across four network sizes: 50, 100, 200, and 300.*
+*Overall, MIDNI shows better performance than the other methods.*
+*Furthermore, across the four network sizes, when the number of incoming links is 1 or 2, the performance of all methods is relatively similar. However, as the number of incoming links increases, our method shows better performance than the others.*
+*This indicates the effectiveness of our method for large-scale and difficult-to-solve GRN inference problems.*
+-->
 ---
 layout: default
 title: How Well Does the Model Explain the Underlying Mechanism?
@@ -306,6 +378,11 @@ eyebrow: RESULTS - ECOLI DATASET
 ---
 
 <DynamicsAccuracy />
+<!--
+* Here, we show the dynamics accuracy of all methods across four network sizes: 50, 100, 200, and 300.  
+* Similar to the structural accuracy, the dynamics accuracy of the proposed method is higher than that of the other methods, especially for larger networks of size 200 and 300.  
+* Taken together, MIDNI outperforms the comparison methods in terms of both structural and dynamics accuracy.  
+-->
 ---
 layout: default
 title: How Does Computational Efficiency Vary Across Methods?
@@ -313,6 +390,11 @@ eyebrow: RUNNING TIME
 ---
 
 <RunningTime />
+<!---
+We also conducted a comparison with running time among the methods. The result is shown on this figure.  
+Look at the chart, our method is comparable to others except dbn method.  
+Briefly, MIDNI is a promising tool for predicting both the structure and the dynamics of a gene regulatory network, especially for large-scale and dense input networks.  
+-->
 ---
 layout: default
 title: What Have We Achieved, and What Remains to Be Improved?
@@ -320,6 +402,15 @@ eyebrow: CONCLUSION
 ---
 
 <Conclusion />
+<!--
+What we achieved?
+- Infer regulatory networks using a multiple level representation beyond Boolean states
+- Achieve higher structural and dynamics accuracy than the comparison methods
+- Maintain reliable inference performance as network size and connectivity increase
+What are limitations?
+- Repy on correlation coefficients to determine the type and direction of regulatory interactions
+- MIFS and SWAP are essentially greedy algorithms and may not guarantee a globally optimal feature selection.
+-->
 ---
 layout: default
 title: Why do existing machine learning frameworks still fail to generalize?
@@ -327,14 +418,27 @@ eyebrow: RESEARCH GAP 02
 ---
 <RepresentationMotivations />
 <!-- CHAPTER 3 -->
-<!--“In the first publication, I focused on the inference method. By introducing multiple-level discretization, we can preserve more information from gene expression dynamics than a purely Boolean representation.
-However, when moving toward machine learning, another question arises: how should a regulatory relationship be represented so that a learning model can actually learn from it? -->
+<!--
+*“In the first issue, I focused on the inference method. By introducing multiple-level discretization, we can preserve more information from gene expression dynamics than a purely Boolean representation.*  
+*However, when moving toward machine learning, another question arises: how should a regulatory relationship be represented so that a learning model can actually learn from it? This question motivates the second issue addressed in this chapter.*  
+*First, let us look at why existing machine learning frameworks still fail to generalize.*   
+*First, temporal expression dynamics and local regulatory structures are encoded separately or indirectly.*   
+*Second, models depend heavily on fixed time delays, restricted candidate regulator sets, or specific kernel configurations.*  
+*Finally, sparse networks lead to class imbalance, meaning that as the network scale increases, the ratio of positive regulatory interactions to non-interactions becomes increasingly skewed.* 
+ -->
 ---
 layout: default
-title: How Do We Represent Regulatory Relationships for Machine Learning?
+title: How did we build a learning framework for GRN inference?
 eyebrow: PROPOSED FRAMEWORK
 ---
 <LearningFramework />
+<!--
+“This slide shows an overview of the proposed GRN inference framework.  
+We start with labeled gene regulatory networks with known regulatory interactions. These networks are transformed into a supervised learning dataset using our representation scheme, which converts time-series expression profiles into feature-label pairs.  
+The resulting features are used to train different machine learning models, which are stored in a classifier pool.  
+For inference, the test expression data are represented in the same way and processed by a selected model to predict pairwise regulatory interactions. These predictions are then aggregated to reconstruct the inferred GRN.  
+Importantly, our representation is independent of network size, allowing models trained on one network size to generalize to networks of different sizes.”  
+-->
 ---
 layout: default
 title: How is gene profile reformulated into a binary classification task?

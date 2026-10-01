@@ -540,63 +540,103 @@ title: What are the operational requirements and scope of applicability?
 eyebrow: LIMITATION & DEVELOPMENT
 ---
 <LimitationDevelopment />
-<!--To be realistic about deployment, there is one key operational constraint: the test time-series length must match or exceed the training length $T$. For shorter profiles, temporal extension techniques are required. Nevertheless, the representation has proven remarkably robust across both discrete and continuous data types.-->
+<!--
+- To be realistic about deployment, there is one key operational constraint: 
+- The test time-series length must match or exceed the training length $T$. 
+- For shorter profiles, temporal extension techniques are required. 
+- Nevertheless, the representation has proven remarkably robust across both discrete and continuous data types.
+-->
 ---
 layout: default
 title: What are the main contributions of this representation learning framework?
 eyebrow: CONCLUSION
 ---
 <LearningConclusion />
-<!--To conclude, this work introduces a novel, scale-invariant representation that reformulates GRN inference into a binary classification problem. By removing time-lag heuristics and enabling cross-network data transfer, it effectively overcomes class imbalance and offers a highly scalable tool for systems biology. Thank you for your attention!-->
+<!--
+- To conclude, this work introduces a novel, scale-invariant representation that reformulates GRN inference into a binary classification problem.
+- By removing time-lag heuristics and enabling cross-network data transfer. 
+- It effectively overcomes class imbalance and offers a highly scalable tool for systems biology.
+-->
 ---
 layout: default
 title:  Why is time-series data scarcity a critical bottleneck in GRN inference?
 eyebrow: RESEARCH GAP 03
 ---
 <ResearchGap03 />
-<!--Welcome everyone. To kick off our presentation, let's look at a major bottleneck in systems biology: data scarcity. While reconstructing gene regulatory networks requires observing temporal expression patterns over many time steps, real biological experiments are heavily constrained by high costs and technical limitations. Having too few time points directly undermines the accuracy of our network inference algorithms-->
+<!--
+- Now, let’s move to the third issue: **time-series data scarcity**. So, why is limited time-series data a critical bottleneck in GRN inference?
+- First, reconstructing GRNs requires observing coordinated gene expression trajectories across multiple time points.
+- Second, biological experiments face high costs, measurement noise, and strict environmental constraints, resulting in severely limited temporal observations.
+- Finally, short time-series data can significantly reduce the accuracy and stability of computational GRN inference methods.
+
+-->
 ---
 layout: default
-title:  Why do conventional data augmentation methods fail on sparse transcriptomic data?
+title:  Why do conventional data augmentation methods struggle with sparse transcriptomic data?
 eyebrow: LIMITATIONS OF EXISTING METHODS
 ---
 <LimitationsExistingMethods />
-<!--Now, you might ask: why not just use standard data augmentation like GANs? Well, GANs are notoriously hard to train on small datasets and frequently suffer from mode collapse. Other synthetic generators rely on overly rigid assumptions. What we desperately need is a simple, stable generative framework that can learn effectively even from a handful of temporal observations.-->
+<!--
+- Now, let’s look at the limitations of existing data augmentation methods. Why do conventional approaches struggle with sparse transcriptomic data?
+- First, GAN-based variants are difficult to train on small datasets and are prone to problems such as mode collapse.
+- Second, other generative models, such as AGN, rely on relatively rigid assumptions about the underlying data distribution.
+- Finally, there is still a lack of generative approaches that can effectively synthesize additional data from a limited number of observed samples.
+-->
 ---
 layout: default
 title:  Can an Autoencoder framework synthesize realistic time-series expression data to restore GRN inference accuracy?
 eyebrow: RESEARCH GOALS & HYPOTHESIS
 ---
 <ResearchGoals />
-<!--To address this gap, this study asks a fundamental question: Can an Autoencoder learn from a short time series and synthesize remaining time steps reliably? We hypothesize that by encoding adjacent time-step pairs, the model can iteratively generate future time steps, effectively supplementing the missing data and boosting downstream network inference algorithms like MIDNI.-->
+<!--
+- To address this gap, this study asks a fundamental question: **Can an Autoencoder framework synthesize realistic time-series expression data to restore GRN inference accuracy?**
+- Our core objective is to use an Autoencoder to generate additional time-series gene expression data from limited observations.
+- We chose an Autoencoder because it has a relatively simple architecture, is easy to implement and train with a small number of samples, and is well suited to learning representations from time-series data.
+- Based on this idea, we encode adjacent time-step pairs and use the learned representation to iteratively generate future time steps. In this way, the model can supplement missing temporal observations and provide additional data for downstream GRN inference methods such as MIDNI.
+-->
 ---
 layout: default
 title:  How is the end-to-end Synthetic-MIDNI framework structured?
 eyebrow: ARCHITECHTURAL OVERVIEW
 ---
 <SyntheticFramework />
-<!--Here is the complete workflow of the Synthetic-MIDNI pipeline. First, raw discretized time-series data is reformatted into concatenated pairwise vectors. Next, we train a custom Autoencoder on these state transitions. The trained model then autoregressively generates the remaining time steps. Finally, both original and synthetic data are fed into the MIDNI algorithm for network reconstruction.-->
+<!--Here is the complete workflow of the Synthetic-MIDNI pipeline. 
+- First, raw discretized time-series data is reformatted into concatenated pairwise vectors. 
+- Next, we train a custom Autoencoder on these state transitions. 
+- The trained model then autoregressively generates the remaining time steps. 
+- Finally, both original and synthetic data are concatenated and fed into the MIDNI algorithm for network reconstruction.
+-->
 ---
 layout: default
 title:  How does pairwise temporal vector concatenation preserve transition dynamics?
 eyebrow: FEATURE ENGINEERING
 ---
 <FeatureEngineering />
-<!--A critical innovation here lies in data representation. Instead of feeding single time steps, we concatenate expression values from two consecutive steps, $t_i$ and $t_{i+1}$. This $2n$-dimensional vector explicitly captures state-transition relationships, giving the neural network the exact temporal signals it needs to predict the next time step.-->
+<!--
+- A critical innovation here lies in data representation. Instead of feeding single time steps, we concatenate expression values from two consecutive steps, $t_i$ and $t_{i+1}$. 
+- And why this transformation?, 
+- This $2n$-dimensional vector explicitly captures state-transition relationships, giving the neural network the exact temporal signals it needs to predict the next time step.
+-->
 ---
 layout: default
 title:   What is the design and parameter configuration of the generative Autoencoder?
 eyebrow: AUTOENCODER ARCHITECTURE
 ---
 <DeepLearningArchitecture />
-<!--Let's examine the Autoencoder architecture itself. We chose a lightweight 3-hidden-layer design with a 32-neuron bottleneck layer. Why keep it compact? Because a smaller architecture prevents overfitting on limited biological samples and keeps training stable. It uses ReLU activations in hidden layers and minimizes mean squared error during training.-->
+<!--
+Let's examine the Autoencoder architecture itself. We chose a lightweight 3-hidden-layer design with a 32-neuron bottleneck layer. Why keep it compact? Because a smaller architecture prevents overfitting on limited biological samples and keeps training stable. It uses ReLU activations in hidden layers and minimizes mean squared error during training.
+-->
 ---
 layout: default
 title:   How does the model perform iterative auto-regressive time-series synthesis?
 eyebrow: GENERATIVE MECHANISM
 ---
 <GenerativeMechanism />
-<!--So how does the model actually generate new time points? It works iteratively. When you pass $\mathbf{T}(t_i \oplus t_{i+1})$ into the trained model, it outputs the predicted state for $\mathbf{T}(t_{i+1} \oplus t_{i+2})$. We extract the newly predicted time point and loop it back into the model as input for the next step, repeating this until we reach our target series length.-->
+<!--
+- So how does the model actually generate new time points?
+- It works iteratively. When you pass $\mathbf{T}(t_i \oplus t_{i+1})$ into the trained model, it outputs the predicted state for $\mathbf{T}(t_{i+1} \oplus t_{i+2})$. 
+- We extract the newly predicted time point and loop it back into the model as input for the next step, repeating this until we reach our target series length.
+-->
 ---
 layout: default
 title:   How Was the Experimental Setup Designed?

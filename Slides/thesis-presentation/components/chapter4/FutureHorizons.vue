@@ -1,6 +1,12 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { useNav } from '@slidev/client'
 
+const { currentPage } = useNav()
+
+watch(currentPage, () => {
+  visibleCount.value = 0
+})
 const visibleCount = ref(0)
 const totalItems = 4
 

@@ -348,7 +348,10 @@ onBeforeUnmount(() => {
 .recovery-slide { width:100%; height:100%; box-sizing:border-box; display:flex; flex-direction:column; overflow:auto; }
 .recovery-chart { width:100%; height:80%; min-height:0; }
 .findings { width:100%; display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:15px; }
-.finding { min-width:0; box-sizing:border-box; padding:7px 9px; border-top:2px solid #b3cedf; background:#fff; }
+.finding { min-width: 0; box-sizing: border-box; padding: 7px 9px; border-top: 2px solid #b3cedf; background: #fff; position: relative; z-index: 1; transition: transform 0.22s ease, box-shadow 0.22s ease, border-top-color 0.22s ease; } /* * Lift effect when hovering */ 
+.finding:hover { transform: translateY(-4px); border-top-color: #2A9D8F; box-shadow: 0 7px 16px rgba(23, 63, 95, 0.12), 0 2px 5px rgba(23, 63, 95, 0.06); z-index: 5; }
+.finding:hover .finding-number { transform: scale(1.08); color: #20639B; }
+.finding:hover h3 { color: #20639B; }
 .finding-header { display:flex; align-items:baseline; gap:6px; margin-bottom:3px; }
 .finding-number { flex:0 0 auto; color:#2A9D8F; font-family:'IBM Plex Mono','JetBrains Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:.08em; }
 .finding h3 { margin:0; color:#173F5F; font-size:10.5px; line-height:1.2; font-weight:700; }

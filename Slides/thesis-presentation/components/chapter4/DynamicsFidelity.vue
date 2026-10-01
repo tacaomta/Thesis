@@ -299,13 +299,7 @@ onBeforeUnmount(() => {
   margin-top: 10px;
 }
 
-.finding {
-  min-width: 0;
-  box-sizing: border-box;
-  padding: 8px 10px;
-  border-top: 2px solid #DCE4E9;
-  background: #FFFFFF;
-}
+.finding { min-width: 0; box-sizing: border-box; padding: 7px 9px; border-top: 2px solid #b3cedf; background: #fff; position: relative; z-index: 1; transition: transform 0.22s ease, box-shadow 0.22s ease, border-top-color 0.22s ease; }
 
 .finding-header {
   display: flex;
@@ -337,6 +331,9 @@ onBeforeUnmount(() => {
   font-size: 9.5px;
   line-height: 1.3;
 }
+.finding:hover { transform: translateY(-4px); border-top-color: #2A9D8F; box-shadow: 0 7px 16px rgba(23, 63, 95, 0.12), 0 2px 5px rgba(23, 63, 95, 0.06); z-index: 5; }
+.finding:hover .finding-number { transform: scale(1.08); color: #20639B; }
+.finding:hover h3 { color: #20639B; }
 
 @media (max-width: 1000px) {
   .findings {

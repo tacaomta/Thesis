@@ -643,49 +643,78 @@ title:   How Was the Experimental Setup Designed?
 eyebrow: EXPERIMENTAL SETUP
 ---
 <ExperimentalSetup04 />
-<!--To evaluate performance rigorously, we generated 20 scale-free ground truth networks representing 50-gene and 100-gene biological systems. We fixed the total trajectory length at 100 time steps while systematically varying observed steps $K$ from 10 to 90. This allowed us to benchmark inference improvements under varying degrees of data availability. This brings us to our evaluation metrics.-->
+<!--
+- To evaluate the performance, we generated 20 scale-free ground-truth networks for each of two network sizes: 50 and 100 genes.
+- For each network, we generated a trajectory of 100 time steps and then varied the number of observed time steps, K, from 10 to 90. 
+- This allowed us to evaluate how the proposed framework improves GRN inference under different levels of data availability.
+- We tested the framework on two types of datasets: Boolean and ternary.
+-->
 ---
 layout: default
 title:  Which Metrics Are Used to Evaluate GRN Inference?
 eyebrow: EVALUATION METRICS
 ---
 <EvaluationMetrics />
-<!--We evaluated performance using four quantitative metrics. Precision, Recall, and Structural Accuracy measure how accurately edge connections match ground truth networks. Meanwhile, Dynamic Accuracy calculates trajectory preservation using Hamming distance across time steps. Let's now examine the structural performance results on multi-level ternary data.-->
+<!--
+- We evaluated performance using four quantitative metrics. Precision, Recall, and Structural Accuracy measure how accurately edge connections match ground truth networks. Meanwhile, 
+- Dynamic Accuracy calculates trajectory preservation using Hamming distance across time steps. 
+- Let's now examine the structural performance results on multi-level ternary data.
+-->
 ---
 layout: default
 title:  How well performance gains on ternary datasets?
 eyebrow: RESULTS - TERNARY DATASETS
 ---
 <TernaryDatasetsRecovery />
-<!--Looking at the results for ternary datasets, solid lines—representing synthetic data augmentation—consistently outshine the dashed baseline lines. Crucially, the improvement is largest at $K=10$ and $K=20$, proving that synthetic data provides the highest value precisely when experimental samples are most scarce. Let's see if these gains hold true for Boolean datasets as well.-->
+<!--
+- Looking at the results for ternary datasets:
+- Results of precision, recall, and structural accuracy on the multi-level discretization dataset. (a–c). Results for the network with |𝑉|=50 (d–f). Results for the network with |𝑉|=100 The Y-axis denotes the performance metrics, and the X-axis indicates the number of observed time steps in the original gene expression data. For the synthesized dataset, gene expression data are generated for (100−𝐾) time steps. Solid and dashed lines represent the results based on the synthesized and the original dataset, respectively. Each point and error bar indicates the average value and the standard deviation, respectively, over 10 random networks. The bar charts show the performance improvement of the synthesized dataset over the original dataset.
+- 1. Solid lines—representing synthetic data augmentation—consistently outshine the dashed baseline lines. 
+- 2. Crucially, the improvement is largest at $K=10$ and $K=20$, proving that synthetic data provides the highest value precisely when experimental samples are most scarce. Let's see if these gains hold true for Boolean datasets as well.-->
 ---
 layout: default
 title:  How well performance gains on Boolean datasets?
 eyebrow: RESULTS - BOOLEAN DATASETS
 ---
 <BooleanDatasetsRecovery />
-<!--Moving to Boolean datasets, we observe the exact same positive trend. Synthetic data enhances inference performance without introducing negative artifacts. Interestingly, smaller 50-gene networks saw larger recall boosts, whereas larger 100-gene networks achieved higher precision gains. Having confirmed structural recovery, let's transition to evaluating dynamic fidelity.-->
+<!--
+- Moving to Boolean datasets, we observe the exact same positive trend. 
+- Synthetic data enhances inference performance without introducing negative artifacts. 
+- Interestingly, smaller 50-gene networks saw larger recall boosts, whereas larger 100-gene networks achieved higher precision gains. 
+- Having confirmed structural recovery, let's transition to evaluating dynamic fidelity.
+-->
 ---
 layout: default
 title: How Well Is Dynamic Fidelity Preserved?
 eyebrow: RESULTS - DYNAMICS FIDELITY
 ---
 <DynamicsFidelity />
-<!--Now, addressing dynamic accuracy: you might notice a slight downward trend as time steps increase. This happens because synthetic-driven networks are evaluated over the entire 100-step timeline, while original data is tested over shorter $K$ steps. Nevertheless, dynamic accuracy remains well above 97%, proving that generated time-series retain strong biological state fidelity. Next, let's examine data diversity.-->
+<!--
+- Now, addressing dynamic accuracy: Two charts on left are performance on Ternary, while two on right are performance on Boolean dataset.
+- You might notice a slight downward trend as time steps increase. This happens because synthetic-driven networks are evaluated over the entire 100-step timeline, while original data is tested over shorter $K$ steps. 
+- Nevertheless, dynamic accuracy remains well above 97%, proving that generated time-series retain strong biological state fidelity. Next, let's examine data diversity.
+-->
 ---
 layout: default
 title: How Diverse Are the Synthesized Expression Profiles?
 eyebrow: RESULTS - DATA DIVERSITY ANALYSIS
 ---
 <DataDiversity />
-<!--A fascinating aspect of this method is data diversity. When executing the autoencoder multiple times, generated expression matrices differ significantly, exhibiting a similarity index around 0.35 to 0.40. Remarkably, downstream network inference remains stable across these diverse profiles. This mirrors real biology, where distinct expression fluctuations stem from the same core regulatory network. Let's move to our conclusion.-->
+<!--
+- Similarity matrix between the synthesized gene expression data. 
+- (a) An example of a similarity matrix between a pair of synthesized gene expression data values when K equals 10. The white or black dot indicates that the corresponding gene values between two expression data values are identical or not, respectively. 
+- (b) Change in the mean similarity index against the time step number (K). For each K from 10 to 90, three pairs of synthesized gene expression data values were used to compute the mean similarity index.
+-->
 ---
 layout: default
 title: What are Key Findings and Biological Significance?
 eyebrow: SUMMARY AND IMPLICATIONS
 ---
 <SummaryOfCoreFindings />
-<!--To summarize our core findings, this study proves that a lightweight autoencoder can effectively synthesize temporal gene expression data to overcome sample scarcity. By augmenting short experimental series, researchers can reconstruct significantly more accurate gene regulatory networks without incurring heavy laboratory expenses. Finally, let's discuss future research horizons.-->
+<!--
+- To summarize our core findings,
+- First,... read slide
+-->
 ---
 layout: default
 title: Where Can This Research Go Next?
@@ -693,3 +722,15 @@ eyebrow: FUTURE HORIZONS
 ---
 <FutureHorizons />
 <!--Looking forward, there are several promising avenues for future research. Integrating Graph Neural Networks could help model structural topologies directly. Transitioning to continuous-valued modeling will eliminate discretization artifacts. Finally, validating this method on clinical transcriptomic datasets—such as rare disease models—will unlock immense real-world value. Thank you for your time, and I am happy to take any questions!-->
+---
+layout: default
+title: What Have We Achieved?
+eyebrow: THESIS SYMMARY
+---
+<ThesisSummary />
+---
+layout: default
+title: Who Made This Journey Possible?
+eyebrow: ACKNOWLEDGEMENT
+---
+<Acknowledgement />

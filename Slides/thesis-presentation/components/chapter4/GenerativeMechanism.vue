@@ -4,11 +4,41 @@ import { useNav } from '@slidev/client'
 
 const { currentPage } = useNav()
 
-watch(currentPage, () => {
-  visibleCount.value = 0
-})
 const visibleCount = ref(0)
 const totalItems = 3
+const cycleCount = ref(1)
+
+let cycleTimer = null
+
+function startCycle() {
+  if (cycleTimer) return
+
+  cycleTimer = setInterval(() => {
+    cycleCount.value = cycleCount.value >= 6 ? 1 : cycleCount.value + 1
+  }, 2400)
+}
+
+function stopCycle() {
+  if (cycleTimer) {
+    clearInterval(cycleTimer)
+    cycleTimer = null
+  }
+}
+
+watch(visibleCount, (val) => {
+  if (val >= 2) {
+    startCycle()
+  } else {
+    stopCycle()
+    cycleCount.value = 1
+  }
+})
+
+watch(currentPage, () => {
+  visibleCount.value = 0
+  cycleCount.value = 1
+  stopCycle()
+})
 
 function handleKeydown(event) {
   if (event.code !== 'Space') return
@@ -27,6 +57,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeydown, true)
+  stopCycle()
 })
 </script>
 
@@ -102,6 +133,19 @@ onBeforeUnmount(() => {
           <text x="292" y="192" class="arrow-label">
             input
           </text>
+
+          <circle
+            v-if="visibleCount >= 1"
+            r="4.5"
+            class="travel-particle forward-particle"
+          >
+            <animateMotion
+              path="M 250,212 L 330,212"
+              dur="1.6s"
+              repeatCount="indefinite"
+              begin="0s"
+            />
+          </circle>
         </g>
 
         <!-- =========================
@@ -138,10 +182,10 @@ onBeforeUnmount(() => {
           </text>
 
           <!-- mini architecture -->
-          <circle cx="385" cy="235" r="18" class="mini-node input-node" />
-          <circle cx="445" cy="235" r="13" class="mini-node hidden-node" />
-          <circle cx="500" cy="235" r="10" class="mini-node latent-node" />
-          <circle cx="540" cy="235" r="13" class="mini-node hidden-node" />
+          <circle cx="385" cy="235" r="18" class="mini-node input-node" style="animation-delay: 0s" />
+          <circle cx="445" cy="235" r="13" class="mini-node hidden-node" style="animation-delay: 0.2s" />
+          <circle cx="500" cy="235" r="10" class="mini-node latent-node" style="animation-delay: 0.4s" />
+          <circle cx="540" cy="235" r="13" class="mini-node hidden-node" style="animation-delay: 0.6s" />
 
           <line x1="403" y1="235" x2="432" y2="235" class="mini-line" />
           <line x1="458" y1="235" x2="490" y2="235" class="mini-line" />
@@ -170,6 +214,19 @@ onBeforeUnmount(() => {
           <text x="597" y="192" class="arrow-label">
             reconstruct
           </text>
+
+          <circle
+            v-if="visibleCount >= 1"
+            r="4.5"
+            class="travel-particle forward-particle"
+          >
+            <animateMotion
+              path="M 555,212 L 635,212"
+              dur="1.6s"
+              repeatCount="indefinite"
+              begin="0.3s"
+            />
+          </circle>
         </g>
 
         <!-- =========================
@@ -252,6 +309,19 @@ onBeforeUnmount(() => {
             points="445,300 438,312 452,312"
             class="feedback-arrow"
           />
+
+          <circle
+            v-if="visibleCount >= 2"
+            r="5"
+            class="travel-particle loop-particle"
+          >
+            <animateMotion
+              path="M 750,290 L 750,355 L 445,355 L 445,300"
+              dur="2.4s"
+              repeatCount="indefinite"
+              begin="0s"
+            />
+          </circle>
 
           <text
             x="600"
@@ -381,6 +451,14 @@ onBeforeUnmount(() => {
       />
 
       <span
+        v-if="visibleCount >= 2"
+        class="cycle-badge"
+      >
+        <span class="cycle-pulse"></span>
+        Iteration {{ cycleCount }}
+      </span>
+
+      <span
         v-if="visibleCount < totalItems"
         class="hint"
       >
@@ -441,9 +519,28 @@ onBeforeUnmount(() => {
 .step-group.visible,
 .model-group.visible,
 .arrow-group.visible,
-.feedback-group.visible,
+.feedback-group.visible {
+  opacity: 1;
+}
+
 .termination-group.visible {
   opacity: 1;
+  animation: popIn 0.5s ease;
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(6px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.015) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* =========================
@@ -460,6 +557,19 @@ onBeforeUnmount(() => {
   fill: rgba(42, 157, 143, 0.07);
   stroke: #2a9d8f;
   stroke-width: 2;
+}
+
+.step-group.visible .output-box {
+  animation: breatheGlow 2.4s ease-in-out infinite;
+}
+
+@keyframes breatheGlow {
+  0%, 100% {
+    fill-opacity: 0.07;
+  }
+  50% {
+    fill-opacity: 0.16;
+  }
 }
 
 .node-title {
@@ -517,6 +627,21 @@ onBeforeUnmount(() => {
   stroke-width: 2;
 }
 
+.model-group.visible .model-box {
+  animation: pulseGlow 2.4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    stroke-width: 2;
+    stroke-opacity: 1;
+  }
+  50% {
+    stroke-width: 3;
+    stroke-opacity: 0.65;
+  }
+}
+
 .model-title {
   fill: #173f5f;
   font-family: Inter, 'Segoe UI', sans-serif;
@@ -534,6 +659,21 @@ onBeforeUnmount(() => {
 
 .mini-node {
   stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.model-group.visible .mini-node {
+  animation: nodePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes nodePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.18);
+  }
 }
 
 .input-node {
@@ -576,6 +716,15 @@ onBeforeUnmount(() => {
   text-anchor: middle;
 }
 
+.travel-particle {
+  fill: #20639b;
+}
+
+.forward-particle {
+  fill: #20639b;
+  filter: drop-shadow(0 0 2px rgba(32, 99, 155, 0.5));
+}
+
 /* =========================
    FEEDBACK LOOP
 ========================= */
@@ -584,11 +733,26 @@ onBeforeUnmount(() => {
   fill: none;
   stroke: #2a9d8f;
   stroke-width: 2.5;
-  stroke-dasharray: 7 5;
+  stroke-dasharray: 9 6;
+}
+
+.feedback-group.visible .feedback-line {
+  animation: flowDash 1s linear infinite;
+}
+
+@keyframes flowDash {
+  to {
+    stroke-dashoffset: -30;
+  }
 }
 
 .feedback-arrow {
   fill: #2a9d8f;
+}
+
+.loop-particle {
+  fill: #2a9d8f;
+  filter: drop-shadow(0 0 3px rgba(42, 157, 143, 0.65));
 }
 
 .feedback-label {
@@ -604,6 +768,19 @@ onBeforeUnmount(() => {
   fill: rgba(42, 157, 143, 0.06);
   stroke: #b7dcd6;
   stroke-width: 1.5;
+}
+
+.feedback-group.visible .feedback-note {
+  animation: notePulse 2.4s ease-in-out infinite;
+}
+
+@keyframes notePulse {
+  0%, 100% {
+    stroke: #b7dcd6;
+  }
+  50% {
+    stroke: #2a9d8f;
+  }
 }
 
 .note-title {
@@ -641,6 +818,19 @@ onBeforeUnmount(() => {
 
 .termination-dot {
   fill: #e9c46a;
+}
+
+.termination-group.visible .termination-dot {
+  animation: dotBlink 1.6s ease-in-out infinite;
+}
+
+@keyframes dotBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }
 
 .termination-text {
@@ -702,6 +892,51 @@ onBeforeUnmount(() => {
 }
 
 /* =========================
+   CYCLE BADGE
+========================= */
+
+.cycle-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-left: 12px;
+  padding: 3px 10px;
+
+  border-radius: 999px;
+  background: rgba(42, 157, 143, 0.09);
+  border: 1px solid rgba(42, 157, 143, 0.35);
+
+  color: #2a9d8f;
+
+  font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.cycle-pulse {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+  background: #2a9d8f;
+
+  animation: cyclePulse 1.2s ease-in-out infinite;
+}
+
+@keyframes cyclePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.45;
+  }
+}
+
+/* =========================
    REDUCED MOTION
 ========================= */
 
@@ -710,8 +945,20 @@ onBeforeUnmount(() => {
   .model-group,
   .arrow-group,
   .feedback-group,
-  .termination-group {
+  .termination-group,
+  .model-box,
+  .mini-node,
+  .feedback-line,
+  .feedback-note,
+  .termination-dot,
+  .output-box,
+  .cycle-pulse {
+    animation: none !important;
     transition: none;
+  }
+
+  .travel-particle {
+    display: none;
   }
 }
 </style>

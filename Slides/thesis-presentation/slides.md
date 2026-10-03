@@ -9,13 +9,13 @@ layout: thesis-cover
 </template>
 
 <!--
--Good morning, committee members, and good morning, everyone.
+* Good morning, committee members, and good morning, everyone.
 
--My name is Kao, and I am a Ph.D. student from the Complex Systems Computing Lab.
+* My name is Kao, and I am a Ph.D. student from the Complex Systems Computing Lab.
 
--Today, I am going to present my Ph.D. thesis, entitled **“Inferring Gene Regulatory Networks from Time-Series Gene Expression Profiles.”**
+* Today, I am going to present my Ph.D. thesis, entitled **“Inferring Gene Regulatory Networks from Time-Series Gene Expression Data.”**
 
--This work was conducted under the supervision of Professor Yung Keun Kwon.
+* This work was conducted under the supervision of Professor Yung Keun Kwon.
 -->
 ---
 layout: default
@@ -26,23 +26,17 @@ eyebrow: "THESIS OVERVIEW"
 <ThesisOverview />
 
 <!--
-Here is an overview of my thesis.
+* Here is an overview of my thesis.
 
-The overall research flow is **from better inference to better data**.
+* The overall research flow is **from better inference to better data**.
 
-First, I will introduce the **research problem**, answering two fundamental questions: **What is a Gene Regulatory Network, and why do we need time-series gene expression data?**
+* First, I will introduce the **research problem**, answering two fundamental questions: **What is a Gene Regulatory Network, and why do we need time-series gene expression data?**. This part defines the research challenges, identifies the existing gaps, and presents the objectives of this thesis.
 
-This part defines the research challenges, identifies the existing gaps, and presents the objectives of this thesis.
+* Second, I will present a **Mutual Information-based GRN inference method**. In this work, I develop a GRN inference method based on **multiple-level discretization and mutual information**.
 
-Second, I will present a **Mutual Information-based GRN inference method**.
-In this work, I develop a GRN inference method based on **multiple-level discretization and mutual information**.
+* Next, I will introduce a **Scale-Invariant Task Transformation Framework for GRN inference**. This work addresses the question: **“Can informative representations be learned automatically from time-series gene expression data?”**
 
-Next, I will introduce a **Scale-Invariant Task Transformation Framework for GRN inference**.
-This work addresses the question: **“Can informative representations be learned automatically from time-series gene expression data?”**
-
-Finally, I address the question: **“How can we improve GRN inference performance when only limited time-series gene expression data are available?”**
-
-To address this challenge, we use an **autoencoder to generate synthetic gene expression profiles**, and then validate the generated data through GRN inference methods.
+* Finally, I address the question: **“How can we improve GRN inference performance when only limited time-series gene expression data are available?”**
 -->
 
 ---
@@ -53,13 +47,11 @@ eyebrow: GENE REGULATORY NETWORK
 
 <GRNs />
 <!---
--Now, let me clarify what a **Gene Regulatory Network**, or GRN, is.  
--A GRN describes the regulatory relationships among genes and how these relationships influence gene expression.  
--On this slide, you can see an example of a GRN.  
--Each **node represents a gene**. A gene can act as a **regulator**, influencing other genes, or as a **target gene**, whose expression is regulated.   
--The **directed edge represents a regulatory influence** from one gene to another.  
--There are two main types of regulatory influence. An **enhancing or activating interaction** increases the expression of the target gene, while an **inhibitory interaction** decreases its expression.  
--So, briefly, a **GRN is a set of genes connected by directed regulatory relationships**.
+* Now, let me clarify what a **Gene Regulatory Network**, or GRN, is.  
+* A GRN describes the regulatory relationships among genes and how these relationships influence gene expression. On this slide, you can see an example of a GRN.  
+* Each **node represents a gene**. A gene can act as a **regulator**, influencing other genes, or as a **target gene**, whose expression is regulated.   
+* The **directed edge represents a regulatory influence** from one gene to another.  
+* There are two main types of regulatory influence. An **enhancing or activating interaction** increases the expression of the target gene, while an **inhibitory interaction** decreases its expression. So, briefly, a **GRN is a set of genes connected by directed regulatory relationships**.
 -->
 ---
 layout: default
@@ -70,15 +62,15 @@ eyebrow: RESEARCH PROBLEM
 <InferenceProblem />
 <!--
 So, what are we actually trying to infer?  
-To answer this question, let us first look at what happens in the biological world.  
-Inside a cell, regulatory mechanisms and regulatory processes are continuously taking place. However, we cannot directly observe these processes.  
-Instead, we assume that there is a **hidden regulatory network** that describes **who regulates whom**.  
-Through these regulatory interactions, the activity of regulatory genes influences the expression of their target genes. As a result, gene expression levels change over time.  
-Importantly, **these changes in gene expression are something that we can observe and measure**.    
-Therefore, in an experiment, what we actually obtain are **gene expression profiles** — measurements of gene expression collected across multiple time points.  
-However, what we really want to know is not just the expression levels themselves. We want to uncover the **underlying regulatory relationships among genes** that generate these observed expression dynamics.   
-Therefore, by applying computational techniques and GRN inference methods, we try to reconstruct the **hidden regulatory network from the observed time-series gene expression profiles**.  
-In other words, **we observe gene expression, but we want to infer the regulatory relationships behind it**.  
+* To answer this question, let us first look at what happens in the biological world.  
+* Inside a cell, regulatory mechanisms and regulatory processes are continuously taking place. However, we cannot directly observe these processes.  
+* Instead, we assume that there is a **hidden regulatory network** that describes **who regulates whom**.  
+* Through these regulatory interactions, the activity of regulatory genes influences the expression of their target genes. As a result, gene expression levels change over time.  
+* Importantly, **these changes in gene expression are something that we can observe and measure**.    
+* Therefore, in an experiment, what we actually obtain are **gene expression profiles** — measurements of gene expression collected across multiple time points.  
+* However, what we really want to know is not just the expression levels themselves. We want to uncover the **underlying regulatory relationships among genes** that generate these observed expression dynamics.   
+* Therefore, by applying computational techniques and GRN inference methods, we try to reconstruct the **hidden regulatory network from the observed time-series gene expression profiles**.  
+* In other words, **we observe gene expression, but we want to infer the regulatory relationships behind it**.  
 -->
 ---
 layout: default
@@ -89,13 +81,13 @@ eyebrow: WHY DOES IT MATTER?
 <RegulatoryGenes />
 <!--
 So, why do regulatory genes matter?  
-Identifying regulatory genes and their target genes can help us better understand how biological systems are controlled.  
-First, it helps us understand **how genes regulate other genes**, and therefore reveals the regulatory relationships within the cell.  
-Second, it helps us understand **how cellular processes are coordinated** by connecting gene regulation to downstream biological responses.  
-Furthermore, regulatory networks can help us understand **how cells respond to changes in different biological or external conditions**, such as temperature, pressure, or other environmental stimuli.  
-More importantly, by identifying regulatory genes and their targets, we can also identify **key control points within the regulatory network**.  
-Ultimately, understanding these regulatory mechanisms can provide valuable insights into **disease mechanisms** and may help identify **potential therapeutic targets**.  
-Therefore, identifying regulatory relationships is important not only for understanding basic biological processes, but also for understanding how cells respond and adapt to different conditions.  
+* Identifying regulatory genes and their target genes can help us better understand how biological systems are controlled.  
+* First, it helps us understand **how genes regulate other genes**, and therefore reveals the regulatory relationships within the cell.  
+* Second, it helps us understand **how cellular processes are coordinated** by connecting gene regulation to downstream biological responses.  
+* Furthermore, regulatory networks can help us understand **how cells respond to changes in different biological or external conditions**, such as temperature, pressure, or other environmental stimuli.  
+* More importantly, by identifying regulatory genes and their targets, we can also identify **key control points within the regulatory network**.  
+* Ultimately, understanding these regulatory mechanisms can provide valuable insights into **disease mechanisms** and may help identify **potential therapeutic targets**.  
+* Therefore, identifying regulatory relationships is important not only for understanding basic biological processes, but also for understanding how cells respond and adapt to different conditions.  
 -->
 ---
 layout: default

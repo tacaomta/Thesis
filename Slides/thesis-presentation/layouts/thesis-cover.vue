@@ -251,7 +251,7 @@
   height: 58px;
 
   margin-left: auto;
-  margin-right: 4px;
+  margin-right: -130px;
 }
 
 .seal-svg {

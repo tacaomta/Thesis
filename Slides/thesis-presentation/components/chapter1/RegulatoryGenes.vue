@@ -3,37 +3,40 @@
     <main class="slide-content">
         <section class="main-grid">
             <div class="explanation">
-                <div class="section-label">UNDERSTANDING REGULATION</div>
-                <p class="intro">
-                    Identifying regulatory genes and their targets can help us understand:
-                </p>
                 <ul class="reason-list">
                     <li>
                         <span class="reason-icon">01</span>
                         <div>
-                            <strong>How genes control other genes</strong>
-                            <span>Reveal regulatory relationships within the cell.</span>
+                            <strong>How genes regulate other genes</strong>
+                            <span>Reveals the regulatory relationships within the cell.</span>
                         </div>
                     </li>
                     <li>
                         <span class="reason-icon">02</span>
                         <div>
                             <strong>How cellular processes are coordinated</strong>
-                            <span>Connect gene regulation to downstream responses.</span>
+                            <span>Connects gene regulation to downstream biological responses.</span>
                         </div>
                     </li>
                     <li>
                         <span class="reason-icon">03</span>
                         <div>
-                            <strong>How cells respond to changes</strong>
-                            <span>Trace regulatory responses across biological conditions.</span>
+                            <strong>How cells respond to changing conditions</strong>
+                            <span>E.g., temperature, pressure, or other environmental stimuli.</span>
                         </div>
                     </li>
                     <li>
                         <span class="reason-icon">04</span>
                         <div>
-                            <strong>Which genes are key control points</strong>
-                            <span>Identify regulators with broad downstream influence.</span>
+                            <strong>Key control points in the network</strong>
+                            <span>Identifies regulators with broad downstream influence.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="reason-icon">05</span>
+                        <div>
+                            <strong>Disease mechanisms &amp; therapeutic targets</strong>
+                            <span>Offers insights that may guide potential treatments.</span>
                         </div>
                     </li>
                 </ul>
@@ -90,8 +93,9 @@
         <section class="takeaway">
             <span class="takeaway-mark"></span>
             <p>
-                Regulatory genes act as <strong>control points</strong> that influence
-                the expression of other genes.
+                Ultimately, understanding these regulatory mechanisms can reveal
+                <strong>disease mechanisms</strong> and point toward
+                <strong>potential therapeutic targets</strong>.
             </p>
         </section>
     </main>
@@ -129,30 +133,39 @@
 }
 
 .explanation {
-    padding: 30px 42px 0 4px;
+    padding: 26px 42px 0 4px;
 }
 
 .section-label {
-    margin-bottom: 12px;
+    margin-bottom: 9px;
     color: #64748b;
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.14em;
 }
 
+.intro-question {
+    margin: 0 0 6px;
+    color: #20639b;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+    font-style: italic;
+}
+
 .intro {
     max-width: 430px;
-    margin: 0 0 22px;
+    margin: 0 0 16px;
     color: #24313a;
-    font-size: 17px;
-    line-height: 1.45;
+    font-size: 15.5px;
+    line-height: 1.42;
     font-weight: 500;
 }
 
 .reason-list {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 11px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -160,7 +173,7 @@
 
 .reason-list li {
     display: grid;
-    grid-template-columns: 31px 1fr;
+    grid-template-columns: 29px 1fr;
     column-gap: 11px;
     align-items: start;
 }
@@ -169,8 +182,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border: 1px solid #cbd9e1;
     border-radius: 7px;
     background: #ffffff;
@@ -180,18 +193,24 @@
     font-weight: 700;
 }
 
+.reason-list li:last-child .reason-icon {
+    border-color: #e9c46a;
+    color: #b5860c;
+    background: #fdf8ec;
+}
+
 .reason-list strong {
     display: block;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
     color: #24313a;
-    font-size: 13px;
+    font-size: 12.5px;
     line-height: 1.25;
 }
 
 .reason-list li span:not(.reason-icon) {
     display: block;
     color: #64748b;
-    font-size: 10.5px;
+    font-size: 10px;
     line-height: 1.35;
 }
 
@@ -207,7 +226,7 @@
 .visual-caption {
     position: absolute;
     top: 50px;
-    right: 180px;
+    right: 220px;
     color: #94a3b8;
     font-size: 9px;
     font-weight: 700;

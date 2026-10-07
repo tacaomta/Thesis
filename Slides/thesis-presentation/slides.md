@@ -32,12 +32,19 @@ eyebrow: "THESIS OVERVIEW"
 
 * First, I will introduce the **research problem**, answering two fundamental questions: **What is a Gene Regulatory Network, and why do we need time-series gene expression data?**. This part defines the research challenges, identifies the existing gaps, and presents the objectives of this thesis.
 
-* Second, I will present a **Mutual Information-based GRN inference method**. In this work, I develop a GRN inference method based on **multiple-level discretization and mutual information**.
+* Second, I will present a GRN inference method based on **multiple-level discretization and mutual information**.
 
 * Next, I will introduce a **Scale-Invariant Task Transformation Framework for GRN inference**. This work addresses the question: **“Can informative representations be learned automatically from time-series gene expression data?”**
 
 * Finally, I address the question: **“How can we improve GRN inference performance when only limited time-series gene expression data are available?”**
 -->
+---
+layout: default
+title: From Biology to Computational Inference?
+eyebrow: RESEARCH FOUNDATION
+---
+
+<Background />
 
 ---
 layout: default
@@ -87,7 +94,6 @@ So, why do regulatory genes matter?
 * Furthermore, regulatory networks can help us understand **how cells respond to changes in different biological or external conditions**, such as temperature, pressure, or other environmental stimuli.  
 * More importantly, by identifying regulatory genes and their targets, we can also identify **key control points within the regulatory network**.  
 * Ultimately, understanding these regulatory mechanisms can provide valuable insights into **disease mechanisms** and may help identify **potential therapeutic targets**.  
-* Therefore, identifying regulatory relationships is important not only for understanding basic biological processes, but also for understanding how cells respond and adapt to different conditions.  
 -->
 ---
 layout: default
@@ -124,8 +130,7 @@ In real-world biological systems, we may need to infer regulatory relationships 
 **Second, limited observations.** Although we may have thousands of genes, the number of available time points is often relatively small. In other words, we have a **high-dimensional problem with limited observations**.  
 **Third, noise and biological variability.**Gene expression measurements can contain experimental noise and biological variation. These factors can make it more difficult to distinguish true regulatory signals from random variations, and therefore can reduce the accuracy of GRN inference.   
 **Fourth, complex regulatory dependencies.**Gene regulatory systems can involve **nonlinear relationships, self-regulation, feedback loops, and other complex dependencies**. Capturing these relationships from gene expression data is challenging.  
-**Finally, the problem is inherently ambiguous.**Different network structures may produce **similar or even indistinguishable expression patterns** under the observed conditions. Therefore, recovering the underlying regulatory network from expression data is a challenging inference problem.   
-Together, these challenges make GRN inference difficult, especially when we have **many genes but only limited and noisy time-series observations**.
+**Finally, the problem is inherently ambiguous.**Different network structures may produce **similar or even indistinguishable expression patterns** under the observed conditions. 
 -->
 ---
 layout: default
@@ -252,7 +257,7 @@ Finally, **Structural Accuracy** measures the overall agreement between the infe
 -->
 ---
 layout: default
-title: What is the experimental framwork?
+title: What is the experimental framework?
 eyebrow: METHODOLOGY
 ---
 

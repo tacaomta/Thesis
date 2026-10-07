@@ -129,9 +129,9 @@
 
           <div class="expression-values boolean-values">
             <span>0</span>
+            <span>1</span>
             <span>0</span>
-            <span>1</span>
-            <span>1</span>
+            <span>0</span>
             <span>1</span>
           </div>
         </div>

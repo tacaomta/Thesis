@@ -30,7 +30,7 @@ eyebrow: "THESIS OVERVIEW"
 
 * The overall research flow is **from better inference to better data**.
 
-* First, I will introduce the **research problem**, answering two fundamental questions: **What is a Gene Regulatory Network, and why do we need time-series gene expression data?**. This part defines the research challenges, identifies the existing gaps, and presents the objectives of this thesis.
+* First, I will introduce the **research problem**, answering two fundamental questions: **What is a Gene Regulatory Network, and why do we need time-series gene expression data?**. This part defines the research challenges, identifies the existing gaps, and presents the objectives of the thesis.
 
 * Second, I will present a GRN inference method based on **multiple-level discretization and mutual information**.
 
@@ -74,9 +74,9 @@ So, what are we actually trying to infer?
 * Instead, we assume that there is a **hidden regulatory network** that describes **who regulates whom**.  
 * Through these regulatory interactions, the activity of regulatory genes influences the expression of their target genes. As a result, gene expression levels change over time.  
 * Importantly, **these changes in gene expression are something that we can observe and measure**.    
-* Therefore, in an experiment, what we actually obtain are **gene expression profiles** — measurements of gene expression collected across multiple time points.  
-* However, what we really want to know is not just the expression levels themselves. We want to uncover the **underlying regulatory relationships among genes** that generate these observed expression dynamics.   
-* Therefore, by applying computational techniques and GRN inference methods, we try to reconstruct the **hidden regulatory network from the observed time-series gene expression profiles**.  
+* Therefore, in experiments, what we actually obtain are **gene expression profiles** — measurements of gene expression collected across multiple time points.  
+* However, what we really want to know is not just the expression levels themselves. We want to uncover the **underlying regulatory relationships among genes**
+* By applying computational techniques and GRN inference methods, we try to reconstruct the **hidden regulatory network from the observed time-series gene expression profiles**.  
 * In other words, **we observe gene expression, but we want to infer the regulatory relationships behind it**.  
 -->
 ---
@@ -104,16 +104,13 @@ eyebrow: EXPERIMENTAL DATA
 <ObservedData />
 <!--
 So, what data do we actually observe?  
-In experiments, we measure **gene expression levels over time**. These time-series gene expression data can be represented as a two-dimensional matrix.  
-In this matrix, the **columns correspond to genes**, represented by their gene names or gene indices, while the **rows correspond to different time points**.  
-Therefore, each cell contains the **expression value of a specific gene at a specific time point**.  
-In general, there are two common ways to measure gene expression: **steady-state measurements and time-series measurements**.  
+* In experiments, we measure **gene expression levels over time**. These time-series gene expression data can be represented as a two-dimensional matrix.  
+* In this matrix, the **columns correspond to genes**, represented by their gene names or gene indices, while the **rows correspond to different time points**. Each cell contains the **expression value of a specific gene at a specific time point**.  
+* In general, there are two common ways to measure gene expression: **steady-state measurements and time-series measurements**.  
 So, why do we use time-series data?  
-Unlike steady-state measurements, which capture gene expression at a particular condition or time point, **time-series data capture the temporal dynamics of gene expression**.  
-For example, we can observe whether the expression of a gene **increases, decreases, or remains relatively stable over time**.  
-Moreover, instead of observing only a single static state, time-series data provide **multiple observations that form a trajectory**, giving us more information about how gene expression changes over time.  
-More importantly, these temporal patterns can provide **clues about regulatory dependencies between genes**. For example, changes in one gene may precede or be associated with changes in another gene, providing information that can be useful for reconstructing regulatory relationships.  
-Therefore, time-series gene expression data provide not only information about **what the expression level is**, but also about **how it changes over time**.   
+* Unlike steady-state measurements, which capture gene expression at a particular condition or time point, **time-series data capture the temporal dynamics of gene expression**.  
+* Moreover, time-series data provide **multiple observations that form a trajectory**, giving us more information about how gene expression changes over time.  
+* More importantly, these temporal patterns can provide **clues about regulatory dependencies between genes**. For example, changes in one gene may precede or be associated with changes in another gene, providing information that can be useful for reconstructing regulatory relationships. 
 -->
 ---
 layout: default
@@ -125,11 +122,10 @@ eyebrow: CHALLENGES
 <!--
 So, what are the main challenges in inferring a Gene Regulatory Network?
 There are several important challenges.  
-**First, high dimensionality.**  
-In real-world biological systems, we may need to infer regulatory relationships among **thousands of genes**. As the number of genes increases, the number of possible regulatory relationships grows dramatically.  
-**Second, limited observations.** Although we may have thousands of genes, the number of available time points is often relatively small. In other words, we have a **high-dimensional problem with limited observations**.  
-**Third, noise and biological variability.**Gene expression measurements can contain experimental noise and biological variation. These factors can make it more difficult to distinguish true regulatory signals from random variations, and therefore can reduce the accuracy of GRN inference.   
-**Fourth, complex regulatory dependencies.**Gene regulatory systems can involve **nonlinear relationships, self-regulation, feedback loops, and other complex dependencies**. Capturing these relationships from gene expression data is challenging.  
+* **First, high dimensionality.** In real-world biological systems, we may need to infer regulatory relationships among **thousands of genes**. As the number of genes increases, the number of possible regulatory relationships grows dramatically.  
+* **Second, limited observations.** Although we may have thousands of genes, the number of available time points is often relatively small. In other words, we have a **high-dimensional problem with limited observations**.  
+* **Third, noise and biological variability.** Gene expression measurements can contain experimental noise and biological variation. These factors can make it more difficult to distinguish true regulatory signals from random variations, and therefore can reduce the accuracy of GRN inference.   
+* **Fourth, complex regulatory dependencies.** Gene regulatory systems can involve **nonlinear relationships, self-regulation, feedback loops, and other complex dependencies**. Capturing these relationships from gene expression data is challenging.  
 **Finally, the problem is inherently ambiguous.**Different network structures may produce **similar or even indistinguishable expression patterns** under the observed conditions. 
 -->
 ---
@@ -142,23 +138,10 @@ eyebrow: INFERENCE METHODS
 <!--
 So, what are the common approaches for GRN inference?
 There are several major categories of approaches, and each one has its own strengths and limitations.  
-**First, correlation-based methods.**  
-These methods measure the statistical correlation between pairs of genes. Common examples include **Pearson correlation** and **Spearman rank correlation**.  
-Their main advantage is that they are **simple, computationally efficient, and relatively easy to interpret**.  
-However, their main limitation is that they primarily capture **pairwise statistical associations**, and therefore may not capture more complex or nonlinear dependencies between genes.  
-**Second, information-theoretic methods.**  
-Methods such as **ARACNE** and **MIBNI** use information-theoretic measures, particularly **mutual information**, to capture statistical dependencies between genes.  
-The main advantage is that mutual information can capture **nonlinear statistical dependencies**, beyond what simple correlation can capture.  
-However, these methods can be sensitive to **how the dependency is estimated and how thresholds or other parameters are selected**. In addition, many MI-based approaches have computational challenges as the network size increases.  
-**Third, regression and machine learning-based methods.**  
-Examples include **GENIE3** and **TIGRESS**.  
-These approaches formulate GRN inference as a prediction or feature-selection problem and can model **multivariate relationships** and potentially more complex dependencies.  
-However, they can require **model selection and parameter tuning**, and their computational cost can become significant for large networks.  
-**Finally, dynamic or time-series models.**  
-Examples include **Dynamic Bayesian Networks**, or DBNs, and **ODE-based models**.  
-These methods explicitly model **temporal dependencies and gene expression dynamics**, making them particularly relevant to time-series data.  
-However, they often require **sufficient time points** and may rely on relatively strong assumptions about the underlying biological dynamics. They can also become   computationally challenging as the network size increases.  
-So, overall, different approaches make different trade-offs between **simplicity, the type of dependency they can capture, computational cost, and the amount of temporal information they require**.  
+**- First, correlation-based methods.**  These methods measure the statistical correlation between pairs of genes. They are **simple, computationally efficient, and relatively easy to interpret**. But, their main limitation is that they primarily capture **pairwise statistical associations**, and therefore may not capture more complex or nonlinear dependencies between genes.  
+**- Second, information-theoretic methods.**  These methods use information-theoretic measures, particularly **mutual information**, to capture statistical dependencies between genes. The main advantage is that mutual information can capture **nonlinear statistical dependencies**. However, these methods can be sensitive to **how the dependency is estimated and how thresholds or other parameters are selected**. In addition, many MI-based approaches have computational challenges as the network size increases.  
+**- Third, regression and machine learning-based methods.** These approaches formulate GRN inference as a prediction or feature-selection problem and can model **multivariate relationships** and potentially more complex dependencies, but, they can require **model selection and parameter tuning**, and too computational.  
+**- Finally, dynamic or time-series models.** These methods explicitly model **temporal dependencies and gene expression dynamics**, making them particularly relevant to time-series data. However, they often require **sufficient time points** and may rely on relatively strong assumptions about the underlying biological dynamics.
 -->
 ---
 layout: default
@@ -169,12 +152,9 @@ eyebrow: RESEARCH GAPS
 <ResearchGaps />
 <!--
 So, what have we done to improve?  
-**First**, many existing inference methods represent gene regulation using binary states, which may oversimplify the expression dynamics observed in time-series data.  
-**To address this**, we developed a mixed binary-ternary discretization strategy that preserves more regulatory state information.  
-**Second**, the availability of large expression datasets is not always matched by representations that allow machine-learning models to effectively exploit the available information.  
-**To address this gap**, we developed a scale-invariant task transformation framework that transforms expression profiles into features suitable for GRN inference.  
-**Finally**, time-series gene expression datasets often contain only a limited number of observations, making it difficult to learn reliable regulatory relationships.  
-**To address this limitation**, we developed a data-generation approach that synthesizes additional time-series expression data to improve inference performance.  
+**First**, I developed a mixed binary-ternary discretization strategy that preserves more regulatory state information.  
+**Second**, I developed a scale-invariant task transformation framework that transforms expression profiles into features suitable for GRN inference.  
+**Finally**, I developed a data-generation approach that synthesizes additional time-series expression data to improve inference performance.  
 -->
 ---
 layout: default

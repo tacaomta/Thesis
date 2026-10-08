@@ -115,10 +115,10 @@
       <circle cx="480" cy="110" r="11" class="node node-focus node-teal" />
       <circle cx="540" cy="220" r="9"  class="node node-focus node-teal" />
       <circle cx="460" cy="260" r="12" class="node node-focus node-teal" />
-      <circle cx="230" cy="220" r="10" class="node node-focus node-teal" />
+      <circle cx="230" cy="220" r="10" class="node" />
       <circle cx="130" cy="260" r="12" class="node node-focus node-teal" />
       <circle cx="90"  cy="370" r="9"  class="node" />
-      <circle cx="300" cy="340" r="10" class="node node-focus node-teal" />
+      <circle cx="300" cy="340" r="10" class="node" />
       <circle cx="400" cy="380" r="9"  class="node node-focus node-teal" />
       <circle cx="500" cy="400" r="12" class="node node-focus node-teal" />
       <circle cx="540" cy="490" r="9"  class="node node-focus node-teal" />

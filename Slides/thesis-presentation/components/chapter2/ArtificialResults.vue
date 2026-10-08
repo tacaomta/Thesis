@@ -26,12 +26,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import * as echarts from 'echarts'
 
 const chartRef = ref(null)
 
 let chart = null
+let resizeObserver = null
 
 const networkSize = [
   10, 20, 30, 40, 50,
@@ -71,377 +72,392 @@ const structuralAccuracy = [
 const toNormalized = values =>
   values.map(value => value / 100)
 
-function createChart() {
-  if (!chartRef.value) return
+function buildOption() {
+  return {
+    animation: true,
+    animationDuration: 900,
+    animationEasing: 'cubicOut',
 
- // chart = echarts.init(chartRef.value)
-   const chart = echarts.init(chartRef.value, null, {
-  renderer: 'svg'
-})
-
-const option = {
-  animation: true,
-  animationDuration: 900,
-  animationEasing: 'cubicOut',
-
-  grid: {
-    left: 75,
-    right: 30,
-    top: 58,
-    bottom: 62,
-    containLabel: true
-  },
-
-  tooltip: {
-    trigger: 'axis',
-
-    axisPointer: {
-      type: 'line',
-      lineStyle: {
-        color: '#94A3B8',
-        width: 1,
-        type: 'dashed'
-      }
+    grid: {
+      left: 75,
+      right: 30,
+      top: 58,
+      bottom: 62,
+      containLabel: true
     },
 
-    backgroundColor: 'rgba(255, 255, 255, 0.97)',
-    borderColor: '#DCE4E9',
-    borderWidth: 1,
+    tooltip: {
+      trigger: 'axis',
 
-    textStyle: {
-      color: '#24313A',
-      fontSize: 12
-    },
+      axisPointer: {
+        type: 'line',
+        lineStyle: {
+          color: '#94A3B8',
+          width: 1,
+          type: 'dashed'
+        }
+      },
 
-    padding: [10, 14],
+      backgroundColor: 'rgba(255, 255, 255, 0.97)',
+      borderColor: '#DCE4E9',
+      borderWidth: 1,
 
-    formatter(params) {
-      if (!params || !params.length) return ''
+      textStyle: {
+        color: '#24313A',
+        fontSize: 12
+      },
 
-      const network = params[0].axisValue
+      padding: [10, 14],
 
-      let html = `
-        <div style="font-weight:600;margin-bottom:7px;">
-          Network size: ${network} genes
-        </div>
-      `
+      formatter(params) {
+        if (!params || !params.length) return ''
 
-      params.forEach(item => {
-        const value = Number(item.value)
+        const network = params[0].axisValue
 
-        html += `
-          <div style="
-            display:flex;
-            align-items:center;
-            gap:7px;
-            margin:4px 0;
-          ">
-            <span style="
-              display:inline-block;
-              width:8px;
-              height:8px;
-              border-radius:2px;
-              background:${item.color};
-            "></span>
-
-            <span style="flex:1;">
-              ${item.seriesName}
-            </span>
-
-            <strong style="margin-left:14px;">
-              ${(value).toFixed(0)}
-            </strong>
+        let html = `
+          <div style="font-weight:600;margin-bottom:7px;">
+            Network size: ${network} genes
           </div>
         `
-      })
 
-      return html
-    }
-  },
+        params.forEach(item => {
+          const value = Number(item.value)
 
-  legend: {
-    top: 8,
-    left: 'center',
+          html += `
+            <div style="
+              display:flex;
+              align-items:center;
+              gap:7px;
+              margin:4px 0;
+            ">
+              <span style="
+                display:inline-block;
+                width:8px;
+                height:8px;
+                border-radius:2px;
+                background:${item.color};
+              "></span>
 
-    itemWidth: 20,
-    itemHeight: 3,
-    itemGap: 24,
+              <span style="flex:1;">
+                ${item.seriesName}
+              </span>
 
-    textStyle: {
-      color: '#475569',
-      fontSize: 12,
-      fontWeight: 500
-    },
+              <strong style="margin-left:14px;">
+                ${(value).toFixed(2)}
+              </strong>
+            </div>
+          `
+        })
 
-    selectedMode: true
-  },
-
-  xAxis: {
-    type: 'category',
-    boundaryGap: false,
-
-    data: networkSize,
-
-    name: 'Network size (genes)',
-    nameLocation: 'middle',
-    nameGap: 38,
-
-    nameTextStyle: {
-      color: '#64748B',
-      fontSize: 11
-    },
-
-    axisLine: {
-      show: true,
-      lineStyle: {
-        color: '#94A3B8',
-        width: 1
+        return html
       }
     },
 
-    axisTick: {
-      show: true,
-      alignWithLabel: true,
-      length: 6,
-      lineStyle: {
-        color: '#94A3B8',
-        width: 1
-      }
-    },
+    legend: {
+      top: 8,
+      left: 'center',
 
-    axisLabel: {
-      show: true,
-      color: '#64748B',
-      fontSize: 10,
+      itemWidth: 20,
+      itemHeight: 3,
+      itemGap: 24,
 
-      // Show EVERY value: 10, 20, ..., 200
-      interval: 0,
-
-      margin: 10,
-
-      formatter(value) {
-        return value
-      }
-    },
-
-    splitLine: {
-      show: false
-    }
-  },
-
-  yAxis: {
-    type: 'value',
-
-    // Updated Y-axis range
-    min: 0.4,
-    max: 1.0,
-    interval: 0.1,
-
-    name: 'Performance metrics',
-    nameLocation: 'middle',
-    nameGap: 48,
-
-    nameTextStyle: {
-      color: '#64748B',
-      fontSize: 11,
-      fontWeight: 500
-    },
-
-    axisLine: {
-      show: true,
-      lineStyle: {
-        color: '#94A3B8',
-        width: 1
-      }
-    },
-
-    axisTick: {
-      show: true,
-      length: 6,
-      lineStyle: {
-        color: '#94A3B8',
-        width: 1
-      }
-    },
-
-    axisLabel: {
-      show: true,
-      color: '#64748B',
-      fontSize: 10,
-
-      formatter(value) {
-        return value.toFixed(1)
-      }
-    },
-
-    splitLine: {
-      show: true,
-
-      lineStyle: {
-        color: '#E8EDF1',
-        width: 1,
-        type: 'solid'
-      }
-    }
-  },
-
-  series: [
-    {
-      name: 'Precision',
-      type: 'line',
-
-      data: toNormalized(precision),
-
-      smooth: false,
-
-      // Circle marker
-      symbol: 'circle',
-      symbolSize: 7,
-      showSymbol: true,
-
-      lineStyle: {
-        width: 2.5,
-        color: '#E76F51'
+      textStyle: {
+        color: '#475569',
+        fontSize: 12,
+        fontWeight: 500
       },
 
-      itemStyle: {
-        color: '#E76F51'
+      selectedMode: true
+    },
+
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+
+      data: networkSize,
+
+      name: 'Network size (genes)',
+      nameLocation: 'middle',
+      nameGap: 38,
+
+      nameTextStyle: {
+        color: '#64748B',
+        fontSize: 11
       },
 
-      emphasis: {
-        focus: 'series',
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#94A3B8',
+          width: 1
+        }
+      },
+
+      axisTick: {
+        show: true,
+        alignWithLabel: true,
+        length: 6,
+        lineStyle: {
+          color: '#94A3B8',
+          width: 1
+        }
+      },
+
+      axisLabel: {
+        show: true,
+        color: '#64748B',
+        fontSize: 10,
+        interval: 0,
+        margin: 10,
+
+        formatter(value) {
+          return value
+        }
+      },
+
+      splitLine: {
+        show: false
+      }
+    },
+
+    yAxis: {
+      type: 'value',
+
+      min: 0.4,
+      max: 1.0,
+      interval: 0.1,
+
+      name: 'Performance metrics',
+      nameLocation: 'middle',
+      nameGap: 48,
+
+      nameTextStyle: {
+        color: '#64748B',
+        fontSize: 11,
+        fontWeight: 500
+      },
+
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#94A3B8',
+          width: 1
+        }
+      },
+
+      axisTick: {
+        show: true,
+        length: 6,
+        lineStyle: {
+          color: '#94A3B8',
+          width: 1
+        }
+      },
+
+      axisLabel: {
+        show: true,
+        color: '#64748B',
+        fontSize: 10,
+
+        formatter(value) {
+          return value.toFixed(1)
+        }
+      },
+
+      splitLine: {
+        show: true,
 
         lineStyle: {
-          width: 4
-        },
-
-        symbolSize: 10
+          color: '#E8EDF1',
+          width: 1,
+          type: 'solid'
+        }
       }
     },
 
-    {
-      name: 'Recall',
-      type: 'line',
+    series: [
+      {
+        name: 'Precision',
+        type: 'line',
 
-      data: toNormalized(recall),
+        data: toNormalized(precision),
 
-      smooth: false,
+        smooth: false,
 
-      // Diamond marker
-      symbol: 'diamond',
-      symbolSize: 8,
-      showSymbol: true,
-
-      lineStyle: {
-        width: 2.5,
-        color: '#2A9D8F'
-      },
-
-      itemStyle: {
-        color: '#2A9D8F'
-      },
-
-      emphasis: {
-        focus: 'series',
+        symbol: 'circle',
+        symbolSize: 7,
+        showSymbol: true,
 
         lineStyle: {
-          width: 4
+          width: 2.5,
+          color: '#E76F51'
         },
 
-        symbolSize: 11
-      }
-    },
+        itemStyle: {
+          color: '#E76F51'
+        },
 
-    {
-      name: 'Dynamic Accuracy',
-      type: 'line',
+        emphasis: {
+          focus: 'series',
 
-      data: toNormalized(dynamicAccuracy),
+          lineStyle: {
+            width: 4
+          },
 
-      smooth: false,
-
-      // Triangle marker
-      symbol: 'triangle',
-      symbolSize: 9,
-      showSymbol: true,
-
-      lineStyle: {
-        width: 2.5,
-        color: '#20639B'
+          symbolSize: 10
+        }
       },
 
-      itemStyle: {
-        color: '#20639B'
-      },
+      {
+        name: 'Recall',
+        type: 'line',
 
-      emphasis: {
-        focus: 'series',
+        data: toNormalized(recall),
+
+        smooth: false,
+
+        symbol: 'diamond',
+        symbolSize: 8,
+        showSymbol: true,
 
         lineStyle: {
-          width: 4
+          width: 2.5,
+          color: '#2A9D8F'
         },
 
-        symbolSize: 12
-      }
-    },
+        itemStyle: {
+          color: '#2A9D8F'
+        },
 
-    {
-      name: 'Structural Accuracy',
-      type: 'line',
+        emphasis: {
+          focus: 'series',
 
-      data: toNormalized(structuralAccuracy),
+          lineStyle: {
+            width: 4
+          },
 
-      smooth: false,
-
-      // Square marker
-      symbol: 'rect',
-      symbolSize: 7,
-      showSymbol: true,
-
-      lineStyle: {
-        width: 2.5,
-        color: '#7A5AF8'
+          symbolSize: 11
+        }
       },
 
-      itemStyle: {
-        color: '#7A5AF8'
-      },
+      {
+        name: 'Dynamic Accuracy',
+        type: 'line',
 
-      emphasis: {
-        focus: 'series',
+        data: toNormalized(dynamicAccuracy),
+
+        smooth: false,
+
+        symbol: 'triangle',
+        symbolSize: 9,
+        showSymbol: true,
 
         lineStyle: {
-          width: 4
+          width: 2.5,
+          color: '#20639B'
         },
 
-        symbolSize: 10
+        itemStyle: {
+          color: '#20639B'
+        },
+
+        emphasis: {
+          focus: 'series',
+
+          lineStyle: {
+            width: 4
+          },
+
+          symbolSize: 12
+        }
+      },
+
+      {
+        name: 'Structural Accuracy',
+        type: 'line',
+
+        data: toNormalized(structuralAccuracy),
+
+        smooth: false,
+
+        symbol: 'rect',
+        symbolSize: 7,
+        showSymbol: true,
+
+        lineStyle: {
+          width: 2.5,
+          color: '#7A5AF8'
+        },
+
+        itemStyle: {
+          color: '#7A5AF8'
+        },
+
+        emphasis: {
+          focus: 'series',
+
+          lineStyle: {
+            width: 4
+          },
+
+          symbolSize: 10
+        }
       }
-    }
-  ]
+    ]
+  }
 }
 
+/* =========================================================
+   LIFECYCLE — only init once the container has a real size
+   ========================================================= */
 
-  chart.setOption(option)
+function hasSize(el) {
+  return !!el && el.clientWidth > 0 && el.clientHeight > 0
+}
+
+function ensureChart() {
+  const el = chartRef.value
+  if (!hasSize(el)) return
+
+  if (!chart) {
+    chart = echarts.init(el, null, { renderer: 'svg' })
+    chart.setOption(buildOption())
+  } else {
+    chart.resize()
+  }
 }
 
 function handleResize() {
-  chart?.resize()
+  requestAnimationFrame(ensureChart)
 }
 
-onMounted(() => {
-  createChart()
+onMounted(async () => {
+  await nextTick()
+
+  /* try right away, works if layout is already settled */
+  ensureChart()
+
+  /* fires as soon as the container gets / changes size —
+     covers the first-load case where size starts at 0 */
+  resizeObserver = new ResizeObserver(handleResize)
+  if (chartRef.value) resizeObserver.observe(chartRef.value)
+
   window.addEventListener('resize', handleResize)
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('resize', handleResize)
 
+  if (resizeObserver) {
+    resizeObserver.disconnect()
+    resizeObserver = null
+  }
+
   if (chart) {
     chart.dispose()
     chart = null
   }
 })
-
 </script>
 
 <style scoped>
@@ -460,15 +476,6 @@ onBeforeUnmount(() => {
   justify-content: space-between;
   gap: 30px;
   flex-shrink: 0;
-}
-
-.chart-kicker {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: #20639B;
-  margin-bottom: 5px;
 }
 
 .chart-description {
@@ -497,7 +504,10 @@ onBeforeUnmount(() => {
 .chart {
   width: 100%;
   flex: 1;
-  min-height: 0;
+
+  min-width: 0;
+  min-height: 200px;
+
   margin-top: 4px;
 }
 

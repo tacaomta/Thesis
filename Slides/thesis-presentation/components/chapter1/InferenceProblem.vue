@@ -9,7 +9,7 @@
                 <div class="section-number">01</div>
                 <div>
                     <h2>Biological World</h2>
-                    <p>The regulatory process that actually happens inside the cell</p>
+                    <p>Inside the cell</p>
                 </div>
             </div>
 
@@ -41,8 +41,7 @@
                     <div class="card-text">
                         <h3>Regulatory mechanisms</h3>
                         <p>
-                            Transcription factors and other molecular mechanisms
-                            regulate gene activity.
+                            Transcription factors, molecular mechanisms → gene activity.
                         </p>
                     </div>
                 </div>
@@ -112,8 +111,7 @@
                     <div class="card-text">
                         <h3>Gene expression dynamics</h3>
                         <p>
-                            Regulatory activity produces changing
-                            expression levels over time.
+                            Regulatory activity changes expression levels.
                         </p>
                     </div>
                 </div>
@@ -125,7 +123,7 @@
             <div class="section-header">
                 <div class="section-number">02</div>
                 <div>
-                    <h2>Experimental Data</h2>
+                    <h2>Experiments</h2>
                     <p>What we can actually observe from experiments</p>
                 </div>
             </div>
@@ -163,8 +161,7 @@
                     <div class="card-text">
                         <h3>GRN inference</h3>
                         <p>
-                            Computationally infer hidden
-                            regulatory relationships.
+                            Finding hidden regulatory relationships.
                         </p>
                     </div>
                 </div>
@@ -271,8 +268,7 @@
                     <div class="card-text">
                         <h3>Regulatory network</h3>
                         <p>
-                            An inferred representation of
-                            regulatory relationships.
+                            An inferred network
                         </p>
                     </div>
                 </div>

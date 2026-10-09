@@ -38,6 +38,13 @@ eyebrow: "THESIS OVERVIEW"
 
 * Finally, I address the question: **“How can we improve GRN inference performance when only limited time-series gene expression data are available?”**
 -->
+---
+layout: default
+title: From Biology to Computational Inference?
+eyebrow: RESEARCH FOUNDATION
+---
+
+<Background />
 
 ---
 layout: default
@@ -75,7 +82,7 @@ So, what are we actually trying to infer?
 ---
 layout: default
 title: Why do Regulatory Genes Matter?
-eyebrow: SIGNIFICANCE
+eyebrow: WHY DOES IT MATTER?
 ---
 
 <RegulatoryGenes />
@@ -90,16 +97,21 @@ So, why do regulatory genes matter?
 -->
 ---
 layout: default
-title: Where Can We Improve GRN Inference?
-eyebrow: RESEARCH SCOPE
+title: What Data Do We Observe?
+eyebrow: EXPERIMENTAL DATA
 ---
 
-<GRNWorkFlow />
+<ObservedData />
 <!--
-* GRN inference is a broad research problem, and improvements can be made at different stages of the workflow. Some studies focus on how gene expression data are represented, while others develop inference algorithms or improve network evaluation. 
-* In this thesis, I focus on two main directions: **data representation**, addressed through multiple-level discretization and representation learning, and **data augmentation**, which aims to mitigate the limitation of available time-series observations.
+So, what data do we actually observe?  
+* In experiments, we measure **gene expression levels over time**. These time-series gene expression data can be represented as a two-dimensional matrix.  
+* In this matrix, the **columns correspond to genes**, represented by their gene names or gene indices, while the **rows correspond to different time points**. Each cell contains the **expression value of a specific gene at a specific time point**.  
+* In general, there are two common ways to measure gene expression: **steady-state measurements and time-series measurements**.  
+So, why do we use time-series data?  
+* Unlike steady-state measurements, which capture gene expression at a particular condition or time point, **time-series data capture the temporal dynamics of gene expression**.  
+* Moreover, time-series data provide **multiple observations that form a trajectory**, giving us more information about how gene expression changes over time.  
+* More importantly, these temporal patterns can provide **clues about regulatory dependencies between genes**. For example, changes in one gene may precede or be associated with changes in another gene, providing information that can be useful for reconstructing regulatory relationships. 
 -->
-
 ---
 layout: default
 title: Why is Time-series GRN Inference Difficult?

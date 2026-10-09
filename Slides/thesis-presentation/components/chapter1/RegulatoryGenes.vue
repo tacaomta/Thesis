@@ -7,36 +7,36 @@
                     <li>
                         <span class="reason-icon">01</span>
                         <div>
-                            <strong>How genes regulate other genes</strong>
-                            <span>Reveals the regulatory relationships within the cell.</span>
+                            <strong>Gene-to-gene control</strong>
+                            <span>One gene switches another on or off</span>
                         </div>
                     </li>
                     <li>
                         <span class="reason-icon">02</span>
                         <div>
-                            <strong>How cellular processes are coordinated</strong>
-                            <span>Connects gene regulation to downstream biological responses.</span>
+                            <strong>Coordinated response</strong>
+                            <span>Many genes act together, not alone</span>
                         </div>
                     </li>
                     <li>
                         <span class="reason-icon">03</span>
                         <div>
-                            <strong>How cells respond to changing conditions</strong>
-                            <span>E.g., temperature, pressure, or other environmental stimuli.</span>
+                            <strong>Adapting to change</strong>
+                            <span>Reacting to heat, stress, or environment</span>
                         </div>
                     </li>
                     <li>
                         <span class="reason-icon">04</span>
                         <div>
-                            <strong>Key control points in the network</strong>
-                            <span>Identifies regulators with broad downstream influence.</span>
+                            <strong>Master regulators</strong>
+                            <span>Few genes control many downstream genes</span>
                         </div>
                     </li>
                     <li>
                         <span class="reason-icon">05</span>
                         <div>
-                            <strong>Disease mechanisms &amp; therapeutic targets</strong>
-                            <span>Offers insights that may guide potential treatments.</span>
+                            <strong>Disease &amp; drug targets</strong>
+                            <span>Faulty control often causes disease</span>
                         </div>
                     </li>
                 </ul>
@@ -93,7 +93,7 @@
         <section class="takeaway">
             <span class="takeaway-mark"></span>
             <p>
-                Ultimately, understanding these regulatory mechanisms can reveal
+                Ultimately, reveal
                 <strong>disease mechanisms</strong> and point toward
                 <strong>potential therapeutic targets</strong>.
             </p>
@@ -130,6 +130,7 @@
     display: grid;
     grid-template-columns: 42% 58%;
     min-height: 0;
+    margin-left: 20px;
 }
 
 .explanation {
@@ -165,7 +166,7 @@
 .reason-list {
     display: flex;
     flex-direction: column;
-    gap: 11px;
+    gap: 20px;
     margin: 0;
     padding: 0;
     list-style: none;

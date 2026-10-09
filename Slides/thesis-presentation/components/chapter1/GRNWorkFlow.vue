@@ -1,496 +1,516 @@
 <template>
-  <div class="workflow-slide">
-    <!-- Main pipeline -->
+<div class="landscape-slide">
+
+    <div class="slide-header">
+        <p class="subtitle">
+            GRN inference spans several research stages — from data representation
+            to inference algorithms. This thesis focuses on two of them.
+        </p>
+    </div>
+
+    <!-- Zone strip -->
+    <div class="zone-strip">
+        <div class="zone zone-source">DATA SOURCE</div>
+        <div class="zone zone-thesis">THIS THESIS</div>
+        <div class="zone zone-downstream">INFERENCE &amp; OUTPUT</div>
+    </div>
+
+    <!-- Pipeline -->
     <div class="pipeline">
-      <!-- 1. Data collection -->
-      <div class="stage neutral">
-        <div class="stage-icon">
-          <svg viewBox="0 0 48 48" fill="none">
-            <ellipse cx="24" cy="11" rx="15" ry="6"
-              stroke="currentColor" stroke-width="2.2"/>
-            <path d="M9 11v22c0 3.3 6.7 6 15 6s15-2.7 15-6V11"
-              stroke="currentColor" stroke-width="2.2"/>
-            <path d="M9 22c0 3.3 6.7 6 15 6s15-2.7 15-6"
-              stroke="currentColor" stroke-width="2.2"/>
-          </svg>
+
+        <!-- Stage 0: Raw Data -->
+        <div class="stage stage-neutral">
+            <div class="stage-icon">
+                <svg viewBox="0 0 24 24"><path d="M4 6c0-1.1 3.6-2 8-2s8 .9 8 2-3.6 2-8 2-8-.9-8-2z" /><path d="M4 6v12c0 1.1 3.6 2 8 2s8-.9 8-2V6" /><path d="M4 12c0 1.1 3.6 2 8 2s8-.9 8-2" /></svg>
+            </div>
+            <div class="stage-label">Raw Time-Series<br />Expression Data</div>
+            <div class="stage-tags">
+                <span>High-dim</span>
+                <span>Limited T</span>
+                <span>Noisy</span>
+                <span>Complex deps</span>
+            </div>
         </div>
-        <span class="step">01</span>
-        <h2>Data Collection</h2>
-        <p>Gene expression<br />time series</p>
-      </div>
 
-      <div class="connector">
-        <svg viewBox="0 0 40 20">
-          <path d="M2 10H34M27 3l7 7-7 7"
-            fill="none" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round"/>
-        </svg>
-      </div>
+        <div class="flow-arrow"><svg viewBox="0 0 24 24"><path d="M4 12h15M14 6l6 6-6 6" /></svg></div>
 
-      <!-- 2. Data representation -->
-      <div class="stage representation">
-        <div class="focus-tag">THESIS FOCUS</div>
-        <div class="stage-icon">
-          <svg viewBox="0 0 48 48" fill="none">
-            <rect x="7" y="8" width="34" height="32" rx="4"
-              stroke="currentColor" stroke-width="2.2"/>
-            <path d="M14 17h20M14 24h20M14 31h12"
-              stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round"/>
-            <circle cx="34" cy="31" r="3"
-              fill="currentColor"/>
-          </svg>
+        <!-- Stage 1: Data Representation (THESIS) -->
+        <div class="stage stage-thesis" style="--accent: #20639B; --accent2: #7A5AF8;">
+            <div class="thesis-badge">THIS THESIS</div>
+
+            <div class="stage-icon dual">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /></svg>
+            </div>
+
+            <div class="stage-label">Data Representation</div>
+
+            <div class="issue-chips">
+                <span class="issue-chip" style="--c: #20639B;">
+                    <strong>Issue 1</strong> Discretization &amp; MI
+                </span>
+                <span class="issue-chip" style="--c: #7A5AF8;">
+                    <strong>Issue 2</strong> SITTF
+                </span>
+            </div>
         </div>
-        <span class="step">02</span>
-        <h2>Data Representation</h2>
-        <p>Discretization<br />Representation learning</p>
-        <div class="methods">
-          <span>MIDNI</span>
-          <span>SITTF</span>
+
+        <div class="flow-arrow"><svg viewBox="0 0 24 24"><path d="M4 12h15M14 6l6 6-6 6" /></svg></div>
+
+        <!-- Stage 2: Data Augmentation (THESIS) -->
+        <div class="stage stage-thesis" style="--accent: #2A9D8F; --accent2: #2A9D8F;">
+            <div class="thesis-badge">THIS THESIS</div>
+
+            <div class="stage-icon">
+                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="12" height="12" rx="2" /><path d="M9 20h11V9" /></svg>
+            </div>
+
+            <div class="stage-label">Data Augmentation</div>
+
+            <div class="issue-chips">
+                <span class="issue-chip" style="--c: #2A9D8F;">
+                    <strong>Issue 3</strong> Synthetic Data
+                </span>
+            </div>
         </div>
-      </div>
 
-      <div class="connector">
-        <svg viewBox="0 0 40 20">
-          <path d="M2 10H34M27 3l7 7-7 7"
-            fill="none" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round"/>
-        </svg>
-      </div>
+        <div class="flow-arrow"><svg viewBox="0 0 24 24"><path d="M4 12h15M14 6l6 6-6 6" /></svg></div>
 
-      <!-- 3. Network inference -->
-      <div class="stage neutral">
-        <div class="stage-icon">
-          <svg viewBox="0 0 48 48" fill="none">
-            <path d="M13 13L34 12M13 13L21 34M34 12L35 34M21 34L35 34"
-              stroke="currentColor" stroke-width="2"/>
-            <circle cx="13" cy="13" r="5"
-              fill="#F8FAFB" stroke="currentColor" stroke-width="2.2"/>
-            <circle cx="34" cy="12" r="5"
-              fill="#F8FAFB" stroke="currentColor" stroke-width="2.2"/>
-            <circle cx="21" cy="34" r="5"
-              fill="#F8FAFB" stroke="currentColor" stroke-width="2.2"/>
-            <circle cx="35" cy="34" r="5"
-              fill="#F8FAFB" stroke="currentColor" stroke-width="2.2"/>
-          </svg>
+        <!-- Stage 3: Inference Algorithms -->
+        <div class="stage stage-neutral">
+            <div class="stage-icon">
+                <svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1.5" /><path d="M7 3v4M17 3v4M7 17v4M17 17v4M3 7h4M17 7h4M3 17h4M17 17h4" /></svg>
+            </div>
+            <div class="stage-label">Inference<br />Algorithms</div>
+            <div class="stage-tags">
+                <span>Correlation</span>
+                <span>Info-theoretic</span>
+                <span>ML / Regression</span>
+                <span>Dynamic models</span>
+            </div>
         </div>
-        <span class="step">03</span>
-        <h2>Network Inference</h2>
-        <p>Infer regulatory<br />relationships</p>
-      </div>
 
-      <div class="connector">
-        <svg viewBox="0 0 40 20">
-          <path d="M2 10H34M27 3l7 7-7 7"
-            fill="none" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round"/>
-        </svg>
-      </div>
+        <div class="flow-arrow"><svg viewBox="0 0 24 24"><path d="M4 12h15M14 6l6 6-6 6" /></svg></div>
 
-      <!-- 4. Evaluation -->
-      <div class="stage neutral">
-        <div class="stage-icon">
-          <svg viewBox="0 0 48 48" fill="none">
-            <path d="M8 39V9M8 39H41"
-              stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round"/>
-            <path d="M13 31l8-9 7 4 10-14"
-              stroke="currentColor" stroke-width="2.5"
-              stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M31 12h7v7"
-              stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <!-- Stage 4: Output -->
+        <div class="stage stage-neutral stage-output">
+            <div class="stage-icon">
+                <svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.4" /><circle cx="18" cy="6" r="2.4" /><circle cx="12" cy="18" r="2.4" /><path d="M8 7l7-1M8 8l4 8M16 8l-4 8" /></svg>
+            </div>
+            <div class="stage-label">Reconstructed<br />GRN</div>
         </div>
-        <span class="step">04</span>
-        <h2>Evaluation</h2>
-        <p>Network structure<br />Dynamic behavior</p>
-      </div>
+
     </div>
 
-    <!-- Data augmentation feedback path -->
-    <div class="feedback">
-      <div class="feedback-line">
-        <span class="branch-label">LIMITED OBSERVATIONS</span>
-      </div>
-
-      <div class="augmentation">
-        <div class="augmentation-icon">
-          <svg viewBox="0 0 48 48" fill="none">
-            <rect x="7" y="11" width="23" height="27" rx="3"
-              stroke="currentColor" stroke-width="2.2"/>
-            <path d="M14 19h9M14 25h9M14 31h5"
-              stroke="currentColor" stroke-width="2"
-              stroke-linecap="round"/>
-            <path d="M32 15h9M36.5 10.5v9M32 31h9M36.5 26.5v9"
-              stroke="currentColor" stroke-width="2.2"
-              stroke-linecap="round"/>
-          </svg>
-        </div>
-
-        <div class="augmentation-copy">
-          <span class="focus-tag">THESIS FOCUS</span>
-          <h2>Data Augmentation</h2>
-          <p>Autoencoder-based time-series synthesis</p>
-        </div>
-
-        <div class="augmentation-result">
-          <span class="result-symbol">+</span>
-          <span>Synthetic<br />time-series data</span>
-        </div>
-      </div>
-
-      <div class="feedback-return">
-        <svg viewBox="0 0 680 48" preserveAspectRatio="none">
-          <path d="M650 5 V22 Q650 35 637 35 H40 Q27 35 27 22 V5"
-            fill="none" stroke="#C18B26" stroke-width="2.2"
-            stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M20 12l7-7 7 7"
-            fill="none" stroke="#C18B26" stroke-width="2.2"
-            stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span>Augmented data can be used for subsequent inference</span>
-      </div>
+    <!-- Legend -->
+    <div class="legend-footer">
+        <span class="legend-item"><i style="--c:#20639B"></i>Issue 1 — Discretization-based GRN inference</span>
+        <span class="legend-item"><i style="--c:#7A5AF8"></i>Issue 2 — Scale-independent task transformation</span>
+        <span class="legend-item"><i style="--c:#2A9D8F"></i>Issue 3 — Autoencoder-based data synthesis</span>
     </div>
 
-    <!-- Research scope -->
-    <div class="scope">
-      <span class="scope-marker"></span>
-      <span>THIS THESIS</span>
-      <span class="scope-divider"></span>
-      <span>Improving how expression data are represented and how limited data are augmented</span>
-    </div>
-  </div>
+</div>
 </template>
 
+<script setup>
+</script>
+
 <style scoped>
-.workflow-slide {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  padding: 8px 4px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  color: #24313A;
-  overflow: hidden;
+.landscape-slide {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px 26px 6px;
+
+    background: #f8fafb;
+    color: #24313a;
+
+    font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
+/* =========================
+   HEADER
+========================= */
+
+.slide-header {
+    flex-shrink: 0;
+    margin-bottom: 10px;
+}
+
+.section-label {
+    margin-bottom: 5px;
+
+    color: #64748b;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+}
+
+.slide-header h1 {
+    margin: 0;
+
+    color: #173f5f;
+
+    font-size: 22px;
+    line-height: 1.25;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.subtitle {
+    max-width: 720px;
+    margin: 5px 0 0;
+
+    color: #64748b;
+
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+/* =========================
+   ZONE STRIP
+========================= */
+
+.zone-strip {
+    flex-shrink: 0;
+
+    display: flex;
+
+    margin: 14px 0 6px;
+
+    border-top: 2px solid #dce4e9;
+}
+
+.zone {
+    position: relative;
+
+    padding-top: 6px;
+
+    text-align: center;
+
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+
+    color: #94a3b8;
+}
+
+.zone::before {
+    content: '';
+
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+
+    height: 2px;
+}
+
+.zone-source {
+    flex: 0 0 17%;
+}
+
+.zone-thesis {
+    flex: 0 0 41%;
+
+    color: #173f5f;
+}
+
+.zone-thesis::before {
+    background: linear-gradient(90deg, #20639b, #7A5AF8 55%, #2A9D8F);
+}
+
+.zone-downstream {
+    flex: 0 0 42%;
+}
+
+/* =========================
+   PIPELINE
+========================= */
+
 .pipeline {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1.16fr) 30px minmax(0, 1fr) 30px minmax(0, 1fr);
-  align-items: stretch;
-  gap: 5px;
-  flex-shrink: 0;
+    flex: 1;
+    min-height: 0;
+
+    display: grid;
+    grid-template-columns: 1fr 28px 1.25fr 28px 1.1fr 28px 1fr 28px 0.85fr;
+
+    align-items: stretch;
+    gap: 0 6px;
+}
+
+/* =========================
+   STAGE — base
+========================= */
+
+.stage {
+    position: relative;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 16px 12px 14px;
+
+    border-radius: 12px;
+
+    box-sizing: border-box;
+}
+
+.stage-neutral {
+    background: #ffffff;
+    border: 1px solid #dce4e9;
+}
+
+.stage-output {
+    background: #f0f5f8;
+}
+
+.stage-thesis {
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            color-mix(in srgb, var(--accent) 7%, white) 100%
+        );
+
+    border: 1.5px solid var(--accent);
+
+    box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.stage:hover {
+    transform: translateY(-2px);
 }
 
 .stage {
-  position: relative;
-  min-width: 0;
-  height: 218px;
-  box-sizing: border-box;
-  padding: 20px 10px 13px;
-  border: 1px solid #DCE4E9;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+    transition: transform 0.2s ease;
 }
 
-.neutral {
-  background: #FFFFFF;
-  color: #64748B;
+/* =========================
+   THESIS BADGE
+========================= */
+
+.thesis-badge {
+    position: absolute;
+    top: -10px;
+
+    padding: 3px 10px;
+
+    border-radius: 999px;
+
+    background: var(--accent);
+    color: #ffffff;
+
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
 }
 
-.representation {
-  background: #EAF5F3;
-  border: 2px solid #2A9D8F;
-  color: #167D72;
-  padding-top: 25px;
-}
-
-.focus-tag {
-  display: inline-block;
-  font-family: "IBM Plex Mono", "JetBrains Mono", monospace;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .1em;
-  color: #167D72;
-}
-
-.representation > .focus-tag {
-  position: absolute;
-  top: 9px;
-}
+/* =========================
+   ICON
+========================= */
 
 .stage-icon {
-  width: 44px;
-  height: 44px;
-  margin-bottom: 5px;
+    width: 34px;
+    height: 34px;
+
+    margin-bottom: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #f0f5f8;
+}
+
+.stage-thesis .stage-icon {
+    background: color-mix(in srgb, var(--accent) 14%, white);
 }
 
 .stage-icon svg {
-  width: 100%;
-  height: 100%;
+    width: 18px;
+    height: 18px;
+
+    fill: none;
+    stroke: #173f5f;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
-.step {
-  font-family: "IBM Plex Mono", "JetBrains Mono", monospace;
-  font-size: 10px;
-  color: #94A3B8;
-  margin-bottom: 5px;
+.stage-thesis .stage-icon svg {
+    stroke: var(--accent);
 }
 
-h2 {
-  font-size: 14px;
-  line-height: 1.25;
-  margin: 0 0 8px;
-  font-weight: 700;
-  color: #173F5F;
+/* =========================
+   LABEL
+========================= */
+
+.stage-label {
+    color: #173f5f;
+
+    font-size: 12.5px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
 }
 
-p {
-  margin: 0;
-  font-size: 11px;
-  line-height: 1.5;
-  color: #64748B;
-}
+/* =========================
+   NEUTRAL STAGE TAGS
+========================= */
 
-.methods {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-top: auto;
-  padding-top: 9px;
-}
+.stage-tags {
+    margin-top: 11px;
 
-.methods span {
-  border: 1px solid #B7DAD4;
-  background: #FFFFFF;
-  color: #167D72;
-  padding: 4px 7px;
-  border-radius: 5px;
-  font-family: "IBM Plex Mono", "JetBrains Mono", monospace;
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.connector {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #AAB8C2;
-}
-
-.connector svg {
-  width: 100%;
-  max-width: 40px;
-}
-
-/* Data augmentation feedback */
-
-.feedback {
-  width: 100%;
-  max-width: 680px;
-  align-self: center;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-
-.feedback-line {
-  height: 13px;
-  border-top: 2px solid #E9C46A;
-  border-left: 2px solid #E9C46A;
-  border-right: 2px solid #E9C46A;
-  border-radius: 8px 8px 0 0;
-  position: relative;
-  margin: 0 28px;
-}
-
-.branch-label {
-  position: absolute;
-  left: 50%;
-  top: -8px;
-  transform: translateX(-50%);
-  padding: 0 10px;
-  background: #F8FAFB;
-  color: #986C13;
-  font-family: "IBM Plex Mono", "JetBrains Mono", monospace;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: .08em;
-  white-space: nowrap;
-}
-
-.augmentation {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 13px 20px;
-  background: #FFF7E6;
-  border: 2px solid #E9C46A;
-  border-radius: 11px;
-  color: #986C13;
-}
-
-.augmentation-icon {
-  width: 42px;
-  height: 42px;
-  flex-shrink: 0;
-}
-
-.augmentation-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.augmentation-copy {
-  flex: 1;
-  min-width: 0;
-}
-
-.augmentation-copy .focus-tag {
-  color: #986C13;
-}
-
-.augmentation-copy h2 {
-  margin: 3px 0 4px;
-  font-size: 16px;
-  color: #173F5F;
-}
-
-.augmentation-copy p {
-  color: #7C652F;
-  font-size: 11px;
-}
-
-.augmentation-result {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-left: 15px;
-  border-left: 1px solid #E6D39E;
-  color: #7C652F;
-  font-size: 10px;
-  line-height: 1.4;
-  flex-shrink: 0;
-}
-
-.result-symbol {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: #E9C46A;
-  color: #5C471A;
-  font-size: 21px;
-  font-weight: 500;
-}
-
-.feedback-return {
-  height: 47px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 0;
-}
-
-.feedback-return svg {
-  position: absolute;
-  width: 100%;
-  height: 38px;
-  top: 0;
-}
-
-.feedback-return span {
-  position: relative;
-  margin-top: 24px;
-  padding: 0 10px;
-  background: #F8FAFB;
-  color: #986C13;
-  font-size: 10px;
-  line-height: 1.4;
-  text-align: center;
-}
-
-/* Thesis scope footer */
-
-.scope {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 11px 13px;
-  border-top: 1px solid #DCE4E9;
-  color: #64748B;
-  font-size: 10px;
-  line-height: 1.4;
-  flex-shrink: 0;
-}
-
-.scope-marker {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #2A9D8F;
-  flex-shrink: 0;
-}
-
-.scope > span:nth-child(2) {
-  font-family: "IBM Plex Mono", "JetBrains Mono", monospace;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .1em;
-  color: #167D72;
-  white-space: nowrap;
-}
-
-.scope-divider {
-  height: 17px;
-  width: 1px;
-  background: #DCE4E9;
-  flex-shrink: 0;
-}
-
-@media (max-width: 760px) {
-  .workflow-slide {
-    gap: 10px;
-  }
-
-  .pipeline {
-    grid-template-columns: minmax(0, 1fr) 16px minmax(0, 1fr);
-    row-gap: 10px;
-  }
-
-  .stage {
-    height: 190px;
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-
-  .pipeline > .connector:nth-of-type(4) {
-    display: none;
-  }
-
-  .augmentation {
-    padding: 10px;
-    gap: 8px;
-  }
-
-  .augmentation-result {
-    display: none;
-  }
-
-  .scope {
-    align-items: flex-start;
+    display: flex;
     flex-wrap: wrap;
-  }
+    justify-content: center;
+    gap: 4px;
+}
+
+.stage-tags span {
+    padding: 3px 7px;
+
+    border-radius: 999px;
+    background: #f1f5f8;
+
+    color: #64748b;
+
+    font-size: 8.5px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* =========================
+   THESIS STAGE — ISSUE CHIPS
+========================= */
+
+.issue-chips {
+    margin-top: 11px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    width: 100%;
+}
+
+.issue-chip {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 5px;
+
+    padding: 4px 8px;
+
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--c) 10%, white);
+    border: 1px solid color-mix(in srgb, var(--c) 30%, white);
+
+    color: #475569;
+
+    font-size: 9px;
+    line-height: 1.3;
+    text-align: center;
+}
+
+.issue-chip strong {
+    color: var(--c);
+
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8.5px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* =========================
+   ARROWS
+========================= */
+
+.flow-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flow-arrow svg {
+    width: 16px;
+    height: 16px;
+
+    fill: none;
+    stroke: #aab8c2;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* =========================
+   LEGEND FOOTER
+========================= */
+
+.legend-footer {
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 18px;
+
+    margin-top: 12px;
+    padding-top: 10px;
+
+    border-top: 1px solid #dce4e9;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: #64748b;
+
+    font-size: 10.5px;
+}
+
+.legend-item i {
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--c);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+    .pipeline {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+        gap: 10px 0;
+    }
+
+    .flow-arrow {
+        transform: rotate(90deg);
+    }
+
+    .zone-strip {
+        display: none;
+    }
 }
 </style>

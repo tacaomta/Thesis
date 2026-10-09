@@ -68,18 +68,17 @@
         <div class="pros-cons">
           <div class="advantage">
             <span class="label">Advantage</span>
-            <p>
-              Retain rich quantitative information and expression variation.
+            <p> 
+              Rich information + expression variation.
             </p>
           </div>
 
           <div class="limitation">
             <span class="label">Limitation</span>
             <p>
-                More sensitive to
+                More sensitive to 
                 <span class="keyword">noise</span>
-                and often
-                <span class="keyword">computationally demanding</span>.
+                and <span class="keyword">computational</span>.
             </p>
           </div>
         </div>
@@ -166,16 +165,15 @@
           <div class="advantage">
             <span class="label">Advantage</span>
             <p>
-              Simple representation, lower computational cost, and less
-              sensitive to small fluctuations.
+              Simple, lower computational cost, and less
+              sensitive to noise.
             </p>
           </div>
 
           <div class="limitation">
             <span class="label">Limitation</span>
             <p>
-                Binary states can
-                <span class="keyword">discard important expression-level information</span>
+                <span class="keyword">Discard important information</span>
                 and
                 <span class="keyword">dynamic variation</span>.
             </p>

@@ -46,17 +46,14 @@
           <h2>Limited regulatory-state representation</h2>
 
           <p>
-            Many existing inference models represent gene regulation using
-            binary states, which may oversimplify the expression dynamics
-            observed in time-series data.
+            Binary representation → Oversimplified dynamics, information loss
           </p>
 
           <div class="solution">
             <span class="solution-label">Addressed by</span>
 
             <span class="solution-text">
-              A mixed Boolean–ternary discretization strategy that preserves
-              more regulatory-state information.
+              A mixed <strong>Boolean–ternary</strong>  discretization → preserves more information.
             </span>
           </div>
         </div>
@@ -103,20 +100,17 @@
             <span class="publication">Issue 2</span>
           </div>
 
-          <h2>Limited representation for machine learning</h2>
+          <h2>Limited representation for ML</h2>
 
           <p>
-            The availability of large expression datasets is not always
-            matched by representations that allow machine-learning models
-            to effectively exploit the available information.
+            Abundant expression data, Ineffective data representation 
           </p>
 
           <div class="solution">
             <span class="solution-label">Addressed by</span>
 
             <span class="solution-text">
-              A representation learning framework that transforms expression
-              profiles into features suitable for GRN inference.
+              <strong>Transformation framework</strong> → features suitable for GRN inference.
             </span>
           </div>
         </div>
@@ -172,34 +166,19 @@
           <h2>Limited observations for GRN inference</h2>
 
           <p>
-            Time-series gene expression datasets often contain only a limited
-            number of observations, making it difficult to learn reliable
-            regulatory relationships.
+            Limited number of observations → not reliable performance
           </p>
 
           <div class="solution">
             <span class="solution-label">Addressed by</span>
 
             <span class="solution-text">
-              A data-generation approach that synthesizes additional
-              time-series expression data to improve inference performance.
+              <strong>Additional data</strong> → improve inference performance.
             </span>
           </div>
         </div>
       </article>
 
-    </div>
-
-    <div
-      class="bottom-message"
-      :class="{ 'message-hidden': visibleCount < 3 }"
-    >
-      <span class="message-mark">→</span>
-
-      <span>
-        These three gaps motivate the three research directions of this thesis:
-        <strong>better representation, better learning, and better data.</strong>
-      </span>
     </div>
 
   </div>
@@ -438,6 +417,7 @@ onBeforeUnmount(() => {
 
   font-size: 9px;
   line-height: 1.3;
+  margin-top: 10px;
 }
 
 

@@ -90,7 +90,7 @@ So, why do regulatory genes matter?
 -->
 ---
 layout: default
-title: Where Can We Improve GRN Inference?
+title: Where Does This Thesis Fit?
 eyebrow: RESEARCH SCOPE
 ---
 
@@ -100,13 +100,12 @@ eyebrow: RESEARCH SCOPE
 * In this thesis, I focus on two main directions: **data representation**, addressed through multiple-level discretization and representation learning, and **data augmentation**, which aims to mitigate the limitation of available time-series observations.
 -->
 
----
+<!-- ---
 layout: default
 title: Why is Time-series GRN Inference Difficult?
 eyebrow: CHALLENGES
 ---
-
-<TimeSeriesDifficulty />
+<TimeSeriesDifficulty /> -->
 <!--
 So, what are the main challenges in inferring a Gene Regulatory Network?
 There are several important challenges.  
@@ -116,13 +115,12 @@ There are several important challenges.
 * **Fourth, complex regulatory dependencies.** Gene regulatory systems can involve **nonlinear relationships, self-regulation, feedback loops, and other complex dependencies**. Capturing these relationships from gene expression data is challenging.  
 **Finally, the problem is inherently ambiguous.**Different network structures may produce **similar or even indistinguishable expression patterns** under the observed conditions. 
 -->
----
+<!-- ---
 layout: default
 title: What are common GRN Inference Approaches?
 eyebrow: INFERENCE METHODS
 ---
-
-<CommonMethods />
+<CommonMethods /> -->
 <!--
 So, what are the common approaches for GRN inference?
 There are several major categories of approaches, and each one has its own strengths and limitations.  

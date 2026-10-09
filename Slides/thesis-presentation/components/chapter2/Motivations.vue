@@ -1,8 +1,7 @@
 <template>
   <div class="motivation-slide">
     <div class="intro">
-      The limitations of existing representations suggest three directions
-      for improvement.
+      Three directions for improvement.
     </div>
 
     <div class="goals">
@@ -31,9 +30,8 @@
           <div class="goal-label">GOAL 1</div>
           <h2>Efficiency &amp; Robustness</h2>
           <p>
-            Reduce computational cost while being
+            Reduce computational cost, 
             <strong>less sensitive to noise</strong>
-            in gene expression measurements.
           </p>
         </div>
       </section>
@@ -84,7 +82,7 @@
           <p>
             Preserve more
             <strong>expression-level information</strong>
-            than conventional Boolean representations.
+            than Boolean model.
           </p>
         </div>
       </section>

@@ -1,8 +1,7 @@
 <template>
   <div class="proposed-model-slide">
     <div class="intro">
-      A four-stage framework that connects gene expression representation,
-      network inference, and performance evaluation.
+      A four-stage framework
     </div>
 
     <div class="pipeline">
@@ -36,9 +35,7 @@
           <h2>Gene Expression Data</h2>
 
           <p>
-            Time-series gene expression profiles
-            containing quantitative measurements
-            across multiple time points.
+            Quantitative measurements across multiple time points.
           </p>
 
           <div class="stage-tags">
@@ -104,9 +101,7 @@
           <h2>Multiple-Level Discretization</h2>
 
           <p>
-            Transform continuous expression values
-            into multiple discrete states while
-            preserving more information than Boolean models.
+            Transform continuous expression values into multiple discrete states
           </p>
 
           <div class="stage-tags">
@@ -209,8 +204,7 @@
           <h2>Discretization Network Inference</h2>
 
           <p>
-            Infer regulatory relationships from
-            discretized time-series profiles using
+            Infer regulatory relationships using
             information-based feature selection.
           </p>
 
@@ -262,8 +256,7 @@
           <h2>Performance Evaluation</h2>
 
           <p>
-            Evaluate the inferred network from
-            both structural and dynamic perspectives.
+            Evaluate inferred networks
           </p>
 
           <div class="stage-tags">

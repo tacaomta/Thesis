@@ -2,7 +2,7 @@
   <div class="datasets-slide">
 
     <div class="intro">
-      Two complementary datasets are used to evaluate the proposed GRN inference method.
+      <!-- Two complementary datasets are used to evaluate the proposed GRN inference method. -->
     </div>
 
     <div class="datasets-grid">
@@ -24,8 +24,8 @@
         </div>
 
         <div class="dataset-description">
-          Gene expression profiles represented by three discrete levels:
-          <strong>0, 1, and 2</strong>.
+          <!-- Three discrete levels:
+          <strong>0, 1, and 2</strong>. -->
         </div>
 
         <!-- Expression table -->
@@ -153,8 +153,8 @@
         </div>
 
         <div class="dataset-description">
-          Gene expression profiles generated using
-          <strong>GeneNetWeaver (GNW)</strong>, represented as continuous values.
+          <!-- Gene expression profiles generated using
+          <strong>GeneNetWeaver (GNW)</strong>, represented as continuous values. -->
         </div>
 
         <!-- Expression table -->

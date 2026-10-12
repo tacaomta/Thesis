@@ -2,8 +2,7 @@
   <div class="performance-slide">
 
     <div class="intro">
-      The inferred network is evaluated from two complementary perspectives:
-      <strong>structural correctness</strong> and <strong>dynamic consistency</strong>.
+      <strong>Structural correctness</strong> and <strong>dynamic consistency</strong>.
     </div>
 
     <div class="evaluation-grid">

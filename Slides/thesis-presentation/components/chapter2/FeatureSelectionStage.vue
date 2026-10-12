@@ -2,9 +2,9 @@
   <div class="feature-selection-slide">
 
     <div class="intro">
-      MIFS first selects potential regulators for each target gene.
+      <!-- MIFS first selects potential regulators for each target gene.
       SWAP then iteratively refines the selected set to improve
-      <strong>gene-wise dynamics consistency</strong>.
+      <strong>gene-wise dynamics consistency</strong>. -->
     </div>
 
     <div class="methods-grid">
@@ -26,10 +26,10 @@
         </div>
 
 
-        <div class="method-description">
+        <!-- <div class="method-description">
           For each target gene <strong>g₀</strong>, MIFS selects
           a set of <strong>k potential regulator genes</strong>.
-        </div>
+        </div> -->
 
 
         <!-- target + candidate pool -->
@@ -87,9 +87,7 @@
               <strong>Select the first regulator</strong>
 
               <p>
-                Choose the gene that maximizes
-                <strong>mutual information</strong>
-                with the target gene g₀.
+                <strong>Maximum</strong> MI with target g0​
               </p>
             </div>
 
@@ -104,9 +102,7 @@
               <strong>Select the next regulator</strong>
 
               <p>
-                Select the candidate that maximizes
-                its information with g₀ while considering
-                its dependency on already selected genes.
+                <strong>Maximize</strong> MI with g0, <strong>minimize</strong> redundancy
               </p>
             </div>
 
@@ -120,11 +116,6 @@
             <div class="step-content">
               <strong>Repeat until k regulators</strong>
 
-              <p>
-                Continue the selection process until the
-                desired number <strong>k</strong> of candidates
-                has been chosen.
-              </p>
             </div>
 
           </div>
@@ -180,12 +171,12 @@
           </div>
         </div>
 
-
+<!-- 
         <div class="method-description">
           MIFS may fail to find the optimal regulator set because
           it does not compute the exact
           <strong>multivariate mutual information</strong>.
-        </div>
+        </div> -->
 
 
         <!-- swap visual -->
@@ -769,7 +760,7 @@
 
   font-family: 'IBM Plex Mono', monospace;
 
-  font-size: 7px;
+  font-size: 10px;
   font-weight: 700;
 }
 
@@ -784,7 +775,7 @@
 
   color: #173f5f;
 
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .step-content p {
@@ -1005,7 +996,7 @@
 
   color: #173f5f;
 
-  font-size: 7.5px;
+  font-size: 10px;
   font-weight: 700;
 }
 
@@ -1038,21 +1029,22 @@
   height: 18px;
 
   border-radius: 50%;
+  /* border: #20639b solid 1px; */
 
-  background: #f3fbf9;
+  background: #eef3f7;
 
-  color: #2a9d8f;
+  color: #20639b;
 
   font-family: 'IBM Plex Mono', monospace;
 
-  font-size: 6.5px;
+  font-size: 10px;
   font-weight: 700;
 }
 
 .iteration-step strong {
   color: #475569;
 
-  font-size: 6.7px;
+  font-size: 8px;
 
   line-height: 1.2;
 }
@@ -1088,7 +1080,7 @@
 
   color: #2a9d8f;
 
-  font-size: 6px;
+  font-size: 10px;
   font-weight: 700;
 
   letter-spacing: 0.1em;
@@ -1196,7 +1188,7 @@
 
   color: #94a3b8;
 
-  font-size: 5.5px;
+  font-size: 8px;
   font-weight: 700;
 
   letter-spacing: 0.08em;

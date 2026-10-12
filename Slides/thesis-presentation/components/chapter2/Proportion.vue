@@ -2,8 +2,8 @@
   <div class="proportion-slide">
 
     <div class="intro">
-      Distribution of genes requiring two-level and three-level discretization
-      across the evaluated datasets.
+      <!-- Distribution of genes requiring two-level and three-level discretization
+      across the evaluated datasets. -->
     </div>
 
     <div class="chart-area">

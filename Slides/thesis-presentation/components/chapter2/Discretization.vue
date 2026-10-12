@@ -2,38 +2,15 @@
   <div class="discretization-slide">
 
     <div class="intro">
-      MIDNI evaluates both <strong>two-level</strong> and
+      <!-- MIDNI evaluates both <strong>two-level</strong> and
       <strong>three-level</strong> discretization and selects the level
-      that minimizes the validity index.
+      that minimizes the validity index. -->
     </div>
 
     <div class="content-grid">
 
       <!-- LEFT: VALIDITY INDEX -->
       <section class="explanation">
-
-        <!-- <div class="motivation-box">
-          <div class="box-label">WHY NOT ONLY BOOLEAN?</div>
-
-          <div class="comparison-row">
-            <div class="comparison-item">
-              <span class="state-badge boolean">2</span>
-              <div>
-                <strong>Boolean</strong>
-                <p>Fast, but may lose expression-level information.</p>
-              </div>
-            </div>
-
-            <div class="comparison-item">
-              <span class="state-badge three">3</span>
-              <div>
-                <strong>Higher-level</strong>
-                <p>Preserves more variation in gene expression.</p>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
 
         <div class="validity-card">
 

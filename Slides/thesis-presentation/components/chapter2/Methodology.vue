@@ -1,10 +1,5 @@
 <template>
   <div class="methodology-slide">
-    <div class="intro">
-      The experimental pipeline transforms a real-valued network into a
-      <strong>discretized representation</strong>, infers regulatory interactions,
-      and evaluates the resulting network from both structural and dynamic perspectives.
-    </div>
 
     <div class="pipeline">
 
@@ -38,10 +33,8 @@
         <h2>Real-valued Network</h2>
 
         <p>
-          Time-series gene expression data with
-          <strong>continuous expression values</strong>.
+          Two-dimensional matrix
         </p>
-
         <div class="stage-tag">
           Continuous values
         </div>
@@ -98,10 +91,8 @@
 
         <h2>K-means + Validity Index</h2>
 
-        <p>
-          Determine the appropriate number of states and transform
-          continuous expression values into a
-          <strong>discrete representation</strong>.
+        <p>          
+          <strong>Two or Three-level </strong> discretization.
         </p>
 
         <div class="stage-tags">
@@ -151,8 +142,7 @@
         <h2>MIFS + SWAP Routine</h2>
 
         <p>
-          Select informative regulatory genes and refine the
-          <strong>candidate regulator set</strong> for each target gene.
+          <strong>Candidate regulator set</strong>.
         </p>
 
         <div class="stage-tags">
@@ -232,8 +222,7 @@
         <h2>Predicted Network</h2>
 
         <p>
-          Regulatory interactions inferred from the
-          <strong>discretized time-series profiles</strong>.
+          <strong>Regulatory interactions</strong>.
         </p>
 
         <div class="stage-tag">

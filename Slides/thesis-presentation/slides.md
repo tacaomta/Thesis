@@ -99,36 +99,6 @@ eyebrow: RESEARCH SCOPE
 * GRN inference is a broad research problem, and improvements can be made at different stages of the workflow. Some studies focus on how gene expression data are represented, while others develop inference algorithms or improve network evaluation. 
 * In this thesis, I focus on two main directions: **data representation**, addressed through multiple-level discretization and representation learning, and **data augmentation**, which aims to mitigate the limitation of available time-series observations.
 -->
-
-<!-- ---
-layout: default
-title: Why is Time-series GRN Inference Difficult?
-eyebrow: CHALLENGES
----
-<TimeSeriesDifficulty /> -->
-<!--
-So, what are the main challenges in inferring a Gene Regulatory Network?
-There are several important challenges.  
-* **First, high dimensionality.** In real-world biological systems, we may need to infer regulatory relationships among **thousands of genes**. As the number of genes increases, the number of possible regulatory relationships grows dramatically.  
-* **Second, limited observations.** Although we may have thousands of genes, the number of available time points is often relatively small. In other words, we have a **high-dimensional problem with limited observations**.  
-* **Third, noise and biological variability.** Gene expression measurements can contain experimental noise and biological variation. These factors can make it more difficult to distinguish true regulatory signals from random variations, and therefore can reduce the accuracy of GRN inference.   
-* **Fourth, complex regulatory dependencies.** Gene regulatory systems can involve **nonlinear relationships, self-regulation, feedback loops, and other complex dependencies**. Capturing these relationships from gene expression data is challenging.  
-**Finally, the problem is inherently ambiguous.**Different network structures may produce **similar or even indistinguishable expression patterns** under the observed conditions. 
--->
-<!-- ---
-layout: default
-title: What are common GRN Inference Approaches?
-eyebrow: INFERENCE METHODS
----
-<CommonMethods /> -->
-<!--
-So, what are the common approaches for GRN inference?
-There are several major categories of approaches, and each one has its own strengths and limitations.  
-**- First, correlation-based methods.**  These methods measure the statistical correlation between pairs of genes. They are **simple, computationally efficient, and relatively easy to interpret**. But, their main limitation is that they primarily capture **pairwise statistical associations**, and therefore may not capture more complex or nonlinear dependencies between genes.  
-**- Second, information-theoretic methods.**  These methods use information-theoretic measures, particularly **mutual information**, to capture statistical dependencies between genes. The main advantage is that mutual information can capture **nonlinear statistical dependencies**. However, these methods can be sensitive to **how the dependency is estimated and how thresholds or other parameters are selected**. In addition, many MI-based approaches have computational challenges as the network size increases.  
-**- Third, regression and machine learning-based methods.** These approaches formulate GRN inference as a prediction or feature-selection problem and can model **multivariate relationships** and potentially more complex dependencies, but, they can require **model selection and parameter tuning**, and too computational.  
-**- Finally, dynamic or time-series models.** These methods explicitly model **temporal dependencies and gene expression dynamics**, making them particularly relevant to time-series data. However, they often require **sufficient time points** and may rely on relatively strong assumptions about the underlying biological dynamics.
--->
 ---
 layout: default
 title: What Have We Done to Improve?

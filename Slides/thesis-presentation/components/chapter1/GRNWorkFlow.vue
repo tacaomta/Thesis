@@ -2,10 +2,10 @@
 <div class="landscape-slide">
 
     <div class="slide-header">
-        <p class="subtitle">
+        <!-- <p class="subtitle">
             GRN inference spans several research stages — from data representation
             to inference algorithms. This thesis focuses on two of them.
-        </p>
+        </p> -->
     </div>
 
     <!-- Zone strip -->

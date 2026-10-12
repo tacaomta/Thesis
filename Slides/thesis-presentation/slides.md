@@ -28,7 +28,7 @@ eyebrow: "THESIS OVERVIEW"
 <!--
 * Here is an overview of my thesis.
 
-* The overall research flow is **from better inference to better data**.
+* The flow is **from better inference to better data**.
 
 * First, I will introduce the **research problem**, answering two fundamental questions: **What is a Gene Regulatory Network, and why do we need time-series gene expression data?**. This part defines the research challenges, identifies the existing gaps, and presents the objectives of the thesis.
 

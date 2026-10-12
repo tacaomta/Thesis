@@ -31,8 +31,8 @@
             <h3>High dimensionality</h3>
 
             <p>
-              Thousands of genes create a huge number of possible regulatory
-              interactions compared with the available observations.
+              Thousands of genes ⇒ huge number of possible regulatory
+              interactions.
             </p>
 
             <div class="challenge-example">
@@ -85,10 +85,9 @@
           <div class="challenge-body">
             <h3>Limited observations</h3>
 
-            <p>
-              Time-series experiments often contain only a small number of
-              time points and biological replicates.
-            </p>
+            <!-- <p>
+              A small number of time points and biological replicates.
+            </p> -->
 
             <div class="challenge-example">
               <strong>Typical constraint:</strong>
@@ -129,10 +128,10 @@
           <div class="challenge-body">
             <h3>Noise &amp; biological variability</h3>
 
-            <p>
+            <!-- <p>
               Observed expression combines regulatory signal with measurement
               noise and biological variation between samples.
-            </p>
+            </p> -->
 
             <div class="challenge-example">
               <strong>Observed data:</strong>
@@ -228,7 +227,7 @@
             <h3>Complex dependencies</h3>
 
             <p>
-              Regulatory systems involve nonlinear effects, feedback loops,
+              Nonlinear effects, feedback loops,
               indirect dependencies, and time-dependent interactions.
             </p>
 
@@ -286,9 +285,9 @@
             <h3>Underdetermined inference</h3>
 
             <p>
-              With limited observations, different network structures can
+              <!-- With limited observations, different network structures can
               produce similar expression patterns, leaving multiple plausible
-              regulatory explanations.
+              regulatory explanations. -->
             </p>
 
             <div class="challenge-example">
@@ -449,7 +448,7 @@ onBeforeUnmount(() => {
   margin-bottom: 2px;
   color: #2a9d8f;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 8px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.04em;
 }
@@ -476,7 +475,7 @@ onBeforeUnmount(() => {
 .challenge-body h3 {
   margin: 0 0 3px;
   color: #173f5f;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.15;
 }
@@ -495,7 +494,7 @@ onBeforeUnmount(() => {
   background: #f5f8fa;
   color: #64748b;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 7.7px;
+  font-size: 10px;
   line-height: 1.25;
   box-sizing: border-box;
 }

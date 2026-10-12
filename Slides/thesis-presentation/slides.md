@@ -90,6 +90,21 @@ So, why do regulatory genes matter?
 -->
 ---
 layout: default
+title: Why is Time-series GRN Inference Difficult?
+eyebrow: CHALLENGES
+---
+<TimeSeriesDifficulty /> -->
+<!--
+So, what are the main challenges in inferring a Gene Regulatory Network?
+There are several important challenges.  
+* **First, high dimensionality.** In real-world biological systems, we may need to infer regulatory relationships among **thousands of genes**. As the number of genes increases, the number of possible regulatory relationships grows dramatically.  
+* **Second, limited observations.** Although we may have thousands of genes, the number of available time points is often relatively small. In other words, we have a **high-dimensional problem with limited observations**.  
+* **Third, noise and biological variability.** Gene expression measurements can contain experimental noise and biological variation. These factors can make it more difficult to distinguish true regulatory signals from random variations, and therefore can reduce the accuracy of GRN inference.   
+* **Fourth, complex regulatory dependencies.** Gene regulatory systems can involve **nonlinear relationships, self-regulation, feedback loops, and other complex dependencies**. Capturing these relationships from gene expression data is challenging.  
+**Finally, the problem is inherently ambiguous.**Different network structures may produce **similar or even indistinguishable expression patterns** under the observed conditions. 
+-->
+---
+layout: default
 title: Where Does This Thesis Fit?
 eyebrow: RESEARCH SCOPE
 ---

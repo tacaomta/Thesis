@@ -16,6 +16,7 @@ let resizeObserver = null
  * ============================================================ */
 
 const networkSizes = ['10', '50', '100']
+//const networkSizes = ['10', '50', '100']
 
 const performanceData = {
   '5 000': [
@@ -48,7 +49,6 @@ const performanceData = {
     { mean: 0.326, std: 0.026 }
   ]
 }
-
 
 /* ============================================================
  * EXACT COLORS CORRESPONDING TO EACH BAR SERIES

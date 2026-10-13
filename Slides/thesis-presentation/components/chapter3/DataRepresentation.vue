@@ -43,18 +43,18 @@ onBeforeUnmount(() => {
           <div class="step-body">
             <h2>Expression Profile</h2>
 
-            <p>
+            <!-- <p>
               Each gene <span class="gene">G<sub>i</sub></span>
               is represented by its
               <strong>time-series expression vector</strong>
               over <em>T</em> observed time points.
-            </p>
+            </p> -->
 
             <div class="formula-box">
               <span class="formula">
                 V<sub>i</sub>
                 =
-                { v<sub>i</sub><sup>(1)</sup>, v<sub>i</sub><sup>(2)</sup>, ..., v<sub>i</sub><sup>(T)</sup> }
+                { v<sub>i</sub><sup>(1)</sup>, ..., v<sub>i</sub><sup>(T)</sup> }
               </span>
             </div>
 
@@ -76,11 +76,11 @@ onBeforeUnmount(() => {
             <h2>Pairwise Feature Vector</h2>
 
             <p>
-              Concatenates the expression profiles of regulator
+              <!-- Concatenates the expression profiles of regulator
               <span class="gene">G<sub>j</sub></span>
               and target
               <span class="gene">G<sub>i</sub></span>
-              into one feature vector.
+              into one feature vector. -->
             </p>
 
             <div class="formula-box">
@@ -115,9 +115,9 @@ onBeforeUnmount(() => {
             <h2>Binary Class Labeling</h2>
 
             <p>
-              Each ordered gene pair is labeled according to whether
+              <!-- Each ordered gene pair is labeled according to whether
               a directed regulatory interaction exists in the gold
-              standard network.
+              standard network. -->
             </p>
 
             <div class="label-box">
@@ -150,8 +150,8 @@ onBeforeUnmount(() => {
             <h2>Labeled Dataset</h2>
 
             <p>
-              Applying this transformation across all ordered gene
-              pairs yields a fully supervised dataset for GRN inference.
+              <!-- Applying this transformation across all ordered gene
+              pairs yields a fully supervised dataset for GRN inference. -->
             </p>
 
             <div class="formula-box">

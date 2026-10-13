@@ -354,19 +354,19 @@ async function initCharts() {
     {
       ref: chart10Ref,
       data: toy10,
-      title: '(a) Toy 10'
+      title: '(a) Size 10'
     },
 
     {
       ref: chart50Ref,
       data: toy50,
-      title: '(b) Toy 50'
+      title: '(b) Size 50'
     },
 
     {
       ref: chart100Ref,
       data: toy100,
-      title: '(c) Toy 100'
+      title: '(c) Size 100'
     }
   ]
 

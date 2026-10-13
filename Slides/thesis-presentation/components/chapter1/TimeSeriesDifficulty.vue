@@ -227,13 +227,14 @@
             <h3>Complex dependencies</h3>
 
             <p>
-              Nonlinear effects, feedback loops,
-              indirect dependencies, and time-dependent interactions.
+              <!-- Nonlinear effects, feedback loops,
+              indirect dependencies, and time-dependent interactions. -->
             </p>
 
             <div class="challenge-example">
               <strong>Challenge:</strong>
-              Correlation does not directly reveal the underlying mechanism
+              Nonlinear effects, feedback loops,
+              indirect dependencies, and time-dependent interactions.
             </div>
           </div>
         </div>
@@ -292,7 +293,7 @@
 
             <div class="challenge-example">
               <strong>Implication:</strong>
-              One observed dataset may support multiple plausible network structures
+              One observed dataset, multiple plausible network structures
             </div>
           </div>
         </div>
@@ -301,7 +302,7 @@
 
 
       <!-- Bottom message -->
-      <div
+      <!-- <div
         v-if="visibleCount >= 6"
         class="bottom-message"
         :class="{ 'message-enter': visibleCount === 6 }"
@@ -315,7 +316,7 @@
             noisy observations.
           </strong>
         </span>
-      </div>
+      </div> -->
 
     </div>
   </div>
@@ -400,7 +401,7 @@ onBeforeUnmount(() => {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-auto-rows: minmax(78px, auto);
-  gap: 7px;
+  gap: 15px;
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -411,11 +412,11 @@ onBeforeUnmount(() => {
 
 .challenge-card {
   min-width: 0;
-  min-height: 78px;
+  min-height: 80px;
   display: grid;
   grid-template-columns: 76px minmax(0, 1fr);
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   padding: 8px 11px;
   border: 1px solid #dce4e9;
   border-radius: 8px;
@@ -448,14 +449,14 @@ onBeforeUnmount(() => {
   margin-bottom: 2px;
   color: #2a9d8f;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.04em;
 }
 
 .challenge-visual svg {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   display: block;
   overflow: visible;
 }
@@ -475,7 +476,7 @@ onBeforeUnmount(() => {
 .challenge-body h3 {
   margin: 0 0 3px;
   color: #173f5f;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1.15;
 }

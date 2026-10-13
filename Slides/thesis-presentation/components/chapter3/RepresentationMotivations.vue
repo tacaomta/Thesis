@@ -43,10 +43,33 @@ onBeforeUnmount(() => {
             <h2>Separated Encoding</h2>
           </div>
 
-          <p>
-            Temporal expression dynamics and local regulatory structures
-            are encoded separately or indirectly.
-          </p>
+          <svg class="gap-visual" viewBox="0 0 260 130" aria-label="Temporal dynamics and local structure encoded separately">
+
+            <!-- Temporal stream -->
+            <g class="viz-group">
+              <rect x="10" y="18" width="110" height="38" rx="8" class="viz-box box-a" />
+              <path d="M22 37 L34 30 L46 42 L58 28 L70 40 L82 32 L94 38 L106 34" class="viz-wave" />
+              <text x="65" y="70" text-anchor="middle" class="viz-label">Temporal dynamics</text>
+            </g>
+
+            <!-- Structural stream -->
+            <g class="viz-group">
+              <rect x="140" y="18" width="110" height="38" rx="8" class="viz-box box-b" />
+              <circle cx="163" cy="37" r="5" class="viz-node" />
+              <circle cx="188" cy="30" r="5" class="viz-node" />
+              <circle cx="188" cy="46" r="5" class="viz-node" />
+              <circle cx="213" cy="37" r="5" class="viz-node" />
+              <line x1="163" y1="37" x2="188" y2="30" class="viz-edge" />
+              <line x1="163" y1="37" x2="188" y2="46" class="viz-edge" />
+              <line x1="188" y1="30" x2="213" y2="37" class="viz-edge" />
+              <line x1="188" y1="46" x2="213" y2="37" class="viz-edge" />
+              <text x="195" y="70" text-anchor="middle" class="viz-label">Local structure</text>
+            </g>
+
+            <!-- broken link in the middle -->
+            <line x1="124" y1="37" x2="136" y2="37" class="viz-broken" />
+            <text x="130" y="97" text-anchor="middle" class="viz-caption">encoded independently, no shared representation</text>
+          </svg>
         </section>
       </Transition>
 
@@ -58,10 +81,38 @@ onBeforeUnmount(() => {
             <h2>Rigid Hyperparameter Assumptions</h2>
           </div>
 
-          <p>
-            Models depend heavily on fixed time delays, restricted
-            candidate regulator sets, or specific kernel configurations.
-          </p>
+          <svg class="gap-visual" viewBox="0 0 260 130" aria-label="Models locked to fixed time delay, candidate set and kernel choice">
+
+            <g class="viz-group">
+              <rect x="8"   y="22" width="72" height="48" rx="8" class="viz-box box-c" />
+              <text x="44" y="42" text-anchor="middle" class="viz-mono">Δt</text>
+              <text x="44" y="56" text-anchor="middle" class="viz-mono-sub">fixed lag</text>
+
+              <rect x="94" y="22" width="72" height="48" rx="8" class="viz-box box-c" />
+              <text x="130" y="42" text-anchor="middle" class="viz-mono">{g}</text>
+              <text x="130" y="56" text-anchor="middle" class="viz-mono-sub">candidate set</text>
+
+              <rect x="180" y="22" width="72" height="48" rx="8" class="viz-box box-c" />
+              <text x="216" y="42" text-anchor="middle" class="viz-mono">K(·)</text>
+              <text x="216" y="56" text-anchor="middle" class="viz-mono-sub">kernel</text>
+
+              <!-- lock icons on top -->
+              <g class="viz-lock" transform="translate(37,6)">
+                <rect x="0" y="5" width="14" height="10" rx="2" />
+                <path d="M3 5 V2.5 a4 4 0 0 1 8 0 V5" />
+              </g>
+              <g class="viz-lock" transform="translate(123,6)">
+                <rect x="0" y="5" width="14" height="10" rx="2" />
+                <path d="M3 5 V2.5 a4 4 0 0 1 8 0 V5" />
+              </g>
+              <g class="viz-lock" transform="translate(209,6)">
+                <rect x="0" y="5" width="14" height="10" rx="2" />
+                <path d="M3 5 V2.5 a4 4 0 0 1 8 0 V5" />
+              </g>
+            </g>
+
+            <text x="130" y="97" text-anchor="middle" class="viz-caption">locked to pre-defined, dataset-specific settings</text>
+          </svg>
         </section>
       </Transition>
 
@@ -73,10 +124,35 @@ onBeforeUnmount(() => {
             <h2>Severe Class Imbalance</h2>
           </div>
 
-          <p>
-            Increasing network scale significantly skews the ratio of
-            positive regulatory interactions to non-interactions.
-          </p>
+          <svg class="gap-visual" viewBox="0 0 260 130" aria-label="Positive regulatory interactions become rarer as network size grows">
+
+            <!-- small network -->
+            <g class="viz-group">
+              <text x="48" y="20" text-anchor="middle" class="viz-mono-sub">N = 10</text>
+              <rect x="18" y="30" width="60" height="20" rx="10" class="ratio-bar">
+                <title>small network ratio</title>
+              </rect>
+              <rect x="18" y="30" width="22" height="20" rx="10" class="ratio-bar-pos" />
+              <text x="48" y="63" text-anchor="middle" class="viz-mono-sub pos-color">~35% positive</text>
+            </g>
+
+            <!-- large network -->
+            <g class="viz-group">
+              <text x="195" y="20" text-anchor="middle" class="viz-mono-sub">N = 200</text>
+              <rect x="150" y="30" width="90" height="20" rx="10" class="ratio-bar" />
+              <rect x="150" y="30" width="6"  height="20" rx="10" class="ratio-bar-pos" />
+              <text x="195" y="63" text-anchor="middle" class="viz-mono-sub pos-color">~3% positive</text>
+            </g>
+
+            <path d="M86 40 L142 40" class="viz-arrow-line" marker-end="url(#gapArrow)" />
+            <defs>
+              <marker id="gapArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                <path d="M0 0 L8 4 L0 8 Z" class="viz-arrow-head" />
+              </marker>
+            </defs>
+
+            <text x="130" y="97" text-anchor="middle" class="viz-caption">positive interactions grow sparser as N increases</text>
+          </svg>
         </section>
       </Transition>
 
@@ -208,25 +284,123 @@ onBeforeUnmount(() => {
 }
 
 /* =========================
-   Card text
+   Visualization (replaces <p>)
    ========================= */
 
-.gap-card p {
-  margin: 0;
+.gap-visual {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
 
-  color: #64748b;
-
-  font-size: 15px;
-  line-height: 1.65;
+  margin-top: 4px;
 }
 
-.gap-card sup {
-  color: #20639b;
+.viz-box {
+  fill: #f8fafb;
+  stroke: #dce4e9;
+  stroke-width: 1.5;
+}
 
-  font-size: 10px;
+.box-a {
+  stroke: #20639b;
+}
+
+.box-b {
+  stroke: #2a9d8f;
+}
+
+.box-c {
+  stroke: #e9c46a;
+}
+
+.viz-wave {
+  fill: none;
+  stroke: #20639b;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.viz-node {
+  fill: #eafaf7;
+  stroke: #2a9d8f;
+  stroke-width: 1.5;
+}
+
+.viz-edge {
+  stroke: #2a9d8f;
+  stroke-width: 1.3;
+  opacity: 0.6;
+}
+
+.viz-broken {
+  stroke: #cbd5e1;
+  stroke-width: 2;
+  stroke-dasharray: 3 4;
+}
+
+.viz-label {
+  fill: #64748b;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 9.5px;
   font-weight: 600;
+}
 
-  vertical-align: super;
+.viz-caption {
+  fill: #94a3b8;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 10px;
+  font-style: italic;
+}
+
+.viz-mono {
+  fill: #173f5f;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.viz-mono-sub {
+  fill: #64748b;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.pos-color {
+  fill: #e76f51;
+}
+
+.viz-lock {
+  fill: none;
+  stroke: #b5860c;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.viz-lock rect {
+  fill: #fdf8ec;
+}
+
+.ratio-bar {
+  fill: #eef3f6;
+  stroke: #dce4e9;
+  stroke-width: 1;
+}
+
+.ratio-bar-pos {
+  fill: #e76f51;
+  opacity: 0.85;
+}
+
+.viz-arrow-line {
+  stroke: #94a3b8;
+  stroke-width: 1.6;
+}
+
+.viz-arrow-head {
+  fill: #94a3b8;
 }
 
 /* =========================
@@ -320,7 +494,7 @@ onBeforeUnmount(() => {
   }
 
   .gap-card {
-    min-height: 180px;
+    min-height: 220px;
   }
 
   .research-gap-box {

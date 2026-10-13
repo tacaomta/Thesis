@@ -156,23 +156,6 @@ eyebrow: MOTIVATION
 *-At the same time, we aim to preserve more expression-level information than conventional Boolean representations.*    
 *-Finally, we want to improve both the accuracy of the inferred network structure and its dynamic behavior.*  
 -->
----
-layout: default
-title: What is the Pipeline?
-eyebrow: PIPELINE
----
-
-<Pipeline01 />
-<!--
-On the screen, you can see the pipeline of the proposed framework.
-It can be divided into **four main stages**.  
-**First, we prepare the gene expression profiles.**  
-**Second, the discretization stage.**  
-We transform continuous expression values into multiple discrete states — in our case, **two or three levels**, depending on the distribution of each gene.  
-**Third, we infer regulatory relationships** from the discretized time-series profiles using information-based feature selection. At this stage, **two routines are conducted**.  
-**Finally, we evaluate the inferred network** from both **structural and dynamic perspectives**.  
-Key contributions are stages 2 and 3.
--->
 
 ---
 layout: default
@@ -187,7 +170,7 @@ First, a discretized network can be represented as a **directed graph**.
 We have a set **V**, which contains all the nodes in the network, and a set **A**, which represents the interactions between these nodes.  
 For each node *g*, its state at time *t* is represented by one of **l discrete values**, ranging from **0 to l minus 1**.  
 Now, suppose that a target node *g* is regulated by *k* other genes, from *u₁* to *uₖ*.  
-Then, the state of node *g* at time *t plus 1* is updated according to a **discrete function**, as shown on the screen.  
+Then, the state of node *g* at time *t plus 1* is updated by a **discrete function**, as shown on the screen.  
 In other words, the future state of a target gene is determined by the current states of its regulatory genes.  
 -->
 ---
@@ -260,9 +243,9 @@ eyebrow: DATASETS
 
 <Datasets01 />
 <!--
-*We tested the proposed method using two types of datasets: Artificial Discretized and GNW datasets.*  
-*The Artificial Discretized dataset consists of 20 network groups, with network sizes ranging from 10 to 200. Each group contains 20 randomly generated networks, resulting in a total of 400 networks.*   
-*The GNW dataset consists of 4 network groups with network sizes of 50, 100, 200, and 300. Each group contains 20 networks, a total of 80 networks were tested.*
+* We tested the proposed method using two types of datasets: Artificial Discretized and Ecoli datasets.  
+* The Artificial Discretized dataset consists of 20 network groups, with network sizes ranging from 10 to 200. Each group contains 20 randomly generated networks, resulting in a total of 400 networks.
+* The Ecoli dataset consists of 4 network groups with network sizes of 50, 100, 200, and 300. Each group contains 20 networks, a total of 80 networks were tested.
 -->
 ---
 layout: default
@@ -304,7 +287,7 @@ eyebrow: RESULTS - ARTIFICIAL DATASET
 * As the number of incoming links increases, the performance metrics decrease because a larger number of incoming links indicates a more difficult inference problem.
 * As shown in this figure:
   * Dynamics accuracy remains almost stable, even in the most difficult case, when the number of incoming links is 8.
-  * Precision and recall remain above 0.4.
+  * Precision and recall...
 -->
 ---
 layout: default
@@ -314,7 +297,7 @@ eyebrow: RESULTS - ECOLI DATASET
 
 <StructuralAccuracy />
 <!--
-*This slide shows the structural accuracy of our method and four comparison methods across four network sizes: 50, 100, 200, and 300.*
+*This slide shows the structural accuracy of our method and four comparison methods across four network sizes*
 *Overall, MIDNI shows better performance than the other methods.*
 *Furthermore, across the four network sizes, when the number of incoming links is 1 or 2, the performance of all methods is relatively similar. However, as the number of incoming links increases, our method shows better performance than the others.*
 *This indicates the effectiveness of our method for large-scale and difficult-to-solve GRN inference problems.*
@@ -353,11 +336,13 @@ eyebrow: CONCLUSION
 <!--
 What we achieved?
 - Infer regulatory networks using a multiple level representation beyond Boolean states
-- Achieve higher structural and dynamics accuracy than the comparison methods
-- Maintain reliable inference performance as network size and connectivity increase
-What are limitations?
-- Repy on correlation coefficients to determine the type and direction of regulatory interactions
-- MIFS and SWAP are essentially greedy algorithms and may not guarantee a globally optimal feature selection.
+- Achieve higher structural and dynamics accuracy than the comparison methods   
+- Maintain reliable inference performance as network size and connectivity increase     
+
+Although MIDNI improves GRN inference through multi-level discretization, it still has limitations.?  
+- First, K-means is sensitive to centroid initialization, so different initial centroids may lead to different clustering results.
+- Second, mutual information measures pairwise statistical dependence, which may not fully capture the complexity of real biological regulatory relationships.
+- Third, the greedy feature selection strategy makes locally optimal choices at each step, so it does not guarantee a globally optimal solution.
 -->
 ---
 layout: default
@@ -381,11 +366,11 @@ eyebrow: PROPOSED FRAMEWORK
 ---
 <LearningFramework />
 <!--
-“This slide shows an overview of the proposed GRN inference framework.  
-We start with labeled gene regulatory networks with known regulatory interactions. These networks are transformed into a supervised learning dataset using our representation scheme, which converts time-series expression profiles into feature-label pairs.  
-The resulting features are used to train different machine learning models, which are stored in a classifier pool.  
-For inference, the test expression data are represented in the same way and processed by a selected model to predict pairwise regulatory interactions. These predictions are then aggregated to reconstruct the inferred GRN.  
-Importantly, our representation is independent of network size, allowing models trained on one network size to generalize to networks of different sizes.”  
+This slide shows an overview of the proposed GRN inference framework.  
+- We start with labeled gene regulatory networks with known regulatory interactions. These networks are transformed into a supervised learning dataset using our representation scheme, which converts time-series expression profiles into feature-label pairs.  
+- The resulting features are used to train different machine learning models, which are stored in a classifier pool.  
+- For inference, the test expression data are represented in the same way and processed by a selected model to predict pairwise regulatory interactions. These predictions are then aggregated to reconstruct the inferred GRN.  
+- Importantly, our representation is independent of network size, allowing models trained on one network size to generalize to networks of different sizes.
 -->
 ---
 layout: default
@@ -394,12 +379,11 @@ eyebrow: DATA REPRESENTATION
 ---
 <DataRepresentation />
 <!--
-"Let's look at how we represent the data to turn GRN inference into a task machine learning can solve."  
-"First, each gene Gi is represented as a time-series vector across T observed time points — this is our raw input."  
-"Next, to capture the relationship *between* two genes, we concatenate the regulator's and target's expression vectors into a single 2T-dimensional feature vector."  
-"Then, each gene pair is labeled 1 if a directed interaction exists in the gold standard, and 0 otherwise."  
-"Finally, applying this across all gene pairs gives us a fully labeled dataset, where each sample is one candidate regulatory interaction."  
-"In short, this representation turns GRN inference into a supervised binary classification problem — making it scalable and model-agnostic."
+Let's look at how we represent the data to turn GRN inference into a task machine learning can solve.   
+- First, each gene Gi is represented as a time-series vector across T observed time points — this is our raw input. 
+- Next, to capture the relationship *between* two genes, we concatenate the regulator's and target's expression vectors into a single 2T-dimensional feature vector.  
+- Then, each gene pair is labeled 1 if a directed interaction exists in the gold standard, and 0 otherwise. 
+- Finally, applying this across all gene pairs gives us a fully labeled dataset, where each sample is one candidate regulatory interaction.
 -->
 ---
 layout: default
@@ -408,9 +392,9 @@ eyebrow: METHODOLOGICAL HIGTLIGHTS
 ---
 <MethodAdvantages />
 <!--What makes this representation so effective? 
-First, it’s completely assumption-free—the model learns temporal dependencies implicitly without manual time-lag tuning.  
-Second, it encodes structure and time dynamics together.   
-And most importantly, because feature length depends only on time steps $T$ rather than gene count, it creates a scale-invariant feature space.
+- First, it’s completely assumption-free—the model learns temporal dependencies implicitly without manual time-lag tuning.  
+- Second, it encodes structure and time dynamics together.   
+- And most importantly, because feature length depends only on time steps $T$ rather than gene count, it creates a scale-invariant feature space.
 -->
 ---
 layout: default
@@ -419,10 +403,10 @@ eyebrow: EXPERIMENTAL SETUP
 ---
 <ExperimentalSetup />
 <!--
-*Moving on to our experimental setup, we evaluated the framework on two benchmarks: synthetic scale-free Barabási–Albert networks and realistic E. coli networks from GeneNetWeaver.*  
-*For the topological datasets, we tested three network sizes: 10, 50, and 100. The training set contains 20,000, 2,000, and 2,000 ground-truth networks for each size, respectively. The validation and test sets contain 2,000, 400, and 400 networks, respectively.*  
-*For the E. coli dataset, we also tested three network sizes: 10, 50, and 100. The training set contains 200, 20, and 20 network structures, respectively, with 100 time-series samples generated for each structure. The validation sets contain 20, 4, and 4 structures, while the test sets contain 10, 4, and 4 structures, respectively.*   
-*Because true regulatory interactions are extremely sparse in biological networks, we use AUPR as our primary evaluation metric rather than AUROC. AUPR ranges from 0 to 1, with a value closer to 1 indicating better performance.*  
+* Moving on to our experimental setup, we evaluated the framework on two benchmarks: synthetic scale-free Barabási–Albert networks and realistic E. coli networks from GeneNetWeaver.*  
+* For the topological datasets, we tested three network sizes: 10, 50, and 100. The training set contains 20,000, 2,000, and 2,000 ground-truth networks for each size, respectively. The validation and test sets contain 2,000, 400, and 400 networks, respectively.*  
+* For the E. coli dataset, we also tested three network sizes: 10, 50, and 100. The training set contains 200, 20, and 20 network structures, respectively, with 100 time-series samples generated for each structure. The validation sets contain 20, 4, and 4 structures, while the test sets contain 10, 4, and 4 structures, respectively.*   
+* Because true regulatory interactions are extremely sparse in biological networks, we use AUPR as our primary evaluation metric rather than AUROC. AUPR ranges from 0 to 1, with a value closer to 1 indicating better performance.*  
 -->
 ---
 layout: default
@@ -431,20 +415,22 @@ eyebrow: RESULTS - TOPOLOGICAL NETWORKS
 ---
 <AUPRToys />
 <!--
--On the synthetic topological datasets, every single machine learning model outperformed the random baseline.   
--Random Forest delivered the highest overall accuracy across all network sizes.   
--Interestingly, Gaussian Naive Bayes was the only model whose performance actually improved as network size grew, thanks to its strong probabilistic inductive bias  
+- On the synthetic topological datasets, every single machine learning model outperformed the random baseline.   
+- Random Forest delivered the highest overall accuracy across all network sizes.   
+- Interestingly, Gaussian Naive Bayes was the only model whose performance actually improved as network size grew, thanks to its strong probabilistic inductive bias  
 -->
 ---
 layout: default
-title: Does the framework outperform traditional GRN inference methods on biological data?
+title: How Does the Performance on Biological Data?
 eyebrow: RESULTS - BIOLOGICAL NETWORKS
 ---
 <AUPREcoli />
 <!--
-When tested on biological E. coli networks, the performance gap expanded even further.   
-The supervised learning models achieved dramatically higher AUPR scores than traditional algorithms like Jump3 or Inferelator.   
-GNB consistently emerged as the most reliable model across all network dimensions.  
+When tested on biological E. coli networks, the performance gap expanded even further as shown on the charts. 
+We can see 3 things: 
+- First, The supervised learning models achieved dramatically higher AUPR scores than traditional algorithms like Jump3 or Inferelator.  
+- Second, at size 10, Average ML AUPR reaches 0.518 compared to Jump3 
+- Third, GNB consistently emerged as the most reliable model across all network dimensions.  
 -->
 ---
 layout: default
@@ -453,11 +439,12 @@ eyebrow: RESULTS - KEY FINDINGS
 ---
 <KeyFindings />
 <!--
-“Now, let’s highlight our key discovery: **scale invariance**.  
-We trained three GNB models using training sets of different sizes: 5,000, 10,000, and 20,000 network structures. After training, each model was evaluated on test networks with three different sizes: 10, 50, and 100 genes. We then compared these results with models trained directly on networks of the corresponding sizes.   
+Now, let’s highlight our key discovery: **scale invariance**.   
+- We trained three GNB models using training sets of network size 10 with different number of network structures: 5,000, 10,000, and 20,000. After training, each model was evaluated on test networks with three different sizes: 10, 50, and 100 genes. We then compared these results with models trained directly on networks of the corresponding sizes.  
+
 The results are shown in the chart on the left.   
-We can highlight that a GNB model trained exclusively on small 10-gene networks achieved an AUPR of 0.373 on 50-gene networks and 0.333 on 100-gene networks. These results are comparable to, and in some cases better than, models trained directly on larger networks. This demonstrates that interaction-level knowledge can transfer effectively across different network scales.  
-The chart on the right shows the training time of the models. The results demonstrate that training on smaller networks can significantly reduce training time and computational resources, while maintaining comparable inference performance to models trained on larger networks.  
+- We can highlight that a GNB model trained exclusively on small 10-gene networks achieved an AUPR of 0.373 on 50-gene networks and 0.333 on 100-gene networks. These results are comparable to, and in some cases better than, models trained directly on larger networks. This demonstrates that interaction-level knowledge can transfer effectively across different network scales.  
+- The chart on the right shows the training time of the models. The results demonstrate that training on smaller networks can significantly reduce training time and computational resources, while maintaining comparable inference performance to models trained on larger networks.  
 -->
 ---
 layout: default
@@ -466,10 +453,10 @@ eyebrow: RESULTS - KEY FINDINGS
 ---
 <TimeStepVariation />
 <!--
-“Now, in real-world experiments, gene expression data often contain only a limited number of time points. Therefore, we conducted an experiment to investigate whether the model can maintain its performance with fewer time points.  
-We trained the models using three datasets with different numbers of time points: 10, 20, and 50, across the three network sizes. The results are shown in the chart on this slide.  
-Except for the size-10 networks, where fewer time points actually achieved better performance, the results are generally consistent across the different time-point settings. One possible explanation is that, for smaller networks, fewer time points may reduce noise and help the model make more accurate predictions.    
-More importantly, even with only 10 time points, the model still achieves relatively high inference performance in the other cases. This suggests that the proposed framework has promising potential for practical applications with limited time-series observations.”
+Now, in real-world experiments, gene expression data often contain only a limited number of time points. Therefore, we conducted an experiment to investigate whether the model can maintain its performance with fewer time points.  
+- We trained the models using three datasets with different numbers of time points: 10, 20, and 50, across the three network sizes. The results are shown in the chart on this slide.  
+- Except for the size-10 networks, where fewer time points actually achieved better performance, the results are generally consistent across the different time-point settings. One possible explanation is that, for smaller networks, fewer time points may reduce noise and help the model make more accurate predictions.    
+- More importantly, even with only 10 time points, the model still achieves relatively high inference performance in the other cases. This suggests that the proposed framework has promising potential for practical applications with limited time-series observations.”
 -->
 ---
 layout: default
@@ -478,9 +465,9 @@ eyebrow: COMPUTATIONAL PERFORMANCE
 ---
 <ComputationalComparison />
 <!--
-From a computational standpoint, training on small networks saves 15% to 25% in training time compared to large-scale training.  
-Furthermore, while traditional methods have to re-compute everything from scratch for every new dataset,   
-our pre-trained classifiers run online inference in a fraction of a second.
+- As shown in the chart, the total time for training and inference is higher than that of traditional methods.   
+- However, once the model has been trained, it can infer each network much faster because traditional methods must repeat the computational process from scratch for every network. Therefore, our proposed approach becomes more efficient when inferring multiple networks, as the training cost can be amortized over repeated inference tasks.
+
 -->
 ---
 layout: default

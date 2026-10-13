@@ -15,28 +15,28 @@
               <div class="item-marker"></div>
               <div>
                 <h3>Multiple-Level Discretization</h3>
-                <p>Infer regulatory networks using a multiple-level representation beyond Boolean states.</p>
+                <p>Two and Three levels</p>
               </div>
             </div>
             <div class="result-item">
               <div class="item-marker"></div>
               <div>
                 <h3>Accurate Inference</h3>
-                <p>Achieve higher structural and dynamic accuracy than the compared methods.</p>
+                <p>High structural and dynamic accuracy</p>
               </div>
             </div>
             <div class="result-item">
               <div class="item-marker"></div>
               <div>
                 <h3>Scalability to Dense Networks</h3>
-                <p>Maintain reliable inference performance as network size and connectivity increase.</p>
+                <p>Large network sizes</p>
               </div>
             </div>
             <div class="result-item">
               <div class="item-marker"></div>
               <div>
                 <h3>Competitive Inference Time</h3>
-                <p>Achieve inference times comparable to the evaluated methods.</p>
+                <p>Comparable time to infer</p>
               </div>
             </div>
           </div>
@@ -55,15 +55,22 @@
             <div class="result-item">
               <div class="item-marker limitation-marker"></div>
               <div>
-                <h3>Interaction Type and Direction</h3>
-                <p>Rely on correlation coefficients to determine the type and direction of regulatory interactions.</p>
+                <h3>K-means algorithm</h3>
+                <p>Centroid sensitivity, clustering variability.</p>
+              </div>
+            </div>
+            <div class="result-item">
+              <div class="item-marker limitation-marker"></div>
+              <div>
+                <h3>Mutual Information Assumption</h3>
+                <p>Pairwise dependence, biological complexity.</p>
               </div>
             </div>
             <div class="result-item">
               <div class="item-marker limitation-marker"></div>
               <div>
                 <h3>Greedy Feature Selection</h3>
-                <p>MIFS and SWAP are greedy algorithms and may not guarantee a globally optimal feature subset.</p>
+                <p>Locally optimal choices, no global-optimum guarantee.</p>
               </div>
             </div>
           </div>

@@ -2,8 +2,8 @@
 <div class="model-slide">
 
     <div class="intro">
-        A discretized network describes regulatory interactions and
-        how the discrete state of each gene changes over time.
+        <!-- A discretized network describes regulatory interactions and
+        how the discrete state of each gene changes over time. -->
     </div>
 
     <div class="three-points">
@@ -253,6 +253,7 @@
     height: 48px;
     display: block;
     overflow: visible;
+     background: #eef7fa;
 }
 
 .edge {
@@ -277,6 +278,7 @@
 
 .state-icon {
     flex-direction: column;
+    background: #eef7fa;
 }
 
 .gene-symbol {
@@ -291,7 +293,7 @@
     margin-top: 5px;
     color: #94a3b8;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 7px;
+    font-size: 10px;
 }
 
 .function-icon {
@@ -377,7 +379,7 @@
 .small-note {
     margin-top: 13px;
     color: #94a3b8;
-    font-size: 7.5px;
+    font-size: 10px;
     line-height: 1.45;
 }
 
@@ -461,7 +463,7 @@
     background: #f8fafb;
     color: #173f5f;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
     box-sizing: border-box;

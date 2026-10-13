@@ -288,13 +288,13 @@ onBeforeUnmount(() => {
     </div>
 
     <div class="result-note">
-      <div class="result-item">
+      <!-- <div class="result-item">
         <span class="note-icon">▸</span>
         <div>
           <strong>Reduced training time: </strong>
           Training on 20,000 small |V|=10 networks reduces training duration by 15%–25% compared to training on large networks.
         </div>
-      </div>
+      </div> -->
 
       <div class="result-item">
         <span class="note-icon">▸</span>

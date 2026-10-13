@@ -43,11 +43,11 @@ onBeforeUnmount(() => {
           </div>
 
           <h2>Assumption-Free Formulation</h2>
-
+<!-- 
           <p>
             Operates without predefined time-lag heuristics or restricted
             candidate regulator subsets.
-          </p>
+          </p> -->
 
           <div class="visual">
             <div class="visual-row">
@@ -73,10 +73,10 @@ onBeforeUnmount(() => {
 
           <h2>Joint Spatiotemporal Encoding</h2>
 
-          <p>
+          <!-- <p>
             Captures temporal expression dynamics and local regulatory
             topology simultaneously.
-          </p>
+          </p> -->
 
           <div class="visual">
             <div class="dual-input">
@@ -102,10 +102,10 @@ onBeforeUnmount(() => {
 
           <h2>Scale-Invariant Feature Space</h2>
 
-          <p>
+          <!-- <p>
             Enables cross-network data integration independent of overall
             network dimensions.
-          </p>
+          </p> -->
 
           <div class="visual">
             <div class="network-sizes">
@@ -236,7 +236,7 @@ onBeforeUnmount(() => {
    ========================= */
 
 .advantage-card h2 {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
 
   color: #173f5f;
 
@@ -269,7 +269,7 @@ onBeforeUnmount(() => {
 
 .visual {
   margin-top: auto;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .visual-row,

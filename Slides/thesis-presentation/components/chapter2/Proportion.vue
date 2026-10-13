@@ -18,9 +18,7 @@
       <span class="message-label">KEY OBSERVATION</span>
 
       <span class="message-text">
-        The proportion of three-level genes varies across datasets,
-        indicating that a binary representation may not fully capture
-        the observed gene expression dynamics.
+        Three-level discretization is observed as frequently as two-level discretization.
       </span>
     </div>
 

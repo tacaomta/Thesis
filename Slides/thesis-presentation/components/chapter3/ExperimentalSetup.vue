@@ -96,8 +96,7 @@
                 <h2>Biological Benchmark Datasets</h2>
 
                 <p>
-                    Simulated <em>Escherichia coli</em> networks generated via
-                    GeneNetWeaver (GNW).
+                    <em>Escherichia coli</em> networks
                 </p>
 
                 <!-- Biological network visual -->
@@ -177,8 +176,7 @@
                 <h2>Evaluation Metric</h2>
 
                 <p>
-                    Area Under the Precision-Recall Curve (AUPR) selected due to
-                    extreme sparsity in biological networks.
+                    Area Under the Precision-Recall Curve (AUPR)
                 </p>
 
                 <div class="metric-visual">

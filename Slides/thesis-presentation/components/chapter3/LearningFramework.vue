@@ -11,7 +11,7 @@
     <div class="framework-caption">
       <span class="accent"></span>
       <span>
-        A learning framework for representing regulatory relationships
+        A framework for representing regulatory relationships
         from time-series gene expression data.
       </span>
     </div>

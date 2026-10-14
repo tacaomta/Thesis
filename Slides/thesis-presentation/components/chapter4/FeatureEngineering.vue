@@ -65,10 +65,10 @@ onBeforeUnmount(() => {
             <span>observed time steps × genes</span>
           </div>
 
-          <p>
+          <!-- <p>
             The observed time-series expression matrix contains
             <strong>k</strong> time steps for <strong>n</strong> genes.
-          </p>
+          </p> -->
         </section>
       </Transition>
 
@@ -110,7 +110,7 @@ onBeforeUnmount(() => {
           </div>
 
           <p>
-            Consecutive expression states are concatenated into
+            <!-- Consecutive expression states are concatenated into -->
             <strong>2n-dimensional transition vectors</strong>.
           </p>
         </section>
@@ -151,10 +151,10 @@ onBeforeUnmount(() => {
           </div>
 
           <p class="rationale">
-            Explicitly exposes
+            <!-- Explicitly exposes -->
             <strong>state-transition correlations</strong>
-            to the neural network, enabling accurate prediction of
-            future gene-expression states.
+            <!-- to the neural network, enabling accurate prediction of
+            future gene-expression states. -->
           </p>
 
           <div class="key-message">
@@ -178,6 +178,7 @@ onBeforeUnmount(() => {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+
 }
 
 .blocks {
@@ -185,6 +186,7 @@ onBeforeUnmount(() => {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  margin-top: 15px;
 }
 
 /* =========================

@@ -54,13 +54,12 @@ onBeforeUnmount(() => {
             </div>
 
             <h3>
-              GRNs require coordinated temporal observations
+              Temporal Observation Requirements
             </h3>
 
             <p>
-              Reconstructing GRNs requires observing
+              Requires observing
               <strong>coordinated gene expression trajectories</strong>
-              over temporal steps.
             </p>
           </div>
         </div>
@@ -84,10 +83,9 @@ onBeforeUnmount(() => {
             </h3>
 
             <p>
-              Biological experiments face
+              Experiments facing
               <strong>high costs, measurement noise,</strong>
-              and strict environmental constraints,
-              resulting in severely restricted time-step observations.
+              and strict environmental constraints
             </p>
           </div>
         </div>
@@ -111,9 +109,9 @@ onBeforeUnmount(() => {
             </h3>
 
             <p>
-              Short time-series data significantly reduces the
+              Reduces the
               <strong>accuracy and stability</strong>
-              of computational inference algorithms.
+              of inference algorithms.
             </p>
           </div>
         </div>

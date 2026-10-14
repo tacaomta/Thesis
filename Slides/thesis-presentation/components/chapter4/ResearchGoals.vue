@@ -46,13 +46,11 @@ onBeforeUnmount(() => {
             </div>
 
             <h3>
-              Synthesize time-series data from sparse observations
+              Synthesize from limited samples
             </h3>
 
             <p>
-              Develop an
-              <strong>Autoencoder-based time-series data synthesis framework</strong>
-              tailored for sparse gene expression trajectories.
+              <strong>Autoencoder-based </strong>time-series data synthesis framework
             </p>
           </div>
         </div>
@@ -76,10 +74,8 @@ onBeforeUnmount(() => {
             </h3>
 
             <p>
-              Training an Autoencoder on
-              <strong>consecutive time-step pairs</strong>
-              enables auto-regressive generation of future time steps
-              while preserving structural network dynamics.
+              Training on
+              <strong>consecutive time-step pairs</strong>, generation of future time steps, preserving structural network dynamics.
             </p>
           </div>
         </div>
@@ -99,53 +95,18 @@ onBeforeUnmount(() => {
             </div>
 
             <h3>
-              Validate synthetic data through GRN inference
+              Validate synthetic data
             </h3>
 
             <p>
-              Evaluate the quality of the generated data using
-              <strong>
-                Mutual Information Based on Multiple Level
-                Discretization Network Inference (MIDNI)
-              </strong>
-              as the downstream GRN inference algorithm.
+              Quality of the generated data evaluated by
+              <strong>MIDNI</strong> algorithm.
             </p>
           </div>
         </div>
       </Transition>
 
     </div>
-
-    <!-- Framework connection -->
-    <Transition name="reveal">
-      <div
-        v-if="visibleCount >= 3"
-        class="framework-message"
-      >
-        <div class="message-node">
-          Sparse observations
-        </div>
-
-        <div class="message-arrow">→</div>
-
-        <div class="message-node highlight">
-          Autoencoder
-        </div>
-
-        <div class="message-arrow">→</div>
-
-        <div class="message-node">
-          Synthetic trajectories
-        </div>
-
-        <div class="message-arrow">→</div>
-
-        <div class="message-node">
-          MIDNI validation
-        </div>
-      </div>
-    </Transition>
-
   </div>
 </template>
 

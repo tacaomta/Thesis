@@ -297,10 +297,9 @@ eyebrow: RESULTS - ECOLI DATASET
 
 <StructuralAccuracy />
 <!--
-*This slide shows the structural accuracy of our method and four comparison methods across four network sizes*
-*Overall, MIDNI shows better performance than the other methods.*
-*Furthermore, across the four network sizes, when the number of incoming links is 1 or 2, the performance of all methods is relatively similar. However, as the number of incoming links increases, our method shows better performance than the others.*
-*This indicates the effectiveness of our method for large-scale and difficult-to-solve GRN inference problems.*
+* This slide shows the structural accuracy of our method and four comparison methods across four network sizes
+* Overall, MIDNI shows better performance than the other methods.
+* Furthermore, across the four network sizes, when the number of incoming links is 1 or 2, the performance of all methods is relatively similar. However, as the number of incoming links increases, our method shows better performance than the others.This indicates the effectiveness of our method for large-scale and difficult-to-solve GRN inference problems.
 -->
 ---
 layout: default
@@ -352,12 +351,12 @@ eyebrow: RESEARCH GAP 02
 <RepresentationMotivations />
 <!-- CHAPTER 3 -->
 <!--
-*“In the first issue, I focused on the inference method. By introducing multiple-level discretization, we can preserve more information from gene expression dynamics than a purely Boolean representation.*  
-*However, when moving toward machine learning, another question arises: how should a regulatory relationship be represented so that a learning model can actually learn from it? This question motivates the second issue addressed in this chapter.*  
-*First, let us look at why existing machine learning frameworks still fail to generalize.*   
-*First, temporal expression dynamics and local regulatory structures are encoded separately or indirectly.*   
-*Second, models depend heavily on fixed time delays, restricted candidate regulator sets, or specific kernel configurations.*  
-*Finally, sparse networks lead to class imbalance, meaning that as the network scale increases, the ratio of positive regulatory interactions to non-interactions becomes increasingly skewed.* 
+In the first issue, I focused on the inference method. By introducing multiple-level discretization, we can preserve more information from gene expression dynamics than a purely Boolean representation.   
+However, when moving toward machine learning, another question arises: how should a regulatory relationship be represented so that a learning model can actually learn from it? This question motivates the second issue addressed in this chapter.  
+First, let us look at why existing machine learning frameworks still fail to generalize.   
+* First, temporal expression dynamics and local regulatory structures are encoded separately or indirectly.
+* Second, models depend heavily on fixed time delays, restricted candidate regulator sets, or specific kernel configurations. 
+* Finally, sparse networks lead to class imbalance, meaning that as the network scale increases, the ratio of positive regulatory interactions to non-interactions becomes increasingly skewed.
  -->
 ---
 layout: default
@@ -380,9 +379,9 @@ eyebrow: DATA REPRESENTATION
 <DataRepresentation />
 <!--
 Let's look at how we represent the data to turn GRN inference into a task machine learning can solve.   
-- First, each gene Gi is represented as a time-series vector across T observed time points — this is our raw input. 
+- First, each gene is represented as a time-series vector across T observed time points — this is our raw input. 
 - Next, to capture the relationship *between* two genes, we concatenate the regulator's and target's expression vectors into a single 2T-dimensional feature vector.  
-- Then, each gene pair is labeled 1 if a directed interaction exists in the gold standard, and 0 otherwise. 
+- Then, each gene pair is labeled 1 if a directed interaction exists in the gold standard, and otherwise by 0. 
 - Finally, applying this across all gene pairs gives us a fully labeled dataset, where each sample is one candidate regulatory interaction.
 -->
 ---
@@ -403,10 +402,10 @@ eyebrow: EXPERIMENTAL SETUP
 ---
 <ExperimentalSetup />
 <!--
-* Moving on to our experimental setup, we evaluated the framework on two benchmarks: synthetic scale-free Barabási–Albert networks and realistic E. coli networks from GeneNetWeaver.*  
-* For the topological datasets, we tested three network sizes: 10, 50, and 100. The training set contains 20,000, 2,000, and 2,000 ground-truth networks for each size, respectively. The validation and test sets contain 2,000, 400, and 400 networks, respectively.*  
-* For the E. coli dataset, we also tested three network sizes: 10, 50, and 100. The training set contains 200, 20, and 20 network structures, respectively, with 100 time-series samples generated for each structure. The validation sets contain 20, 4, and 4 structures, while the test sets contain 10, 4, and 4 structures, respectively.*   
-* Because true regulatory interactions are extremely sparse in biological networks, we use AUPR as our primary evaluation metric rather than AUROC. AUPR ranges from 0 to 1, with a value closer to 1 indicating better performance.*  
+Moving on to our experimental setup, we evaluated the framework on two benchmarks: synthetic scale-free networks and realistic E. coli networks.   
+* For the topological datasets, we tested three network sizes: 10, 50, and 100. The training set contains 20,000, 2,000, and 2,000 ground-truth networks for each size, respectively. The validation and test sets contain 2,000, 400, and 400 networks, respectively.
+* For the E. coli dataset, we also tested three network sizes: 10, 50, and 100. The training set contains 200, 20, and 20 network structures, respectively, with 100 time-series samples generated for each structure. The validation sets contain 20, 4, and 4 structures, while the test sets contain 10, 4, and 4 structures, respectively.
+* Because true regulatory interactions are extremely sparse in biological networks, we use AUPR as our primary evaluation metric. AUPR ranges from 0 to 1, with a value closer to 1 indicating better performance.
 -->
 ---
 layout: default
@@ -465,6 +464,7 @@ eyebrow: COMPUTATIONAL PERFORMANCE
 ---
 <ComputationalComparison />
 <!--
+About computational comparison within the methods:  
 - As shown in the chart, the total time for training and inference is higher than that of traditional methods.   
 - However, once the model has been trained, it can infer each network much faster because traditional methods must repeat the computational process from scratch for every network. Therefore, our proposed approach becomes more efficient when inferring multiple networks, as the training cost can be amortized over repeated inference tasks.
 
@@ -476,7 +476,7 @@ eyebrow: LIMITATION & DEVELOPMENT
 ---
 <LimitationDevelopment />
 <!--
-- To be realistic about deployment, there is one key operational constraint: 
+To be realistic about deployment, there is one key operational constraint: 
 - The test time-series length must match or exceed the training length $T$. 
 - For shorter profiles, temporal extension techniques are required. 
 - Nevertheless, the representation has proven remarkably robust across both discrete and continuous data types.
@@ -488,9 +488,11 @@ eyebrow: CONCLUSION
 ---
 <LearningConclusion />
 <!--
-- To conclude, this work introduces a novel, scale-invariant representation that reformulates GRN inference into a binary classification problem.
-- By removing time-lag heuristics and enabling cross-network data transfer. 
-- It effectively overcomes class imbalance and offers a highly scalable tool for systems biology.
+To conclude this chapter, our proposed framework offers four key advantages.
+- First, it removes heuristic time-lag assumptions by encoding gene pairs directly.
+- Second, it resolves data sparsity through cross-scale augmentation.
+- Third, this results in a flexible and computationally efficient solution for GRN inference.
+- Most importantly, a model trained on small networks generalizes well to larger ones — without retraining.
 -->
 ---
 layout: default
@@ -499,7 +501,8 @@ eyebrow: RESEARCH GAP 03
 ---
 <ResearchGap03 />
 <!--
-- Now, let’s move to the third issue: **time-series data scarcity**. So, why is limited time-series data a critical bottleneck in GRN inference?
+Now, let’s move to the third issue: **time-series data scarcity**.   
+Limited time-series data poses a significant challenge in GRN inference. But why is the availability of temporal data so critical?     
 - First, reconstructing GRNs requires observing coordinated gene expression trajectories across multiple time points.
 - Second, biological experiments face high costs, measurement noise, and strict environmental constraints, resulting in severely limited temporal observations.
 - Finally, short time-series data can significantly reduce the accuracy and stability of computational GRN inference methods.
@@ -512,9 +515,9 @@ eyebrow: LIMITATIONS OF EXISTING METHODS
 ---
 <LimitationsExistingMethods />
 <!--
-- Now, let’s look at the limitations of existing data augmentation methods. Why do conventional approaches struggle with sparse transcriptomic data?
+Now, let’s look at the limitations of existing data augmentation methods. Why do conventional approaches struggle with sparse transcriptomic data?   
 - First, GAN-based variants are difficult to train on small datasets and are prone to problems such as mode collapse.
-- Second, other generative models, such as AGN, rely on relatively rigid assumptions about the underlying data distribution.
+- Second, other generative models, such as AGN, rely on relatively rigid assumptions about the underlying data distribution and fail to capture non-linear temporal dynamics.
 - Finally, there is still a lack of generative approaches that can effectively synthesize additional data from a limited number of observed samples.
 -->
 ---

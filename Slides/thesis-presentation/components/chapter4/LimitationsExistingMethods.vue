@@ -53,16 +53,39 @@ onBeforeUnmount(() => {
             </div>
 
             <h3>
-              GANs require large-scale training samples
+              Fails with limited training samples
             </h3>
 
-            <p>
-              GAN-based approaches require
-              <strong>large-scale training samples</strong>
-              and can suffer from training instability,
-              including <strong>mode collapse</strong>,
-              when only a small number of samples are available.
-            </p>
+            <div class="keyword-chips">
+              <span class="chip">large-scale training samples</span>
+              <span class="chip">training instability</span>
+              <span class="chip warn">mode collapse</span>
+            </div>
+          </div>
+
+          <div class="visual">
+            <svg viewBox="0 0 120 90" class="visual-svg">
+              <!-- data distribution: many real modes -->
+              <circle cx="20" cy="22" r="5" class="mode-real" />
+              <circle cx="40" cy="14" r="5" class="mode-real" />
+              <circle cx="60" cy="24" r="5" class="mode-real" />
+              <circle cx="80" cy="15" r="5" class="mode-real" />
+              <circle cx="100" cy="23" r="5" class="mode-real" />
+
+              <text x="60" y="40" text-anchor="middle" class="visual-caption">real data modes</text>
+
+              <path d="M60 46 L60 56" class="visual-arrow" marker-end="url(#ganArrow)" />
+              <defs>
+                <marker id="ganArrow" markerWidth="8" markerHeight="8" refX="4" refY="7" orient="auto">
+                  <path d="M0 0 L8 0 L4 7 Z" class="arrow-head" />
+                </marker>
+              </defs>
+
+              <!-- collapsed single mode -->
+              <circle cx="60" cy="72" r="9" class="mode-collapsed" />
+
+              <text x="60" y="88" text-anchor="middle" class="visual-caption collapsed-label">collapsed to one mode</text>
+            </svg>
           </div>
         </div>
       </Transition>
@@ -81,17 +104,30 @@ onBeforeUnmount(() => {
             </div>
 
             <h3>
-              AGN simulators rely on rigid assumptions
+              Cannot capture non-linear dynamics
             </h3>
 
-            <p>
-              Artificial Gene Network simulators have been
-              phased out due to
-              <strong>rigid assumptions</strong>
-              and their inability to capture
-              <strong>non-linear temporal dynamics</strong>
-              from restricted real-world samples.
-            </p>
+            <div class="keyword-chips">
+              <span class="chip">rigid assumptions</span>
+              <span class="chip warn">non-linear temporal dynamics</span>
+              <span class="chip">restricted real-world samples</span>
+            </div>
+          </div>
+
+          <div class="visual">
+            <svg viewBox="0 0 120 90" class="visual-svg">
+              <!-- rigid linear assumption -->
+              <line x1="12" y1="55" x2="108" y2="25" class="agn-linear" />
+              <text x="60" y="18" text-anchor="middle" class="visual-caption">assumed (linear)</text>
+
+              <!-- actual non-linear trajectory -->
+              <path d="M12 68 C 35 30, 55 85, 78 40 C 90 20, 98 55, 108 45" class="agn-nonlinear" />
+              <text x="60" y="88" text-anchor="middle" class="visual-caption nonlinear-label">actual (non-linear)</text>
+
+              <!-- gap markers -->
+              <circle cx="55" cy="47" r="2.6" class="agn-gap-dot" />
+              <circle cx="78" cy="40" r="2.6" class="agn-gap-dot" />
+            </svg>
           </div>
         </div>
       </Transition>
@@ -110,15 +146,31 @@ onBeforeUnmount(() => {
             </div>
 
             <h3>
-              A robust architecture is still missing
+              No robust architecture exists yet
             </h3>
 
-            <p>
-              There is a lack of a robust generative architecture
-              capable of synthesizing
-              <strong>temporal gene expression profiles</strong>
-              from <strong>very limited initial observation steps</strong>.
-            </p>
+            <div class="keyword-chips">
+              <span class="chip unmet-chip">temporal gene expression profiles</span>
+              <span class="chip unmet-chip">very limited observation steps</span>
+            </div>
+          </div>
+
+          <div class="visual">
+            <svg viewBox="0 0 120 90" class="visual-svg">
+              <!-- few observed points -->
+              <circle cx="20" cy="55" r="5" class="unmet-observed" />
+              <circle cx="42" cy="48" r="5" class="unmet-observed" />
+
+              <text x="31" y="75" text-anchor="middle" class="visual-caption">observed</text>
+
+              <!-- question-mark gap for the rest of trajectory -->
+              <path d="M42 48 C 60 40, 75 60, 92 38 C 98 30, 104 34, 110 28" class="unmet-missing" />
+
+              <circle cx="78" cy="32" r="12" class="unmet-flag" />
+              <text x="78" y="37" text-anchor="middle" class="unmet-question">?</text>
+
+              <text x="88" y="75" text-anchor="middle" class="visual-caption missing-label">missing</text>
+            </svg>
           </div>
         </div>
       </Transition>
@@ -126,7 +178,7 @@ onBeforeUnmount(() => {
     </div>
 
     <!-- Bottom message -->
-    <Transition name="reveal">
+    <!-- <Transition name="reveal">
       <div
         v-if="visibleCount >= 3"
         class="bottom-message"
@@ -138,7 +190,7 @@ onBeforeUnmount(() => {
           specifically for limited temporal observations.
         </span>
       </div>
-    </Transition>
+    </Transition> -->
 
   </div>
 </template>
@@ -157,40 +209,6 @@ onBeforeUnmount(() => {
 }
 
 /* ============================================================
-   Intro
-   ============================================================ */
-
-.intro {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-
-  margin-bottom: 22px;
-}
-
-.intro-line {
-  width: 4px;
-  min-width: 4px;
-  height: 42px;
-
-  background: #2a9d8f;
-
-  border-radius: 2px;
-}
-
-.intro-text {
-  margin: 0;
-
-  max-width: 820px;
-
-  font-size: 17px;
-  line-height: 1.4;
-  font-weight: 500;
-
-  color: #173f5f;
-}
-
-/* ============================================================
    Main limitation flow
    ============================================================ */
 
@@ -201,7 +219,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   justify-content: center;
 
-  gap: 5px;
+  gap: 8px;
 
   min-height: 0;
 }
@@ -213,11 +231,13 @@ onBeforeUnmount(() => {
 .limitation-item {
   display: grid;
 
-  grid-template-columns: 54px minmax(0, 1fr);
+  grid-template-columns: 54px minmax(0, 1fr) 128px;
+
+  align-items: center;
 
   column-gap: 16px;
 
-  padding: 15px 20px 15px 14px;
+  padding: 13px 18px 13px 14px;
 
   background: #ffffff;
 
@@ -282,7 +302,7 @@ onBeforeUnmount(() => {
 }
 
 .limitation-item h3 {
-  margin: 0 0 5px;
+  margin: 0 0 8px;
 
   font-size: 16px;
   line-height: 1.25;
@@ -292,20 +312,155 @@ onBeforeUnmount(() => {
   color: #173f5f;
 }
 
-.limitation-item p {
-  margin: 0;
+/* ============================================================
+   Keyword chips (replaces the old <p> sentence)
+   ============================================================ */
 
-  max-width: 900px;
+.keyword-chips {
+  display: flex;
+  flex-wrap: wrap;
 
-  font-size: 12px;
-  line-height: 1.45;
-
-  color: #64748b;
+  gap: 6px;
 }
 
-.limitation-item strong {
-  color: #24313a;
+.chip {
+  padding: 4px 9px;
+
+  border-radius: 999px;
+
+  background: #f1f5f8;
+  border: 1px solid #dce4e9;
+
+  color: #475569;
+
+  font-size: 10.5px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+.chip.warn {
+  background: #fdf1e7;
+  border-color: #f0d0ab;
+  color: #b6560c;
+}
+
+.chip.unmet-chip {
+  background: #edf8f6;
+  border-color: #b8dcd7;
+  color: #247f76;
+}
+
+/* ============================================================
+   Visual column
+   ============================================================ */
+
+.visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 128px;
+  height: 90px;
+
+  flex-shrink: 0;
+}
+
+.visual-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.visual-caption {
+  fill: #94a3b8;
+
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 7.5px;
+}
+
+.visual-arrow {
+  stroke: #cbd5e1;
+  stroke-width: 1.6;
+}
+
+.arrow-head {
+  fill: #cbd5e1;
+}
+
+/* --- 01: GAN mode collapse --- */
+
+.mode-real {
+  fill: #eef5fa;
+  stroke: #20639b;
+  stroke-width: 1.4;
+}
+
+.mode-collapsed {
+  fill: #fdf1e7;
+  stroke: #e76f51;
+  stroke-width: 1.8;
+}
+
+.collapsed-label {
+  fill: #b6560c;
+  font-weight: 600;
+}
+
+/* --- 02: AGN rigid vs non-linear --- */
+
+.agn-linear {
+  stroke: #cbd5e1;
+  stroke-width: 1.8;
+  stroke-dasharray: 4 3;
+}
+
+.agn-nonlinear {
+  fill: none;
+  stroke: #20639b;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.agn-gap-dot {
+  fill: #e76f51;
+}
+
+.nonlinear-label {
+  fill: #20639b;
+  font-weight: 600;
+}
+
+/* --- 03: unmet need --- */
+
+.unmet-observed {
+  fill: #edf8f6;
+  stroke: #2a9d8f;
+  stroke-width: 1.6;
+}
+
+.unmet-missing {
+  fill: none;
+  stroke: #cbd5e1;
+  stroke-width: 1.8;
+  stroke-dasharray: 3 4;
+}
+
+.unmet-flag {
+  fill: #fdf1e7;
+  stroke: #e9c46a;
+  stroke-width: 1.6;
+}
+
+.unmet-question {
+  fill: #b5860c;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
   font-weight: 700;
+}
+
+.missing-label {
+  fill: #b5860c;
+  font-weight: 600;
 }
 
 /* ============================================================
@@ -364,54 +519,6 @@ onBeforeUnmount(() => {
 }
 
 /* ============================================================
-   Progress
-   ============================================================ */
-
-.progress {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-
-  gap: 7px;
-
-  height: 18px;
-
-  margin-top: 8px;
-}
-
-.progress-dot {
-  width: 6px;
-  height: 6px;
-
-  border-radius: 50%;
-
-  background: #dce4e9;
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
-}
-
-.progress-dot.active {
-  background: #2a9d8f;
-
-  transform: scale(1.15);
-}
-
-.progress-text {
-  margin-left: 4px;
-
-  font-family:
-    'IBM Plex Mono',
-    'JetBrains Mono',
-    monospace;
-
-  font-size: 9px;
-
-  color: #94a3b8;
-}
-
-/* ============================================================
    Reveal animation
    ============================================================ */
 
@@ -441,9 +548,19 @@ onBeforeUnmount(() => {
   .reveal-enter-active {
     transition: none;
   }
+}
 
-  .progress-dot {
-    transition: none;
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .limitation-item {
+    grid-template-columns: 40px minmax(0, 1fr);
+  }
+
+  .visual {
+    display: none;
   }
 }
 </style>

@@ -17,9 +17,8 @@
                 <h2>Temporal Alignment Condition</h2>
 
                 <p>
-                    Test time-series length
                     <span class="formula">T<sub>test</sub></span>
-                    must equal or exceed training profile length
+                    must equal or exceed
                     <span class="formula">T<sub>train</sub></span>.
                 </p>
 
@@ -60,8 +59,7 @@
                 <h2>Short-Profile Handling</h2>
 
                 <p>
-                    Requires temporal extension techniques when evaluating
-                    shorter time series.
+                    Requires temporal extension techniques
                 </p>
 
                 <div class="extension-visual">
@@ -95,8 +93,8 @@
                 <h2>Cross-Regime Stability</h2>
 
                 <p>
-                    Operates stably across both discrete and continuous
-                    gene expression data regimes.
+                    Operates both discrete and continuous
+                    gene expression data
                 </p>
 
                 <div class="regime-visual">

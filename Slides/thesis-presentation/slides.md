@@ -402,7 +402,7 @@ eyebrow: EXPERIMENTAL SETUP
 ---
 <ExperimentalSetup />
 <!--
-Moving on to our experimental setup, we evaluated the framework on two benchmarks: synthetic scale-free networks and realistic E. coli networks.   
+Moving on to our experimental setup, we evaluated the framework on two benchmarks: Topological networks and realistic E. coli networks.   
 * For the topological datasets, we tested three network sizes: 10, 50, and 100. The training set contains 20,000, 2,000, and 2,000 ground-truth networks for each size, respectively. The validation and test sets contain 2,000, 400, and 400 networks, respectively.
 * For the E. coli dataset, we also tested three network sizes: 10, 50, and 100. The training set contains 200, 20, and 20 network structures, respectively, with 100 time-series samples generated for each structure. The validation sets contain 20, 4, and 4 structures, while the test sets contain 10, 4, and 4 structures, respectively.
 * Because true regulatory interactions are extremely sparse in biological networks, we use AUPR as our primary evaluation metric. AUPR ranges from 0 to 1, with a value closer to 1 indicating better performance.
@@ -562,7 +562,10 @@ eyebrow: AUTOENCODER ARCHITECTURE
 ---
 <DeepLearningArchitecture />
 <!--
-Let's examine the Autoencoder architecture itself. We chose a lightweight 3-hidden-layer design with a 32-neuron bottleneck layer. Why keep it compact? Because a smaller architecture prevents overfitting on limited biological samples and keeps training stable. It uses ReLU activations in hidden layers and minimizes mean squared error during training.
+Let's examine the Autoencoder architecture itself. 
+- We chose a lightweight 3-hidden-layer design with a 32-neuron bottleneck layer. 
+- Why keep it compact? Because a smaller architecture prevents overfitting on limited biological samples and keeps training stable. 
+- It uses ReLU activations in hidden layers and minimizes mean squared error during training.
 -->
 ---
 layout: default
@@ -572,7 +575,7 @@ eyebrow: GENERATIVE MECHANISM
 <GenerativeMechanism />
 <!--
 - So how does the model actually generate new time points?
-- It works iteratively. When you pass $\mathbf{T}(t_i \oplus t_{i+1})$ into the trained model, it outputs the predicted state for $\mathbf{T}(t_{i+1} \oplus t_{i+2})$. 
+- It works iteratively. When you pass the last concatenated vector of the training set $\mathbf{T}(t_i \oplus t_{i+1})$ into the trained model, it outputs the predicted state for $\mathbf{T}(t_{i+1} \oplus t_{i+2})$. 
 - We extract the newly predicted time point and loop it back into the model as input for the next step, repeating this until we reach our target series length.
 -->
 ---
@@ -607,8 +610,9 @@ eyebrow: RESULTS - TERNARY DATASETS
 <!--
 - Looking at the results for ternary datasets:
 - Results of precision, recall, and structural accuracy on the multi-level discretization dataset. (a–c). Results for the network with |𝑉|=50 (d–f). Results for the network with |𝑉|=100 The Y-axis denotes the performance metrics, and the X-axis indicates the number of observed time steps in the original gene expression data. For the synthesized dataset, gene expression data are generated for (100−𝐾) time steps. Solid and dashed lines represent the results based on the synthesized and the original dataset, respectively. Each point and error bar indicates the average value and the standard deviation, respectively, over 10 random networks. The bar charts show the performance improvement of the synthesized dataset over the original dataset.
-- 1. Solid lines—representing synthetic data augmentation—consistently outshine the dashed baseline lines. 
-- 2. Crucially, the improvement is largest at $K=10$ and $K=20$, proving that synthetic data provides the highest value precisely when experimental samples are most scarce. Let's see if these gains hold true for Boolean datasets as well.-->
+- Look at the charts we can see that:
+- Read the card content...
+-->
 ---
 layout: default
 title:  How well performance gains on Boolean datasets?
@@ -641,7 +645,12 @@ eyebrow: RESULTS - DATA DIVERSITY ANALYSIS
 <!--
 - Similarity matrix between the synthesized gene expression data. 
 - (a) An example of a similarity matrix between a pair of synthesized gene expression data values when K equals 10. The white or black dot indicates that the corresponding gene values between two expression data values are identical or not, respectively. 
-- (b) Change in the mean similarity index against the time step number (K). For each K from 10 to 90, three pairs of synthesized gene expression data values were used to compute the mean similarity index.
+- (b) Change in the mean similarity index against the time step number (K).
+At the chart we can say that:
+- 1. Multiple executions of trained autoencoders generate varied syntheric expression profiles
+- 2. Simility index ranges between 0.3 and 0.4 confirm that high variation among outputs
+- 3. Althought high variation but downstream GRN reconstruction accuracy remains highly consistent
+- 4. This is once again, confirm that multiple expression pathways map to identical underlying regulatory logic.
 -->
 ---
 layout: default
@@ -651,7 +660,10 @@ eyebrow: SUMMARY AND IMPLICATIONS
 <SummaryOfCoreFindings />
 <!--
 - To summarize our core findings,
-- First,... read slide
+- First, demonstrates the first autoencoder-based temporal data synthesis method specifically engineered for GRN inference.
+- Second, Successfully extends time-series expression data without requiring complex, unstable GAN models.
+- Third, Substantially improves precision and recall across network scales size 50, 100, discretization levels (binary/ternary), and low sample regimes (K = 10, 20).
+- Allows researchers to infer higher-quality gene networks without running costly long-term laboratory experiments.
 -->
 ---
 layout: default
@@ -659,7 +671,13 @@ title: Where Can This Research Go Next?
 eyebrow: FUTURE HORIZONS
 ---
 <FutureHorizons />
-<!--Looking forward, there are several promising avenues for future research. Integrating Graph Neural Networks could help model structural topologies directly. Transitioning to continuous-valued modeling will eliminate discretization artifacts. Finally, validating this method on clinical transcriptomic datasets—such as rare disease models—will unlock immense real-world value. Thank you for your time, and I am happy to take any questions!-->
+<!--
+Looking forward, there are several promising avenues for future research. 
+- First, integrating GNNs could let the model capture network topology directly, rather than inferring it indirectly.. 
+- Second, extending the framework to continuous data would avoid information loss from discretization.. 
+- Third, more advanced generative models — such as conditional GANs or diffusion models — could better capture continuous dynamics
+- Finally, and most importantly, validating this approach on real clinical data — rare disease transcriptomics and single-cell RNA-seq — would confirm its real-world impact.
+-->
 ---
 layout: default
 title: What Have We Achieved?

@@ -24,7 +24,7 @@ const metrics = [
   },
   {
     number: '04',
-    name: 'Dynamic Accuracy',
+    name: 'Dynamics Accuracy',
     description: 'How well the inferred network captures the observed gene-expression dynamics.',
     symbol: 'DA'
   }

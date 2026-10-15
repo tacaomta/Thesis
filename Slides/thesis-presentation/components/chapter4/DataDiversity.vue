@@ -48,9 +48,6 @@ onBeforeUnmount(() => {
 
       <div class="figure-caption">
         <strong>Similarity matrix between synthesized gene expression profiles.</strong>
-        (a) Pairwise similarity at <em>K</em> = 10.
-        (b) Mean similarity index across observed time steps
-        <em>K</em> = 10–90.
       </div>
 
     </section>

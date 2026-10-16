@@ -14,9 +14,9 @@
 
       <!-- Chapter 1 -->
       <div class="achievement" style="--accent: #20639B; --accent-soft: rgba(32, 99, 155, 0.08);">
-        <div class="chapter">CHAPTER 1</div>
+        <div class="chapter">ISSUE 1</div>
 
-        <div class="icon">01</div>
+        <!-- <div class="icon">01</div> -->
 
         <h2>Better Discretization</h2>
 
@@ -50,9 +50,9 @@
 
       <!-- Chapter 2 -->
       <div class="achievement" style="--accent: #7A5AF8; --accent-soft: rgba(122, 90, 248, 0.08);">
-        <div class="chapter">CHAPTER 2</div>
+        <div class="chapter">ISSUE 2</div>
 
-        <div class="icon">02</div>
+        <!-- <div class="icon">02</div> -->
 
         <h2>Better Representation</h2>
 
@@ -87,9 +87,9 @@
 
       <!-- Chapter 3 -->
       <div class="achievement" style="--accent: #2A9D8F; --accent-soft: rgba(42, 157, 143, 0.08);">
-        <div class="chapter">CHAPTER 3</div>
+        <div class="chapter">ISSUE 3</div>
 
-        <div class="icon">03</div>
+        <!-- <div class="icon">03</div> -->
 
         <h2>Better Data</h2>
 

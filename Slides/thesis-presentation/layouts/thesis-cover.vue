@@ -303,10 +303,10 @@
 }
 
 .title-accent {
-  width: 62px;
+  width: 205px;
   height: 4px;
 
-  margin-top: 16px;
+  margin-top: 10px;
 
   border-radius: 2px;
   background: #173f5f;

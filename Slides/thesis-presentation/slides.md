@@ -101,7 +101,7 @@ There are several important challenges.
 * **Second, limited observations.** Although we may have thousands of genes, the number of available time points is often relatively small. In other words, we have a **high-dimensional problem with limited observations**.  
 * **Third, noise and biological variability.** Gene expression measurements can contain experimental noise and biological variation. These factors can make it more difficult to distinguish true regulatory signals from random variations, and therefore can reduce the accuracy of GRN inference.   
 * **Fourth, complex regulatory dependencies.** Gene regulatory systems can involve **nonlinear relationships, self-regulation, feedback loops, and other complex dependencies**. Capturing these relationships from gene expression data is challenging.  
-**Finally, the problem is inherently ambiguous.**Different network structures may produce **similar or even indistinguishable expression patterns** under the observed conditions. 
+* **Finally, the problem is inherently ambiguous.** Different network structures may produce **similar or even indistinguishable expression patterns** under the observed conditions. 
 -->
 ---
 layout: default
@@ -136,11 +136,9 @@ eyebrow: EXISTING APPROACHES
 <ExistingApproaches />
 <!--
 ### How is gene expression commonly represented for GRN inference?
-According to the **type of data processing**, existing methods can be divided into two groups.  
-**Real-value-based methods:**  
-In this group, there are some well-known methods such as **GENIE3, MRNET, TIGRESS, and NARROMI**. These approaches directly use continuous values, so they do not need any additional data representation method. Therefore, there is **no information loss** due to data representation. However, these models require more inference time and are sensitive to data noise.  
-**Boolean models:**  
-To speed up the inference process and handle noise sensitivity, **Boolean models** are widely used, where real-valued data are represented by **0 and 1**. **0** means an off or inhibition state, while **1** denotes an on or activation state. Some well-known methods include **MIBNI and GABNI**. These models require less inference time and are less sensitive to data noise. However, the main drawback is **information loss and dynamic variation due to the simplicity of the data representation**.  
+According to the **type of data processing**, existing methods can be divided into two groups: Real-value based method and Boolean models.  
+- **Real-value-based methods:** In this group, there are some well-known methods such as **GENIE3, MRNET, TIGRESS, and NARROMI**. These approaches directly use continuous values, so they do not need any additional data representation method. Therefore, there is **no information loss** due to data representation. However, these models require more inference time and are sensitive to data noise.  
+- To speed up the inference process and handle noise sensitivity, **Boolean models** are widely used, where real-valued data are represented by **0 and 1** meaning off/on or inhibition/activation states. Some well-known methods can be mentioned as **REVEAL and MIBNI**. These models require less inference time and are less sensitive to data noise. However, the main drawback is **information loss and dynamic variation due to the simplicity of the data representation**.  
 -->
 
 ---
@@ -152,10 +150,10 @@ eyebrow: MOTIVATION
 <Motivations />
 <!--
 **What do we want to improve?**  
-*-First, we want to reduce the computational cost while being less sensitive to noise in gene expression measurements.*     
-*-At the same time, we aim to preserve more expression-level information than conventional Boolean representations.*    
-*-Finally, we want to improve both the accuracy of the inferred network structure and its dynamic behavior.*  
--->
+- First, we want to reduce the computational cost while being less sensitive to noise in gene expression measurements.
+- At the same time, we aim to preserve more expression-level information than conventional Boolean representations.   
+- Finally, we want to improve both the accuracy of the inferred network structure and its dynamic behavior. 
+--> 
 
 ---
 layout: default
@@ -166,12 +164,10 @@ eyebrow: DISCRETIZATION NETWORK MODEL
 <DiscretizationNetworkModel />
 <!--
 Before going into our proposed model, let us first take a quick look at some basic concepts of a **discrete-state network model**.  
-First, a discretized network can be represented as a **directed graph**.  
-We have a set **V**, which contains all the nodes in the network, and a set **A**, which represents the interactions between these nodes.  
-For each node *g*, its state at time *t* is represented by one of **l discrete values**, ranging from **0 to l minus 1**.  
-Now, suppose that a target node *g* is regulated by *k* other genes, from *u₁* to *uₖ*.  
-Then, the state of node *g* at time *t plus 1* is updated by a **discrete function**, as shown on the screen.  
-In other words, the future state of a target gene is determined by the current states of its regulatory genes.  
+- First, a discretized network can be represented as a **directed graph**. It denotes as a combination set V and A where set **V** contains all the nodes in the network, and a set **A** represents the interactions between these nodes.  
+- For each node, V(t) denotes as its state at time *t* and represented by one of **l discrete values**, ranging from **0 to l minus 1**.  
+- Now, suppose that a target node is regulated by *k* other genes, from *u₁* to *uₖ*. Then, the state of the target node at time *t plus 1* is updated by a **discrete function**, as shown on the screen.  
+- In other words, the future state of a target gene is determined by the current states of its regulatory genes.  
 -->
 ---
 layout: default
@@ -181,13 +177,13 @@ eyebrow: PERFORMANCE EVALUATION
 
 <NetworkInference />
 <!--
-We evaluate the inferred networks from two perspectives: **dynamics and structure**.  
-For the **dynamics**, first, we define the gene-wise dynamics consistency, \(C(v,v')\), as the similarity between the discretized trajectories of the observed gene expression, \(v(t)\), and the estimated gene expression, \(v'(t)\).   
-Then, the **dynamics accuracy** is defined as the average gene-wise dynamics consistency across all genes.  
-For the **structural evaluation**, we use three metrics: **Precision, Recall, and Structural Accuracy**.  
-**Precision** measures the proportion of inferred regulatory interactions that are actually correct.   
-**Recall** measures the proportion of true regulatory interactions that are successfully recovered.  
-Finally, **Structural Accuracy** measures the overall agreement between the inferred network and the ground-truth network structure.
+How do we evaluate an inferred network?  
+- We evaluate the inferred networks from two perspectives: **dynamics and structure**.  
+- For the **dynamics**, first, we define the gene-wise dynamics consistency, as the similarity between the discretized trajectories of the observed gene expression, \(v(t)\), and the estimated gene expression. Then, the **dynamics accuracy** is defined as the average gene-wise dynamics consistency across all genes.  
+- For the **structural evaluation**, we use three metrics: **Precision, Recall, and Structural Accuracy**.  
+- Precision** measures the proportion of inferred regulatory interactions that are actually correct.   
+- Recall** measures the proportion of true regulatory interactions that are successfully recovered.  
+- Finally, **Structural Accuracy** measures the overall agreement between the inferred network and the ground-truth network structure.
 -->
 ---
 layout: default
@@ -198,12 +194,12 @@ eyebrow: METHODOLOGY
 <Methodology />
 <!--
 Let me now give you an overview of the proposed framework.  
-We start with a **two-dimensional microarray of real-valued gene expression data**, which is observed from an underlying regulatory network. Importantly, **the original network itself is unseen during the inference process**.  
-First, this input expression matrix is converted into a **discretized expression dataset** using the K-means discretization algorithm.  
-Then, the **K value is determined based on a validity index for each gene**. In this study, K can be either **2 or 3**, depending on the expression distribution of each gene.  
-Next, the discretized data are fed into the **MIFS and SWAP subroutines** to identify the regulatory genes for each target gene.  
-Based on the inferred regulatory relationships, we reconstruct the **prediction network**. At the same time, the prediction network provides the corresponding **inferred discretized expression values**.  
-Finally, at the evaluation stage, we compare the **inferred network with the ground-truth network** to evaluate the structural accuracy. For the dynamics accuracy, we compare the **observed and inferred discretized expression matrices**.
+- We start with a **two-dimensional microarray of real-valued gene expression data**, which is observed from an underlying regulatory network. Importantly, **the original network itself is unseen during the inference process**.  
+- First, this input expression matrix is converted into a **discretized expression dataset** using the K-means discretization algorithm.  
+- Then, the **K value is determined based on a validity index for each gene**. In this study, K can be either **2 or 3**, depending on the expression distribution of each gene.  
+- Next, the discretized data are fed into the **MIFS and SWAP subroutines** to identify the regulatory genes for each target gene.  
+- Based on the inferred regulatory relationships, we reconstruct the **prediction network**. At the same time, the prediction network provides the corresponding **inferred discretized expression values**.  
+- Finally, at the evaluation stage, we compare the **inferred network with the ground-truth network** to evaluate the structural accuracy. For the dynamics accuracy, we compare the **observed and inferred discretized expression matrices**.
 -->
 ---
 layout: default
@@ -213,9 +209,9 @@ eyebrow: DISCRETIZATION
 
 <Discretization />
 <!--As mentioned above, in our study, the discretization level of each gene can be either two or three.  
-To determine the optimal level, we apply a validity index, which is defined as the ratio of the Intra value to the Inter value.   
-The Intra value is the average squared distance between data points and their corresponding centroids.   
-The Inter value is the minimum squared distance between two different centroids. Therefore, the optimal discretization level is selected by minimizing the validity index.
+- To determine the optimal level, we apply a validity index, which is defined as the ratio of the Intra value to the Inter value.   
+- The Intra value is the average squared distance between data points and their corresponding centroids.   
+- The Inter value is the minimum squared distance between two different centroids. Therefore, the optimal discretization level is selected by minimizing the validity index.
 -->
 ---
 layout: default
@@ -231,9 +227,8 @@ eyebrow: FEATURE SELECTION
   * Next, select the gene that maximizes the mutual information with g₀ while considering its dependency on the already selected candidates.   
   * Repeat Step 2 until the desired number of k candidates has been selected.  
 
-The main drawback of the MIFS subroutine is that it does not compute the exact multivariate mutual information and may fail to find the optimal set of regulatory variables.  
-To overcome this problem, we propose a simple iterative SWAP subroutine to improve the dynamics accuracy by swapping the same number of variables between the selected and unselected sets.  
-The swapping process is repeated until the gene-wise dynamics consistency reaches 1.0, meaning that there is no further improvement, or until the number of potential candidates in the selected set equals k.  
+- The main drawback of the MIFS subroutine is that it does not compute the exact multivariate mutual information and may fail to find the optimal set of regulatory variables.  
+- To overcome this problem, we propose a simple iterative SWAP subroutine to improve the dynamics accuracy by swapping the same number of variables between the selected and unselected sets. The swapping process is repeated until the gene-wise dynamics consistency reaches 1.0, meaning that there is no further improvement, or until the number of potential candidates in the selected set equals k.  
 -->
 ---
 layout: default
@@ -321,9 +316,9 @@ eyebrow: RUNNING TIME
 
 <RunningTime />
 <!---
-We also conducted a comparison with running time among the methods. The result is shown on this figure.  
-Look at the chart, our method is comparable to others except dbn method.  
-Briefly, MIDNI is a promising tool for predicting both the structure and the dynamics of a gene regulatory network, especially for large-scale and dense input networks.  
+- We also conducted a comparison with running time among the methods. The result is shown on this figure.  
+- Look at the chart, our method is comparable to others except dbn method.  
+- Briefly, MIDNI is a promising tool for predicting both the structure and the dynamics of a gene regulatory network, especially for large-scale and dense input networks.  
 -->
 ---
 layout: default
@@ -352,7 +347,7 @@ eyebrow: RESEARCH GAP 02
 <!-- CHAPTER 3 -->
 <!--
 In the first issue, I focused on the inference method. By introducing multiple-level discretization, we can preserve more information from gene expression dynamics than a purely Boolean representation.   
-However, when moving toward machine learning, another question arises: how should a regulatory relationship be represented so that a learning model can actually learn from it? This question motivates the second issue addressed in this chapter.  
+However, when moving toward machine learning, another question arises: **"How should a regulatory relationship be represented so that a learning model can actually learn from it?"** This question motivates the second issue addressed in this chapter.  
 First, let us look at why existing machine learning frameworks still fail to generalize.   
 * First, temporal expression dynamics and local regulatory structures are encoded separately or indirectly.
 * Second, models depend heavily on fixed time delays, restricted candidate regulator sets, or specific kernel configurations. 
@@ -415,8 +410,8 @@ eyebrow: RESULTS - TOPOLOGICAL NETWORKS
 <AUPRToys />
 <!--
 - On the synthetic topological datasets, every single machine learning model outperformed the random baseline.   
-- Random Forest delivered the highest overall accuracy across all network sizes.   
-- Interestingly, Gaussian Naive Bayes was the only model whose performance actually improved as network size grew, thanks to its strong probabilistic inductive bias  
+- Random Forest shows the highest overall accuracy across all network sizes.   
+- Interestingly, Gaussian Naive Bayes was the only model whose performance actually improved as network size grew, it is because of strong probabilistic inductive bias of GNB model.
 -->
 ---
 layout: default
@@ -428,7 +423,7 @@ eyebrow: RESULTS - BIOLOGICAL NETWORKS
 When tested on biological E. coli networks, the performance gap expanded even further as shown on the charts. 
 We can see 3 things: 
 - First, The supervised learning models achieved dramatically higher AUPR scores than traditional algorithms like Jump3 or Inferelator.  
-- Second, at size 10, Average ML AUPR reaches 0.518 compared to Jump3 
+- Second, at size 10, Average ML AUPR reaches over 0.5 (0.518) compared to Jump3 
 - Third, GNB consistently emerged as the most reliable model across all network dimensions.  
 -->
 ---
@@ -442,7 +437,7 @@ Now, let’s highlight our key discovery: **scale invariance**.
 - We trained three GNB models using training sets of network size 10 with different number of network structures: 5,000, 10,000, and 20,000. After training, each model was evaluated on test networks with three different sizes: 10, 50, and 100 genes. We then compared these results with models trained directly on networks of the corresponding sizes.  
 
 The results are shown in the chart on the left.   
-- We can highlight that a GNB model trained exclusively on small 10-gene networks achieved an AUPR of 0.373 on 50-gene networks and 0.333 on 100-gene networks. These results are comparable to, and in some cases better than, models trained directly on larger networks. This demonstrates that interaction-level knowledge can transfer effectively across different network scales.  
+- We can highlight that a GNB model trained exclusively on small 10-gene networks achieved an AUPR, which are comparable to, and in some cases better than, models trained directly on larger networks. This demonstrates that interaction-level knowledge can transfer effectively across different network scales.  
 - The chart on the right shows the training time of the models. The results demonstrate that training on smaller networks can significantly reduce training time and computational resources, while maintaining comparable inference performance to models trained on larger networks.  
 -->
 ---
@@ -455,7 +450,7 @@ eyebrow: RESULTS - KEY FINDINGS
 Now, in real-world experiments, gene expression data often contain only a limited number of time points. Therefore, we conducted an experiment to investigate whether the model can maintain its performance with fewer time points.  
 - We trained the models using three datasets with different numbers of time points: 10, 20, and 50, across the three network sizes. The results are shown in the chart on this slide.  
 - Except for the size-10 networks, where fewer time points actually achieved better performance, the results are generally consistent across the different time-point settings. One possible explanation is that, for smaller networks, fewer time points may reduce noise and help the model make more accurate predictions.    
-- More importantly, even with only 10 time points, the model still achieves relatively high inference performance in the other cases. This suggests that the proposed framework has promising potential for practical applications with limited time-series observations.”
+- More importantly, even with only 10 time points, the model still achieves relatively high inference performance in the other cases. This suggests that the proposed framework has promising potential for practical applications with limited time-series observations.
 -->
 ---
 layout: default
@@ -659,7 +654,7 @@ eyebrow: SUMMARY AND IMPLICATIONS
 ---
 <SummaryOfCoreFindings />
 <!--
-- To summarize our core findings,
+To summarize our core findings:   
 - First, demonstrates the first autoencoder-based temporal data synthesis method specifically engineered for GRN inference.
 - Second, Successfully extends time-series expression data without requiring complex, unstable GAN models.
 - Third, Substantially improves precision and recall across network scales size 50, 100, discretization levels (binary/ternary), and low sample regimes (K = 10, 20).
@@ -684,9 +679,22 @@ title: What Have We Achieved?
 eyebrow: THESIS SYMMARY
 ---
 <ThesisSummary />
+<!--
+To summarize, this thesis addresses three key issues in GRN inference, progressing from better data representation to data augmentation.
+- Chapter 2 introduces multi-level discretization to preserve more expression-level information than conventional Boolean representations. This provides more informative expression states for network inference.
+- Chapter 3 develops SITTF, which transforms time-series gene expression data into a scale-independent representation. This enables learning-based inference models to be reused across networks of different sizes.
+- Chapter 4 proposes an autoencoder-based temporal data synthesis framework to generate additional time-series expression data. By expanding the available observations, this approach aims to improve the reliability of GRN inference.
+-->
 ---
 layout: default
 title: Who Made This Journey Possible?
 eyebrow: ACKNOWLEDGEMENT
 ---
 <Acknowledgement />
+<!--
+Before I conclude, I would like to express my sincere gratitude to the people who have supported me throughout this journey.
+- First, I would like to thank **Professor Kwon** for his guidance in shaping this research, his continuous support throughout my PhD, and his financial support that made this work possible.
+- Second, I am deeply grateful to **my family** for their unwavering support and encouragement. They have always given me peace of mind and the freedom to focus on my research, even when we had to be apart.
+- Finally, I would like to thank **my friends** for sharing the joys of everyday life with me. Their friendship helped me maintain a healthy balance between research and relaxation, making this journey more enjoyable and meaningful.
+- To all of you, thank you very much for being part of this journey.
+-->

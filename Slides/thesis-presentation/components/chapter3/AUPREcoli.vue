@@ -481,7 +481,7 @@ onBeforeUnmount(() => {
     <span class="note-icon">▸</span>
     <div>
       <strong>Quantitative edge (|V|=10): </strong>
-     Average ML AUPR reaches 0.518, compared to Jump3 (0.174) and Inferelator (0.169).
+     Average ML AUPR reaches 0.518, compared to Jump3 and Inferelator.
     </div>
   </div>
 
@@ -489,7 +489,7 @@ onBeforeUnmount(() => {
     <span class="note-icon">▸</span>
     <div>
       <strong>Consistent top performer: </strong>
-      GNB maintains the highest, most stable AUPR across all network scales (0.566 at size 10; 0.324 at size 100).
+      GNB maintains the highest, most stable AUPR across all network scales.
     </div>
   </div>
 </div>

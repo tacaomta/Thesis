@@ -17,7 +17,7 @@
           <span class="section-number">01</span>
           <div>
             <div class="section-label">DYNAMICS PERFORMANCE</div>
-            <h2>Does the inferred network reproduce gene dynamics?</h2>
+            <!-- <h2>Does the inferred network reproduce gene dynamics?</h2> -->
           </div>
         </div>
 
@@ -223,7 +223,7 @@
             </div>
 
             <h2>
-              Does the inferred network recover the true interactions?
+              <!-- Does the inferred network recover the true interactions? -->
             </h2>
           </div>
         </div>
@@ -524,7 +524,7 @@
 .section-number {
   color: #cbd5dc;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.3;
 }
@@ -532,7 +532,7 @@
 .section-label {
   margin-bottom: 3px;
   color: #2a9d8f;
-  font-size: 6.5px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.12em;
 }
@@ -742,7 +742,7 @@
   background: #ffffff;
   color: #173f5f;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 7px;
+  font-size: 16px;
 }
 
 .formula-name {
@@ -759,12 +759,12 @@
   flex-direction: column;
   align-items: center;
   line-height: 1.1;
-  font-size: 5.5px;
+  font-size: 10px;
   color: #475569;
 }
 
 .fraction-line {
-  width: 75px;
+  width: 120px;
   margin: 2px 0;
   border-top: 1px solid #94a3b8;
 }
@@ -863,7 +863,7 @@
 .formula-label {
   margin-bottom: 3px;
   color: #64748b;
-  font-size: 5.5px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
 }
@@ -871,7 +871,7 @@
 .main-formula {
   color: #20639b;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 700;
 }
 
@@ -961,7 +961,7 @@
   background: #f8fafb;
   color: #20639b;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 6.5px;
+  font-size: 10px;
   font-weight: 600;
 }
 

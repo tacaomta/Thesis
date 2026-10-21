@@ -38,6 +38,39 @@
         <div class="stage-tag">
           Continuous values
         </div>
+
+        <!-- EXAMPLE: real-valued matrix -->
+        <div class="example-block">
+          <span class="example-caption">e.g.</span>
+
+          <div class="example-grid grid-3col">
+            <span class="cell real">G1</span>
+            <span class="cell real">G2</span>
+            <span class="cell real">...</span>
+            <span class="cell real">Gn</span>
+            <span class="cell real">0.714</span>
+            <span class="cell real">0.187</span>
+            <span class="cell real">...</span>
+            <span class="cell real">0.456</span>
+            <span class="cell real">0.303</span>
+            <span class="cell real">0.045</span>
+            <span class="cell real">...</span>
+            <span class="cell real">0.398</span>
+            <span class="cell real">0.667</span>
+            <span class="cell real">0.322</span>
+            <span class="cell real">...</span>
+            <span class="cell real">0.981</span>
+            <span class="cell real">...</span>
+            <span class="cell real">...</span>
+            <span class="cell real">...</span>
+            <span class="cell real">...</span>
+            <span class="cell real">0.802</span>
+            <span class="cell real">0.115</span>
+            <span class="cell real">...</span>
+            <span class="cell real">0.198</span>
+            
+          </div>
+        </div>
       </section>
 
 
@@ -99,6 +132,38 @@
           <span>K-means</span>
           <span>Validity Index</span>
         </div>
+
+        <!-- EXAMPLE: discretized matrix (0/1/2) -->
+        <div class="example-block">
+          <span class="example-caption">e.g.</span>
+
+          <div class="example-grid grid-3col">
+            <span class="cell state-cell lvl-0">G1</span>
+            <span class="cell state-cell lvl-0">G2</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-0">Gn</span>
+            <span class="cell state-cell lvl-1">1</span>
+            <span class="cell state-cell lvl-1">1</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-2">2</span>
+            <span class="cell state-cell lvl-0">0</span>
+            <span class="cell state-cell lvl-2">2</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-1">1</span>
+            <span class="cell state-cell lvl-2">2</span>
+            <span class="cell state-cell lvl-1">1</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-0">0</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-2">2</span>
+            <span class="cell state-cell lvl-0">0</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-1">1</span>
+          </div>
+        </div>
       </section>
 
 
@@ -148,6 +213,19 @@
         <div class="stage-tags">
           <span>MIFS</span>
           <span>SWAP</span>
+        </div>
+
+        <!-- EXAMPLE: selected candidate subset -->
+        <div class="example-block">
+          <span class="example-caption">e.g. candidates for G<sub>4</sub></span>
+
+          <div class="example-vector">
+            <span class="vec-item">G1</span>
+            <span class="vec-item picked">G2</span>
+            <span class="vec-item">G3</span>
+            <span class="vec-item picked">G5</span>
+            <span class="vec-item">G6</span>
+          </div>
         </div>
       </section>
 
@@ -228,6 +306,38 @@
         <div class="stage-tag">
           GRN reconstruction
         </div>
+
+        <!-- EXAMPLE: adjacency matrix (0/1/2) -->
+        <div class="example-block">
+          <span class="example-caption">e.g.</span>
+
+          <div class="example-grid grid-4col">
+            <span class="cell state-cell lvl-0">G1</span>
+            <span class="cell state-cell lvl-0">G2</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-0">Gn</span>
+            <span class="cell state-cell lvl-1">1</span>
+            <span class="cell state-cell lvl-2">2</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-2">2</span>
+            <span class="cell state-cell lvl-0">0</span>
+            <span class="cell state-cell lvl-1">1</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-1">1</span>
+            <span class="cell state-cell lvl-2">2</span>
+            <span class="cell state-cell lvl-1">1</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-0">0</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-2">2</span>
+            <span class="cell state-cell lvl-1">1</span>
+            <span class="cell state-cell lvl-0">...</span>
+            <span class="cell state-cell lvl-1">1</span>
+          </div>
+        </div>
       </section>
 
 
@@ -288,6 +398,16 @@
             <span class="metric-dot dynamics"></span>
             <strong>Dynamics</strong>
             accuracy
+          </div>
+        </div>
+
+        <!-- EXAMPLE: metric scores -->
+        <div class="example-block">
+          <span class="example-caption">e.g. scores</span>
+
+          <div class="example-scores">
+            <span class="score-chip structural">Structural 0.91</span>
+            <span class="score-chip dynamics">Dynamics 0.98</span>
           </div>
         </div>
       </section>
@@ -761,6 +881,195 @@
 
 .metric-dot.dynamics {
   background: #2a9d8f;
+}
+
+
+/* ---------- EXAMPLE BLOCKS ---------- */
+
+.example-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  margin-top: 10px;
+  padding-top: 9px;
+
+  border-top: 1px dashed #e2e8f0;
+}
+
+.example-caption {
+  margin-bottom: 5px;
+
+  color: #94a3b8;
+
+  font-size: 6.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+}
+
+/* generic matrix grid */
+
+.example-grid {
+  display: grid;
+
+  gap: 2px;
+}
+
+.example-grid.grid-3col {
+  grid-template-columns: repeat(4, 1fr);
+
+  width: 100px;
+}
+
+.example-grid.grid-4col {
+  grid-template-columns: repeat(4, 1fr);
+
+  width: 100px;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 15px;
+
+  border-radius: 2px;
+
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 6.2px;
+  font-weight: 600;
+
+  box-sizing: border-box;
+}
+
+/* real-valued matrix cells */
+
+.cell.real {
+  border: 1px solid #dce4e9;
+  background: #f8fafb;
+  color: #475569;
+}
+
+/* discretized matrix cells, colour-coded by level */
+
+.cell.state-cell.lvl-0 {
+  border: 1px solid #c7d9e6;
+  background: #ffffff;
+  color: #20639b;
+}
+
+.cell.state-cell.lvl-1 {
+  border: 1px solid #c9e6e1;
+  background: #f3fbf9;
+  color: #287c73;
+}
+
+.cell.state-cell.lvl-2 {
+  border: 1px solid #f0e0ac;
+  background: #fff9e8;
+  color: #8a6a12;
+}
+
+/* adjacency matrix cells, 0 = no edge, 1 = enhancer, 2 = inhibitor */
+
+.cell.adj-cell.adj-0 {
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #cbd5dc;
+}
+
+.cell.adj-cell.adj-1 {
+  border: 1px solid #c7d9e6;
+  background: #eef5fa;
+  color: #20639b;
+}
+
+.cell.adj-cell.adj-2 {
+  border: 1px solid #f0e0ac;
+  background: #fff9e8;
+  color: #8a6a12;
+}
+
+/* feature-selection vector example */
+
+.example-vector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 3px;
+
+  flex-wrap: wrap;
+}
+
+.vec-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 18px;
+  height: 15px;
+
+  padding: 0 4px;
+
+  border: 1px solid #dce4e9;
+  border-radius: 3px;
+
+  background: #f8fafb;
+
+  color: #94a3b8;
+
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 6.2px;
+  font-weight: 600;
+}
+
+.vec-item.picked {
+  border-color: #c9e6e1;
+  background: #f3fbf9;
+  color: #287c73;
+}
+
+/* evaluation score chips */
+
+.example-scores {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+
+  width: 100%;
+}
+
+.score-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 16px;
+
+  border-radius: 4px;
+
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 6.6px;
+  font-weight: 700;
+}
+
+.score-chip.structural {
+  border: 1px solid #c7d9e6;
+  background: #eef5fa;
+  color: #20639b;
+}
+
+.score-chip.dynamics {
+  border: 1px solid #c9e6e1;
+  background: #f3fbf9;
+  color: #287c73;
 }
 
 

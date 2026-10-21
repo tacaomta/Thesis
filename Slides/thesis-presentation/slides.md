@@ -28,8 +28,6 @@ eyebrow: "THESIS OVERVIEW"
 <!--
 * Here is an overview of my thesis.
 
-* The flow is **from better inference to better data**.
-
 * First, I will introduce the **research problem**, answering two fundamental questions: **What is a Gene Regulatory Network, and why do we need time-series gene expression data?**. This part defines the research challenges, identifies the existing gaps, and presents the objectives of the thesis.
 
 * Second, I will present a GRN inference method based on **multiple-level discretization and mutual information**.
@@ -48,7 +46,7 @@ eyebrow: GENE REGULATORY NETWORK
 <GRNs />
 <!---
 * Now, let me clarify what a **Gene Regulatory Network**, or GRN, is.  
-* A GRN describes the regulatory relationships among genes and how these relationships influence gene expression. On this slide, you can see an example of a GRN.  
+* A GRN describes the regulatory relationships among genes and how these relationships influence gene expression. On this slide, you can see an example of a GRN (100 genes).  
 * Each **node represents a gene**. A gene can act as a **regulator**, influencing other genes, or as a **target gene**, whose expression is regulated.   
 * The **directed edge represents a regulatory influence** from one gene to another.  
 * There are two main types of regulatory influence. An **enhancing or activating interaction** increases the expression of the target gene, while an **inhibitory interaction** decreases its expression. So, briefly, a **GRN is a set of genes connected by directed regulatory relationships**.
@@ -95,7 +93,7 @@ eyebrow: CHALLENGES
 ---
 <TimeSeriesDifficulty /> -->
 <!--
-So, what are the main challenges in inferring a Gene Regulatory Network?
+So, what are the main challenges in inferring a GRN?
 There are several important challenges.  
 * **First, high dimensionality.** In real-world biological systems, we may need to infer regulatory relationships among **thousands of genes**. As the number of genes increases, the number of possible regulatory relationships grows dramatically.  
 * **Second, limited observations.** Although we may have thousands of genes, the number of available time points is often relatively small. In other words, we have a **high-dimensional problem with limited observations**.  
@@ -111,6 +109,7 @@ eyebrow: RESEARCH SCOPE
 
 <GRNWorkFlow />
 <!--
+Here present an overview of the workflow of GRN prolem:    
 * GRN inference is a broad research problem, and improvements can be made at different stages of the workflow. Some studies focus on how gene expression data are represented, while others develop inference algorithms or improve network evaluation. 
 * In this thesis, I focus on two main directions: **data representation**, addressed through multiple-level discretization and representation learning, and **data augmentation**, which aims to mitigate the limitation of available time-series observations.
 -->
@@ -179,10 +178,10 @@ eyebrow: PERFORMANCE EVALUATION
 <!--
 How do we evaluate an inferred network?  
 - We evaluate the inferred networks from two perspectives: **dynamics and structure**.  
-- For the **dynamics**, first, we define the gene-wise dynamics consistency, as the similarity between the discretized trajectories of the observed gene expression, \(v(t)\), and the estimated gene expression. Then, the **dynamics accuracy** is defined as the average gene-wise dynamics consistency across all genes.  
+- For the **dynamics**, first, we define the gene-wise dynamics consistency, as the similarity between the discretized trajectories of the observed gene expression and the estimated gene expression. Then, the **dynamics accuracy** is defined as the average gene-wise dynamics consistency across all genes.  
 - For the **structural evaluation**, we use three metrics: **Precision, Recall, and Structural Accuracy**.  
-- Precision** measures the proportion of inferred regulatory interactions that are actually correct.   
-- Recall** measures the proportion of true regulatory interactions that are successfully recovered.  
+- **Precision** measures the proportion of inferred regulatory interactions that are actually correct.   
+- **Recall** measures the proportion of true regulatory interactions that are successfully recovered.  
 - Finally, **Structural Accuracy** measures the overall agreement between the inferred network and the ground-truth network structure.
 -->
 ---
@@ -221,10 +220,11 @@ eyebrow: FEATURE SELECTION
 
 <FeatureSelectionStage />
 <!--
-* For each target gene g₀, MIFS selects a set of k potential regulator genes. The value of k is a user-defined parameter. In this study, the maximum value of k is 8.
+Let see how are potential regulators selected and refined?   
+* For each target gene, MIFS selects a set of k potential regulator genes. The value of k is a user-defined parameter. In this study, the maximum value of k is 8.
 * MIFS can be described in 3 steps:  
-  * Step 1: Select a gene that maximizes the mutual information with g₀.   
-  * Next, select the gene that maximizes the mutual information with g₀ while considering its dependency on the already selected candidates.   
+  * Step 1: Select a gene that maximizes the mutual information with target gene.   
+  * Next, select the gene that maximizes the mutual information with target gene while considering its dependency on the already selected candidates.   
   * Repeat Step 2 until the desired number of k candidates has been selected.  
 
 - The main drawback of the MIFS subroutine is that it does not compute the exact multivariate mutual information and may fail to find the optimal set of regulatory variables.  
@@ -238,9 +238,9 @@ eyebrow: DATASETS
 
 <Datasets01 />
 <!--
-* We tested the proposed method using two types of datasets: Artificial Discretized and Ecoli datasets.  
+We tested the proposed method using two types of datasets: Artificial Discretized and Realistic Ecoli datasets.  
 * The Artificial Discretized dataset consists of 20 network groups, with network sizes ranging from 10 to 200. Each group contains 20 randomly generated networks, resulting in a total of 400 networks.
-* The Ecoli dataset consists of 4 network groups with network sizes of 50, 100, 200, and 300. Each group contains 20 networks, a total of 80 networks were tested.
+* The realistic Ecoli dataset consists of 4 network groups with network sizes of 50, 100, 200, and 300. Each group contains 20 networks, a total of 80 networks were tested.
 -->
 ---
 layout: default
@@ -282,7 +282,6 @@ eyebrow: RESULTS - ARTIFICIAL DATASET
 * As the number of incoming links increases, the performance metrics decrease because a larger number of incoming links indicates a more difficult inference problem.
 * As shown in this figure:
   * Dynamics accuracy remains almost stable, even in the most difficult case, when the number of incoming links is 8.
-  * Precision and recall...
 -->
 ---
 layout: default
@@ -292,9 +291,9 @@ eyebrow: RESULTS - ECOLI DATASET
 
 <StructuralAccuracy />
 <!--
-* This slide shows the structural accuracy of our method and four comparison methods across four network sizes
+This slide shows the structural accuracy of our method and four comparison methods across four network sizes:  
 * Overall, MIDNI shows better performance than the other methods.
-* Furthermore, across the four network sizes, when the number of incoming links is 1 or 2, the performance of all methods is relatively similar. However, as the number of incoming links increases, our method shows better performance than the others.This indicates the effectiveness of our method for large-scale and difficult-to-solve GRN inference problems.
+* Furthermore, across the four network sizes, when the number of incoming links is 1 or 2, the performance of all methods is relatively similar. However, as the number of incoming links increases, our method shows better performance than the others. This indicates the effectiveness of our method for large-scale and difficult-to-solve GRN inference problems.
 -->
 ---
 layout: default
@@ -304,7 +303,7 @@ eyebrow: RESULTS - ECOLI DATASET
 
 <DynamicsAccuracy />
 <!--
-* Here, we show the dynamics accuracy of all methods across four network sizes: 50, 100, 200, and 300.  
+Here, we show the dynamics accuracy of all methods across four network sizes: 50, 100, 200, and 300.    
 * Similar to the structural accuracy, the dynamics accuracy of the proposed method is higher than that of the other methods, especially for larger networks of size 200 and 300.  
 * Taken together, MIDNI outperforms the comparison methods in terms of both structural and dynamics accuracy.  
 -->
@@ -316,7 +315,7 @@ eyebrow: RUNNING TIME
 
 <RunningTime />
 <!---
-- We also conducted a comparison with running time among the methods. The result is shown on this figure.  
+We also conducted a comparison with running time among the methods. The result is shown on this figure.   
 - Look at the chart, our method is comparable to others except dbn method.  
 - Briefly, MIDNI is a promising tool for predicting both the structure and the dynamics of a gene regulatory network, especially for large-scale and dense input networks.  
 -->
@@ -343,6 +342,7 @@ layout: default
 title: Why do existing machine learning frameworks still fail to generalize?
 eyebrow: RESEARCH GAP 02
 ---
+
 <RepresentationMotivations />
 <!-- CHAPTER 3 -->
 <!--
@@ -409,7 +409,8 @@ eyebrow: RESULTS - TOPOLOGICAL NETWORKS
 ---
 <AUPRToys />
 <!--
-- On the synthetic topological datasets, every single machine learning model outperformed the random baseline.   
+The slide shows the performance of the method on the synthetic topological datasets:  
+- On this datasets, every single machine learning model outperformed the random baseline.   
 - Random Forest shows the highest overall accuracy across all network sizes.   
 - Interestingly, Gaussian Naive Bayes was the only model whose performance actually improved as network size grew, it is because of strong probabilistic inductive bias of GNB model.
 -->
@@ -420,7 +421,7 @@ eyebrow: RESULTS - BIOLOGICAL NETWORKS
 ---
 <AUPREcoli />
 <!--
-When tested on biological E. coli networks, the performance gap expanded even further as shown on the charts. 
+When tested on realistic biological E. coli networks, the performance gap expanded even further as shown on the charts. 
 We can see 3 things: 
 - First, The supervised learning models achieved dramatically higher AUPR scores than traditional algorithms like Jump3 or Inferelator.  
 - Second, at size 10, Average ML AUPR reaches over 0.5 (0.518) compared to Jump3 
@@ -522,7 +523,7 @@ eyebrow: RESEARCH GOALS & HYPOTHESIS
 ---
 <ResearchGoals />
 <!--
-- To address this gap, this study asks a fundamental question: **Can an Autoencoder framework synthesize realistic time-series expression data to restore GRN inference accuracy?**
+To address this gap, this study asks a fundamental question: **Can an Autoencoder framework synthesize realistic time-series expression data to restore GRN inference accuracy?**  
 - Our core objective is to use an Autoencoder to generate additional time-series gene expression data from limited observations.
 - We chose an Autoencoder because it has a relatively simple architecture, is easy to implement and train with a small number of samples, and is well suited to learning representations from time-series data.
 - Based on this idea, we encode adjacent time-step pairs and use the learned representation to iteratively generate future time steps. In this way, the model can supplement missing temporal observations and provide additional data for downstream GRN inference methods such as MIDNI.
@@ -546,6 +547,7 @@ eyebrow: FEATURE ENGINEERING
 ---
 <FeatureEngineering />
 <!--
+How to preserve transition dynamics?  
 - A critical innovation here lies in data representation. Instead of feeding single time steps, we concatenate expression values from two consecutive steps, $t_i$ and $t_{i+1}$. 
 - And why this transformation?, 
 - This $2n$-dimensional vector explicitly captures state-transition relationships, giving the neural network the exact temporal signals it needs to predict the next time step.
@@ -569,7 +571,7 @@ eyebrow: GENERATIVE MECHANISM
 ---
 <GenerativeMechanism />
 <!--
-- So how does the model actually generate new time points?
+So how does the model actually generate new time points?  
 - It works iteratively. When you pass the last concatenated vector of the training set $\mathbf{T}(t_i \oplus t_{i+1})$ into the trained model, it outputs the predicted state for $\mathbf{T}(t_{i+1} \oplus t_{i+2})$. 
 - We extract the newly predicted time point and loop it back into the model as input for the next step, repeating this until we reach our target series length.
 -->
@@ -615,10 +617,9 @@ eyebrow: RESULTS - BOOLEAN DATASETS
 ---
 <BooleanDatasetsRecovery />
 <!--
-- Moving to Boolean datasets, we observe the exact same positive trend. 
+Moving to Boolean datasets, we observe the exact same positive trend.   
 - Synthetic data enhances inference performance without introducing negative artifacts. 
-- Interestingly, smaller 50-gene networks saw larger recall boosts, whereas larger 100-gene networks achieved higher precision gains. 
-- Having confirmed structural recovery, let's transition to evaluating dynamic fidelity.
+- Interestingly, smaller 50-gene networks saw larger recall boosts, whereas larger 100-gene networks achieved higher precision gains having confirmed structural recovery.
 -->
 ---
 layout: default
@@ -627,7 +628,7 @@ eyebrow: RESULTS - DYNAMICS FIDELITY
 ---
 <DynamicsFidelity />
 <!--
-- Now, addressing dynamic accuracy: Two charts on left are performance on Ternary, while two on right are performance on Boolean dataset.
+Now, addressing dynamic accuracy: Two charts on left are performance on Ternary, while two on right are performance on Boolean dataset.
 - You might notice a slight downward trend as time steps increase. This happens because synthetic-driven networks are evaluated over the entire 100-step timeline, while original data is tested over shorter $K$ steps. 
 - Nevertheless, dynamic accuracy remains well above 97%, proving that generated time-series retain strong biological state fidelity. Next, let's examine data diversity.
 -->
@@ -639,8 +640,8 @@ eyebrow: RESULTS - DATA DIVERSITY ANALYSIS
 <DataDiversity />
 <!--
 - Similarity matrix between the synthesized gene expression data. 
-- (a) An example of a similarity matrix between a pair of synthesized gene expression data values when K equals 10. The white or black dot indicates that the corresponding gene values between two expression data values are identical or not, respectively. 
-- (b) Change in the mean similarity index against the time step number (K).
+- Figure a is an example of a similarity matrix between a pair of synthesized gene expression data values when K equals 10. The white or black dot indicates that the corresponding gene values between two expression data values are identical or not, respectively. 
+- Figure b is change in the mean similarity index against the time step number (K).
 At the chart we can say that:
 - 1. Multiple executions of trained autoencoders generate varied syntheric expression profiles
 - 2. Simility index ranges between 0.3 and 0.4 confirm that high variation among outputs

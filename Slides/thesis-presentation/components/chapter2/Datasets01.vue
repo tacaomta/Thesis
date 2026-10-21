@@ -144,7 +144,7 @@
         <div class="card-header">
           <div>
             <div class="dataset-index">02</div>
-            <h2>GWN Dataset</h2>
+            <h2>E.coli Dataset</h2>
           </div>
 
           <div class="data-type continuous">

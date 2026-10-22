@@ -699,3 +699,27 @@ Before I conclude, I would like to express my sincere gratitude to the people wh
 - Finally, I would like to thank **my friends** for sharing the joys of everyday life with me. Their friendship helped me maintain a healthy balance between research and relaxation, making this journey more enjoyable and meaningful.
 - To all of you, thank you very much for being part of this journey.
 -->
+---
+layout: default
+title: How does MIFS select candidate regulators?
+eyebrow: MIFS
+---
+<MIFSS />
+---
+layout: default
+title: How does SWAP refine?
+eyebrow: SWAP
+---
+<SWAP />
+---
+layout: default
+title: How do GRNs look like?
+eyebrow: GRNs 
+---
+<GRNExample />
+---
+layout: default
+title: How are discrete networks generated?
+eyebrow: SYNTHETIC NETWORK SIMULATION
+---
+<BAmodels />

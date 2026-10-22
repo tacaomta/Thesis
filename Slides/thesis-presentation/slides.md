@@ -701,25 +701,43 @@ Before I conclude, I would like to express my sincere gratitude to the people wh
 -->
 ---
 layout: default
-title: How does MIFS select candidate regulators?
-eyebrow: MIFS
----
-<MIFSS />
----
-layout: default
-title: How does SWAP refine?
-eyebrow: SWAP
----
-<SWAP />
----
-layout: default
 title: How do GRNs look like?
 eyebrow: GRNs 
 ---
 <GRNExample />
 ---
 layout: default
-title: How are discrete networks generated?
-eyebrow: SYNTHETIC NETWORK SIMULATION
+title: How does MIFS select candidate regulators?
+eyebrow: MIDNI
+---
+<MIFSS />
+---
+layout: default
+title: How does SWAP refine?
+eyebrow: MIDNI
+---
+<SWAP />
+---
+layout: default
+title: Synthetic network simulation
+eyebrow: SITTF
 ---
 <BAmodels />
+---
+layout: default
+title: Classifier Hyperparameters
+eyebrow: SITTF
+---
+<ArgsModels />
+---
+layout: default
+title: Topological Dataset Symmary
+eyebrow: SITTF
+---
+<TopologicalDatasetTable />
+---
+layout: default
+title: E.coli Dataset Symmary
+eyebrow: SITTF
+---
+<EcoliTable />

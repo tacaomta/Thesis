@@ -32,7 +32,7 @@ eyebrow: "THESIS OVERVIEW"
 
 * Second, I will present a GRN inference method based on **multiple-level discretization and mutual information**.
 
-* Next, I will introduce a **Scale-Invariant Task Transformation Framework for GRN inference**. This work addresses the question: **“Can informative representations be learned automatically from time-series gene expression data?”**
+* Next, I will introduce a **Scale-Invariant Task Transformation Framework for Gene Regulatory Network inference**. This work addresses the question: **“Can informative representations be learned automatically from time-series gene expression data?”**
 
 * Finally, I address the question: **“How can we improve GRN inference performance when only limited time-series gene expression data are available?”**
 -->
@@ -122,9 +122,9 @@ eyebrow: RESEARCH GAPS
 <ResearchGaps />
 <!--
 So, what have we done to improve?  
-**First**, I developed a mixed binary-ternary discretization strategy that preserves more regulatory state information.  
-**Second**, I developed a scale-invariant task transformation framework that transforms expression profiles into features suitable for GRN inference.  
-**Finally**, I developed a data-generation approach that synthesizes additional time-series expression data to improve inference performance.  
+**First**, We developed a mixed binary-ternary discretization strategy that preserves more regulatory state information.  
+**Second**, We developed a scale-invariant task transformation framework that transforms expression profiles into features suitable for GRN inference.  
+**Finally**, We developed a data-generation approach that synthesizes additional time-series expression data to improve inference performance.  
 -->
 ---
 layout: default
@@ -136,8 +136,8 @@ eyebrow: EXISTING APPROACHES
 <!--
 ### How is gene expression commonly represented for GRN inference?
 According to the **type of data processing**, existing methods can be divided into two groups: Real-value based method and Boolean models.  
-- **Real-value-based methods:** In this group, there are some well-known methods such as **GENIE3, MRNET, TIGRESS, and NARROMI**. These approaches directly use continuous values, so they do not need any additional data representation method. Therefore, there is **no information loss** due to data representation. However, these models require more inference time and are sensitive to data noise.  
-- To speed up the inference process and handle noise sensitivity, **Boolean models** are widely used, where real-valued data are represented by **0 and 1** meaning off/on or inhibition/activation states. Some well-known methods can be mentioned as **REVEAL and MIBNI**. These models require less inference time and are less sensitive to data noise. However, the main drawback is **information loss and dynamic variation due to the simplicity of the data representation**.  
+- **Real-value-based methods:** These approaches directly use continuous values, so they do not need any additional data representation method. Therefore, there is **no information loss** due to data representation. However, these models require more inference time and are sensitive to data noise.  
+- To speed up the inference process and handle noise sensitivity, **Boolean models** are widely used, where real-valued data are represented by **0 and 1** meaning off/on or inhibition/activation states. These models require less inference time and are less sensitive to data noise. However, the main drawback is **information loss and dynamic variation due to the simplicity of the data representation**.  
 -->
 
 ---
@@ -165,7 +165,8 @@ eyebrow: DISCRETIZATION NETWORK MODEL
 Before going into our proposed model, let us first take a quick look at some basic concepts of a **discrete-state network model**.  
 - First, a discretized network can be represented as a **directed graph**. It denotes as a combination set V and A where set **V** contains all the nodes in the network, and a set **A** represents the interactions between these nodes.  
 - For each node, V(t) denotes as its state at time *t* and represented by one of **l discrete values**, ranging from **0 to l minus 1**.  
-- Now, suppose that a target node is regulated by *k* other genes, from *u₁* to *uₖ*. Then, the state of the target node at time *t plus 1* is updated by a **discrete function**, as shown on the screen.  
+- Now, suppose that a target node is regulated by *k* other genes, from *u₁* to *uₖ*. Then, the state of the target node at time *t plus 1* is updated by a **discrete function**,
+The discrete function takes state of *u₁* to *uₖ* at time t as input parameters. 
 - In other words, the future state of a target gene is determined by the current states of its regulatory genes.  
 -->
 ---
@@ -197,7 +198,7 @@ Let me now give you an overview of the proposed framework.
 - First, this input expression matrix is converted into a **discretized expression dataset** using the K-means discretization algorithm.  
 - Then, the **K value is determined based on a validity index for each gene**. In this study, K can be either **2 or 3**, depending on the expression distribution of each gene.  
 - Next, the discretized data are fed into the **MIFS and SWAP subroutines** to identify the regulatory genes for each target gene.  
-- Based on the inferred regulatory relationships, we reconstruct the **prediction network**. At the same time, the prediction network provides the corresponding **inferred discretized expression values**.  
+- Based on the inferred regulatory relationships, we reconstruct the **predicted network**. At the same time, the prediction network provides the corresponding **inferred discretized expression values**.  
 - Finally, at the evaluation stage, we compare the **inferred network with the ground-truth network** to evaluate the structural accuracy. For the dynamics accuracy, we compare the **observed and inferred discretized expression matrices**.
 -->
 ---
@@ -422,7 +423,7 @@ eyebrow: RESULTS - BIOLOGICAL NETWORKS
 <AUPREcoli />
 <!--
 When tested on realistic biological E. coli networks, the performance gap expanded even further as shown on the charts. 
-We can see 3 things: 
+Here, we can point out that: 
 - First, The supervised learning models achieved dramatically higher AUPR scores than traditional algorithms like Jump3 or Inferelator.  
 - Second, at size 10, Average ML AUPR reaches over 0.5 (0.518) compared to Jump3 
 - Third, GNB consistently emerged as the most reliable model across all network dimensions.  
@@ -462,7 +463,7 @@ eyebrow: COMPUTATIONAL PERFORMANCE
 <!--
 About computational comparison within the methods:  
 - As shown in the chart, the total time for training and inference is higher than that of traditional methods.   
-- However, once the model has been trained, it can infer each network much faster because traditional methods must repeat the computational process from scratch for every network. Therefore, our proposed approach becomes more efficient when inferring multiple networks, as the training cost can be amortized over repeated inference tasks.
+- However, once the model has been trained, it can infer each network much faster because traditional methods must repeat the computational process from scratch for every network. Therefore, our proposed approach becomes more efficient when inferring multiple networks.
 
 -->
 ---
@@ -554,18 +555,6 @@ How to preserve transition dynamics?
 -->
 ---
 layout: default
-title:   What is the design and parameter configuration of the generative Autoencoder?
-eyebrow: AUTOENCODER ARCHITECTURE
----
-<DeepLearningArchitecture />
-<!--
-Let's examine the Autoencoder architecture itself. 
-- We chose a lightweight 3-hidden-layer design with a 32-neuron bottleneck layer. 
-- Why keep it compact? Because a smaller architecture prevents overfitting on limited biological samples and keeps training stable. 
-- It uses ReLU activations in hidden layers and minimizes mean squared error during training.
--->
----
-layout: default
 title:   How does the model perform iterative auto-regressive time-series synthesis?
 eyebrow: GENERATIVE MECHANISM
 ---
@@ -594,6 +583,7 @@ eyebrow: EVALUATION METRICS
 ---
 <EvaluationMetrics />
 <!--
+We evaluated performance using also four quantitative metrics: Precision, Recall, Structural Accuracy and Dynamics accuracy.
 - We evaluated performance using four quantitative metrics. Precision, Recall, and Structural Accuracy measure how accurately edge connections match ground truth networks. Meanwhile, 
 - Dynamic Accuracy calculates trajectory preservation using Hamming distance across time steps. 
 - Let's now examine the structural performance results on multi-level ternary data.
@@ -605,10 +595,14 @@ eyebrow: RESULTS - TERNARY DATASETS
 ---
 <TernaryDatasetsRecovery />
 <!--
-- Looking at the results for ternary datasets:
-- Results of precision, recall, and structural accuracy on the multi-level discretization dataset. (a–c). Results for the network with |𝑉|=50 (d–f). Results for the network with |𝑉|=100 The Y-axis denotes the performance metrics, and the X-axis indicates the number of observed time steps in the original gene expression data. For the synthesized dataset, gene expression data are generated for (100−𝐾) time steps. Solid and dashed lines represent the results based on the synthesized and the original dataset, respectively. Each point and error bar indicates the average value and the standard deviation, respectively, over 10 random networks. The bar charts show the performance improvement of the synthesized dataset over the original dataset.
-- Look at the charts we can see that:
-- Read the card content...
+Looking at the results for ternary datasets:  
+- Results of precision, recall, and structural accuracy on the multi-level discretization dataset. Figures (a-c). Results for the network with |𝑉|=50. Figures (d–f). Results for the network with |𝑉|=100 The Y-axis denotes the performance metrics, and the X-axis indicates the number of observed time steps in the original gene expression data. For the synthesized dataset, gene expression data are generated for (100−𝐾) time steps. Solid and dashed lines represent the results based on the synthesized and the original dataset, respectively. Each point and error bar indicates the average value and the standard deviation, respectively, over 10 random networks. The bar charts show the performance improvement of the synthesized dataset over the original dataset.  
+
+Look at the charts we can see that:   
+- Synthetic data consistently increases precision and recall across almost all observed time steps window (K)
+- The largest gains occur when real observations are scarcest, especially at K=10, 20
+- Similar performace gains are observed for both 50, 100 gene-scale networks.
+- Structural accuracy changes only slightly because of the large true-negative baseline.
 -->
 ---
 layout: default
@@ -639,10 +633,10 @@ eyebrow: RESULTS - DATA DIVERSITY ANALYSIS
 ---
 <DataDiversity />
 <!--
-- Similarity matrix between the synthesized gene expression data. 
-- Figure a is an example of a similarity matrix between a pair of synthesized gene expression data values when K equals 10. The white or black dot indicates that the corresponding gene values between two expression data values are identical or not, respectively. 
+Now, let see how diverse are output profiles?
+- On this slide, figure a is an example of a similarity matrix between a pair of synthesized gene expression data values when K equals 10. The white or black dot indicates that the corresponding gene values between two expression data values are identical or not, respectively. 
 - Figure b is change in the mean similarity index against the time step number (K).
-At the chart we can say that:
+The chart reveals that:
 - 1. Multiple executions of trained autoencoders generate varied syntheric expression profiles
 - 2. Simility index ranges between 0.3 and 0.4 confirm that high variation among outputs
 - 3. Althought high variation but downstream GRN reconstruction accuracy remains highly consistent
@@ -656,9 +650,9 @@ eyebrow: SUMMARY AND IMPLICATIONS
 <SummaryOfCoreFindings />
 <!--
 To summarize our core findings:   
-- First, demonstrates the first autoencoder-based temporal data synthesis method specifically engineered for GRN inference.
-- Second, Successfully extends time-series expression data without requiring complex, unstable GAN models.
-- Third, Substantially improves precision and recall across network scales size 50, 100, discretization levels (binary/ternary), and low sample regimes (K = 10, 20).
+- First, we demonstrated the first autoencoder-based temporal data synthesis method specifically engineered for GRN inference.
+- Second, Successfully extend time-series expression data without requiring complex, unstable GAN models.
+- Third, Substantially improve precision and recall across network scales size 50, 100, discretization levels (binary/ternary), and low sample regimes (K = 10, 20).
 - Allows researchers to infer higher-quality gene networks without running costly long-term laboratory experiments.
 -->
 ---
@@ -693,12 +687,19 @@ eyebrow: ACKNOWLEDGEMENT
 ---
 <Acknowledgement />
 <!--
-Before I conclude, I would like to express my sincere gratitude to the people who have supported me throughout this journey.
+Before the end, I would like to express my sincere gratitude to the people who have supported me throughout this journey.
 - First, I would like to thank **Professor Kwon** for his guidance in shaping this research, his continuous support throughout my PhD, and his financial support that made this work possible.
-- Second, I am deeply grateful to **my family** for their unwavering support and encouragement. They have always given me peace of mind and the freedom to focus on my research, even when we had to be apart.
+- I also would like to express my sincere appreciation to the committee members for taking the time to review my dissertation, evaluate my research, and provide valuable comments and suggestions. Your feedback is greatly appreciated and will help me further improve this work.
+- Next, I am deeply grateful to **my family** for their unwavering support and encouragement. They have always given me peace of mind and the freedom to focus on my research, even when we had to be apart.
 - Finally, I would like to thank **my friends** for sharing the joys of everyday life with me. Their friendship helped me maintain a healthy balance between research and relaxation, making this journey more enjoyable and meaningful.
-- To all of you, thank you very much for being part of this journey.
+- Thank you so much for being part of this journey.
 -->
+---
+layout: default
+title:
+eyebrow: QAs 
+---
+<QAs />
 ---
 layout: default
 title: How do GRNs look like?
@@ -741,3 +742,39 @@ title: E.coli Dataset Symmary
 eyebrow: SITTF
 ---
 <EcoliTable />
+---
+layout: default
+title: Detail Performance on E.coli Datasets
+eyebrow: SITTF
+---
+<EcoliDetails10 />
+---
+layout: default
+title: Detail Performance on E.coli Datasets
+eyebrow: SITTF
+---
+<EcoliDetails50 />
+---
+layout: default
+title: Detail Performance on E.coli Datasets
+eyebrow: SITTF
+---
+<EcoliDetails100 />
+---
+layout: default
+title: Effect of Training Set Size on AUPR
+eyebrow: SITTF
+---
+<EcoliScale />
+---
+layout: default
+title:   What is the design and parameter configuration of the generative Autoencoder?
+eyebrow: AUTOENCODER ARCHITECTURE
+---
+<DeepLearningArchitecture />
+<!--
+Let's examine the Autoencoder architecture itself. 
+- We chose a lightweight 3-hidden-layer design with a 32-neuron bottleneck layer. 
+- Why keep it compact? Because a smaller architecture prevents overfitting on limited biological samples and keeps training stable. 
+- It uses ReLU activations in hidden layers and minimizes mean squared error during training.
+-->

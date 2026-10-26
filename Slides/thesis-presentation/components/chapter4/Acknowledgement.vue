@@ -20,12 +20,14 @@
           </svg>
         </div>
 
-        <div class="portrait">
-          <div class="head"></div>
-          <div class="body"></div>
-          <div class="book">
-            <span></span>
-            <span></span>
+        <div class="scene-wrap">
+          <div class="portrait">
+            <div class="head"></div>
+            <div class="body"></div>
+            <div class="book">
+              <span></span>
+              <span></span>
+            </div>
           </div>
         </div>
 
@@ -33,6 +35,52 @@
           <div class="role">SUPERVISOR</div>
           <div class="name">Prof. Yung Keun Kwon</div>
           <div class="tagline">Guidance that shaped this work</div>
+        </div>
+      </div>
+
+
+      <!-- Committee Members -->
+      <div class="person-card committee" style="--accent: #7A5AF8; --accent-soft: rgba(122, 90, 248, 0.08);">
+
+        <div class="badge">
+          <svg viewBox="0 0 24 24" class="badge-icon">
+            <circle cx="12" cy="7" r="3" />
+            <circle cx="5" cy="9" r="2.3" />
+            <circle cx="19" cy="9" r="2.3" />
+            <path d="M12 12c-3.3 0-6 2-6 5.5V19h12v-1.5c0-3.5-2.7-5.5-6-5.5z" />
+            <path d="M5 13.3c-2 .4-3.3 1.9-3.3 4.2V19h3.3" />
+            <path d="M19 13.3c2 .4 3.3 1.9 3.3 4.2V19H19" />
+          </svg>
+        </div>
+
+        <div class="scene-wrap">
+          <div class="committee-scene">
+
+            <div class="committee-member cm1">
+              <div class="cap"></div>
+              <div class="head"></div>
+              <div class="body"></div>
+            </div>
+
+            <div class="committee-member cm2">
+              <div class="cap"></div>
+              <div class="head"></div>
+              <div class="body"></div>
+            </div>
+
+            <div class="committee-member cm3">
+              <div class="cap"></div>
+              <div class="head"></div>
+              <div class="body"></div>
+            </div>
+
+            <div class="panel-desk"></div>
+          </div>
+        </div>
+
+        <div class="label">
+          <div class="role">COMMITTEE MEMBERS</div>
+          <div class="tagline">Insightful questions &amp; valuable feedback</div>
         </div>
       </div>
 
@@ -47,34 +95,36 @@
           </svg>
         </div>
 
-        <div class="family-scene">
+        <div class="scene-wrap">
+          <div class="family-scene">
 
-          <!-- Father -->
-          <div class="person father">
-            <div class="head"></div>
-            <div class="body"></div>
+            <!-- Father -->
+            <div class="person father">
+              <div class="head"></div>
+              <div class="body"></div>
+            </div>
+
+            <!-- Mother -->
+            <div class="person mother">
+              <div class="head"></div>
+              <div class="body"></div>
+            </div>
+
+            <!-- Child 1 -->
+            <div class="person child child-one">
+              <div class="head"></div>
+              <div class="body"></div>
+            </div>
+
+            <!-- Child 2 -->
+            <div class="person child child-two">
+              <div class="head"></div>
+              <div class="body"></div>
+            </div>
+
+            <!-- Heart -->
+            <div class="heart">♥</div>
           </div>
-
-          <!-- Mother -->
-          <div class="person mother">
-            <div class="head"></div>
-            <div class="body"></div>
-          </div>
-
-          <!-- Child 1 -->
-          <div class="person child child-one">
-            <div class="head"></div>
-            <div class="body"></div>
-          </div>
-
-          <!-- Child 2 -->
-          <div class="person child child-two">
-            <div class="head"></div>
-            <div class="body"></div>
-          </div>
-
-          <!-- Heart -->
-          <div class="heart">♥</div>
         </div>
 
         <div class="label">
@@ -96,34 +146,36 @@
           </svg>
         </div>
 
-        <div class="friends-scene">
+        <div class="scene-wrap">
+          <div class="friends-scene">
 
-          <div class="friend f1">
-            <div class="head"></div>
-            <div class="body"></div>
+            <div class="friend f1">
+              <div class="head"></div>
+              <div class="body"></div>
+            </div>
+
+            <div class="friend f2">
+              <div class="head"></div>
+              <div class="body"></div>
+            </div>
+
+            <div class="friend f3">
+              <div class="head"></div>
+              <div class="body"></div>
+            </div>
+
+            <div class="friend f4">
+              <div class="head"></div>
+              <div class="body"></div>
+            </div>
+
+            <div class="circle"></div>
           </div>
-
-          <div class="friend f2">
-            <div class="head"></div>
-            <div class="body"></div>
-          </div>
-
-          <div class="friend f3">
-            <div class="head"></div>
-            <div class="body"></div>
-          </div>
-
-          <div class="friend f4">
-            <div class="head"></div>
-            <div class="body"></div>
-          </div>
-
-          <div class="circle"></div>
         </div>
 
         <div class="label">
           <div class="role">FRIENDS</div>
-          <div class="tagline">Shared laughter & encouragement</div>
+          <div class="tagline">Shared laughter &amp; encouragement</div>
         </div>
       </div>
 
@@ -136,6 +188,7 @@
 
       <div class="connection-dots">
         <span style="--c: #173F5F"></span>
+        <span style="--c: #7A5AF8"></span>
         <span style="--c: #2A9D8F"></span>
         <span style="--c: #D98C3D"></span>
       </div>
@@ -150,13 +203,11 @@
       <div class="journey">
 
         <div class="dot start"></div>
-
         <div class="path"></div>
-
+        <div class="dot committee-dot"></div>
+        <div class="path"></div>
         <div class="dot middle"></div>
-
         <div class="path"></div>
-
         <div class="dot end"></div>
 
       </div>
@@ -182,7 +233,7 @@
 
   box-sizing: border-box;
 
-  padding: 10px 35px 20px;
+  padding: 10px 30px 18px;
 
   color: #24313A;
   font-family: Inter, 'Segoe UI', sans-serif;
@@ -195,25 +246,25 @@
 
 .title {
   text-align: center;
-  margin-top: 5px;
+  margin-top: 4px;
 }
 
 .title-main {
-  font-size: 42px;
+  font-size: 38px;
   font-weight: 700;
   letter-spacing: -0.03em;
   color: #173F5F;
 }
 
 .title-line {
-  width: 55px;
+  width: 60px;
   height: 3px;
 
-  margin: 10px auto 0;
+  margin: 9px auto 0;
 
   border-radius: 3px;
 
-  background: linear-gradient(90deg, #173F5F, #2A9D8F, #D98C3D);
+  background: linear-gradient(90deg, #173F5F, #7A5AF8, #2A9D8F, #D98C3D);
 }
 
 
@@ -225,11 +276,11 @@
   flex: 1;
 
   display: grid;
-  grid-template-columns: 1fr 1.15fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
 
-  align-items: center;
+  align-items: stretch;
 
-  gap: 35px;
+  gap: 18px;
 
   margin-top: 5px;
 }
@@ -238,7 +289,7 @@
 /* Cards */
 
 .person-card {
-  height: 245px;
+  height: 235px;
 
   display: flex;
   flex-direction: column;
@@ -258,6 +309,8 @@
 
   box-sizing: border-box;
 
+  padding: 10px 8px 14px;
+
   position: relative;
 
   opacity: 0;
@@ -265,8 +318,9 @@
   animation: cardIn 0.5s ease forwards;
 }
 
-.supervisor { animation-delay: 0.1s; }
-.family     { animation-delay: 0.3s; }
+.supervisor { animation-delay: 0.08s; }
+.committee  { animation-delay: 0.22s; }
+.family     { animation-delay: 0.36s; }
 .friends    { animation-delay: 0.5s; }
 
 @keyframes cardIn {
@@ -292,15 +346,6 @@
 }
 
 
-/* Family emphasis */
-
-.family {
-  height: 275px;
-
-  border-color: #C7D9D8;
-}
-
-
 /* ─────────────────────────────
    ROLE BADGE (icon motif)
 ───────────────────────────── */
@@ -308,13 +353,13 @@
 .badge {
   position: absolute;
 
-  top: 14px;
-  left: 14px;
+  top: 12px;
+  left: 12px;
 
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
 
-  border-radius: 9px;
+  border-radius: 8px;
 
   display: flex;
   align-items: center;
@@ -325,8 +370,8 @@
 }
 
 .badge-icon {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
 
   fill: none;
   stroke: var(--accent);
@@ -337,18 +382,35 @@
 
 
 /* ─────────────────────────────
-   SIMPLE PERSON ILLUSTRATION (Supervisor)
+   SCENE WRAPPER (keeps illustrations
+   a consistent footprint across 4 cards)
 ───────────────────────────── */
 
-.portrait {
-  width: 130px;
-  height: 145px;
+.scene-wrap {
+  width: 100%;
+  height: 128px;
 
-  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  overflow: visible;
 }
 
 
-/* Head */
+/* ─────────────────────────────
+   SUPERVISOR ILLUSTRATION
+───────────────────────────── */
+
+.portrait {
+  width: 108px;
+  height: 122px;
+
+  position: relative;
+
+  transform: scale(0.86);
+  transform-origin: bottom center;
+}
 
 .portrait .head {
   width: 52px;
@@ -357,7 +419,7 @@
   position: absolute;
 
   top: 5px;
-  left: 39px;
+  left: 28px;
 
   border-radius: 50%;
 
@@ -366,9 +428,6 @@
   border: 2px solid #173F5F;
 }
 
-
-/* Body */
-
 .portrait .body {
   width: 86px;
   height: 70px;
@@ -376,21 +435,18 @@
   position: absolute;
 
   bottom: 8px;
-  left: 22px;
+  left: 11px;
 
   border-radius: 45px 45px 12px 12px;
 
   background: #173F5F;
 }
 
-
-/* Book */
-
 .book {
   position: absolute;
 
   bottom: 0;
-  left: 37px;
+  left: 26px;
 
   width: 56px;
   height: 28px;
@@ -412,26 +468,126 @@
 
 
 /* ─────────────────────────────
+   COMMITTEE MEMBERS
+───────────────────────────── */
+
+.committee-scene {
+  width: 168px;
+  height: 128px;
+
+  position: relative;
+
+  transform: scale(0.84);
+  transform-origin: bottom center;
+}
+
+.panel-desk {
+  position: absolute;
+
+  left: 4px;
+  right: 4px;
+  bottom: 6px;
+
+  height: 3px;
+
+  border-radius: 2px;
+
+  background: rgba(122, 90, 248, 0.35);
+}
+
+.committee-member {
+  position: absolute;
+  bottom: 9px;
+
+  width: 42px;
+  height: 92px;
+}
+
+.committee-member .head {
+  width: 34px;
+  height: 34px;
+
+  position: absolute;
+
+  top: 12px;
+  left: 4px;
+
+  border-radius: 50%;
+
+  background: #F2C7A5;
+
+  border: 2px solid #5B3FBF;
+}
+
+.committee-member .body {
+  width: 42px;
+  height: 58px;
+
+  position: absolute;
+
+  bottom: 0;
+
+  border-radius: 36px 36px 9px 9px;
+
+  background: #7A5AF8;
+}
+
+.committee-member .cap {
+  position: absolute;
+
+  top: 0;
+  left: -3px;
+
+  width: 48px;
+  height: 10px;
+
+  background: #5B3FBF;
+
+  clip-path: polygon(50% 0%, 100% 55%, 50% 100%, 0% 55%);
+}
+
+.cm1 {
+  left: 2px;
+}
+
+.cm1 .body { background: #7A5AF8; }
+.cm1 .head { border-color: #5B3FBF; }
+
+.cm2 {
+  left: 63px;
+
+  transform: translateY(-6px);
+}
+
+.cm2 .body { background: #9B86FA; }
+.cm2 .head { border-color: #5B3FBF; }
+
+.cm3 {
+  left: 124px;
+}
+
+.cm3 .body { background: #7A5AF8; }
+.cm3 .head { border-color: #5B3FBF; }
+
+
+/* ─────────────────────────────
    FAMILY
 ───────────────────────────── */
 
 .family-scene {
-  width: 210px;
-  height: 150px;
+  width: 190px;
+  height: 128px;
 
   position: relative;
+
+  transform: scale(0.82);
+  transform-origin: bottom center;
 }
-
-
-/* Generic person */
 
 .person {
   position: absolute;
   bottom: 4px;
 }
-
-
-/* Head */
 
 .person .head {
   position: absolute;
@@ -443,23 +599,17 @@
   border: 2px solid #1F6E63;
 }
 
-
-/* Body */
-
 .person .body {
   position: absolute;
 
   border-radius: 40px 40px 10px 10px;
 }
 
-
-/* Father */
-
 .father {
   width: 50px;
   height: 105px;
 
-  left: 15px;
+  left: 10px;
 }
 
 .father .head {
@@ -479,14 +629,11 @@
   background: #1F6E63;
 }
 
-
-/* Mother */
-
 .mother {
   width: 50px;
   height: 112px;
 
-  left: 73px;
+  left: 65px;
 }
 
 .mother .head {
@@ -505,9 +652,6 @@
 
   background: #2A9D8F;
 }
-
-
-/* Children */
 
 .child {
   width: 32px;
@@ -532,33 +676,24 @@
   background: #7FC4B8;
 }
 
-
-/* Child 1 */
-
 .child-one {
-  left: 126px;
+  left: 115px;
 }
 
-
-/* Child 2 */
-
 .child-two {
-  left: 163px;
+  left: 150px;
 
   transform: scale(.82);
   transform-origin: bottom;
 }
 
-
-/* Heart */
-
 .heart {
   position: absolute;
 
   top: 2px;
-  right: 12px;
+  right: 6px;
 
-  font-size: 25px;
+  font-size: 23px;
 
   color: #D96C5F;
 
@@ -581,46 +716,43 @@
 ───────────────────────────── */
 
 .friends-scene {
-  width: 190px;
-  height: 150px;
+  width: 175px;
+  height: 128px;
 
   position: relative;
+
+  transform: scale(0.84);
+  transform-origin: bottom center;
 }
-
-
-/* Circle */
 
 .circle {
   position: absolute;
 
-  width: 130px;
-  height: 130px;
+  width: 122px;
+  height: 122px;
 
-  left: 30px;
-  top: 10px;
+  left: 26px;
+  top: 4px;
 
   border-radius: 50%;
 
   border: 2px dashed rgba(217, 140, 61, 0.45);
 }
 
-
-/* Friends */
-
 .friend {
   position: absolute;
 
-  width: 38px;
-  height: 88px;
+  width: 36px;
+  height: 84px;
 
-  bottom: 20px;
+  bottom: 18px;
 
   z-index: 2;
 }
 
 .friend .head {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
 
   position: absolute;
 
@@ -635,8 +767,8 @@
 }
 
 .friend .body {
-  width: 38px;
-  height: 53px;
+  width: 36px;
+  height: 51px;
 
   position: absolute;
 
@@ -646,28 +778,28 @@
 }
 
 .f1 {
-  left: 25px;
-  transform: translateY(10px);
+  left: 20px;
+  transform: translateY(9px);
 }
 
 .f1 .body { background: #D98C3D; }
 
 .f2 {
-  left: 68px;
+  left: 60px;
 }
 
 .f2 .body { background: #E3A565; }
 
 .f3 {
-  left: 111px;
-  transform: translateY(5px);
+  left: 100px;
+  transform: translateY(4px);
 }
 
 .f3 .body { background: #D98C3D; }
 
 .f4 {
-  left: 145px;
-  transform: translateY(12px);
+  left: 132px;
+  transform: translateY(11px);
 }
 
 .f4 .body { background: #E3A565; }
@@ -680,7 +812,7 @@
 .label {
   text-align: center;
 
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .role {
@@ -689,10 +821,10 @@
     "JetBrains Mono",
     monospace;
 
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
 
-  letter-spacing: .16em;
+  letter-spacing: .14em;
 
   color: var(--accent);
 }
@@ -700,7 +832,7 @@
 .name {
   margin-top: 5px;
 
-  font-size: 13px;
+  font-size: 12.5px;
 
   font-weight: 600;
 
@@ -710,8 +842,8 @@
 .tagline {
   margin-top: 4px;
 
-  font-size: 10.5px;
-  line-height: 1.4;
+  font-size: 9.8px;
+  line-height: 1.35;
 
   color: #64748B;
 }
@@ -733,7 +865,7 @@
   margin: 2px 80px 0;
 
   opacity: 0;
-  animation: cardIn 0.5s ease forwards 0.7s;
+  animation: cardIn 0.5s ease forwards 0.68s;
 }
 
 .connection-line {
@@ -767,7 +899,7 @@
   margin-top: 8px;
 
   opacity: 0;
-  animation: cardIn 0.5s ease forwards 0.85s;
+  animation: cardIn 0.5s ease forwards 0.82s;
 }
 
 .journey {
@@ -777,27 +909,33 @@
 
   justify-content: center;
 
-  width: 280px;
+  width: 300px;
 
   margin: auto;
 }
 
 .path {
-  width: 70px;
+  width: 46px;
   height: 2px;
 
   background: #DCE4E9;
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
+
+  flex-shrink: 0;
 
   border-radius: 50%;
 }
 
 .start {
   background: #173F5F;
+}
+
+.committee-dot {
+  background: #7A5AF8;
 }
 
 .middle {

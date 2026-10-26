@@ -301,62 +301,20 @@
       \verb https://doi.org/10.1186/1751-0473-3-16
       \endverb
     \endentry
-    \entry{Anh2023}{article}{}{}
-      \name{author}{2}{}{%
-        {{un=2,uniquepart=given,hash=b92c007629d3bc2a66c70954cfccdc89}{%
-           family={Anh},
-           familyi={A\bibinitperiod},
-           given={C.-T.},
-           giveni={C\bibinithyphendelim T\bibinitperiod},
-           givenun=2}}%
-        {{un=2,uniquepart=given,hash=db69356cc333e86fe08f52714005e3d4}{%
-           family={Kwon},
-           familyi={K\bibinitperiod},
-           given={Y.-K.},
-           giveni={Y\bibinithyphendelim K\bibinitperiod},
-           givenun=2}}%
-      }
-      \strng{namehash}{b6cbb1f2c8bd5269255afb5789d98a59}
-      \strng{fullhash}{b6cbb1f2c8bd5269255afb5789d98a59}
-      \strng{fullhashraw}{b6cbb1f2c8bd5269255afb5789d98a59}
-      \strng{bibnamehash}{b6cbb1f2c8bd5269255afb5789d98a59}
-      \strng{authorbibnamehash}{b6cbb1f2c8bd5269255afb5789d98a59}
-      \strng{authornamehash}{b6cbb1f2c8bd5269255afb5789d98a59}
-      \strng{authorfullhash}{b6cbb1f2c8bd5269255afb5789d98a59}
-      \strng{authorfullhashraw}{b6cbb1f2c8bd5269255afb5789d98a59}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Appl. Sci.}
-      \field{title}{Mutual Information Based on Multiple Level Discretization Network Inference from Time Series Gene Expression Profiles}
-      \field{volume}{13}
-      \field{year}{2023}
-      \field{pages}{11902}
-      \range{pages}{1}
-      \verb{urlraw}
-      \verb https://doi.org/10.3390/app132111902
-      \endverb
-      \verb{url}
-      \verb https://doi.org/10.3390/app132111902
-      \endverb
-    \endentry
     \entry{anh2023mutual}{article}{}{}
       \name{author}{2}{}{%
-        {{un=2,uniquepart=given,hash=ad78c85f51a22e8d61b0cd13c44aa592}{%
+        {{un=0,uniquepart=base,hash=ad78c85f51a22e8d61b0cd13c44aa592}{%
            family={Anh},
            familyi={A\bibinitperiod},
            given={Cao-Tuan},
            giveni={C\bibinithyphendelim T\bibinitperiod},
-           givenun=2}}%
-        {{un=2,uniquepart=given,hash=7b35fce0adeebdbc196306b987523925}{%
+           givenun=0}}%
+        {{un=1,uniquepart=given,hash=7b35fce0adeebdbc196306b987523925}{%
            family={Kwon},
            familyi={K\bibinitperiod},
            given={Yung-Keun},
            giveni={Y\bibinithyphendelim K\bibinitperiod},
-           givenun=2}}%
+           givenun=1}}%
       }
       \strng{namehash}{f443eb04faf3001ab81c0fedc80e8247}
       \strng{fullhash}{f443eb04faf3001ab81c0fedc80e8247}
@@ -386,18 +344,18 @@
     \endentry
     \entry{anh2025}{article}{}{}
       \name{author}{2}{}{%
-        {{un=2,uniquepart=given,hash=ad78c85f51a22e8d61b0cd13c44aa592}{%
+        {{un=0,uniquepart=base,hash=ad78c85f51a22e8d61b0cd13c44aa592}{%
            family={Anh},
            familyi={A\bibinitperiod},
            given={Cao-Tuan},
            giveni={C\bibinithyphendelim T\bibinitperiod},
-           givenun=2}}%
-        {{un=2,uniquepart=given,hash=7b35fce0adeebdbc196306b987523925}{%
+           givenun=0}}%
+        {{un=1,uniquepart=given,hash=7b35fce0adeebdbc196306b987523925}{%
            family={Kwon},
            familyi={K\bibinitperiod},
            given={Yung-Keun},
            giveni={Y\bibinithyphendelim K\bibinitperiod},
-           givenun=2}}%
+           givenun=1}}%
       }
       \strng{namehash}{f443eb04faf3001ab81c0fedc80e8247}
       \strng{fullhash}{f443eb04faf3001ab81c0fedc80e8247}
@@ -1106,47 +1064,14 @@
       \field{title}{Dream: Dialogue for Reverse Engineering Assessments and Methods}
       \field{year}{2009}
     \endentry
-    \entry{Faith2007}{article}{}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{1}{}{%
-        {{un=2,uniquepart=given,hash=3253934adb0f711010decb88d8f40185}{%
-           family={Faith},
-           familyi={F\bibinitperiod},
-           given={J.\bibnamedelimi J.},
-           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod},
-           givenun=2}}%
-      }
-      \strng{namehash}{a566a6e2575f4b6ded0aadf82574dc12}
-      \strng{fullhash}{a566a6e2575f4b6ded0aadf82574dc12}
-      \strng{fullhashraw}{a566a6e2575f4b6ded0aadf82574dc12}
-      \strng{bibnamehash}{a566a6e2575f4b6ded0aadf82574dc12}
-      \strng{authorbibnamehash}{a566a6e2575f4b6ded0aadf82574dc12}
-      \strng{authornamehash}{a566a6e2575f4b6ded0aadf82574dc12}
-      \strng{authorfullhash}{a566a6e2575f4b6ded0aadf82574dc12}
-      \strng{authorfullhashraw}{a566a6e2575f4b6ded0aadf82574dc12}
-      \field{sortinit}{F}
-      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{PLoS Biology}
-      \field{number}{1}
-      \field{title}{Large-scale mapping and validation of Escherichia coli transcriptional regulation from a compendium of expression profiles}
-      \field{volume}{5}
-      \field{year}{2007}
-      \field{pages}{e8}
-      \range{pages}{-1}
-    \endentry
     \entry{faith2007}{article}{}{}
       \name{author}{9}{}{%
-        {{un=2,uniquepart=given,hash=fbc40cce64e7acb10e44fc4432385ecc}{%
+        {{un=0,uniquepart=base,hash=fbc40cce64e7acb10e44fc4432385ecc}{%
            family={Faith},
            familyi={F\bibinitperiod},
            given={Jeremiah\bibnamedelima J.},
            giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod},
-           givenun=2}}%
+           givenun=0}}%
         {{un=0,uniquepart=base,hash=edf95e33f437b63e379e153c7865e83a}{%
            family={Hayete},
            familyi={H\bibinitperiod},
@@ -1841,37 +1766,6 @@
       \field{year}{2009}
       \field{pages}{1013\bibrangedash 1029}
       \range{pages}{17}
-    \endentry
-    \entry{HuynhThu2010}{article}{}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{1}{}{%
-        {{un=2,uniquepart=given,hash=3e9ab070160c357e92d37e9b52c80cff}{%
-           family={Huynh-Thu},
-           familyi={H\bibinithyphendelim T\bibinitperiod},
-           given={V.\bibnamedelimi A.},
-           giveni={V\bibinitperiod\bibinitdelim A\bibinitperiod},
-           givenun=2}}%
-      }
-      \strng{namehash}{6a91a13c1cb0e49d264cec77def13f95}
-      \strng{fullhash}{6a91a13c1cb0e49d264cec77def13f95}
-      \strng{fullhashraw}{6a91a13c1cb0e49d264cec77def13f95}
-      \strng{bibnamehash}{6a91a13c1cb0e49d264cec77def13f95}
-      \strng{authorbibnamehash}{6a91a13c1cb0e49d264cec77def13f95}
-      \strng{authornamehash}{6a91a13c1cb0e49d264cec77def13f95}
-      \strng{authorfullhash}{6a91a13c1cb0e49d264cec77def13f95}
-      \strng{authorfullhashraw}{6a91a13c1cb0e49d264cec77def13f95}
-      \field{sortinit}{H}
-      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{PLoS One}
-      \field{number}{9}
-      \field{title}{Inferring regulatory networks from expression data using tree-based methods}
-      \field{volume}{5}
-      \field{year}{2010}
     \endentry
     \entry{HuynhThu2015}{article}{}{}
       \name{author}{2}{}{%
@@ -2880,81 +2774,14 @@
       \field{pages}{e1011254}
       \range{pages}{-1}
     \endentry
-    \entry{Margolin2006}{article}{}{}
-      \name{author}{7}{}{%
-        {{un=1,uniquepart=given,hash=45f9c298d32105c0cb23c7bdf5b39346}{%
-           family={Margolin},
-           familyi={M\bibinitperiod},
-           given={A.A.},
-           giveni={A\bibinitperiod},
-           givenun=1}}%
-        {{un=0,uniquepart=base,hash=4e467fe541514f440d4b7e9d0a828e2d}{%
-           family={Nemenman},
-           familyi={N\bibinitperiod},
-           given={I.},
-           giveni={I\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=958300611c88e2ac2505002462cb1558}{%
-           family={Basso},
-           familyi={B\bibinitperiod},
-           given={K.},
-           giveni={K\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=ad7b5e73cfe4d046f39c91f042eed1cc}{%
-           family={Wiggins},
-           familyi={W\bibinitperiod},
-           given={C.},
-           giveni={C\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=d03efb9ab9f1b6e7147bd847bee684e3}{%
-           family={Stolovitzky},
-           familyi={S\bibinitperiod},
-           given={G.},
-           giveni={G\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=d8feccb7fb7543603d73994fcc494b25}{%
-           family={Favera},
-           familyi={F\bibinitperiod},
-           given={R.D.},
-           giveni={R\bibinitperiod},
-           givenun=0}}%
-        {{un=0,uniquepart=base,hash=8ce37f38b9121e079bd79408759b81bc}{%
-           family={Califano},
-           familyi={C\bibinitperiod},
-           given={A.},
-           giveni={A\bibinitperiod},
-           givenun=0}}%
-      }
-      \strng{namehash}{46a7d01310364bc898071455c14c7c7a}
-      \strng{fullhash}{30867dd0110693c6e57dd9a7266c38d5}
-      \strng{fullhashraw}{30867dd0110693c6e57dd9a7266c38d5}
-      \strng{bibnamehash}{46a7d01310364bc898071455c14c7c7a}
-      \strng{authorbibnamehash}{46a7d01310364bc898071455c14c7c7a}
-      \strng{authornamehash}{46a7d01310364bc898071455c14c7c7a}
-      \strng{authorfullhash}{30867dd0110693c6e57dd9a7266c38d5}
-      \strng{authorfullhashraw}{30867dd0110693c6e57dd9a7266c38d5}
-      \field{sortinit}{M}
-      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{BMC Bioinformatics}
-      \field{number}{Suppl. 1}
-      \field{title}{ARACNE: An Algorithm for the Reconstruction of Gene Regulatory Networks in a Mammalian Cellular Context}
-      \field{volume}{7}
-      \field{year}{2006}
-      \field{pages}{S7}
-      \range{pages}{-1}
-    \endentry
     \entry{margolin2006}{article}{}{}
       \name{author}{7}{}{%
-        {{un=1,uniquepart=given,hash=ebefec56a86dd4dc255fb3953f2eaff3}{%
+        {{un=0,uniquepart=base,hash=ebefec56a86dd4dc255fb3953f2eaff3}{%
            family={Margolin},
            familyi={M\bibinitperiod},
            given={Adam\bibnamedelima A.},
            giveni={A\bibinitperiod\bibinitdelim A\bibinitperiod},
-           givenun=1}}%
+           givenun=0}}%
         {{un=0,uniquepart=base,hash=882ca4a0ac6c34ac66a602ef8a67b15b}{%
            family={Nemenman},
            familyi={N\bibinitperiod},
@@ -4629,6 +4456,9 @@
       \range{pages}{9}
     \endentry
   \enddatalist
+  \missing{Faith2007}
+  \missing{HuynhThu2010}
+  \missing{Margolin2006}
 \endrefsection
 \endinput
 

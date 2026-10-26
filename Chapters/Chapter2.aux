@@ -7,59 +7,50 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2.1}Abstract}{5}{section.16}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2.2}Introduction}{6}{section.17}\protected@file@percent }
 \newlabel{chapter2_introduction}{{2.2}{6}{Introduction}{section.17}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Motivation}{6}{subsection.18}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Problem Statement}{7}{subsection.19}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.3}Existing Solutions}{7}{subsection.20}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.4}Research Objectives}{8}{subsection.21}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.5}Outline of the Chapter}{8}{subsection.22}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Backgrounds}{9}{section.23}\protected@file@percent }
-\newlabel{chapter2_backgound}{{2.3}{9}{Backgrounds}{section.23}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Overview of gene regulatory network inference}{9}{subsection.24}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Related Works}{9}{subsection.25}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.4}Materials and Methodology}{11}{section.26}\protected@file@percent }
-\newlabel{chapter2_methodology}{{2.4}{11}{Materials and Methodology}{section.26}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Materials}{11}{subsection.27}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{A discretization network model}{11}{section*.28}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{The discretization network inference problem}{12}{section*.29}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Structure performance metrics}{12}{section*.30}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Mutual information}{13}{section*.31}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}Methodology}{13}{subsection.32}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Discretization}{14}{section*.34}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces The overall framework of the MIDNI algorithm begins with a real-valued time-series gene expression dataset, which is transformed into a discretized expression dataset through the K-means discretization algorithm. The number of clusters \( K \) for each gene is adaptively determined using a validity index, ensuring that the discretization captures the inherent distribution of the gene's expression values. The discretized dataset is subsequently processed by the \textbf  {MIFS} and \textbf  {SWAP} subroutines, which identify the most informative regulatory genes for each target gene. The output of these subroutines is a collection of candidate regulatory sets for all genes in the network. Using these results, the gene regulatory network is reconstructed into a predictive network that can model and simulate the dynamic interactions among genes.}}{15}{figure.caption.33}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Materials and Methodology}{8}{section.18}\protected@file@percent }
+\newlabel{chapter2_methodology}{{2.3}{8}{Materials and Methodology}{section.18}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Materials}{8}{subsection.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{A discretization network model}{8}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{The discretization network inference problem}{8}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Structure performance metrics}{9}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Mutual information}{9}{section*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Methodology}{10}{subsection.24}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces The overall framework of the MIDNI algorithm begins with a real-valued time-series gene expression dataset, which is transformed into a discretized expression dataset through the K-means discretization algorithm. The number of clusters \( K \) for each gene is adaptively determined using a validity index, ensuring that the discretization captures the inherent distribution of the gene's expression values. The discretized dataset is subsequently processed by the \textbf  {MIFS} and \textbf  {SWAP} subroutines, which identify the most informative regulatory genes for each target gene. The output of these subroutines is a collection of candidate regulatory sets for all genes in the network. Using these results, the gene regulatory network is reconstructed into a predictive network that can model and simulate the dynamic interactions among genes.}}{11}{figure.caption.25}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:chapter2_framework}{{2.1}{15}{The overall framework of the MIDNI algorithm begins with a real-valued time-series gene expression dataset, which is transformed into a discretized expression dataset through the K-means discretization algorithm. The number of clusters \( K \) for each gene is adaptively determined using a validity index, ensuring that the discretization captures the inherent distribution of the gene's expression values. The discretized dataset is subsequently processed by the \textbf {MIFS} and \textbf {SWAP} subroutines, which identify the most informative regulatory genes for each target gene. The output of these subroutines is a collection of candidate regulatory sets for all genes in the network. Using these results, the gene regulatory network is reconstructed into a predictive network that can model and simulate the dynamic interactions among genes}{figure.caption.33}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Illustrative examples of discretization for three different genes under two discretization scenarios. The upper row shows the discretized expression profiles obtained with $k = 2$, while the lower row presents the corresponding results with $k = 3$. For each gene, the x-axis represents the time points and the y-axis denotes the real-valued gene expression levels prior to discretization, highlighting how different discretization levels capture distinct expression patterns.}}{16}{figure.caption.38}\protected@file@percent }
-\newlabel{fig:chapter2_discretization}{{2.2}{16}{Illustrative examples of discretization for three different genes under two discretization scenarios. The upper row shows the discretized expression profiles obtained with $k = 2$, while the lower row presents the corresponding results with $k = 3$. For each gene, the x-axis represents the time points and the y-axis denotes the real-valued gene expression levels prior to discretization, highlighting how different discretization levels capture distinct expression patterns}{figure.caption.38}{}}
-\@writefile{toc}{\contentsline {subsubsection}{MIFS and SWAP subroutines}{16}{section*.39}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.5}Experiments, Results, and Discussions}{17}{section.42}\protected@file@percent }
-\newlabel{chapter2_result}{{2.5}{17}{Experiments, Results, and Discussions}{section.42}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.1}Experiments}{17}{subsection.43}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.2}Results}{17}{subsection.44}\protected@file@percent }
-\newlabel{sec:results}{{2.5.2}{17}{Results}{subsection.44}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces The settings used for generating the datasets.}}{18}{table.caption.45}\protected@file@percent }
-\newlabel{tab:dataset_parameters}{{2.1}{18}{The settings used for generating the datasets}{table.caption.45}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.3}Discussions}{20}{subsection.52}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.6}Conclusion \& Future Studies}{21}{section.53}\protected@file@percent }
-\newlabel{chapter2_conclusion}{{2.6}{21}{Conclusion \& Future Studies}{section.53}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.1}Conclusion}{21}{subsection.54}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.2}Future Studies}{21}{subsection.55}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces The subroutine \textit  {MIFS}$(v_0, W, k)$, where $v_0$ is the target variable, $W = \{w_1, w_2, \ldots  , w_M\}$ is the set of variables, and $k$ is the desired number of input variables.}}{23}{figure.caption.40}\protected@file@percent }
-\newlabel{fig:chapter2_mifs}{{2.3}{23}{The subroutine \textit {MIFS}$(v_0, W, k)$, where $v_0$ is the target variable, $W = \{w_1, w_2, \ldots , w_M\}$ is the set of variables, and $k$ is the desired number of input variables}{figure.caption.40}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces The subroutine \textit  {SWAP}$(v_0, S, W)$, where $v_0$ is the target variable; $S = \{s_1, s_2, \ldots  , s_k\}$ is the set of selected variables such that $I(v_0, s_i) \geq I(v_0, s_j)$ if $i < j$ for all $s_i, s_j \in S$; and $W = \{w_1, w_2, \ldots  , w_M\}$ is the set of unselected variables such that $I(v_0, w_i) \geq I(v_0, w_j)$ if $i < j$ for all $w_i, w_j \in W$.}}{24}{figure.caption.41}\protected@file@percent }
-\newlabel{fig:chapter2_swap}{{2.4}{24}{The subroutine \textit {SWAP}$(v_0, S, W)$, where $v_0$ is the target variable; $S = \{s_1, s_2, \ldots , s_k\}$ is the set of selected variables such that $I(v_0, s_i) \geq I(v_0, s_j)$ if $i < j$ for all $s_i, s_j \in S$; and $W = \{w_1, w_2, \ldots , w_M\}$ is the set of unselected variables such that $I(v_0, w_i) \geq I(v_0, w_j)$ if $i < j$ for all $w_i, w_j \in W$}{figure.caption.41}{}}
-\newlabel{fig:chapter2_case1_dynamics_performance}{{2.5}{25}{}{figure.caption.46}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.6}{\ignorespaces Inference performance according to the number of incoming links (\textit  {D}) in the gold-standard network.}}{26}{figure.caption.47}\protected@file@percent }
-\newlabel{fig:chapter2_case1_incoming_links}{{2.6}{26}{Inference performance according to the number of incoming links (\textit {D}) in the gold-standard network}{figure.caption.47}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.7}{\ignorespaces The proportion of three-level discretized genes in the networks.}}{27}{figure.caption.48}\protected@file@percent }
-\newlabel{fig:chapter2_propotion}{{2.7}{27}{The proportion of three-level discretized genes in the networks}{figure.caption.48}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.8}{\ignorespaces Structural performance on random real-valued networks. Four network size groups ($|V| = 50, 100, 200, 300$) were examined, with 20 randomly generated networks for each size. Target genes were categorized based on the number of incoming regulatory links ($D$) in the gold-standard network. The x-axis represents the values of $D$, while the y-axis indicates the average structural accuracy across networks.}}{28}{figure.caption.49}\protected@file@percent }
-\newlabel{fig:chapter2_structure_accuracy}{{2.8}{28}{Structural performance on random real-valued networks. Four network size groups ($|V| = 50, 100, 200, 300$) were examined, with 20 randomly generated networks for each size. Target genes were categorized based on the number of incoming regulatory links ($D$) in the gold-standard network. The x-axis represents the values of $D$, while the y-axis indicates the average structural accuracy across networks}{figure.caption.49}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.9}{\ignorespaces Dynamical performance on the random real-valued networks. Four size groups of networks ($|V| = 50, 100, 200, \text  { and } 300$) were considered, and 20 random networks were generated for each group. All target genes are grouped according to the number of incoming links ($D$) in the gold-standard network, and the x-axis represents the $D$ values. The y-axis shows the average dynamics accuracy.}}{29}{figure.caption.50}\protected@file@percent }
-\newlabel{fig:chapter2_dynamic_accuracy}{{2.9}{29}{Dynamical performance on the random real-valued networks. Four size groups of networks ($|V| = 50, 100, 200, \text { and } 300$) were considered, and 20 random networks were generated for each group. All target genes are grouped according to the number of incoming links ($D$) in the gold-standard network, and the x-axis represents the $D$ values. The y-axis shows the average dynamics accuracy}{figure.caption.50}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.10}{\ignorespaces Comparison of running time across different network sizes. The x-axis represents the network size, while the y-axis shows the running time in milliseconds on a $\log _{10}$ scale.}}{30}{figure.caption.51}\protected@file@percent }
-\newlabel{fig:chapter2_running_time}{{2.10}{30}{Comparison of running time across different network sizes. The x-axis represents the network size, while the y-axis shows the running time in milliseconds on a $\log _{10}$ scale}{figure.caption.51}{}}
+\newlabel{fig:chapter2_framework}{{2.1}{11}{The overall framework of the MIDNI algorithm begins with a real-valued time-series gene expression dataset, which is transformed into a discretized expression dataset through the K-means discretization algorithm. The number of clusters \( K \) for each gene is adaptively determined using a validity index, ensuring that the discretization captures the inherent distribution of the gene's expression values. The discretized dataset is subsequently processed by the \textbf {MIFS} and \textbf {SWAP} subroutines, which identify the most informative regulatory genes for each target gene. The output of these subroutines is a collection of candidate regulatory sets for all genes in the network. Using these results, the gene regulatory network is reconstructed into a predictive network that can model and simulate the dynamic interactions among genes}{figure.caption.25}{}}
+\@writefile{toc}{\contentsline {subsubsection}{Discretization}{11}{section*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{MIFS and SWAP subroutines}{12}{section*.31}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Illustrative examples of discretization for three different genes under two discretization scenarios. The upper row shows the discretized expression profiles obtained with $k = 2$, while the lower row presents the corresponding results with $k = 3$. For each gene, the x-axis represents the time points and the y-axis denotes the real-valued gene expression levels prior to discretization, highlighting how different discretization levels capture distinct expression patterns.}}{13}{figure.caption.30}\protected@file@percent }
+\newlabel{fig:chapter2_discretization}{{2.2}{13}{Illustrative examples of discretization for three different genes under two discretization scenarios. The upper row shows the discretized expression profiles obtained with $k = 2$, while the lower row presents the corresponding results with $k = 3$. For each gene, the x-axis represents the time points and the y-axis denotes the real-valued gene expression levels prior to discretization, highlighting how different discretization levels capture distinct expression patterns}{figure.caption.30}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}Experiments, Results, and Discussions}{13}{section.34}\protected@file@percent }
+\newlabel{chapter2_result}{{2.4}{13}{Experiments, Results, and Discussions}{section.34}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Experiments}{13}{subsection.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}Results}{14}{subsection.36}\protected@file@percent }
+\newlabel{sec:results}{{2.4.2}{14}{Results}{subsection.36}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces The settings used for generating the datasets.}}{14}{table.caption.37}\protected@file@percent }
+\newlabel{tab:dataset_parameters}{{2.1}{14}{The settings used for generating the datasets}{table.caption.37}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.3}Discussions}{17}{subsection.44}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.5}Conclusion \& Future Studies}{17}{section.45}\protected@file@percent }
+\newlabel{chapter2_conclusion}{{2.5}{17}{Conclusion \& Future Studies}{section.45}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.1}Conclusion}{17}{subsection.46}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.2}Future Studies}{18}{subsection.47}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces The subroutine \textit  {MIFS}$(v_0, W, k)$, where $v_0$ is the target variable, $W = \{w_1, w_2, \ldots  , w_M\}$ is the set of variables, and $k$ is the desired number of input variables.}}{19}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:chapter2_mifs}{{2.3}{19}{The subroutine \textit {MIFS}$(v_0, W, k)$, where $v_0$ is the target variable, $W = \{w_1, w_2, \ldots , w_M\}$ is the set of variables, and $k$ is the desired number of input variables}{figure.caption.32}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces The subroutine \textit  {SWAP}$(v_0, S, W)$, where $v_0$ is the target variable; $S = \{s_1, s_2, \ldots  , s_k\}$ is the set of selected variables such that $I(v_0, s_i) \geq I(v_0, s_j)$ if $i < j$ for all $s_i, s_j \in S$; and $W = \{w_1, w_2, \ldots  , w_M\}$ is the set of unselected variables such that $I(v_0, w_i) \geq I(v_0, w_j)$ if $i < j$ for all $w_i, w_j \in W$.}}{20}{figure.caption.33}\protected@file@percent }
+\newlabel{fig:chapter2_swap}{{2.4}{20}{The subroutine \textit {SWAP}$(v_0, S, W)$, where $v_0$ is the target variable; $S = \{s_1, s_2, \ldots , s_k\}$ is the set of selected variables such that $I(v_0, s_i) \geq I(v_0, s_j)$ if $i < j$ for all $s_i, s_j \in S$; and $W = \{w_1, w_2, \ldots , w_M\}$ is the set of unselected variables such that $I(v_0, w_i) \geq I(v_0, w_j)$ if $i < j$ for all $w_i, w_j \in W$}{figure.caption.33}{}}
+\newlabel{fig:chapter2_case1_dynamics_performance}{{2.5}{21}{}{figure.caption.38}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.6}{\ignorespaces Inference performance according to the number of incoming links (\textit  {D}) in the gold-standard network.}}{22}{figure.caption.39}\protected@file@percent }
+\newlabel{fig:chapter2_case1_incoming_links}{{2.6}{22}{Inference performance according to the number of incoming links (\textit {D}) in the gold-standard network}{figure.caption.39}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.7}{\ignorespaces The proportion of three-level discretized genes in the networks.}}{23}{figure.caption.40}\protected@file@percent }
+\newlabel{fig:chapter2_propotion}{{2.7}{23}{The proportion of three-level discretized genes in the networks}{figure.caption.40}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.8}{\ignorespaces Structural performance on random real-valued networks. Four network size groups ($|V| = 50, 100, 200, 300$) were examined, with 20 randomly generated networks for each size. Target genes were categorized based on the number of incoming regulatory links ($D$) in the gold-standard network. The x-axis represents the values of $D$, while the y-axis indicates the average structural accuracy across networks.}}{24}{figure.caption.41}\protected@file@percent }
+\newlabel{fig:chapter2_structure_accuracy}{{2.8}{24}{Structural performance on random real-valued networks. Four network size groups ($|V| = 50, 100, 200, 300$) were examined, with 20 randomly generated networks for each size. Target genes were categorized based on the number of incoming regulatory links ($D$) in the gold-standard network. The x-axis represents the values of $D$, while the y-axis indicates the average structural accuracy across networks}{figure.caption.41}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.9}{\ignorespaces Dynamical performance on the random real-valued networks. Four size groups of networks ($|V| = 50, 100, 200, \text  { and } 300$) were considered, and 20 random networks were generated for each group. All target genes are grouped according to the number of incoming links ($D$) in the gold-standard network, and the x-axis represents the $D$ values. The y-axis shows the average dynamics accuracy.}}{25}{figure.caption.42}\protected@file@percent }
+\newlabel{fig:chapter2_dynamic_accuracy}{{2.9}{25}{Dynamical performance on the random real-valued networks. Four size groups of networks ($|V| = 50, 100, 200, \text { and } 300$) were considered, and 20 random networks were generated for each group. All target genes are grouped according to the number of incoming links ($D$) in the gold-standard network, and the x-axis represents the $D$ values. The y-axis shows the average dynamics accuracy}{figure.caption.42}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.10}{\ignorespaces Comparison of running time across different network sizes. The x-axis represents the network size, while the y-axis shows the running time in milliseconds on a $\log _{10}$ scale.}}{26}{figure.caption.43}\protected@file@percent }
+\newlabel{fig:chapter2_running_time}{{2.10}{26}{Comparison of running time across different network sizes. The x-axis represents the network size, while the y-axis shows the running time in milliseconds on a $\log _{10}$ scale}{figure.caption.43}{}}
 \@setckpt{Chapters/Chapter2}{
-\setcounter{page}{31}
+\setcounter{page}{27}
 \setcounter{equation}{3}
 \setcounter{enumi}{0}
 \setcounter{enumii}{0}
@@ -69,7 +60,7 @@
 \setcounter{mpfootnote}{0}
 \setcounter{part}{0}
 \setcounter{chapter}{2}
-\setcounter{section}{6}
+\setcounter{section}{5}
 \setcounter{subsection}{2}
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
@@ -101,7 +92,7 @@
 \setcounter{citetotal}{0}
 \setcounter{multicitecount}{0}
 \setcounter{multicitetotal}{0}
-\setcounter{instcount}{34}
+\setcounter{instcount}{29}
 \setcounter{maxnames}{3}
 \setcounter{minnames}{1}
 \setcounter{maxitems}{3}
@@ -209,5 +200,5 @@
 \setcounter{section@level}{2}
 \setcounter{Item}{0}
 \setcounter{Hfootnote}{0}
-\setcounter{bookmark@seq@number}{37}
+\setcounter{bookmark@seq@number}{29}
 }

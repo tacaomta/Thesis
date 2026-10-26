@@ -30,11 +30,11 @@ eyebrow: "THESIS OVERVIEW"
 
 * First, I will introduce the **research problem**, answering two fundamental questions: **What is a Gene Regulatory Network, and why do we need time-series gene expression data?**. This part defines the research challenges, identifies the existing gaps, and presents the objectives of the thesis.
 
-* Second, I will present a GRN inference method based on **multiple-level discretization and mutual information**.
+* Second, I will present a Gene Regulatory Network inference method based on **multiple-level discretization and mutual information**.
 
 * Next, I will introduce a **Scale-Invariant Task Transformation Framework for Gene Regulatory Network inference**. This work addresses the question: **“Can informative representations be learned automatically from time-series gene expression data?”**
 
-* Finally, I address the question: **“How can we improve GRN inference performance when only limited time-series gene expression data are available?”**
+* Finally, I address the question: **“How can we improve Gene Regulatory Network inference performance when only limited time-series gene expression data are available?”**
 -->
 
 ---
@@ -195,10 +195,10 @@ eyebrow: METHODOLOGY
 <!--
 Let me now give you an overview of the proposed framework.  
 - We start with a **two-dimensional microarray of real-valued gene expression data**, which is observed from an underlying regulatory network. Importantly, **the original network itself is unseen during the inference process**.  
-- First, this input expression matrix is converted into a **discretized expression dataset** using the K-means discretization algorithm.  
+- First, this input expression matrix is converted into a **discretized expression dataset** using the K-means algorithm.  
 - Then, the **K value is determined based on a validity index for each gene**. In this study, K can be either **2 or 3**, depending on the expression distribution of each gene.  
 - Next, the discretized data are fed into the **MIFS and SWAP subroutines** to identify the regulatory genes for each target gene.  
-- Based on the inferred regulatory relationships, we reconstruct the **predicted network**. At the same time, the prediction network provides the corresponding **inferred discretized expression values**.  
+- Based on the inferred regulatory relationships, we reconstruct the **predicted network**. At the same time, the predicted network provides the corresponding **inferred discretized expression values**.  
 - Finally, at the evaluation stage, we compare the **inferred network with the ground-truth network** to evaluate the structural accuracy. For the dynamics accuracy, we compare the **observed and inferred discretized expression matrices**.
 -->
 ---
@@ -209,9 +209,9 @@ eyebrow: DISCRETIZATION
 
 <Discretization />
 <!--As mentioned above, in our study, the discretization level of each gene can be either two or three.  
-- To determine the optimal level, we apply a validity index, which is defined as the ratio of the Intra value to the Inter value.   
-- The Intra value is the average squared distance between data points and their corresponding centroids.   
-- The Inter value is the minimum squared distance between two different centroids. Therefore, the optimal discretization level is selected by minimizing the validity index.
+- To determine the optimal level, we apply a validity index, which is defined as the ratio of the **Intra value** to the **Inter value**.   
+- The **Intra value** is the average squared distance between data points and their corresponding centroids.   
+- The **Inter value** is the minimum squared distance between two different centroids. Therefore, the optimal discretization level is selected by minimizing the validity index.
 -->
 ---
 layout: default

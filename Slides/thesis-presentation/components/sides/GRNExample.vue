@@ -90,9 +90,9 @@
 import { reactive } from 'vue'
 
 const images = [
-    { structure: '../public/images/net10.png',  value: '../public/images/netval10.png' },
-    { structure: '../public/images/net50.png',  value: '../public/images/netval50.png' },
-    { structure: '../public/images/net100.png', value: '../public/images/netval100.png' }
+    { structure: '../../public/images/net10.png',  value: '../../public/images/netval10.png' },
+    { structure: '../../public/images/net50.png',  value: '../../public/images/netval50.png' },
+    { structure: '../../public/images/net100.png', value: '../../public/images/netval100.png' }
 ]
 
 // independent toggle state per column: false = structure, true = values

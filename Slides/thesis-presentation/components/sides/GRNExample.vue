@@ -87,7 +87,7 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 const base = import.meta.env.BASE_URL
 
 const images = computed(() => [

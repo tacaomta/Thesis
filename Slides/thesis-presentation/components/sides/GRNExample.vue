@@ -16,7 +16,7 @@
                 @click="toggleImage(0)"
             >
                 <img
-                    :src="toggled[0] ? images[0].value : images[0].structure"
+                    :src="toggled[0] ? '../../public/images/netval10.png' : '../../public/images/net10.png'"
                     :alt="toggled[0] ? 'Network values, size 10' : 'Network structure, size 10'"
                     class="gallery-image"
                 />

@@ -16,7 +16,7 @@
                 @click="toggleImage(0)"
             >
                 <img
-                    :src="toggled[0] ? '../../public/images/netval10.png' : '../../public/images/net10.png'"
+                    :src="toggled[0] ? images[0].value : images[0].structure"
                     :alt="toggled[0] ? 'Network values, size 10' : 'Network structure, size 10'"
                     class="gallery-image"
                 />
@@ -88,12 +88,13 @@
 
 <script setup>
 import { reactive } from 'vue'
+const base = import.meta.env.BASE_URL
 
-const images = [
-    { structure: '../../public/images/net10.png',  value: '../../public/images/netval10.png' },
-    { structure: '../../public/images/net50.png',  value: '../../public/images/netval50.png' },
-    { structure: '../../public/images/net100.png', value: '../../public/images/netval100.png' }
-]
+const images = computed(() => [
+    { structure: `${base}images/net10.png`,  value: `${base}images/netval10.png` },
+    { structure: `${base}images/net50.png`,  value: `${base}images/netval50.png` },
+    { structure: `${base}images/net100.png`, value: `${base}images/netval100.png` }
+])
 
 // independent toggle state per column: false = structure, true = values
 const toggled = reactive([false, false, false])

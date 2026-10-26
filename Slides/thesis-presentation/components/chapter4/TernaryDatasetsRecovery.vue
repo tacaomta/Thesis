@@ -161,7 +161,7 @@ function legendLabelFormatter(name) {
 function buildOption() {
   const grids = [], xAxes = [], yAxes = [], twinYAxes = [], series = [], legends = []
 
-  const colLeft = ['1.5%', '34.25%', '67%']
+  const colLeft = ['2.5%', '34.75%', '67%']
   const legendLeft = ['2%', '35%', '68%']
 
   for (let row = 0; row < 2; row++) {

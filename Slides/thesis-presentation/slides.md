@@ -549,7 +549,7 @@ eyebrow: FEATURE ENGINEERING
 <FeatureEngineering />
 <!--
 How to preserve transition dynamics?  
-- A critical innovation here lies in data representation. Instead of feeding single time steps, we concatenate expression values from two consecutive steps, $t_i$ and $t_{i+1}$. 
+- A critical innovation here lies in data representation. We have an observed expression data as two-dimentional matrix. This is our input. Instead of feeding single time steps, we concatenate expression values from two consecutive steps, $t_i$ and $t_{i+1}$. 
 - And why this transformation?, 
 - This $2n$-dimensional vector explicitly captures state-transition relationships, giving the neural network the exact temporal signals it needs to predict the next time step.
 -->
@@ -571,8 +571,8 @@ eyebrow: EXPERIMENTAL SETUP
 ---
 <ExperimentalSetup04 />
 <!--
-- To evaluate the performance, we generated 20 scale-free ground-truth networks for each of two network sizes: 50 and 100 genes.
-- For each network, we generated a trajectory of 100 time steps and then varied the number of observed time steps, K, from 10 to 90. 
+- To evaluate the performance, we generated 20 ground-truth networks for each of two network sizes: 50 and 100 genes.
+- For each network, we generated a trajectory of 100 time steps and then varied the number of observed time steps as observation window, K, from 10 to 90. 
 - This allowed us to evaluate how the proposed framework improves GRN inference under different levels of data availability.
 - We tested the framework on two types of datasets: Boolean and ternary.
 -->
@@ -596,9 +596,9 @@ eyebrow: RESULTS - TERNARY DATASETS
 <TernaryDatasetsRecovery />
 <!--
 Looking at the results for ternary datasets:  
-- Results of precision, recall, and structural accuracy on the multi-level discretization dataset. Figures (a-c). Results for the network with |𝑉|=50. Figures (d–f). Results for the network with |𝑉|=100 The Y-axis denotes the performance metrics, and the X-axis indicates the number of observed time steps in the original gene expression data. For the synthesized dataset, gene expression data are generated for (100−𝐾) time steps. Solid and dashed lines represent the results based on the synthesized and the original dataset, respectively. Each point and error bar indicates the average value and the standard deviation, respectively, over 10 random networks. The bar charts show the performance improvement of the synthesized dataset over the original dataset.  
+- The Figures show results of precision, recall, and structural accuracy on the multi-level discretization dataset. Figures (a-c). Results for the network with |𝑉|=50. Figures (d–f). Results for the network with |𝑉|=100 The Y-axis denotes the performance metrics, and the X-axis indicates the number of observed time steps in the original gene expression data. For the synthesized dataset, gene expression data are generated for (100−𝐾) time steps. Solid and dashed lines represent the results based on the synthesized and the original dataset, respectively. Each point and error bar indicates the average value and the standard deviation, respectively, over 10 random networks. The bar charts show the performance improvement of the synthesized dataset over the original dataset.  
 
-Look at the charts we can see that:   
+Look at the figures we can see that:   
 - Synthetic data consistently increases precision and recall across almost all observed time steps window (K)
 - The largest gains occur when real observations are scarcest, especially at K=10, 20
 - Similar performace gains are observed for both 50, 100 gene-scale networks.
@@ -613,7 +613,7 @@ eyebrow: RESULTS - BOOLEAN DATASETS
 <!--
 Moving to Boolean datasets, we observe the exact same positive trend.   
 - Synthetic data enhances inference performance without introducing negative artifacts. 
-- Interestingly, smaller 50-gene networks saw larger recall boosts, whereas larger 100-gene networks achieved higher precision gains having confirmed structural recovery.
+- Smaller 50-gene networks saw larger recall boosts, whereas larger 100-gene networks achieved higher precision gains having confirmed structural recovery.
 -->
 ---
 layout: default
@@ -624,7 +624,7 @@ eyebrow: RESULTS - DYNAMICS FIDELITY
 <!--
 Now, addressing dynamic accuracy: Two charts on left are performance on Ternary, while two on right are performance on Boolean dataset.
 - You might notice a slight downward trend as time steps increase. This happens because synthetic-driven networks are evaluated over the entire 100-step timeline, while original data is tested over shorter $K$ steps. 
-- Nevertheless, dynamic accuracy remains well above 97%, proving that generated time-series retain strong biological state fidelity. Next, let's examine data diversity.
+- Nevertheless, dynamic accuracy remains well above 97%, proving that generated time-series retain strong biological state fidelity.
 -->
 ---
 layout: default
@@ -634,10 +634,10 @@ eyebrow: RESULTS - DATA DIVERSITY ANALYSIS
 <DataDiversity />
 <!--
 Now, let see how diverse are output profiles?
-- On this slide, figure a is an example of a similarity matrix between a pair of synthesized gene expression data values when K equals 10. The white or black dot indicates that the corresponding gene values between two expression data values are identical or not, respectively. 
-- Figure b is change in the mean similarity index against the time step number (K).
+- On this slide, figure A is an example of a similarity matrix between a pair of synthesized gene expression data values when K equals 10. The white or black dot indicates that the corresponding gene values between two expression data values are identical or not, respectively. 
+- Figure B is change in the mean similarity index against the time step number (K).
 The chart reveals that:
-- 1. Multiple executions of trained autoencoders generate varied syntheric expression profiles
+- 1. Multiple executions of trained autoencoders generate varied synthetic expression profiles
 - 2. Simility index ranges between 0.3 and 0.4 confirm that high variation among outputs
 - 3. Althought high variation but downstream GRN reconstruction accuracy remains highly consistent
 - 4. This is once again, confirm that multiple expression pathways map to identical underlying regulatory logic.
@@ -651,8 +651,8 @@ eyebrow: SUMMARY AND IMPLICATIONS
 <!--
 To summarize our core findings:   
 - First, we demonstrated the first autoencoder-based temporal data synthesis method specifically engineered for GRN inference.
-- Second, Successfully extend time-series expression data without requiring complex, unstable GAN models.
-- Third, Substantially improve precision and recall across network scales size 50, 100, discretization levels (binary/ternary), and low sample regimes (K = 10, 20).
+- Second, successfully extend time-series expression data without requiring complex, unstable GAN models.
+- Third, substantially improve precision and recall across network scales size 50, 100, two discretization levels (binary/ternary), and low sample regimes (K = 10, 20).
 - Allows researchers to infer higher-quality gene networks without running costly long-term laboratory experiments.
 -->
 ---
@@ -676,9 +676,9 @@ eyebrow: THESIS SYMMARY
 <ThesisSummary />
 <!--
 To summarize, this thesis addresses three key issues in GRN inference, progressing from better data representation to data augmentation.
-- Chapter 2 introduces multi-level discretization to preserve more expression-level information than conventional Boolean representations. This provides more informative expression states for network inference.
-- Chapter 3 develops SITTF, which transforms time-series gene expression data into a scale-independent representation. This enables learning-based inference models to be reused across networks of different sizes.
-- Chapter 4 proposes an autoencoder-based temporal data synthesis framework to generate additional time-series expression data. By expanding the available observations, this approach aims to improve the reliability of GRN inference.
+- First, we introduced multi-level discretization to preserve more expression-level information than conventional Boolean representations. This provides more informative expression states for network inference.
+- Second, we developed Scale-Invariant Task Transformation Framework, which transforms time-series gene expression data into a scale-independent representation. This enables learning-based inference models to be reused across networks of different sizes.
+- Finally, proposed an autoencoder-based temporal data synthesis framework to generate additional time-series expression data. By expanding the available observations, this approach aims to improve the reliability of GRN inference.
 -->
 ---
 layout: default

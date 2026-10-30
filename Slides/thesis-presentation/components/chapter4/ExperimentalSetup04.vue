@@ -40,7 +40,7 @@ onBeforeUnmount(() => {
       ========================== -->
 
       <Transition name="reveal">
-        <section v-if="visibleCount >= 1" class="setup-card topology-card">
+        <section v-if="visibleCount >= 1" class="setup-card topology-card corner-br">
 
           <div class="card-header">
             <span class="number">01</span>
@@ -130,7 +130,7 @@ onBeforeUnmount(() => {
       ========================== -->
 
       <Transition name="reveal">
-        <section v-if="visibleCount >= 2" class="setup-card">
+        <section v-if="visibleCount >= 2" class="setup-card corner-bl">
 
           <div class="card-header">
             <span class="number">02</span>
@@ -163,16 +163,6 @@ onBeforeUnmount(() => {
 
           </div>
 
-          <!-- <div class="trajectory">
-            <span class="trajectory-label">Observed trajectory</span>
-
-            <div class="trajectory-points">
-              <i v-for="i in 12" :key="i"></i>
-            </div>
-
-            <span class="trajectory-label">→</span>
-          </div> -->
-
         </section>
       </Transition>
 
@@ -181,7 +171,7 @@ onBeforeUnmount(() => {
       ========================== -->
 
       <Transition name="reveal">
-        <section v-if="visibleCount >= 3" class="setup-card observation-card">
+        <section v-if="visibleCount >= 3" class="setup-card observation-card corner-tr">
 
           <div class="card-header">
             <span class="number">03</span>
@@ -208,17 +198,6 @@ onBeforeUnmount(() => {
             </div>
 
           </div>
-<!-- 
-          <div class="window-description">
-            <span class="step-badge">ΔK = 10</span>
-            <span>systematically varied</span>
-          </div>
-
-          <div class="window-highlight">
-            <div class="bracket left"></div>
-            <span>available observations</span>
-            <div class="bracket right"></div>
-          </div> -->
 
         </section>
       </Transition>
@@ -228,9 +207,9 @@ onBeforeUnmount(() => {
       ========================== -->
 
       <Transition name="reveal">
-        <section v-if="visibleCount >= 4" class="setup-card resolution-card">
+        <section v-if="visibleCount >= 4" class="setup-card resolution-card corner-tl">
 
-          <div class="card-header">
+          <div class="card-header" style="padding-left: 20px ;">
             <span class="number">04</span>
             <h2>Data Resolution</h2>
           </div>
@@ -288,6 +267,19 @@ onBeforeUnmount(() => {
         </section>
       </Transition>
 
+      <!-- =========================
+           CENTER GEAR — sits in the
+           circular gap formed by the
+           4 cards' inner corners
+      ========================== -->
+
+      <div class="center-gear">
+        <svg viewBox="0 0 24 24" class="gear-icon" aria-label="Experimental setup configuration">
+          <path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
+          <path d="M19.4 13a7.4 7.4 0 0 0 .06-1 7.4 7.4 0 0 0-.06-1l2.1-1.6a.5.5 0 0 0 .12-.64l-2-3.4a.5.5 0 0 0-.6-.22l-2.5 1a7.6 7.6 0 0 0-1.7-1l-.4-2.6a.5.5 0 0 0-.5-.44h-4a.5.5 0 0 0-.5.44l-.4 2.6a7.6 7.6 0 0 0-1.7 1l-2.5-1a.5.5 0 0 0-.6.22l-2 3.4a.5.5 0 0 0 .12.64l2.1 1.6a7.4 7.4 0 0 0 0 2l-2.1 1.6a.5.5 0 0 0-.12.64l2 3.4a.5.5 0 0 0 .6.22l2.5-1a7.6 7.6 0 0 0 1.7 1l.4 2.6a.5.5 0 0 0 .5.44h4a.5.5 0 0 0 .5-.44l.4-2.6a7.6 7.6 0 0 0 1.7-1l2.5 1a.5.5 0 0 0 .6-.22l2-3.4a.5.5 0 0 0-.12-.64z" />
+        </svg>
+      </div>
+
     </div>
 
     <!-- Progress -->
@@ -325,11 +317,13 @@ onBeforeUnmount(() => {
   flex: 1;
   min-height: 0;
 
+  position: relative;
+
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
 
-  gap: 13px;
+  gap: 5px;
 }
 
 /* =========================
@@ -367,6 +361,157 @@ onBeforeUnmount(() => {
 }
 
 /* =========================
+   INNER CORNERS — rounded away
+   from the center so the four
+   quarter-circle cuts together
+   form one full circle at the
+   middle of the 2x2 grid.
+========================= */
+
+.setup-card {
+  position: relative; /* bắt buộc, để pseudo-element định vị đúng */
+  /* ...giữ nguyên border-radius: 10px chung cho cả card như cũ... */
+}
+
+/* bán kính vết cắt lõm — đổi 1 số này để chỉnh kích thước vòng tròn giữa */
+:root {
+  --notch-r: 100px;
+}
+
+/* Card 01 — góc trong là bottom-right */
+.corner-br {
+  border-bottom-right-radius: 0; /* trả góc về vuông, để mask xử lý cong */
+}
+.corner-br::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: var(--notch-r);
+  height: var(--notch-r);
+  background: radial-gradient(
+    circle at bottom right,
+    transparent var(--notch-r),
+    #f8fafb calc(var(--notch-r) + 1px)
+  );
+  pointer-events: none;
+}
+
+/* Card 02 — góc trong là bottom-left */
+.corner-bl {
+  border-bottom-left-radius: 0;
+}
+.corner-bl::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: var(--notch-r);
+  height: var(--notch-r);
+  background: radial-gradient(
+    circle at bottom left,
+    transparent var(--notch-r),
+    #f8fafb calc(var(--notch-r) + 1px)
+  );
+  pointer-events: none;
+}
+
+/* Card 03 — góc trong là top-right */
+.corner-tr {
+  border-top-right-radius: 0;
+}
+.corner-tr::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: var(--notch-r);
+  height: var(--notch-r);
+  background: radial-gradient(
+    circle at top right,
+    transparent var(--notch-r),
+    #f8fafb calc(var(--notch-r) + 1px)
+  );
+  pointer-events: none;
+}
+
+/* Card 04 — góc trong là top-left */
+.corner-tl {
+  border-top-left-radius: 0;
+}
+.corner-tl::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--notch-r);
+  height: var(--notch-r);
+  background: radial-gradient(
+    circle at top left,
+    transparent var(--notch-r),
+    #f8fafb calc(var(--notch-r) + 1px)
+  );
+  pointer-events: none;
+}
+
+/* =========================
+   CENTER GEAR
+========================= */
+
+.center-gear {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 100px;
+  height: 100px;
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+  border: 1.5px solid #dce4e9;
+
+  box-shadow:
+    0 6px 18px rgba(23, 63, 95, 0.12),
+    0 2px 6px rgba(23, 63, 95, 0.06);
+
+  z-index: 5;
+}
+
+.gear-icon {
+  width: 38px;
+  height: 38px;
+
+  fill: none;
+  stroke: #173f5f;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  animation: gearSpin 14s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes gearSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gear-icon {
+    animation: none;
+  }
+}
+
+/* =========================
    HEADER
 ========================= */
 
@@ -377,7 +522,6 @@ onBeforeUnmount(() => {
 
   margin-bottom: 5px;
 }
-.card-content { gap: 6px; }
 
 .number {
   flex: 0 0 auto;
@@ -603,37 +747,6 @@ h2 {
   text-align: center;
 }
 
-.trajectory {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-
-  margin-top: auto;
-  padding-top: 5px;
-}
-
-.trajectory-label {
-  color: #64748b;
-  font-size: 9px;
-  white-space: nowrap;
-}
-
-.trajectory-points {
-  flex: 1;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.trajectory-points i {
-  width: 5px;
-  height: 5px;
-
-  border-radius: 50%;
-  background: #20639b;
-}
-
 /* =========================
    OBSERVATION WINDOW
 ========================= */
@@ -709,59 +822,6 @@ h2 {
   color: #64748b;
   font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
   font-size: 9px;
-}
-
-.window-description {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 9px;
-
-  margin-top: 15px;
-}
-
-.step-badge {
-  padding: 4px 8px;
-
-  background: rgba(42, 157, 143, 0.1);
-  border-radius: 4px;
-
-  color: #2a9d8f;
-  font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.window-description span:last-child {
-  color: #64748b;
-  font-size: 10px;
-}
-
-.window-highlight {
-  margin-top: auto;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 9px;
-
-  color: #64748b;
-  font-size: 10px;
-}
-
-.bracket {
-  width: 30px;
-  height: 7px;
-
-  border-top: 2px solid #2a9d8f;
-}
-
-.bracket.left {
-  border-left: 2px solid #2a9d8f;
-}
-
-.bracket.right {
-  border-right: 2px solid #2a9d8f;
 }
 
 /* =========================
@@ -920,6 +980,17 @@ h2 {
 
   .setup-card {
     min-height: 260px;
+  }
+
+  .corner-br,
+  .corner-bl,
+  .corner-tr,
+  .corner-tl {
+    border-radius: 10px;
+  }
+
+  .center-gear {
+    display: none;
   }
 }
 

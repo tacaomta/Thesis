@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNav } from '@slidev/client'
 
 const { currentPage } = useNav()
@@ -9,6 +9,8 @@ watch(currentPage, () => {
 })
 const visibleCount = ref(0)
 const totalItems = 4
+
+const progressDeg = computed(() => (visibleCount.value / totalItems) * 360)
 
 function handleKeydown(event) {
   if (event.code !== 'Space') return
@@ -268,32 +270,28 @@ onBeforeUnmount(() => {
       </Transition>
 
       <!-- =========================
-           CENTER GEAR — sits in the
-           circular gap formed by the
-           4 cards' inner corners
+           CENTER GEAR — doubles as a
+           pie-chart progress indicator:
+           each quarter fills in, using the
+           same teal as the other progress
+           dots throughout the deck, as one
+           item is revealed via SPACE.
       ========================== -->
 
-      <div class="center-gear">
-        <svg viewBox="0 0 24 24" class="gear-icon" aria-label="Experimental setup configuration">
-          <path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
-          <path d="M19.4 13a7.4 7.4 0 0 0 .06-1 7.4 7.4 0 0 0-.06-1l2.1-1.6a.5.5 0 0 0 .12-.64l-2-3.4a.5.5 0 0 0-.6-.22l-2.5 1a7.6 7.6 0 0 0-1.7-1l-.4-2.6a.5.5 0 0 0-.5-.44h-4a.5.5 0 0 0-.5.44l-.4 2.6a7.6 7.6 0 0 0-1.7 1l-2.5-1a.5.5 0 0 0-.6.22l-2 3.4a.5.5 0 0 0 .12.64l2.1 1.6a7.4 7.4 0 0 0 0 2l-2.1 1.6a.5.5 0 0 0-.12.64l2 3.4a.5.5 0 0 0 .6.22l2.5-1a7.6 7.6 0 0 0 1.7 1l.4 2.6a.5.5 0 0 0 .5.44h4a.5.5 0 0 0 .5-.44l.4-2.6a7.6 7.6 0 0 0 1.7-1l2.5 1a.5.5 0 0 0 .6-.22l2-3.4a.5.5 0 0 0-.12-.64z" />
-        </svg>
+      <div
+        class="center-gear"
+        :style="{ background: `conic-gradient(#2a9d8f ${progressDeg}deg, #ffffff ${progressDeg}deg 360deg)` }"
+        role="img"
+        :aria-label="`${visibleCount} of ${totalItems} setup points revealed`"
+      >
+        <div class="center-gear-inner">
+          <svg viewBox="0 0 24 24" class="gear-icon" aria-hidden="true">
+            <path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
+            <path d="M19.4 13a7.4 7.4 0 0 0 .06-1 7.4 7.4 0 0 0-.06-1l2.1-1.6a.5.5 0 0 0 .12-.64l-2-3.4a.5.5 0 0 0-.6-.22l-2.5 1a7.6 7.6 0 0 0-1.7-1l-.4-2.6a.5.5 0 0 0-.5-.44h-4a.5.5 0 0 0-.5.44l-.4 2.6a7.6 7.6 0 0 0-1.7 1l-2.5-1a.5.5 0 0 0-.6.22l-2 3.4a.5.5 0 0 0 .12.64l2.1 1.6a7.4 7.4 0 0 0 0 2l-2.1 1.6a.5.5 0 0 0-.12.64l2 3.4a.5.5 0 0 0 .6.22l2.5-1a7.6 7.6 0 0 0 1.7 1l.4 2.6a.5.5 0 0 0 .5.44h4a.5.5 0 0 0 .5-.44l.4-2.6a7.6 7.6 0 0 0 1.7-1l2.5 1a.5.5 0 0 0 .6-.22l2-3.4a.5.5 0 0 0-.12-.64z" />
+          </svg>
+        </div>
       </div>
 
-    </div>
-
-    <!-- Progress -->
-    <div class="progress">
-      <span
-        v-for="i in totalItems"
-        :key="i"
-        class="dot"
-        :class="{ active: visibleCount >= i }"
-      />
-
-      <span v-if="visibleCount < totalItems" class="hint">
-        Press <strong>Space</strong> to reveal
-      </span>
     </div>
 
   </div>
@@ -370,7 +368,6 @@ onBeforeUnmount(() => {
 
 .setup-card {
   position: relative; /* bắt buộc, để pseudo-element định vị đúng */
-  /* ...giữ nguyên border-radius: 10px chung cho cả card như cũ... */
 }
 
 /* bán kính vết cắt lõm — đổi 1 số này để chỉnh kích thước vòng tròn giữa */
@@ -380,7 +377,7 @@ onBeforeUnmount(() => {
 
 /* Card 01 — góc trong là bottom-right */
 .corner-br {
-  border-bottom-right-radius: 0; /* trả góc về vuông, để mask xử lý cong */
+  border-bottom-right-radius: 0;
 }
 .corner-br::after {
   content: '';
@@ -455,7 +452,14 @@ onBeforeUnmount(() => {
 }
 
 /* =========================
-   CENTER GEAR
+   CENTER GEAR + PIE PROGRESS
+
+   The outer ring's background is a
+   conic-gradient driven by visibleCount,
+   filled with the same teal used for the
+   progress dots elsewhere in the deck
+   (#2a9d8f). The inner white disk + gear
+   icon sit on top, unaffected by the fill.
 ========================= */
 
 .center-gear {
@@ -474,8 +478,6 @@ onBeforeUnmount(() => {
   justify-content: center;
 
   border-radius: 50%;
-
-  background: #ffffff;
   border: 1.5px solid #dce4e9;
 
   box-shadow:
@@ -483,11 +485,27 @@ onBeforeUnmount(() => {
     0 2px 6px rgba(23, 63, 95, 0.06);
 
   z-index: 5;
+
+  transition: background 0.4s ease;
+}
+
+.center-gear-inner {
+  width: 68px;
+  height: 68px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(23, 63, 95, 0.06);
 }
 
 .gear-icon {
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
 
   fill: none;
   stroke: #173f5f;
@@ -508,6 +526,10 @@ onBeforeUnmount(() => {
 @media (prefers-reduced-motion: reduce) {
   .gear-icon {
     animation: none;
+  }
+
+  .center-gear {
+    transition: none;
   }
 }
 
@@ -913,46 +935,6 @@ h2 {
 }
 
 /* =========================
-   PROGRESS
-========================= */
-
-.progress {
-  height: 26px;
-  flex: 0 0 26px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.dot {
-  width: 7px;
-  height: 7px;
-
-  border-radius: 50%;
-  background: #dce4e9;
-
-  transition: all 0.25s ease;
-}
-
-.dot.active {
-  background: #2a9d8f;
-  transform: scale(1.15);
-}
-
-.hint {
-  margin-left: 10px;
-
-  color: #94a3b8;
-  font-size: 10px;
-}
-
-.hint strong {
-  color: #64748b;
-}
-
-/* =========================
    REVEAL
 ========================= */
 
@@ -987,6 +969,13 @@ h2 {
   .corner-tr,
   .corner-tl {
     border-radius: 10px;
+  }
+
+  .corner-br::after,
+  .corner-bl::after,
+  .corner-tr::after,
+  .corner-tl::after {
+    display: none;
   }
 
   .center-gear {

@@ -650,7 +650,7 @@ eyebrow: SUMMARY AND IMPLICATIONS
 <SummaryOfCoreFindings />
 <!--
 To summarize our core findings:   
-- First, we demonstrated the first autoencoder-based temporal data synthesis method specifically engineered for GRN inference.
+- First, we demonstrated the first autoencoder-based temporal data synthesis method specifically for GRN inference.
 - Second, successfully extend time-series expression data without requiring complex, unstable GAN models.
 - Third, substantially improve precision and recall across network scales size 50, 100, two discretization levels (binary/ternary), and low sample regimes (K = 10, 20).
 - Allows researchers to infer higher-quality gene networks without running costly long-term laboratory experiments.

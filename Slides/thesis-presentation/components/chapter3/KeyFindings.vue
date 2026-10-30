@@ -10,6 +10,26 @@ let performanceChart = null
 let timeChart = null
 let resizeObserver = null
 
+/* ============================================================
+ * NOTE TOGGLE STATE
+ * ============================================================ */
+
+const showNote = ref(false)
+
+function toggleNote() {
+  showNote.value = !showNote.value
+
+  /*
+   * The charts-row container changes height when the note
+   * is shown/hidden, so the charts must be explicitly resized
+   * after the DOM has updated — ResizeObserver alone may not
+   * fire reliably on a flex-basis change in some browsers.
+   */
+  nextTick(() => {
+    resizeCharts()
+  })
+}
+
 
 /* ============================================================
  * DATA
@@ -1810,7 +1830,7 @@ onBeforeUnmount(() => {
 
   <div class="gwn-training-size">
 
-    <div class="charts-row">
+    <div class="charts-row" :class="{ 'note-open': showNote }">
 
       <div class="chart-card">
         <div
@@ -1829,31 +1849,49 @@ onBeforeUnmount(() => {
     </div>
 
 
-    <div class="result-note">
-        <div class="result-item">
-            <span class="note-icon">▸</span>
-            <div>
-                <strong>Cross-size generalization: </strong>
-                GNB trained solely on |V|=10 networks achieves 0.373 AUPR on |V|=50 and 0.333 on |V|=100.
-            </div>
-        </div>
+    <Transition name="note-slide">
+      <div v-if="showNote" class="result-note">
+          <div class="result-item">
+              <span class="note-icon">▸</span>
+              <div>
+                  <strong>Cross-size generalization: </strong>
+                  GNB trained solely on |V|=10 networks achieves 0.373 AUPR on |V|=50 and 0.333 on |V|=100.
+              </div>
+          </div>
 
-        <div class="result-item">
-            <span class="note-icon">▸</span>
-            <div>
-                <strong>Competitive predictive power: </strong>
-                Matches or exceeds direct training on target-size networks (0.359 on |V|=50; 0.326 on |V|=100).
-            </div>
-        </div>
+          <div class="result-item">
+              <span class="note-icon">▸</span>
+              <div>
+                  <strong>Competitive predictive power: </strong>
+                  Matches or exceeds direct training on target-size networks (0.359 on |V|=50; 0.326 on |V|=100).
+              </div>
+          </div>
 
-        <div class="result-item">
-            <span class="note-icon">▸</span>
-            <div>
-                <strong>Empirical validation: </strong>
-                Confirms true scale-invariant knowledge transfer across network dimensions.
-            </div>
-        </div>
-    </div>
+          <div class="result-item">
+              <span class="note-icon">▸</span>
+              <div>
+                  <strong>Empirical validation: </strong>
+                  Confirms true scale-invariant knowledge transfer across network dimensions.
+              </div>
+          </div>
+      </div>
+    </Transition>
+
+    <!-- Info toggle button -->
+    <button
+      type="button"
+      class="note-toggle"
+      :class="{ active: showNote }"
+      :aria-pressed="showNote"
+      :title="showNote ? 'Hide key findings' : 'Show key findings'"
+      @click="toggleNote"
+    >
+      <svg viewBox="0 0 24 24" class="note-toggle-icon" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.5" />
+        <line x1="12" y1="10.5" x2="12" y2="16.5" />
+        <circle cx="12" cy="7.3" r="0.9" fill="currentColor" stroke="none" />
+      </svg>
+    </button>
 
   </div>
 
@@ -1863,6 +1901,8 @@ onBeforeUnmount(() => {
 <style scoped>
 
 .gwn-training-size {
+  position: relative;
+
   width: 100%;
   height: 100%;
   min-height: 0;
@@ -1881,6 +1921,9 @@ onBeforeUnmount(() => {
  *
  * Chart (a) gets slightly more width because it contains
  * the legend and five grouped bars.
+ *
+ * Takes the FULL height by default (note hidden); shrinks
+ * only when the note is open.
  */
 .charts-row {
   flex: 1;
@@ -1897,10 +1940,9 @@ onBeforeUnmount(() => {
 
   width: 100%;
 
-  /*
-   * Leave explicit space for the result note.
-   */
   padding-bottom: 2px;
+
+  transition: flex-basis 0.25s ease;
 }
 
 
@@ -1933,7 +1975,7 @@ onBeforeUnmount(() => {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    margin: 5px auto 2px;
+    margin: 5px auto 28px;
     width: min(100%, 1000px);
     padding: 5px 10px;
     box-sizing: border-box;
@@ -1966,6 +2008,89 @@ onBeforeUnmount(() => {
     font-weight: 700;
     line-height: 1.4;
     margin-top: 1px;
+}
+
+/*
+ * Slide/fade transition for the note appearing/disappearing.
+ */
+
+.note-slide-enter-active,
+.note-slide-leave-active {
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    margin 0.22s ease;
+}
+
+.note-slide-enter-from,
+.note-slide-leave-to {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+
+/*
+ * ============================================================
+ * INFO TOGGLE BUTTON
+ * ============================================================
+ */
+
+.note-toggle {
+  position: absolute;
+
+  right: 10px;
+  bottom: 8px;
+
+  width: 26px;
+  height: 26px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid #DCE4E9;
+  border-radius: 50%;
+
+  background: #FFFFFF;
+
+  color: #94A3B8;
+
+  cursor: pointer;
+
+  box-shadow: 0 2px 6px rgba(23, 63, 95, 0.08);
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+
+  z-index: 10;
+}
+
+.note-toggle:hover {
+  color: #20639B;
+  border-color: #B7CEDF;
+  transform: translateY(-1px);
+}
+
+.note-toggle.active {
+  color: #FFFFFF;
+  background: #20639B;
+  border-color: #20639B;
+}
+
+.note-toggle-icon {
+  width: 15px;
+  height: 15px;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 

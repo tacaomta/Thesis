@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNav } from '@slidev/client'
 
 const { currentPage } = useNav()
@@ -9,6 +9,8 @@ watch(currentPage, () => {
 })
 const visibleCount = ref(0)
 const totalItems = 4
+
+const progressDeg = computed(() => (visibleCount.value / totalItems) * 360)
 
 function handleKeydown(event) {
   if (event.code !== 'Space') return
@@ -31,19 +33,21 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="summary-slide">
+  <div class="setup-slide">
 
-    <section class="implications">
+    <div class="setup-grid">
 
-      <!-- 01 -->
-      <article
-        class="implication"
-        :class="{ visible: visibleCount >= 1 }"
-      >
-        <div class="implication-number">01</div>
+      <!-- =========================
+           01 · CORE ACHIEVEMENT
+      ========================== -->
 
-        <div class="implication-content">
-          <h3>Core Achievement</h3>
+      <Transition name="reveal">
+        <section v-if="visibleCount >= 1" class="setup-card corner-br">
+
+          <div class="card-header">
+            <span class="number">01</span>
+            <h2>Core Achievement</h2>
+          </div>
 
           <div class="keyword-chips">
             <span class="chip first">first of its kind</span>
@@ -72,18 +76,21 @@ onBeforeUnmount(() => {
               </marker>
             </defs>
           </svg>
-        </div>
-      </article>
 
-      <!-- 02 -->
-      <article
-        class="implication"
-        :class="{ visible: visibleCount >= 2 }"
-      >
-        <div class="implication-number">02</div>
+        </section>
+      </Transition>
 
-        <div class="implication-content">
-          <h3>Solves Data Scarcity</h3>
+      <!-- =========================
+           02 · SOLVES DATA SCARCITY
+      ========================== -->
+
+      <Transition name="reveal">
+        <section v-if="visibleCount >= 2" class="setup-card corner-bl">
+
+          <div class="card-header">
+            <span class="number">02</span>
+            <h2>Solves Data Scarcity</h2>
+          </div>
 
           <div class="keyword-chips">
             <span class="chip">extends time-series data</span>
@@ -120,18 +127,21 @@ onBeforeUnmount(() => {
               </marker>
             </defs>
           </svg>
-        </div>
-      </article>
 
-      <!-- 03 -->
-      <article
-        class="implication"
-        :class="{ visible: visibleCount >= 3 }"
-      >
-        <div class="implication-number">03</div>
+        </section>
+      </Transition>
 
-        <div class="implication-content">
-          <h3>Robust Improvement</h3>
+      <!-- =========================
+           03 · ROBUST IMPROVEMENT
+      ========================== -->
+
+      <Transition name="reveal">
+        <section v-if="visibleCount >= 3" class="setup-card corner-tr">
+
+          <div class="card-header">
+            <span class="number">03</span>
+            <h2>Robust Improvement</h2>
+          </div>
 
           <div class="keyword-chips">
             <span class="chip">N = 50, 100</span>
@@ -140,9 +150,6 @@ onBeforeUnmount(() => {
           </div>
 
           <svg viewBox="0 0 160 70" class="visual-svg">
-            <!-- paired bars: baseline vs improved, across 3 dimensions -->
-            <g v-for="(bar, i) in 3" :key="i"></g>
-
             <!-- dimension 1: network size -->
             <rect x="12" y="46" width="10" height="14" class="v-bar-base" />
             <rect x="24" y="30" width="10" height="30" class="v-bar-up" />
@@ -160,18 +167,21 @@ onBeforeUnmount(() => {
 
             <line x1="4" y1="60" x2="156" y2="60" class="v-baseline" />
           </svg>
-        </div>
-      </article>
 
-      <!-- 04 -->
-      <article
-        class="implication"
-        :class="{ visible: visibleCount >= 4 }"
-      >
-        <div class="implication-number">04</div>
+        </section>
+      </Transition>
 
-        <div class="implication-content">
-          <h3>Practical Value</h3>
+      <!-- =========================
+           04 · PRACTICAL VALUE
+      ========================== -->
+
+      <Transition name="reveal">
+        <section v-if="visibleCount >= 4" class="setup-card corner-tl">
+
+          <div class="card-header" style="padding-left: 20px;">
+            <span class="number">04</span>
+            <h2>Practical Value</h2>
+          </div>
 
           <div class="keyword-chips">
             <span class="chip">higher-quality networks</span>
@@ -207,151 +217,286 @@ onBeforeUnmount(() => {
               </marker>
             </defs>
           </svg>
+
+        </section>
+      </Transition>
+
+      <!-- =========================
+           CENTER KEY — doubles as a
+           pie-chart progress indicator:
+           each quarter fills in as an
+           item is revealed via SPACE.
+      ========================== -->
+
+      <div
+        class="center-gear"
+        :style="{ background: `conic-gradient(#198754 0deg ${progressDeg}deg, #FFFFFF ${progressDeg}deg 360deg)` }"
+        role="img"
+        :aria-label="`${visibleCount} of ${totalItems} points revealed`"
+      >
+        <div class="center-gear-inner">
+          <svg viewBox="0 0 24 24" class="key-icon" aria-hidden="true">
+            <circle cx="7" cy="14.5" r="4.5" />
+            <path d="M10.8 11.2 L20 2" />
+            <path d="M16 6 L19 9" />
+            <path d="M13 9 L16 12" />
+          </svg>
         </div>
-      </article>
+      </div>
 
-    </section>
-
-    <div
-      v-if="visibleCount < totalItems"
-      class="reveal-hint"
-    >
-      Press <kbd>Space</kbd> to reveal
     </div>
 
   </div>
 </template>
 
 <style scoped>
-.summary-slide {
+.setup-slide {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
-
-  color: #24313A;
 }
 
-/* =========================================
-   IMPLICATIONS
-   ========================================= */
+/* =========================
+   GRID
+========================= */
 
-.implications {
-  width: 100%;
-
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-
-  gap: 12px;
-
+.setup-grid {
   flex: 1;
   min-height: 0;
+
+  position: relative;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+
+  gap: 5px;
 }
 
-.implication {
+/* =========================
+   CARD
+========================= */
+
+.setup-card {
   min-width: 0;
+  min-height: 0;
 
+  position: relative;
+
+  padding: 16px 18px;
   box-sizing: border-box;
-
-  padding: 13px 13px;
 
   display: flex;
   flex-direction: column;
 
-  border-top: 3px solid #B3CEDF;
+  background: #ffffff;
+  border: 1px solid #dce4e9;
+  border-top: 4px solid #B3CEDF;
+  border-radius: 10px;
 
-  background: #FFFFFF;
-
-  opacity: 0;
-
-  transform: translateY(10px);
+  box-shadow: 0 4px 12px rgba(23, 63, 95, 0.05);
 
   transition:
-    opacity 0.3s ease,
-    transform 0.3s ease,
     box-shadow 0.22s ease,
     border-top-color 0.22s ease;
 }
 
-.implication.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* =========================================
-   HOVER
-   ========================================= */
-
-.implication.visible:hover {
-  transform: translateY(-4px);
-
+.setup-card:hover {
   border-top-color: #2A9D8F;
 
   box-shadow:
     0 7px 16px rgba(23, 63, 95, 0.12),
     0 2px 5px rgba(23, 63, 95, 0.06);
 
-  z-index: 5;
+  /* z-index: 6; */
 }
 
-/* =========================================
-   NUMBER
-   ========================================= */
+/* =========================
+   INNER CORNERS — notched inward
+   so the four concave cuts together
+   form one full circle at the
+   middle of the 2x2 grid.
+========================= */
 
-.implication-number {
-  margin-bottom: 10px;
-
-  color: #2A9D8F;
-
-  font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  letter-spacing: .08em;
-
-  transition:
-    transform 0.22s ease,
-    color 0.22s ease;
+:root {
+  --notch-r: 70px;
 }
 
-.implication.visible:hover .implication-number {
-  transform: translateX(2px);
-  color: #20639B;
+/* Card 01 — inner corner is bottom-right */
+.corner-br {
+  border-bottom-right-radius: 0;
+}
+.corner-br::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: var(--notch-r);
+  height: var(--notch-r);
+  background: radial-gradient(
+    circle at bottom right,
+    transparent var(--notch-r),
+    #f8fafb calc(var(--notch-r) + 1px)
+  );
+  pointer-events: none;
 }
 
-/* =========================================
-   CONTENT
-   ========================================= */
+/* Card 02 — inner corner is bottom-left */
+.corner-bl {
+  border-bottom-left-radius: 0;
+}
+.corner-bl::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: var(--notch-r);
+  height: var(--notch-r);
+  background: radial-gradient(
+    circle at bottom left,
+    transparent var(--notch-r),
+    #f8fafb calc(var(--notch-r) + 1px)
+  );
+  pointer-events: none;
+}
 
-.implication-content {
-  min-width: 0;
+/* Card 03 — inner corner is top-right */
+.corner-tr {
+  border-top-right-radius: 0;
+}
+.corner-tr::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: var(--notch-r);
+  height: var(--notch-r);
+  background: radial-gradient(
+    circle at top right,
+    transparent var(--notch-r),
+    #f8fafb calc(var(--notch-r) + 1px)
+  );
+  pointer-events: none;
+}
+
+/* Card 04 — inner corner is top-left */
+.corner-tl {
+  border-top-left-radius: 0;
+}
+.corner-tl::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--notch-r);
+  height: var(--notch-r);
+  background: radial-gradient(
+    circle at top left,
+    transparent var(--notch-r),
+    #f8fafb calc(var(--notch-r) + 1px)
+  );
+  pointer-events: none;
+}
+
+/* =========================
+   CENTER KEY + PIE PROGRESS
+
+   The outer circle's background is a
+   conic-gradient driven by visibleCount,
+   so each revealed card fills in one
+   more quarter (90°) of the ring.
+   The inner white disk + key icon sit
+   on top, unaffected by the progress fill.
+========================= */
+
+.center-gear {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 72px;
+  height: 72px;
+
+  transform: translate(-50%, -50%);
 
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  border: 1.5px solid #dce4e9;
+
+  box-shadow:
+    0 6px 18px rgba(23, 63, 95, 0.12),
+    0 2px 6px rgba(23, 63, 95, 0.06);
+
+  z-index: 5;
+
+  transition: background 0.4s ease;
 }
 
-.implication-content h3 {
-  margin: 0 0 8px;
+.center-gear-inner {
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(23, 63, 95, 0.06);
+}
+
+.key-icon {
+  width: 24px;
+  height: 24px;
+
+  fill: none;
+  stroke: #09c7ae;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+
+  margin-bottom: 9px;
+}
+
+.number {
+  flex: 0 0 auto;
+
+  color: #2A9D8F;
+  font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+h2 {
+  margin: 0;
 
   color: #173F5F;
-
   font-size: 14px;
   line-height: 1.2;
-
   font-weight: 700;
-
-  transition: color 0.22s ease;
-}
-
-.implication.visible:hover .implication-content h3 {
-  color: #20639B;
 }
 
 /* =========================================
-   KEYWORD CHIPS (replaces old <p>)
+   KEYWORD CHIPS
    ========================================= */
 
 .keyword-chips {
@@ -545,45 +690,62 @@ onBeforeUnmount(() => {
   opacity: 0.7;
 }
 
-/* =========================================
-   REVEAL HINT
-   ========================================= */
+/* =========================
+   REVEAL
+========================= */
 
-.reveal-hint {
-  align-self: flex-end;
-
-  margin-top: 8px;
-
-  font-size: 10px;
-
-  color: #94A3B8;
+.reveal-enter-active {
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
 }
 
-kbd {
-  display: inline-block;
-
-  padding: 1px 5px;
-
-  border: 1px solid #CBD5E1;
-  border-bottom-width: 2px;
-
-  border-radius: 4px;
-
-  background: #F8FAFB;
-
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-
-  color: #475569;
+.reveal-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
 }
 
-/* =========================================
+/* =========================
    RESPONSIVE
-   ========================================= */
+========================= */
 
-@media (max-width: 900px) {
-  .implications {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 850px) {
+  .setup-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    overflow-y: auto;
+  }
+
+  .setup-card {
+    min-height: 260px;
+  }
+
+  .corner-br,
+  .corner-bl,
+  .corner-tr,
+  .corner-tl {
+    border-radius: 10px;
+  }
+
+  .corner-br::after,
+  .corner-bl::after,
+  .corner-tr::after,
+  .corner-tl::after {
+    display: none;
+  }
+
+  .center-gear {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-enter-active {
+    transition: none;
+  }
+
+  .center-gear {
+    transition: none;
   }
 }
 </style>

@@ -184,7 +184,7 @@
 
     <div
       class="bottom-question"
-      :class="{ visible: visibleCount >= 3 }"
+      :class="{ visible: visibleCount >= 2 }"
     >
       <span class="question-mark">?</span>
 
@@ -220,7 +220,7 @@ function handleKeydown(event) {
   event.preventDefault()
   event.stopPropagation()
 
-  if (visibleCount.value < 3) {
+  if (visibleCount.value < 2) {
     visibleCount.value += 1
   }
 }

@@ -69,7 +69,15 @@
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNav } from '@slidev/client'
 
+
 const { currentPage } = useNav()
+const isExporting =
+  typeof window !== 'undefined' &&
+  (
+    window.location.pathname.startsWith('/export') ||
+    new URLSearchParams(window.location.search).has('print') ||
+    new URLSearchParams(window.location.search).has('range')
+  )
 
 /* =========================================================
    CONTENT
@@ -134,7 +142,13 @@ const labelNudge = [
 const visibleCount = ref(0)
 
 watch(currentPage, () => {
-  visibleCount.value = 0
+  if (isExporting) {
+    visibleCount.value = total
+  }
+  else
+  {
+    visibleCount.value = 0
+  }
 })
 
 function handleKeydown(event) {
@@ -149,6 +163,9 @@ function handleKeydown(event) {
 }
 
 onMounted(() => {
+  if (isExporting) {
+    visibleCount.value = total
+  }
   window.addEventListener('keydown', handleKeydown, true)
 })
 

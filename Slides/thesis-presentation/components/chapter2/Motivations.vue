@@ -5,7 +5,7 @@
     </div>
 
     <div class="goals">
-      <!-- Goal 1 -->
+      <!-- Goal 1 — bottom step, full width, left-aligned -->
       <section
         class="goal-card goal-1"
         :class="{ visible: visibleCount >= 1 }"
@@ -36,7 +36,7 @@
         </div>
       </section>
 
-      <!-- Goal 2 -->
+      <!-- Goal 2 — middle step, shorter, right-aligned with Goal 1 -->
       <section
         class="goal-card goal-2"
         :class="{ visible: visibleCount >= 2 }"
@@ -87,7 +87,7 @@
         </div>
       </section>
 
-      <!-- Goal 3 -->
+      <!-- Goal 3 — top step, shortest, right-aligned with Goal 2 -->
       <section
         class="goal-card goal-3"
         :class="{ visible: visibleCount >= 3 }"
@@ -132,18 +132,6 @@
           </p>
         </div>
       </section>
-    </div>
-
-    <div
-      class="bottom-message"
-      :class="{ visible: visibleCount >= 3 }"
-    >
-      <span class="message-mark">→</span>
-
-      <p>
-        Find a representation that balances
-        <strong>information, efficiency, and robustness</strong>.
-      </p>
     </div>
   </div>
 </template>
@@ -200,17 +188,30 @@ onBeforeUnmount(() => {
   line-height: 1.45;
 }
 
+/* =========================
+   STAIRCASE LAYOUT
+
+   DOM order stays 1, 2, 3 (so the SPACE reveal logic is
+   unchanged: visibleCount 1 -> Goal 1, 2 -> Goal 2, 3 -> Goal 3).
+   column-reverse flips the VISUAL stacking so Goal 1 renders
+   at the bottom, Goal 2 above it, Goal 3 on top — matching the
+   reveal order (bottom card appears first).
+========================= */
+
 .goals {
   flex: 1 1 auto;
   min-height: 0;
+
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
+
   gap: 9px;
 }
 
 .goal-card {
   flex: 1 1 0;
   min-height: 0;
+
   display: grid;
   grid-template-columns: 38px 58px minmax(0, 1fr);
   align-items: center;
@@ -236,6 +237,24 @@ onBeforeUnmount(() => {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+}
+
+/* Step widths: each card shorter by ~5cm than the one below,
+   and right-aligned to the one below (shared right edge) via
+   margin-left: auto. Goal 1 stays full width, flush left. */
+
+.goal-1 {
+  width: 100%;
+}
+
+.goal-2 {
+  width: calc(100% - 5cm);
+  margin-left: auto;
+}
+
+.goal-3 {
+  width: calc(100% - 10cm);
+  margin-left: auto;
 }
 
 .goal-number {
@@ -376,12 +395,15 @@ onBeforeUnmount(() => {
   -webkit-box-decoration-break: clone;
 }
 
+/* =========================
+   BOTTOM MESSAGE — arrow icon removed
+========================= */
+
 .bottom-message {
   flex: 0 0 auto;
 
   display: flex;
   align-items: center;
-  gap: 10px;
 
   min-height: 43px;
   margin: 10px 4px 0;
@@ -406,22 +428,6 @@ onBeforeUnmount(() => {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
-}
-
-.message-mark {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 27px;
-  height: 27px;
-
-  border-radius: 50%;
-  background: #e9c46a;
-
-  color: #173f5f;
-  font-size: 16px;
-  font-weight: 700;
 }
 
 .bottom-message p {
@@ -459,6 +465,16 @@ onBeforeUnmount(() => {
 
   .goal-content p {
     font-size: 10px;
+  }
+
+  /* Smaller screens: scale down the step offsets so Goal 3
+     doesn't collapse to an unreadable width */
+  .goal-2 {
+    width: calc(100% - 2.5cm);
+  }
+
+  .goal-3 {
+    width: calc(100% - 5cm);
   }
 }
 </style>

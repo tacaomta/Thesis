@@ -3,11 +3,24 @@ import { ref,watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNav } from '@slidev/client'
 
 const { currentPage } = useNav()
+const isExporting =
+  typeof window !== 'undefined' &&
+  (
+    window.location.pathname.startsWith('/export') ||
+    new URLSearchParams(window.location.search).has('print') ||
+    new URLSearchParams(window.location.search).has('range')
+  )
 
 const visibleCount = ref(0)
 
 watch(currentPage, () => {
+  if(isExporting)
+{
+  visibleCount.value=3
+}
+else{
   visibleCount.value = 0
+}
 })
 function handleKeydown(event) {
   if (event.code !== 'Space') return
@@ -15,12 +28,16 @@ function handleKeydown(event) {
   event.preventDefault()
   event.stopPropagation()
 
-  if (visibleCount.value < 4) {
+  if (visibleCount.value < 3) {
     visibleCount.value += 1
   }
 }
 
 onMounted(() => {
+  if(isExporting)
+{
+  visibleCount.value = 3
+}
   window.addEventListener('keydown', handleKeydown, true)
 })
 
@@ -156,26 +173,6 @@ onBeforeUnmount(() => {
         </section>
       </Transition>
 
-    </div>
-
-    <!-- Research gap -->
-    <Transition name="fade-up">
-      <section v-if="visibleCount >= 4" class="research-gap-box">
-        <div class="gap-label">
-          RESEARCH GAP
-        </div>
-
-        <div class="gap-statement">
-          Existing frameworks lack a unified and generalizable
-          representation of regulatory relationships from
-          time-series expression data.
-        </div>
-      </section>
-    </Transition>
-
-    <!-- Space hint -->
-    <div v-if="visibleCount < 4" class="space-hint">
-      Press SPACE to reveal the next limitation
     </div>
 
   </div>

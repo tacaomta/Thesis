@@ -7,14 +7,6 @@
         class="framework-image"
       />
     </div>
-
-    <div class="framework-caption">
-      <span class="accent"></span>
-      <span>
-        A framework for representing regulatory relationships
-        from time-series gene expression data.
-      </span>
-    </div>
   </div>
 </template>
 

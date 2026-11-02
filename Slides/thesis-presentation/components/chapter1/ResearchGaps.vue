@@ -190,9 +190,22 @@ import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNav } from '@slidev/client'
 
 const { currentPage } = useNav()
+const isExporting =
+  typeof window !== 'undefined' &&
+  (
+    window.location.pathname.startsWith('/export') ||
+    new URLSearchParams(window.location.search).has('print') ||
+    new URLSearchParams(window.location.search).has('range')
+  )
 
 watch(currentPage, () => {
-  visibleCount.value = 0
+  if (isExporting) {
+    visibleCount.value = 3
+  }
+  else
+  {
+    visibleCount.value = 0
+  }
 })
 
 const visibleCount = ref(0)
@@ -213,6 +226,9 @@ function handleKeydown(event) {
 }
 
 onMounted(() => {
+  if (isExporting) {
+    visibleCount.value = 3
+  }
   window.addEventListener('keydown', handleKeydown, true)
 })
 

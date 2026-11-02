@@ -1,15 +1,77 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import {
+  ref,
+  computed,
+  onMounted,
+  onBeforeUnmount,
+  nextTick,
+  watch
+} from 'vue'
+
 import * as echarts from 'echarts'
+import { useNav } from '@slidev/client'
 
 const chartRef = ref(null)
 
 let chart = null
 let resizeObserver = null
 
-/* =========================================================
-   DATA — Training / Testing time (log10 ms) per algorithm
-   ========================================================= */
+// ============================================================
+// REVEAL STATE — SPACE reveals one finding card at a time.
+// ============================================================
+
+const { currentPage } = useNav()
+
+const visibleCount = ref(0)
+const totalNotes = 2
+
+const notesVisible = computed(() => visibleCount.value > 0)
+
+watch(currentPage, () => {
+  visibleCount.value = 0
+
+  nextTick(() => {
+    resizeChart()
+  })
+})
+
+function revealNext() {
+  visibleCount.value =
+    visibleCount.value < totalNotes
+      ? visibleCount.value + 1
+      : 0
+
+  nextTick(() => {
+    resizeChart()
+  })
+}
+
+function handleKeydown(event) {
+  if (event.code !== 'Space') return
+
+  const target = event.target
+
+  // Do not intercept Space when interacting with controls.
+  if (
+    target instanceof HTMLElement &&
+    (
+      target.isContentEditable ||
+      ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'].includes(target.tagName)
+    )
+  ) {
+    return
+  }
+
+  event.preventDefault()
+  event.stopPropagation()
+
+  revealNext()
+}
+
+
+// ============================================================
+// DATA — Training / Testing time (log10 ms) per algorithm
+// ============================================================
 
 const algorithms = [
   'LR', 'DT', 'RF', 'KNN',
@@ -33,17 +95,20 @@ const COLOR_TRAIN = '#08B6F3'
 const COLOR_TEST = '#FFA500'
 const COLOR_E2E = '#ECB60D'
 
-/* =========================================================
-   OPTION BUILDER
-   ========================================================= */
+
+// ============================================================
+// OPTION BUILDER
+// ============================================================
 
 function createOption() {
   const trainingSeriesData = training.map((value, i) => ({
     value,
+
     itemStyle: {
       color: testing[i] === null ? COLOR_E2E : COLOR_TRAIN,
       borderWidth: 0
     },
+
     label: {
       show: true,
       position: 'inside',
@@ -66,10 +131,12 @@ function createOption() {
 
     return {
       value,
+
       itemStyle: {
         color: COLOR_TEST,
         borderWidth: 0
       },
+
       label: {
         show: true,
         position: 'inside',
@@ -98,13 +165,19 @@ function createOption() {
 
       axisLine: {
         show: true,
-        lineStyle: { color: '#64748B', width: 1 }
+        lineStyle: {
+          color: '#64748B',
+          width: 1
+        }
       },
 
       axisTick: {
         show: true,
         alignWithLabel: true,
-        lineStyle: { color: '#64748B', width: 1 }
+        lineStyle: {
+          color: '#64748B',
+          width: 1
+        }
       },
 
       axisLabel: {
@@ -130,12 +203,18 @@ function createOption() {
 
       axisLine: {
         show: true,
-        lineStyle: { color: '#64748B', width: 1 }
+        lineStyle: {
+          color: '#64748B',
+          width: 1
+        }
       },
 
       axisTick: {
         show: true,
-        lineStyle: { color: '#64748B', width: 1 }
+        lineStyle: {
+          color: '#64748B',
+          width: 1
+        }
       },
 
       axisLabel: {
@@ -145,6 +224,7 @@ function createOption() {
 
       splitLine: {
         show: true,
+
         lineStyle: {
           color: '#E2E8F0',
           type: 'dashed',
@@ -194,6 +274,7 @@ function createOption() {
         data: trainingSeriesData,
         z: 2
       },
+
       {
         name: 'Testing',
         type: 'bar',
@@ -206,9 +287,10 @@ function createOption() {
   }
 }
 
-/* =========================================================
-   LIFECYCLE
-   ========================================================= */
+
+// ============================================================
+// LIFECYCLE
+// ============================================================
 
 async function initChart() {
   await nextTick()
@@ -220,14 +302,21 @@ async function initChart() {
 
   if (!chartRef.value) return
 
-  chart = echarts.init(chartRef.value, null, { renderer: 'svg' })
+  chart = echarts.init(
+    chartRef.value,
+    null,
+    { renderer: 'svg' }
+  )
+
   chart.setOption(createOption())
   chart.resize()
 }
 
 function resizeChart() {
   requestAnimationFrame(() => {
-    if (chart) chart.resize()
+    if (chart) {
+      chart.resize()
+    }
   })
 }
 
@@ -243,10 +332,12 @@ onMounted(async () => {
   }
 
   window.addEventListener('resize', resizeChart)
+  window.addEventListener('keydown', handleKeydown, true)
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('resize', resizeChart)
+  window.removeEventListener('keydown', handleKeydown, true)
 
   if (resizeObserver) {
     resizeObserver.disconnect()
@@ -257,15 +348,19 @@ onBeforeUnmount(() => {
     chart = null
   }
 })
+
 </script>
+
 
 <template>
   <div class="runtime-results">
 
+    <!-- HEADER + LEGEND -->
     <div class="chart-header">
       <h2></h2>
 
       <div class="legend-row">
+
         <div class="legend-item">
           <span class="legend-dot train-dot"></span>
           Training
@@ -280,43 +375,67 @@ onBeforeUnmount(() => {
           <span class="legend-dot e2e-dot"></span>
           End-to-end inference time
         </div>
+
       </div>
     </div>
 
+
+    <!-- CHART -->
     <div class="chart-card">
       <div ref="chartRef" class="chart"></div>
     </div>
 
-    <div class="result-note">
-      <!-- <div class="result-item">
-        <span class="note-icon">▸</span>
-        <div>
-          <strong>Reduced training time: </strong>
-          Training on 20,000 small |V|=10 networks reduces training duration by 15%–25% compared to training on large networks.
-        </div>
-      </div> -->
 
-      <div class="result-item">
-        <span class="note-icon">▸</span>
-        <div>
-          <strong>Ultra-fast online inference: </strong>
-          Once trained, supervised classifiers execute inference orders of magnitude faster than non-learning end-to-end methods.
-        </div>
-      </div>
+    <!-- FINDINGS — HORIZONTAL CARDS -->
+    <div v-if="notesVisible" class="findings">
 
-      <div class="result-item">
-        <span class="note-icon">▸</span>
-        <div>
-          <strong>Favorable scalability: </strong>
-          Offloads heavy computation to offline training, enabling rapid online network reconstruction.
+      <!-- Finding 01 -->
+      <Transition name="card-pop">
+        <div v-if="visibleCount >= 1" class="finding">
+
+          <div class="finding-header">
+            <span class="finding-number">01</span>
+            <h3>Ultra-fast online inference</h3>
+          </div>
+
+          <p>
+            Once trained, supervised classifiers execute inference
+            orders of magnitude faster than non-learning end-to-end methods.
+          </p>
+
         </div>
-      </div>
+      </Transition>
+
+
+      <!-- Finding 02 -->
+      <Transition name="card-pop">
+        <div v-if="visibleCount >= 2" class="finding">
+
+          <div class="finding-header">
+            <span class="finding-number">02</span>
+            <h3>Favorable scalability</h3>
+          </div>
+
+          <p>
+            Offloads heavy computation to offline training,
+            enabling rapid online network reconstruction.
+          </p>
+
+        </div>
+      </Transition>
+
     </div>
 
   </div>
 </template>
 
+
 <style scoped>
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
 .runtime-results {
   width: 100%;
   height: 100%;
@@ -330,6 +449,7 @@ onBeforeUnmount(() => {
   padding: 8px 6px 0;
   margin-top: 10px;
 }
+
 
 /* =========================================================
    HEADER + LEGEND
@@ -399,18 +519,24 @@ onBeforeUnmount(() => {
   background: #ecb60d;
 }
 
+
 /* =========================================================
    CHART
+   Takes the available height when notes are hidden.
+   Shrinks automatically when finding cards are revealed.
    ========================================================= */
 
 .chart-card {
-  flex: 1;
+  flex: 1 1 0;
+
   min-height: 0;
   min-width: 0;
 
   display: flex;
   align-items: stretch;
   justify-content: center;
+
+  transition: flex 0.25s ease;
 }
 
 .chart {
@@ -419,64 +545,148 @@ onBeforeUnmount(() => {
   min-height: 0;
 }
 
+
 /* =========================================================
-   CONCLUSION
+   FINDINGS — HORIZONTAL ROW OF CARDS
+   Adapted from reference file 1
    ========================================================= */
 
-.result-note {
+.findings {
   flex-shrink: 0;
 
-  display: flex;
-  flex-direction: column;
+  width: 100%;
 
-  gap: 6px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 
-  margin: 5px auto 2px;
+  gap: 10px;
 
-  width: min(100%, 1000px);
+  margin: 8px auto 4px;
+}
 
-  padding: 5px 10px;
+
+/* Individual finding card */
+
+.finding {
+  min-width: 0;
 
   box-sizing: border-box;
 
-  background: #f8fafb;
+  padding: 9px 11px;
 
-  border: 1px solid #dce4e9;
-  border-radius: 6px;
+  border-top: 2px solid #b3cedf;
 
-  color: #475569;
+  background: #ffffff;
 
-  font-size: 12px;
-  line-height: 1.4;
+  position: relative;
+  z-index: 1;
 
-  border-left: 5px #259b37 solid;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-top-color 0.22s ease;
 }
 
-.result-item {
+
+/* Hover effect */
+
+.finding:hover {
+  transform: translateY(-4px);
+
+  border-top-color: #2a9d8f;
+
+  box-shadow:
+    0 7px 16px rgba(23, 63, 95, 0.12),
+    0 2px 5px rgba(23, 63, 95, 0.06);
+
+  z-index: 5;
+}
+
+
+/* Card header */
+
+.finding-header {
   display: flex;
-  align-items: flex-start;
+  align-items: baseline;
 
-  gap: 5px;
+  gap: 6px;
+
+  margin-bottom: 4px;
 }
 
-.result-item strong {
-  color: #24313a;
-  font-weight: 600;
-}
 
-.note-icon {
-  flex-shrink: 0;
+/* Number */
 
-  color: #20639b;
+.finding-number {
+  flex: 0 0 auto;
 
-  font-size: 14px;
+  color: #2a9d8f;
+
+  font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+  font-size: 10px;
   font-weight: 700;
-  line-height: 1.4;
+  letter-spacing: 0.08em;
 
-  margin-top: 1px;
+  transition:
+    transform 0.22s ease,
+    color 0.22s ease;
 }
+
+
+/* Title */
+
+.finding h3 {
+  margin: 0;
+
+  color: #173f5f;
+
+  font-size: 11.5px;
+  line-height: 1.2;
+  font-weight: 700;
+
+  transition: color 0.22s ease;
+}
+
+
+/* Description */
+
+.finding p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+
+/* Hover details */
+
+.finding:hover .finding-number {
+  transform: scale(1.08);
+  color: #20639b;
+}
+
+.finding:hover h3 {
+  color: #20639b;
+}
+
+
+/* =========================================================
+   CARD REVEAL ANIMATION
+   ========================================================= */
+
+.card-pop-enter-active {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.card-pop-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
 
 /* =========================================================
    RESPONSIVE
@@ -495,5 +705,11 @@ onBeforeUnmount(() => {
     padding-left: 2px;
     padding-right: 2px;
   }
+
+  .findings {
+    grid-template-columns: 1fr;
+  }
+
 }
-</style>
+
+</style> 

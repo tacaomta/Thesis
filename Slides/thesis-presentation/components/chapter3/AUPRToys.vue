@@ -1,6 +1,7 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, nextTick, watch } from 'vue'
 import * as echarts from 'echarts'
+import { useNav } from '@slidev/client'
 
 const chart10Ref = ref(null)
 const chart50Ref = ref(null)
@@ -8,6 +9,55 @@ const chart100Ref = ref(null)
 
 let charts = []
 let resizeObserver = null
+
+/* ============================================================
+ * REVEAL STATE — SPACE reveals one finding card at a time.
+ * The chart area shrinks as soon as the first card appears,
+ * and stays shrunk as long as any card is visible.
+ * ============================================================ */
+
+const { currentPage } = useNav()
+
+const visibleCount = ref(0)
+const totalFindings = 3
+
+const notesVisible = computed(() => visibleCount.value > 0)
+
+watch(currentPage, () => {
+  visibleCount.value = 0
+})
+
+function revealNext() {
+  visibleCount.value =
+    visibleCount.value < totalFindings
+      ? visibleCount.value + 1
+      : 0
+
+  /*
+   * The charts-row container changes height when the note
+   * area is shown/hidden, so the charts must be explicitly
+   * resized after the DOM has updated — ResizeObserver alone
+   * may not fire reliably on a flex-basis change in some
+   * browsers.
+   */
+  nextTick(() => {
+    resizeCharts()
+  })
+}
+
+function handleKeydown(event) {
+  if (event.code !== 'Space') return
+
+  event.preventDefault()
+  event.stopPropagation()
+
+  revealNext()
+}
+
+
+/* ============================================================
+ * DATA
+ * ============================================================ */
 
 const toy10 = [
   { name: 'Baseline', mean: 0.268, std: 0.034 },
@@ -199,25 +249,6 @@ function createOption(data, title) {
           itemStyle: {
             color: '#08B6F3'
           },
-
-        //   label: {
-        //     show: true,
-
-        //     position: 'top',
-
-        //     formatter: params => {
-        //       const item = data[params.dataIndex]
-
-        //       return (
-        //         `${item.mean.toFixed(3)}\n` +
-        //         `±${item.std.toFixed(3)}`
-        //       )
-        //     },
-
-        //     color: '#24313A',
-        //     fontSize: 8,
-        //     lineHeight: 11
-        //   }
         })),
 
         barMaxWidth: 38,
@@ -422,6 +453,12 @@ onMounted(async () => {
     'resize',
     resizeCharts
   )
+
+  window.addEventListener(
+    'keydown',
+    handleKeydown,
+    true
+  )
 })
 
 
@@ -429,6 +466,12 @@ onBeforeUnmount(() => {
   window.removeEventListener(
     'resize',
     resizeCharts
+  )
+
+  window.removeEventListener(
+    'keydown',
+    handleKeydown,
+    true
   )
 
   if (resizeObserver) {
@@ -447,7 +490,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="aupr-results">
 
-    <div class="charts-row">
+    <div class="charts-row" :class="{ 'note-open': notesVisible }">
 
       <div class="chart-card">
         <div
@@ -472,35 +515,45 @@ onBeforeUnmount(() => {
 
     </div>
 
-<div class="result-note">
-  <div class="result-item">
-    <span class="note-icon">▸</span>
-    <div>
-      <strong>Universal baseline superiority:</strong>
-      All evaluated machine learning models outperform the random baseline
-      across all network scales.
-    </div>
-  </div>
+    <div v-if="notesVisible" class="findings">
 
-  <div class="result-item">
-    <span class="note-icon">▸</span>
-    <div>
-      <strong>Ensemble model dominance:</strong>
-      Random Forest achieves top average AUPR across all network sizes
-      (0.602 at size 10; 0.503 at size 100).
-    </div>
-  </div>
+      <Transition name="card-pop">
+        <div v-if="visibleCount >= 1" class="finding">
+          <div class="finding-header">
+            <span class="finding-number">01</span>
+            <h3>Universal baseline superiority</h3>
+          </div>
+          <p>
+            All evaluated machine learning models outperform the random baseline across all network scales.
+          </p>
+        </div>
+      </Transition>
 
-  <div class="result-item">
-    <span class="note-icon">▸</span>
-    <div>
-      <strong>Probabilistic resilience:</strong>
-      GNB exhibits scale-resilient performance
-      improvements as network size increases.
-    </div>
-  </div>
-</div>
+      <Transition name="card-pop">
+        <div v-if="visibleCount >= 2" class="finding">
+          <div class="finding-header">
+            <span class="finding-number">02</span>
+            <h3>Ensemble model dominance</h3>
+          </div>
+          <p>
+            Random Forest achieves top average AUPR across all network sizes (0.602 at size 10; 0.503 at size 100).
+          </p>
+        </div>
+      </Transition>
 
+      <Transition name="card-pop">
+        <div v-if="visibleCount >= 3" class="finding">
+          <div class="finding-header">
+            <span class="finding-number">03</span>
+            <h3>Probabilistic resilience</h3>
+          </div>
+          <p>
+            GNB exhibits scale-resilient performance improvements as network size increases.
+          </p>
+        </div>
+      </Transition>
+
+    </div>
 
   </div>
 </template>
@@ -508,6 +561,8 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .aupr-results {
+  position: relative;
+
   width: 100%;
   height: 100%;
   min-height: 0;
@@ -523,6 +578,8 @@ onBeforeUnmount(() => {
 
 /* =========================================================
    THREE CHARTS — CLOSER TOGETHER
+   Takes the FULL height by default (notes hidden); shrinks
+   only once the first finding card is revealed.
    ========================================================= */
 
 .charts-row {
@@ -534,10 +591,11 @@ onBeforeUnmount(() => {
   grid-template-columns:
     repeat(3, minmax(0, 1fr));
 
-  /* reduced from 18px */
   gap: 8px;
 
   width: 100%;
+
+  transition: flex-basis 0.25s ease;
 }
 
 
@@ -559,47 +617,119 @@ onBeforeUnmount(() => {
 
 
 /* =========================================================
-   CONCLUSION
+   FINDINGS — horizontal row of cards, revealed one at a time
+   via SPACE
    ========================================================= */
 
-.result-note {
+.findings {
   flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin: 5px auto 2px;
-  width: min(100%, 1000px);
-  padding: 5px 10px;
+
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 10px;
+
+  margin: 8px auto 4px;
+}
+
+.finding {
+  min-width: 0;
+
   box-sizing: border-box;
-  background: #F8FAFB;
-  border: 1px solid #DCE4E9;
-  border-radius: 6px;
-  color: #475569;
-  font-size: 12px;
-  line-height: 1.4;
-  border-left: 5px #259b37 solid;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+
+  padding: 9px 11px;
+
+  border-top: 2px solid #b3cedf;
+
+  background: #ffffff;
+
+  position: relative;
+  z-index: 1;
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-top-color 0.22s ease;
 }
 
-.result-item {
+.finding:hover {
+  transform: translateY(-4px);
+
+  border-top-color: #2a9d8f;
+
+  box-shadow:
+    0 7px 16px rgba(23, 63, 95, 0.12),
+    0 2px 5px rgba(23, 63, 95, 0.06);
+
+  z-index: 5;
+}
+
+.finding:hover .finding-number {
+  transform: scale(1.08);
+  color: #20639b;
+}
+
+.finding:hover h3 {
+  color: #20639b;
+}
+
+.finding-header {
   display: flex;
-  align-items: flex-start;
-  gap: 5px;
+  align-items: baseline;
+  gap: 6px;
+
+  margin-bottom: 4px;
 }
 
-.result-item strong {
-  color: #24313A;
-  font-weight: 600;
-}
+.finding-number {
+  flex: 0 0 auto;
 
-.note-icon {
-  flex-shrink: 0;
-  color: #20639B;
-  font-size: 14px;
+  color: #2a9d8f;
+
+  font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+  font-size: 10px;
   font-weight: 700;
-  line-height: 1.4;
-  margin-top: 1px;
+  letter-spacing: 0.08em;
+
+  transition: transform 0.22s ease, color 0.22s ease;
+}
+
+.finding h3 {
+  margin: 0;
+
+  color: #173f5f;
+
+  font-size: 11.5px;
+  line-height: 1.2;
+  font-weight: 700;
+
+  transition: color 0.22s ease;
+}
+
+.finding p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+/*
+ * Each card pops in individually as visibleCount increases.
+ */
+
+.card-pop-enter-active {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.card-pop-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
 }
 
 
@@ -611,6 +741,10 @@ onBeforeUnmount(() => {
 
   .charts-row {
     gap: 4px;
+  }
+
+  .findings {
+    grid-template-columns: 1fr;
   }
 
   .aupr-results {

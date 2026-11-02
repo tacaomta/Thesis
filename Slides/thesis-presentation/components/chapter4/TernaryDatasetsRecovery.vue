@@ -1,8 +1,10 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import * as echarts from 'echarts'
+import { useNav } from '@slidev/client'
 
 const chartRef = ref(null)
+
 let chart = null
 let resizeObserver = null
 
@@ -64,26 +66,85 @@ const metrics = [
   { key: 'structural', name: 'Structural', color: '#000000' }
 ]
 
-/* subplot letters, row0 = a,b,c / row1 = d,e,f */
+// Subplot letters: row 0 = a, b, c; row 1 = d, e, f
 const letters = ['a', 'b', 'c', 'd', 'e', 'f']
 
 const findings = [
-  { number: '01', title: 'Consistent Improvement', text: 'Synthetic data consistently increases precision and recall across almost all observed time steps (K).' },
-  { number: '02', title: 'Maximum Impact at Low K', text: 'The largest gains occur when real observations are scarcest, especially at K = 10 and K = 20.' },
-  { number: '03', title: 'Scalability', text: 'Similar performance gains are observed for both N = 50 and N = 100 gene-scale networks.' },
-  { number: '04', title: 'Structural Accuracy Stability', text: 'Structural accuracy changes only slightly because of the large true-negative baseline.' }
+  {
+    number: '01',
+    title: 'Consistent Improvement',
+    text: 'Synthetic data consistently increases precision and recall across almost all observed time steps (K).'
+  },
+  {
+    number: '02',
+    title: 'Maximum Impact at Low K',
+    text: 'The largest gains occur when real observations are scarcest, especially at K = 10 and K = 20.'
+  },
+  {
+    number: '03',
+    title: 'Scalability',
+    text: 'Similar performance gains are observed for both N = 50 and N = 100 gene-scale networks.'
+  },
+  {
+    number: '04',
+    title: 'Structural Accuracy Stability',
+    text: 'Structural accuracy changes only slightly because of the large true-negative baseline.'
+  }
 ]
 
-function improvement(network, metric) {
-  return synthetic[network][0][metric].map((v, i) => v - origin[network][0][metric][i])
+// =========================================================
+// Progressive reveal: chart first, then one card per Space.
+// =========================================================
+
+const { currentPage } = useNav()
+const visibleCount = ref(0)
+const notesVisible = computed(() => visibleCount.value > 0)
+
+watch(currentPage, () => {
+  visibleCount.value = 0
+  nextTick(() => chart?.resize())
+})
+
+function revealNext() {
+  if (visibleCount.value < findings.length) {
+    visibleCount.value += 1
+  } else {
+    visibleCount.value = 0
+  }
+
+  nextTick(() => chart?.resize())
 }
 
-/* =========================================================
-   PRIMARY AXIS SERIES (Synthetic solid / Origin dashed)
-   Names are encoded as "label|role|axis" so a per-chart
-   legend can show just the metric name while the tooltip
-   can still tell synthetic apart from origin.
-   ========================================================= */
+function handleKeydown(event) {
+  if (event.code !== 'Space') return
+
+  const target = event.target
+
+  if (
+    target instanceof HTMLElement &&
+    (
+      target.isContentEditable ||
+      ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'].includes(target.tagName)
+    )
+  ) {
+    return
+  }
+
+  event.preventDefault()
+  event.stopPropagation()
+
+  revealNext()
+}
+
+function improvement(network, metric) {
+  return synthetic[network][0][metric].map(
+    (value, index) => value - origin[network][0][metric][index]
+  )
+}
+
+// =========================================================
+// PRIMARY AXIS SERIES (Synthetic solid / Origin dashed)
+// =========================================================
 
 function lineSeries(data, color, name, axis, dashed = false) {
   return {
@@ -97,14 +158,22 @@ function lineSeries(data, color, name, axis, dashed = false) {
     symbolSize: 7,
     showSymbol: true,
     z: 5,
-    lineStyle: { color, width: 2.5, type: dashed ? 'dashed' : 'solid' },
-    itemStyle: { color, borderColor: '#24313A', borderWidth: 1.2 }
+    lineStyle: {
+      color,
+      width: 2.5,
+      type: dashed ? 'dashed' : 'solid'
+    },
+    itemStyle: {
+      color,
+      borderColor: '#24313A',
+      borderWidth: 1.2
+    }
   }
 }
 
-/* =========================================================
-   TWIN AXIS SERIES (Improvement bars)
-   ========================================================= */
+// =========================================================
+// TWIN AXIS SERIES (Improvement bars)
+// =========================================================
 
 function barSeries(data, axis, name) {
   return {
@@ -115,7 +184,10 @@ function barSeries(data, axis, name) {
     data,
     barWidth: 13,
     z: 1,
-    itemStyle: { color: '#2E86C1', opacity: 0.8 }
+    itemStyle: {
+      color: '#2E86C1',
+      opacity: 0.8
+    }
   }
 }
 
@@ -127,39 +199,90 @@ function errorSeries(means, stds, axis) {
     yAxisIndex: axis,
     silent: true,
     z: 6,
+
     renderItem(params, api) {
       const index = params.dataIndex
       const mean = api.value(1)
       const std = api.value(2)
+
       const point = api.coord([index, mean])
       const upper = api.coord([index, mean + std])
       const lower = api.coord([index, mean - std])
+
       const cap = 3
+
       return {
         type: 'group',
         children: [
-          { type: 'line', shape: { x1: point[0], y1: upper[1], x2: point[0], y2: lower[1] }, style: { stroke: '#d72626', lineWidth: 1.4 } },
-          { type: 'line', shape: { x1: point[0] - cap, y1: upper[1], x2: point[0] + cap, y2: upper[1] }, style: { stroke: '#d72626', lineWidth: 1.4 } },
-          { type: 'line', shape: { x1: point[0] - cap, y1: lower[1], x2: point[0] + cap, y2: lower[1] }, style: { stroke: '#d72626', lineWidth: 1.4 } }
+          {
+            type: 'line',
+            shape: {
+              x1: point[0],
+              y1: upper[1],
+              x2: point[0],
+              y2: lower[1]
+            },
+            style: {
+              stroke: '#d72626',
+              lineWidth: 1.4
+            }
+          },
+          {
+            type: 'line',
+            shape: {
+              x1: point[0] - cap,
+              y1: upper[1],
+              x2: point[0] + cap,
+              y2: upper[1]
+            },
+            style: {
+              stroke: '#d72626',
+              lineWidth: 1.4
+            }
+          },
+          {
+            type: 'line',
+            shape: {
+              x1: point[0] - cap,
+              y1: lower[1],
+              x2: point[0] + cap,
+              y2: lower[1]
+            },
+            style: {
+              stroke: '#d72626',
+              lineWidth: 1.4
+            }
+          }
         ]
       }
     },
-    data: means.map((value, i) => [i, value, stds[i]])
+
+    data: means.map((value, index) => [index, value, stds[index]])
   }
 }
 
 function twinRange(row, col) {
-  if (col === 2) return { min: -0.01, max: 0.3 }
-  return row === 0 ? { min: -0.01, max: 0.3 } : { min: 0, max: 0.3 }
+  if (col === 2) {
+    return { min: -0.01, max: 0.3 }
+  }
+
+  return row === 0
+    ? { min: -0.01, max: 0.3 }
+    : { min: 0, max: 0.3 }
 }
 
-/* legend text: strip the "|role|axis" suffix, keep only the label */
+// Legend text: strip the "|role|axis" suffix.
 function legendLabelFormatter(name) {
   return name.split('|')[0]
 }
 
 function buildOption() {
-  const grids = [], xAxes = [], yAxes = [], twinYAxes = [], series = [], legends = []
+  const grids = []
+  const xAxes = []
+  const yAxes = []
+  const twinYAxes = []
+  const series = []
+  const legends = []
 
   const colLeft = ['2.5%', '34.75%', '67%']
   const legendLeft = ['2%', '35%', '68%']
@@ -172,8 +295,7 @@ function buildOption() {
       const metric = metrics[col]
       const network = row + 1
 
-      /* unique, role-tagged series names so each subplot's
-         legend can control only its own two series */
+      // Unique names allow each subplot legend to control its own series.
       const synthName = `${metric.name}|s|${axis}`
       const originName = `${metric.name}|o|${axis}`
       const improvementName = `Improvement|b|${axis}`
@@ -189,7 +311,7 @@ function buildOption() {
         borderWidth: 0
       })
 
-      /* per-subplot legend, floating just above its grid */
+      // Per-subplot legend, floating just above its grid.
       legends.push({
         top: row === 0 ? '1%' : '47%',
         left: legendLeft[col],
@@ -200,7 +322,10 @@ function buildOption() {
         backgroundColor: 'rgba(255,255,255,0.85)',
         borderRadius: 3,
         padding: [2, 6],
-        textStyle: { fontSize: 8.5, color: '#24313A' },
+        textStyle: {
+          fontSize: 8.5,
+          color: '#24313A'
+        },
         formatter: legendLabelFormatter,
         data: [synthName, improvementName]
       })
@@ -210,48 +335,112 @@ function buildOption() {
         gridIndex: axis,
         data: timeSteps,
         boundaryGap: true,
-        axisLine: { lineStyle: { color: '#000000', width: 1.5 } },
-        axisTick: { show: true, length: 5, lineStyle: { color: '#000000', width: 1.2 } },
-        axisLabel: { fontSize: 9, color: '#24313A', margin: 6 },
-        splitLine: { show: true, lineStyle: { color: '#DDDDDD', type: 'dashed', opacity: 0.6 } },
+        axisLine: {
+          lineStyle: {
+            color: '#000000',
+            width: 1.5
+          }
+        },
+        axisTick: {
+          show: true,
+          length: 5,
+          lineStyle: {
+            color: '#000000',
+            width: 1.2
+          }
+        },
+        axisLabel: {
+          fontSize: 9,
+          color: '#24313A',
+          margin: 6
+        },
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: '#DDDDDD',
+            type: 'dashed',
+            opacity: 0.6
+          }
+        },
         name: isBottomRow
           ? `Observed time step number (k)\n(${letter})`
           : `(${letter})`,
         nameLocation: 'middle',
         nameGap: isBottomRow ? 32 : 22,
-        nameTextStyle: { fontSize: 10, color: '#24313A', fontWeight: 600, lineHeight: 14 }
+        nameTextStyle: {
+          fontSize: 10,
+          color: '#24313A',
+          fontWeight: 600,
+          lineHeight: 14
+        }
       })
 
-      /* primary accuracy axis (0 – 1) */
+      // Primary accuracy axis (0–1).
       yAxes.push({
         type: 'value',
         gridIndex: axis,
         min: 0,
         max: 1,
         interval: 0.2,
-        axisLine: { show: col === 0, lineStyle: { color: '#000000', width: 1.5 } },
-        axisTick: { show: col === 0, length: 4, lineStyle: { color: '#000000', width: 1.2 } },
-        axisLabel: { show: col === 0, fontSize: 9, color: '#24313A', formatter: value => value.toFixed(1) },
-        splitLine: { show: true, lineStyle: { color: '#DDDDDD', type: 'dashed', opacity: 0.6 } },
+        axisLine: {
+          show: col === 0,
+          lineStyle: {
+            color: '#000000',
+            width: 1.5
+          }
+        },
+        axisTick: {
+          show: col === 0,
+          length: 4,
+          lineStyle: {
+            color: '#000000',
+            width: 1.2
+          }
+        },
+        axisLabel: {
+          show: col === 0,
+          fontSize: 9,
+          color: '#24313A',
+          formatter: value => value.toFixed(1)
+        },
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: '#DDDDDD',
+            type: 'dashed',
+            opacity: 0.6
+          }
+        },
         name: col === 0 ? 'Accuracy' : '',
         nameLocation: 'middle',
         nameGap: 32,
         nameRotate: 90,
-        nameTextStyle: { fontSize: 10, color: '#24313A', fontWeight: 600 },
+        nameTextStyle: {
+          fontSize: 10,
+          color: '#24313A',
+          fontWeight: 600
+        },
         z: 3
       })
 
-      /* twin axis for the improvement bars */
+      // Twin axis for the improvement bars.
       const range = twinRange(row, col)
+
       twinYAxes.push({
         type: 'value',
         gridIndex: axis,
         min: range.min,
         max: range.max,
         position: 'right',
-        axisLine: { show: false },
-        axisTick: { show: false },
-        splitLine: { show: false },
+        axisLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        splitLine: {
+          show: false
+        },
         axisLabel: {
           show: col === 2,
           fontSize: 9,
@@ -261,7 +450,10 @@ function buildOption() {
         name: col === 2 ? 'Improvement rate' : '',
         nameLocation: 'middle',
         nameGap: 34,
-        nameTextStyle: { fontSize: 9, color: '#475569' },
+        nameTextStyle: {
+          fontSize: 9,
+          color: '#475569'
+        },
         z: 1
       })
 
@@ -284,27 +476,53 @@ function buildOption() {
     grid: grids,
     xAxis: xAxes,
     yAxis: [...yAxes, ...twinYAxes],
+
     tooltip: {
       trigger: 'axis',
       confine: true,
+
       formatter(params) {
         if (!params.length) return ''
+
         const k = timeSteps[params[0].dataIndex]
-        let synthetic, original, improvementValue
+
+        let synthetic
+        let original
+        let improvementValue
+
         params.forEach(p => {
-          if (p.seriesName.includes('|s|')) synthetic = p.value
-          else if (p.seriesName.includes('|o|')) original = p.value
-          else if (p.seriesName.includes('|b|')) improvementValue = p.value
+          if (p.seriesName.includes('|s|')) {
+            synthetic = p.value
+          } else if (p.seriesName.includes('|o|')) {
+            original = p.value
+          } else if (p.seriesName.includes('|b|')) {
+            improvementValue = p.value
+          }
         })
-        return `<strong>K = ${k}</strong><br/>${synthetic !== undefined ? '● Synthetic: ' + Number(synthetic).toFixed(3) + '<br/>' : ''}${original !== undefined ? '● Original: ' + Number(original).toFixed(3) + '<br/>' : ''}${improvementValue !== undefined ? '■ Improvement: ' + Number(improvementValue).toFixed(3) : ''}`
+
+        return `<strong>K = ${k}</strong><br/>${
+          synthetic !== undefined
+            ? '● Synthetic: ' + Number(synthetic).toFixed(3) + '<br/>'
+            : ''
+        }${
+          original !== undefined
+            ? '● Original: ' + Number(original).toFixed(3) + '<br/>'
+            : ''
+        }${
+          improvementValue !== undefined
+            ? '■ Improvement: ' + Number(improvementValue).toFixed(3)
+            : ''
+        }`
       }
     },
+
     series
   }
 }
 
 function renderChart() {
   if (!chartRef.value) return
+
   if (chart) chart.dispose()
 
   chart = echarts.init(chartRef.value, null, {
@@ -320,10 +538,16 @@ function renderChart() {
 onMounted(async () => {
   await nextTick()
   renderChart()
+
+  // Capture Space before Slidev uses it for slide navigation.
+  window.addEventListener('keydown', handleKeydown, true)
 })
 
 onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeydown, true)
+
   resizeObserver?.disconnect()
+
   if (chart) {
     chart.dispose()
     chart = null
@@ -334,26 +558,127 @@ onBeforeUnmount(() => {
 <template>
   <div class="recovery-slide">
     <div ref="chartRef" class="recovery-chart"></div>
-    <div class="findings">
-      <div v-for="item in findings" :key="item.number" class="finding">
-        <div class="finding-header"><span class="finding-number">{{ item.number }}</span><h3>{{ item.title }}</h3></div>
-        <p>{{ item.text }}</p>
-      </div>
+
+    <div v-if="notesVisible" class="findings">
+      <Transition
+        v-for="(item, index) in findings"
+        :key="item.number"
+        name="card-pop"
+      >
+        <div v-if="visibleCount >= index + 1" class="finding">
+          <div class="finding-header">
+            <span class="finding-number">{{ item.number }}</span>
+            <h3>{{ item.title }}</h3>
+          </div>
+
+          <p>{{ item.text }}</p>
+        </div>
+      </Transition>
     </div>
   </div>
 </template>
 
 <style scoped>
-.recovery-slide { width:100%; height:100%; box-sizing:border-box; display:flex; flex-direction:column; overflow:auto; }
-.recovery-chart { width:100%; height:80%; min-height:0; }
-.findings { width:100%; display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:15px; }
-.finding { min-width: 0; box-sizing: border-box; padding: 7px 9px; border-top: 2px solid #b3cedf; background: #fff; position: relative; z-index: 1; transition: transform 0.22s ease, box-shadow 0.22s ease, border-top-color 0.22s ease; } /* * Lift effect when hovering */ 
-.finding:hover { transform: translateY(-4px); border-top-color: #2A9D8F; box-shadow: 0 7px 16px rgba(23, 63, 95, 0.12), 0 2px 5px rgba(23, 63, 95, 0.06); z-index: 5; }
-.finding:hover .finding-number { transform: scale(1.08); color: #20639B; }
-.finding:hover h3 { color: #20639B; }
-.finding-header { display:flex; align-items:baseline; gap:6px; margin-bottom:3px; }
-.finding-number { flex:0 0 auto; color:#2A9D8F; font-family:'IBM Plex Mono','JetBrains Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:.08em; }
-.finding h3 { margin:0; color:#173F5F; font-size:10.5px; line-height:1.2; font-weight:700; }
-.finding p { margin:0; color:#64748B; font-size:9px; line-height:1.28; }
-@media (max-width:1000px) { .findings { grid-template-columns:repeat(2,1fr); } .recovery-chart { height:70%; } }
+.recovery-slide {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.recovery-chart {
+  flex: 1 1 0;
+  width: 100%;
+  min-height: 0;
+  transition: flex 0.25s ease;
+}
+
+.findings {
+  flex: 0 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 8px auto 4px;
+}
+
+.finding {
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 7px 9px;
+  border-top: 2px solid #b3cedf;
+  background: #fff;
+  position: relative;
+  z-index: 1;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-top-color 0.22s ease;
+}
+
+.finding:hover {
+  transform: translateY(-4px);
+  border-top-color: #2A9D8F;
+  box-shadow:
+    0 7px 16px rgba(23, 63, 95, 0.12),
+    0 2px 5px rgba(23, 63, 95, 0.06);
+  z-index: 5;
+}
+
+.finding:hover .finding-number {
+  transform: scale(1.08);
+  color: #20639B;
+}
+
+.finding:hover h3 {
+  color: #20639B;
+}
+
+.finding-header {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 3px;
+}
+
+.finding-number {
+  flex: 0 0 auto;
+  color: #2A9D8F;
+  font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.finding h3 {
+  margin: 0;
+  color: #173F5F;
+  font-size: 10.5px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.finding p {
+  margin: 0;
+  color: #64748B;
+  font-size: 9px;
+  line-height: 1.28;
+}
+
+.card-pop-enter-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.card-pop-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@media (max-width: 1000px) {
+  .findings {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 </style>

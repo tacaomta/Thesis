@@ -194,7 +194,7 @@ eyebrow: METHODOLOGY
 <Methodology />
 <!--
 Let me now give you an overview of the proposed framework.  
-- We start with a **two-dimensional microarray of real-valued gene expression data**, which is observed from an underlying regulatory network. Importantly, **the original network itself is unseen during the inference process**.  
+- We start with a **two-dimensional microarray of real-valued gene expression data**. Importantly, **the original network itself is unseen during the inference process**.  
 - First, this input expression matrix is converted into a **discretized expression dataset** using the K-means algorithm.  
 - Then, the **K value is determined based on a validity index for each gene**. In this study, K can be either **2 or 3**, depending on the expression distribution of each gene.  
 - Next, the discretized data are fed into the **MIFS and SWAP subroutines** to identify the regulatory genes for each target gene.  

@@ -1,7 +1,8 @@
 <script setup>
 
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, nextTick, watch } from 'vue'
 import * as echarts from 'echarts'
+import { useNav } from '@slidev/client'
 
 const performanceChartRef = ref(null)
 const timeChartRef = ref(null)
@@ -11,23 +12,47 @@ let timeChart = null
 let resizeObserver = null
 
 /* ============================================================
- * NOTE TOGGLE STATE
+ * REVEAL STATE — SPACE reveals one finding card at a time.
+ * The chart area shrinks as soon as the first card appears,
+ * and stays shrunk as long as any card is visible.
  * ============================================================ */
 
-const showNote = ref(false)
+const { currentPage } = useNav()
 
-function toggleNote() {
-  showNote.value = !showNote.value
+const visibleCount = ref(0)
+const totalFindings = 3
+
+const notesVisible = computed(() => visibleCount.value > 0)
+
+watch(currentPage, () => {
+  visibleCount.value = 0
+})
+
+function revealNext() {
+  visibleCount.value =
+    visibleCount.value < totalFindings
+      ? visibleCount.value + 1
+      : 0
 
   /*
    * The charts-row container changes height when the note
-   * is shown/hidden, so the charts must be explicitly resized
-   * after the DOM has updated — ResizeObserver alone may not
-   * fire reliably on a flex-basis change in some browsers.
+   * area is shown/hidden, so the charts must be explicitly
+   * resized after the DOM has updated — ResizeObserver alone
+   * may not fire reliably on a flex-basis change in some
+   * browsers.
    */
   nextTick(() => {
     resizeCharts()
   })
+}
+
+function handleKeydown(event) {
+  if (event.code !== 'Space') return
+
+  event.preventDefault()
+  event.stopPropagation()
+
+  revealNext()
 }
 
 
@@ -121,26 +146,6 @@ const trainingTime = [
 ]
 
 
-/* ============================================================
- * PERFORMANCE ERROR BARS
- *
- * Error bars are calculated from the SAME bar geometry used
- * by renderItem().
- *
- * This avoids using getBoundingRect() on the group, because
- * the group contains both the bar and the rotated text label.
- * ============================================================ */
-
-/* ============================================================
- * PERFORMANCE ERROR BARS
- *
- * Error bars are rendered directly with ZRender instead of
- * ECharts graphic/setOption.
- *
- * This avoids graphic merge conflicts and keeps the legend
- * completely independent from the error-bar layer.
- * ============================================================ */
-
 let errorBarGroup = null
 
 function renderErrorBars() {
@@ -151,11 +156,6 @@ function renderErrorBars() {
 
   if (!zr) return
 
-
-  /* ----------------------------------------------------------
-   * Remove previous error-bar layer
-   * ---------------------------------------------------------- */
-
   if (errorBarGroup) {
 
     zr.remove(errorBarGroup)
@@ -164,26 +164,11 @@ function renderErrorBars() {
 
   }
 
-
-  /* ----------------------------------------------------------
-   * Create a new ZRender group
-   * ---------------------------------------------------------- */
-
   errorBarGroup =
     new echarts.graphic.Group()
 
-
-  /*
-   * These values MUST match the custom bar geometry.
-   */
-
   const BAR_WIDTH = 22
   const BAR_GAP = 0
-
-
-  /*
-   * Get ECharts series data.
-   */
 
   const seriesModel = performanceChart
     .getModel()
@@ -195,13 +180,6 @@ function renderErrorBars() {
 
   if (!data) return
 
-
-  /*
-   * ----------------------------------------------------------
-   * Iterate through every actual rendered bar.
-   * ----------------------------------------------------------
-   */
-
   for (
     let dataIndex = 0;
     dataIndex < data.count();
@@ -212,7 +190,6 @@ function renderErrorBars() {
       data.getRawDataItem(dataIndex)
 
     if (!rawData) continue
-
 
     const categoryIndex =
       rawData.categoryIndex
@@ -229,11 +206,6 @@ function renderErrorBars() {
     const barCount =
       rawData.barCount
 
-
-    /*
-     * Skip missing values.
-     */
-
     if (
       mean === null ||
       std === null ||
@@ -243,44 +215,25 @@ function renderErrorBars() {
       continue
     }
 
-
-    /*
-     * --------------------------------------------------------
-     * Calculate EXACT center of the bar.
-     *
-     * This is identical to renderItem().
-     * --------------------------------------------------------
-     */
-
     const categoryCenter =
       performanceChart.convertToPixel(
         { seriesIndex: 0 },
         [categoryIndex, 0]
       )[0]
 
-
     const groupWidth =
       barCount * BAR_WIDTH +
       (barCount - 1) * BAR_GAP
 
-
     const groupLeft =
       categoryCenter -
       groupWidth / 2
-
 
     const centerX =
       groupLeft +
       barIndex *
         (BAR_WIDTH + BAR_GAP) +
       BAR_WIDTH / 2
-
-
-    /*
-     * --------------------------------------------------------
-     * Convert mean ± std into pixel coordinates.
-     * --------------------------------------------------------
-     */
 
     const upper =
       performanceChart.convertToPixel(
@@ -291,7 +244,6 @@ function renderErrorBars() {
         ]
       )
 
-
     const lower =
       performanceChart.convertToPixel(
         { seriesIndex: 0 },
@@ -301,27 +253,14 @@ function renderErrorBars() {
         ]
       )
 
-
     const yUpper = upper[1]
     const yLower = lower[1]
-
-
-    /*
-     * Width of horizontal caps.
-     */
 
     const capWidth =
       Math.min(
         BAR_WIDTH * 0.4,
         6
       )
-
-
-    /*
-     * --------------------------------------------------------
-     * Vertical STD line
-     * --------------------------------------------------------
-     */
 
     const verticalLine =
       new echarts.graphic.Line({
@@ -347,13 +286,6 @@ function renderErrorBars() {
         silent: true
 
       })
-
-
-    /*
-     * --------------------------------------------------------
-     * Upper cap
-     * --------------------------------------------------------
-     */
 
     const upperCap =
       new echarts.graphic.Line({
@@ -386,13 +318,6 @@ function renderErrorBars() {
 
       })
 
-
-    /*
-     * --------------------------------------------------------
-     * Lower cap
-     * --------------------------------------------------------
-     */
-
     const lowerCap =
       new echarts.graphic.Line({
 
@@ -424,11 +349,6 @@ function renderErrorBars() {
 
       })
 
-
-    /*
-     * Add all three elements to the error-bar group.
-     */
-
     errorBarGroup.add(verticalLine)
 
     errorBarGroup.add(upperCap)
@@ -437,19 +357,7 @@ function renderErrorBars() {
 
   }
 
-
-  /*
-   * ----------------------------------------------------------
-   * Add the complete error-bar layer to ZRender.
-   * ----------------------------------------------------------
-   */
-
   zr.add(errorBarGroup)
-
-
-  /*
-   * Make sure error bars stay above the bars.
-   */
 
   errorBarGroup.z = 100
 
@@ -463,15 +371,6 @@ function renderErrorBars() {
 function createPerformanceOption() {
 
   const names = Object.keys(performanceData)
-
-
-  /*
-   * Actual number of bars in each group.
-   *
-   * |V| = 10  -> 3 bars
-   * |V| = 50  -> 4 bars
-   * |V| = 100 -> 4 bars
-   */
 
   const groupBarCount = performanceData['5 000'].map(
     (_, categoryIndex) => {
@@ -496,27 +395,9 @@ function createPerformanceOption() {
     }
   )
 
-
-  /*
-   * Fixed physical bar width.
-   */
-
   const BAR_WIDTH = 22
 
-
-  /*
-   * Bars touch each other.
-   */
-
   const BAR_GAP = 0
-
-
-  /*
-   * One custom series renders all actual bars.
-   *
-   * This prevents ECharts from reserving empty slots
-   * for null values.
-   */
 
   const barData = []
 
@@ -531,12 +412,6 @@ function createPerformanceOption() {
         ) {
           return
         }
-
-
-        /*
-         * Determine the position of this actual bar
-         * among the bars that REALLY exist in this group.
-         */
 
         let barIndex = 0
 
@@ -557,7 +432,6 @@ function createPerformanceOption() {
           }
 
         }
-
 
         barData.push({
 
@@ -593,15 +467,6 @@ function createPerformanceOption() {
 
     animation: false,
 
-
-    /*
-     * ----------------------------------------------------------
-     * GRID
-     *
-     * Reduced top spacing so the legend is close to the chart.
-     * ----------------------------------------------------------
-     */
-
     grid: {
       left: 48,
       right: 18,
@@ -613,22 +478,7 @@ function createPerformanceOption() {
       containLabel: true
     },
 
-
-    /*
-     * ----------------------------------------------------------
-     * LEGEND + ERROR BAR GRAPHIC GROUPS
-     * ----------------------------------------------------------
-     */
-
     graphic: [
-
-      /*
-       * --------------------------------------------------------
-       * LEGEND
-       *
-       * It is now BELOW "(a)".
-       * --------------------------------------------------------
-       */
 
       {
         id: 'performance-legend',
@@ -640,8 +490,6 @@ function createPerformanceOption() {
         top: 24,
 
         children: [
-
-          /* 5 000 */
 
           {
             type: 'rect',
@@ -674,9 +522,6 @@ function createPerformanceOption() {
             }
           },
 
-
-          /* 10 000 */
-
           {
             type: 'rect',
 
@@ -707,9 +552,6 @@ function createPerformanceOption() {
               fontSize: 11
             }
           },
-
-
-          /* 20 000 */
 
           {
             type: 'rect',
@@ -742,9 +584,6 @@ function createPerformanceOption() {
             }
           },
 
-
-          /* 2 000 (|V|=50) */
-
           {
             type: 'rect',
 
@@ -775,9 +614,6 @@ function createPerformanceOption() {
               fontSize: 11
             }
           },
-
-
-          /* 2 000 (|V|=100) */
 
           {
             type: 'rect',
@@ -811,27 +647,9 @@ function createPerformanceOption() {
           }
 
         ]
-      },
-
-
-      /*
-       * --------------------------------------------------------
-       * ERROR BAR GROUP
-       *
-       * Initially empty.
-       * renderErrorBars() fills this group after ECharts
-       * calculates the actual chart coordinates.
-       * --------------------------------------------------------
-       */
+      }
 
     ],
-
-
-    /*
-     * ----------------------------------------------------------
-     * TITLE
-     * ----------------------------------------------------------
-     */
 
     title: {
 
@@ -850,13 +668,6 @@ function createPerformanceOption() {
       }
 
     },
-
-
-    /*
-     * ----------------------------------------------------------
-     * X AXIS
-     * ----------------------------------------------------------
-     */
 
     xAxis: {
 
@@ -917,13 +728,6 @@ function createPerformanceOption() {
       }
 
     },
-
-
-    /*
-     * ----------------------------------------------------------
-     * Y AXIS
-     * ----------------------------------------------------------
-     */
 
     yAxis: {
 
@@ -1002,13 +806,6 @@ function createPerformanceOption() {
 
     },
 
-
-    /*
-     * ----------------------------------------------------------
-     * TOOLTIP
-     * ----------------------------------------------------------
-     */
-
     tooltip: {
 
       trigger: 'axis',
@@ -1071,13 +868,6 @@ function createPerformanceOption() {
 
     },
 
-
-    /*
-     * ========================================================
-     * ONE CUSTOM BAR SERIES
-     * ========================================================
-     */
-
     series: [
 
       {
@@ -1087,13 +877,6 @@ function createPerformanceOption() {
         type: 'custom',
 
         data: barData,
-
-
-        /*
-         * ------------------------------------------------------
-         * CUSTOM BAR RENDERING
-         * ------------------------------------------------------
-         */
 
         renderItem(params, api) {
 
@@ -1114,50 +897,25 @@ function createPerformanceOption() {
           const barCount =
             item.barCount
 
-
-          /*
-           * Category center.
-           */
-
           const categoryCenter =
             api.coord([
               categoryIndex,
               0
             ])[0]
 
-
-          /*
-           * Total width of all bars in this category.
-           */
-
           const groupWidth =
             barCount * BAR_WIDTH +
             (barCount - 1) * BAR_GAP
 
-
-          /*
-           * Left edge of the group.
-           */
-
           const groupLeft =
             categoryCenter -
             groupWidth / 2
-
-
-          /*
-           * Center of this specific bar.
-           */
 
           const centerX =
             groupLeft +
             barIndex *
               (BAR_WIDTH + BAR_GAP) +
             BAR_WIDTH / 2
-
-
-          /*
-           * Vertical coordinates.
-           */
 
           const yZero =
             api.coord([
@@ -1174,16 +932,11 @@ function createPerformanceOption() {
           const height =
             yZero - yValue
 
-
           return {
 
             type: 'group',
 
             children: [
-
-              /*
-               * Bar
-               */
 
               {
                 type: 'rect',
@@ -1212,11 +965,6 @@ function createPerformanceOption() {
                 }
 
               },
-
-
-              /*
-               * Data label
-               */
 
               {
 
@@ -1263,11 +1011,6 @@ function createPerformanceOption() {
 
         },
 
-
-        /*
-         * Keep tooltip controlled manually.
-         */
-
         encode: {
 
           x: 0,
@@ -1297,7 +1040,6 @@ function createTimeOption() {
 
     animation: false,
 
-
     grid: {
 
       left: 58,
@@ -1311,7 +1053,6 @@ function createTimeOption() {
       containLabel: true
 
     },
-
 
     title: {
 
@@ -1332,7 +1073,6 @@ function createTimeOption() {
       }
 
     },
-
 
     xAxis: {
 
@@ -1378,7 +1118,6 @@ function createTimeOption() {
       }
 
     },
-
 
     yAxis: {
 
@@ -1462,7 +1201,6 @@ function createTimeOption() {
 
     },
 
-
     tooltip: {
 
       trigger: 'axis',
@@ -1495,7 +1233,6 @@ function createTimeOption() {
       }
 
     },
-
 
     series: [
 
@@ -1579,18 +1316,12 @@ async function initCharts() {
 
   await nextTick()
 
-
   if (
     !performanceChartRef.value ||
     !timeChartRef.value
   ) {
     return
   }
-
-
-  /*
-   * Dispose existing charts.
-   */
 
   if (performanceChart) {
 
@@ -1608,11 +1339,6 @@ async function initCharts() {
 
   }
 
-
-  /*
-   * Create performance chart.
-   */
-
   performanceChart =
     echarts.init(
       performanceChartRef.value,
@@ -1621,11 +1347,6 @@ async function initCharts() {
         renderer: 'svg'
       }
     )
-
-
-  /*
-   * Create training-time chart.
-   */
 
   timeChart =
     echarts.init(
@@ -1636,52 +1357,11 @@ async function initCharts() {
       }
     )
 
-
-  /*
-   * ----------------------------------------------------------
-   * 1. Render performance BAR chart first.
-   * ----------------------------------------------------------
-   */
-
   performanceChart.setOption(
     createPerformanceOption()
   )
 
-
-  /*
-   * ----------------------------------------------------------
-   * 2. Force ECharts to calculate the actual layout.
-   * ----------------------------------------------------------
-   */
-
   performanceChart.resize()
-
-
-  /*
-   * ----------------------------------------------------------
-   * 3. Render error bars only AFTER the chart layout exists.
-   *
-   * Two animation frames ensure that ECharts has completed
-   * its SVG layout before error-bar coordinates are calculated.
-   * ----------------------------------------------------------
-   */
-
-//   requestAnimationFrame(() => {
-
-//     requestAnimationFrame(() => {
-
-//       //renderErrorBars()
-
-//     })
-
-//   })
-
-
-  /*
-   * ----------------------------------------------------------
-   * Render training-time chart.
-   * ----------------------------------------------------------
-   */
 
   timeChart.setOption(
     createTimeOption()
@@ -1704,20 +1384,7 @@ function resizeCharts() {
 
       performanceChart.resize()
 
-
-      /*
-       * The real bar positions change after resize.
-       * Therefore error bars must be regenerated.
-       */
-
-    //   requestAnimationFrame(() => {
-
-    //     renderErrorBars()
-
-    //   })
-
     }
-
 
     if (timeChart) {
 
@@ -1738,14 +1405,12 @@ onMounted(async () => {
 
   await initCharts()
 
-
   resizeObserver =
     new ResizeObserver(() => {
 
       resizeCharts()
 
     })
-
 
   if (performanceChartRef.value) {
 
@@ -1755,7 +1420,6 @@ onMounted(async () => {
 
   }
 
-
   if (timeChartRef.value) {
 
     resizeObserver.observe(
@@ -1764,10 +1428,15 @@ onMounted(async () => {
 
   }
 
-
   window.addEventListener(
     'resize',
     resizeCharts
+  )
+
+  window.addEventListener(
+    'keydown',
+    handleKeydown,
+    true
   )
 
 })
@@ -1784,6 +1453,11 @@ onBeforeUnmount(() => {
     resizeCharts
   )
 
+  window.removeEventListener(
+    'keydown',
+    handleKeydown,
+    true
+  )
 
   if (resizeObserver) {
 
@@ -1792,7 +1466,6 @@ onBeforeUnmount(() => {
     resizeObserver = null
 
   }
-
 
   if (performanceChart) {
 
@@ -1812,7 +1485,6 @@ onBeforeUnmount(() => {
 
   }
 
-
   if (timeChart) {
 
     timeChart.dispose()
@@ -1830,7 +1502,7 @@ onBeforeUnmount(() => {
 
   <div class="gwn-training-size">
 
-    <div class="charts-row" :class="{ 'note-open': showNote }">
+    <div class="charts-row" :class="{ 'note-open': notesVisible }">
 
       <div class="chart-card">
         <div
@@ -1849,49 +1521,45 @@ onBeforeUnmount(() => {
     </div>
 
 
-    <Transition name="note-slide">
-      <div v-if="showNote" class="result-note">
-          <div class="result-item">
-              <span class="note-icon">▸</span>
-              <div>
-                  <strong>Cross-size generalization: </strong>
-                  GNB trained solely on |V|=10 networks achieves 0.373 AUPR on |V|=50 and 0.333 on |V|=100.
-              </div>
-          </div>
+    <div v-if="notesVisible" class="findings">
 
-          <div class="result-item">
-              <span class="note-icon">▸</span>
-              <div>
-                  <strong>Competitive predictive power: </strong>
-                  Matches or exceeds direct training on target-size networks (0.359 on |V|=50; 0.326 on |V|=100).
-              </div>
+      <Transition name="card-pop">
+        <div v-if="visibleCount >= 1" class="finding">
+          <div class="finding-header">
+            <span class="finding-number">01</span>
+            <h3>Cross-size generalization</h3>
           </div>
+          <p>
+            GNB trained solely on |V|=10 networks achieves 0.373 AUPR on |V|=50 and 0.333 on |V|=100.
+          </p>
+        </div>
+      </Transition>
 
-          <div class="result-item">
-              <span class="note-icon">▸</span>
-              <div>
-                  <strong>Empirical validation: </strong>
-                  Confirms true scale-invariant knowledge transfer across network dimensions.
-              </div>
+      <Transition name="card-pop">
+        <div v-if="visibleCount >= 2" class="finding">
+          <div class="finding-header">
+            <span class="finding-number">02</span>
+            <h3>Competitive predictive power</h3>
           </div>
-      </div>
-    </Transition>
+          <p>
+            Matches or exceeds direct training on target-size networks (0.359 on |V|=50; 0.326 on |V|=100).
+          </p>
+        </div>
+      </Transition>
 
-    <!-- Info toggle button -->
-    <button
-      type="button"
-      class="note-toggle"
-      :class="{ active: showNote }"
-      :aria-pressed="showNote"
-      :title="showNote ? 'Hide key findings' : 'Show key findings'"
-      @click="toggleNote"
-    >
-      <svg viewBox="0 0 24 24" class="note-toggle-icon" aria-hidden="true">
-        <circle cx="12" cy="12" r="9.5" />
-        <line x1="12" y1="10.5" x2="12" y2="16.5" />
-        <circle cx="12" cy="7.3" r="0.9" fill="currentColor" stroke="none" />
-      </svg>
-    </button>
+      <Transition name="card-pop">
+        <div v-if="visibleCount >= 3" class="finding">
+          <div class="finding-header">
+            <span class="finding-number">03</span>
+            <h3>Empirical validation</h3>
+          </div>
+          <p>
+            Confirms true scale-invariant knowledge transfer across network dimensions.
+          </p>
+        </div>
+      </Transition>
+
+    </div>
 
   </div>
 
@@ -1918,12 +1586,8 @@ onBeforeUnmount(() => {
 
 /*
  * Two charts in one row.
- *
- * Chart (a) gets slightly more width because it contains
- * the legend and five grouped bars.
- *
- * Takes the FULL height by default (note hidden); shrinks
- * only when the note is open.
+ * Takes the FULL height by default (notes hidden); shrinks
+ * only once the first finding card is revealed.
  */
 .charts-row {
   flex: 1;
@@ -1966,131 +1630,121 @@ onBeforeUnmount(() => {
 
 /*
  * ============================================================
- * RESULT NOTE
+ * FINDINGS — horizontal row of cards, revealed one at a time
+ * via SPACE, same style as the "findings" grid used elsewhere
+ * in the deck
  * ============================================================
  */
 
-.result-note {
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin: 5px auto 28px;
-    width: min(100%, 1000px);
-    padding: 5px 10px;
-    box-sizing: border-box;
-    background: #F8FAFB;
-    border: 1px solid #DCE4E9;
-    border-radius: 6px;
-    color: #475569;
-    font-size: 12px;
-    line-height: 1.4;
-    border-left: 5px #259b37 solid;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+.findings {
+  flex-shrink: 0;
+
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 10px;
+
+  margin: 8px auto 4px;
 }
 
-.result-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 5px;
-}
+.finding {
+  min-width: 0;
 
-.result-item strong {
-    color: #24313A;
-    font-weight: 600;
-}
+  box-sizing: border-box;
 
-.note-icon {
-    flex-shrink: 0;
-    color: #20639B;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1.4;
-    margin-top: 1px;
-}
+  padding: 9px 11px;
 
-/*
- * Slide/fade transition for the note appearing/disappearing.
- */
+  border-top: 2px solid #b3cedf;
 
-.note-slide-enter-active,
-.note-slide-leave-active {
+  background: #ffffff;
+
+  position: relative;
+  z-index: 1;
+
   transition:
-    opacity 0.22s ease,
     transform 0.22s ease,
-    margin 0.22s ease;
+    box-shadow 0.22s ease,
+    border-top-color 0.22s ease;
 }
 
-.note-slide-enter-from,
-.note-slide-leave-to {
-  opacity: 0;
-  transform: translateY(6px);
+.finding:hover {
+  transform: translateY(-4px);
+
+  border-top-color: #2a9d8f;
+
+  box-shadow:
+    0 7px 16px rgba(23, 63, 95, 0.12),
+    0 2px 5px rgba(23, 63, 95, 0.06);
+
+  z-index: 5;
 }
 
+.finding:hover .finding-number {
+  transform: scale(1.08);
+  color: #20639b;
+}
+
+.finding:hover h3 {
+  color: #20639b;
+}
+
+.finding-header {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+
+  margin-bottom: 4px;
+}
+
+.finding-number {
+  flex: 0 0 auto;
+
+  color: #2a9d8f;
+
+  font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+
+  transition: transform 0.22s ease, color 0.22s ease;
+}
+
+.finding h3 {
+  margin: 0;
+
+  color: #173f5f;
+
+  font-size: 11.5px;
+  line-height: 1.2;
+  font-weight: 700;
+
+  transition: color 0.22s ease;
+}
+
+.finding p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 10px;
+  line-height: 1.35;
+}
 
 /*
- * ============================================================
- * INFO TOGGLE BUTTON
- * ============================================================
+ * Each card pops in individually as visibleCount increases.
  */
 
-.note-toggle {
-  position: absolute;
-
-  right: 10px;
-  bottom: 8px;
-
-  width: 26px;
-  height: 26px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 0;
-
-  border: 1px solid #DCE4E9;
-  border-radius: 50%;
-
-  background: #FFFFFF;
-
-  color: #94A3B8;
-
-  cursor: pointer;
-
-  box-shadow: 0 2px 6px rgba(23, 63, 95, 0.08);
-
+.card-pop-enter-active {
   transition:
-    color 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease,
-    transform 0.2s ease;
-
-  z-index: 10;
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
-.note-toggle:hover {
-  color: #20639B;
-  border-color: #B7CEDF;
-  transform: translateY(-1px);
-}
-
-.note-toggle.active {
-  color: #FFFFFF;
-  background: #20639B;
-  border-color: #20639B;
-}
-
-.note-toggle-icon {
-  width: 15px;
-  height: 15px;
-
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.card-pop-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
 }
 
 
@@ -2107,6 +1761,10 @@ onBeforeUnmount(() => {
     grid-template-rows: 1fr 1fr;
 
     gap: 4px;
+  }
+
+  .findings {
+    grid-template-columns: 1fr;
   }
 
   .gwn-training-size {

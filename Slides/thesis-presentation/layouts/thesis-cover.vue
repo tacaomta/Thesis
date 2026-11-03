@@ -313,13 +313,13 @@
 }
 
 h1 {
-  max-width: 820px;
+  max-width: 800px;
   margin-top: 24px;
 
   color: #173f5f;
 
   font-family: "Source Serif Pro", "Georgia", serif;
-  font-size: 36px;
+  font-size: 38px;
   line-height: 1.17;
   font-weight: 700;
   letter-spacing: -0.015em;

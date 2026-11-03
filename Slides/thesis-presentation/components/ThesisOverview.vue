@@ -210,6 +210,7 @@ onUnmounted(() => {
   background: #ffffff;
   margin-top: 0;
   flex: 0 0 auto;
+  height: 235px;
 }
 .detail-number {
   flex: 0 0 auto;

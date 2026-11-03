@@ -413,7 +413,7 @@ eyebrow: RESULTS - TOPOLOGICAL NETWORKS
 The slide shows the performance of the method on the synthetic topological datasets:  
 - On this datasets, every single machine learning model outperformed the random baseline.   
 - Random Forest shows the highest overall accuracy across all network sizes.   
-- Interestingly, Gaussian Naive Bayes was the only model whose performance actually improved as network size grew, it is because of strong probabilistic inductive bias of GNB model.
+- Gaussian Naive Bayes was the only model whose performance actually improved as network size grew, it is because of strong probabilistic inductive bias of the model.
 -->
 ---
 layout: default
@@ -425,7 +425,7 @@ eyebrow: RESULTS - BIOLOGICAL NETWORKS
 When tested on realistic biological E. coli networks, the performance gap expanded even further as shown on the charts. 
 Here, we can point out that: 
 - First, The supervised learning models achieved dramatically higher AUPR scores than traditional algorithms like Jump3 or Inferelator.  
-- Second, at size 10, Average ML AUPR reaches over 0.5 (0.518) compared to Jump3 
+- Second, at size 10, Average ML AUPR reaches over 0.5 (0.518) compared to traditional alrogithms.
 - Third, GNB consistently emerged as the most reliable model across all network dimensions.  
 -->
 ---
@@ -584,9 +584,6 @@ eyebrow: EVALUATION METRICS
 <EvaluationMetrics />
 <!--
 We evaluated performance using also four quantitative metrics: Precision, Recall, Structural Accuracy and Dynamics accuracy.
-- We evaluated performance using four quantitative metrics. Precision, Recall, and Structural Accuracy measure how accurately edge connections match ground truth networks. Meanwhile, 
-- Dynamic Accuracy calculates trajectory preservation using Hamming distance across time steps. 
-- Let's now examine the structural performance results on multi-level ternary data.
 -->
 ---
 layout: default
@@ -612,8 +609,8 @@ eyebrow: RESULTS - BOOLEAN DATASETS
 <BooleanDatasetsRecovery />
 <!--
 Moving to Boolean datasets, we observe the exact same positive trend.   
-- Synthetic data enhances inference performance without introducing negative artifacts. 
-- Smaller 50-gene networks saw larger recall boosts, whereas larger 100-gene networks achieved higher precision gains having confirmed structural recovery.
+- Synthetic data enhances inference performance without introducing any negative artifacts in any scenario. 
+- Smaller 50-gene networks saw larger recall boosts, whereas larger 100-gene networks achieved higher precision gains.
 -->
 ---
 layout: default

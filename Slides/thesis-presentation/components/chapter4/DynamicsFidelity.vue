@@ -43,7 +43,7 @@ const datasets = [
 const findings = [
   { number: '01', title: 'High Baseline Accuracy', text: 'Dynamics accuracy stays above 0.95 across all time steps, for both Ternary and Boolean regimes.' },
   { number: '02', title: 'Minimal Synthetic Drift', text: 'Synthetic-augmented curves track the original closely, with only marginal divergence at higher K.' },
-  { number: '03', title: 'Boolean More Stable', text: 'Boolean networks show a narrower accuracy band (0.97–1.10) than Ternary (0.95–1.10).' },
+  { number: '03', title: 'Boolean More Stable', text: 'Boolean networks show a narrower accuracy band (0.97–1.00) than Ternary (0.95–1.00).' },
   { number: '04', title: 'Scale-Invariant Behavior', text: 'The pattern holds consistently at both N = 50 and N = 100 gene-scale networks.' }
 ]
 

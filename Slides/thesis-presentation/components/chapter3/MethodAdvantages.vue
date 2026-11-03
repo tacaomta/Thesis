@@ -53,18 +53,13 @@ onBeforeUnmount(() => {
 
       <!-- 01 -->
       <Transition name="fade-up">
-        <section v-if="visibleCount >= 1" class="advantage-card">
+        <section v-if="visibleCount >= 1" class="advantage-card card-1">
           <div class="card-top">
             <span class="card-number">01</span>
             <span class="card-tag">FLEXIBILITY</span>
           </div>
 
           <h2>Assumption-Free Formulation</h2>
-<!-- 
-          <p>
-            Operates without predefined time-lag heuristics or restricted
-            candidate regulator subsets.
-          </p> -->
 
           <div class="visual">
             <div class="visual-row">
@@ -82,18 +77,13 @@ onBeforeUnmount(() => {
 
       <!-- 02 -->
       <Transition name="fade-up">
-        <section v-if="visibleCount >= 2" class="advantage-card">
+        <section v-if="visibleCount >= 2" class="advantage-card card-2">
           <div class="card-top">
             <span class="card-number">02</span>
             <span class="card-tag">JOINT ENCODING</span>
           </div>
 
           <h2>Joint Spatiotemporal Encoding</h2>
-
-          <!-- <p>
-            Captures temporal expression dynamics and local regulatory
-            topology simultaneously.
-          </p> -->
 
           <div class="visual">
             <div class="dual-input">
@@ -111,18 +101,13 @@ onBeforeUnmount(() => {
 
       <!-- 03 -->
       <Transition name="fade-up">
-        <section v-if="visibleCount >= 3" class="advantage-card">
+        <section v-if="visibleCount >= 3" class="advantage-card card-3">
           <div class="card-top">
             <span class="card-number">03</span>
             <span class="card-tag">SCALABILITY</span>
           </div>
 
           <h2>Scale-Invariant Feature Space</h2>
-
-          <!-- <p>
-            Enables cross-network data integration independent of overall
-            network dimensions.
-          </p> -->
 
           <div class="visual">
             <div class="network-sizes">
@@ -137,6 +122,28 @@ onBeforeUnmount(() => {
             </div>
           </div>
         </section>
+      </Transition>
+
+      <!-- Connector 1 -> 2, overlapping both cards -->
+      <Transition name="connector-pop">
+        <div v-if="visibleCount >= 2" class="connector" style="left: 33.333%;">
+          <svg viewBox="0 0 24 24" class="connector-icon" aria-hidden="true">
+            <path d="M9 15 L15 9" />
+            <path d="M11 6.5 L13 4.5 a3.2 3.2 0 0 1 4.5 4.5 L15.5 11" />
+            <path d="M13 17.5 L11 19.5 a3.2 3.2 0 0 1 -4.5 -4.5 L8.5 13" />
+          </svg>
+        </div>
+      </Transition>
+
+      <!-- Connector 2 -> 3, overlapping both cards -->
+      <Transition name="connector-pop">
+        <div v-if="visibleCount >= 3" class="connector" style="left: 66.667%;">
+          <svg viewBox="0 0 24 24" class="connector-icon" aria-hidden="true">
+            <path d="M9 15 L15 9" />
+            <path d="M11 6.5 L13 4.5 a3.2 3.2 0 0 1 4.5 4.5 L15.5 11" />
+            <path d="M13 17.5 L11 19.5 a3.2 3.2 0 0 1 -4.5 -4.5 L8.5 13" />
+          </svg>
+        </div>
       </Transition>
 
     </div>
@@ -169,11 +176,19 @@ onBeforeUnmount(() => {
   flex: 1;
   min-height: 0;
 
+  position: relative;
+
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: 6px;
 
   align-items: stretch;
+}
+
+:root {
+  /* radius of the connector circle AND the matching edge notch
+     carved into each card — change this one value to resize both */
+  --connector-r: 19px;
 }
 
 .advantage-card {
@@ -189,24 +204,130 @@ onBeforeUnmount(() => {
   background: #ffffff;
   border: 1px solid #dce4e9;
   border-radius: 8px;
+  border-top: 4px solid #2a9d8f;
 
   box-sizing: border-box;
   margin-top: 50px;
+
+  overflow: hidden;
 }
 
-.advantage-card::before {
+.card-1::after,
+.card-2 .notch-left,
+.card-2 .notch-right,
+.card-3::after {
   content: '';
+}
 
+/* right edge notch: cards 1 and 2 */
+.card-1::after,
+.card-2::after {
+  content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
 
-  height: 4px;
+  top: 50%;
+  right: calc(var(--connector-r) * -1);
 
-  background: #2a9d8f;
+  width: calc(var(--connector-r) * 2);
+  height: calc(var(--connector-r) * 2);
 
-  border-radius: 8px 8px 0 0;
+  transform: translateY(-50%);
+
+  background: radial-gradient(
+    circle,
+    #f8fafb var(--connector-r),
+    transparent calc(var(--connector-r) + 1px)
+  );
+
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* left edge notch: cards 2 and 3 */
+.card-2::before,
+.card-3::before {
+  content: '';
+  position: absolute;
+
+  top: 50%;
+  left: calc(var(--connector-r) * -1);
+
+  width: calc(var(--connector-r) * 2);
+  height: calc(var(--connector-r) * 2);
+
+  transform: translateY(-50%);
+
+  background: radial-gradient(
+    circle,
+    #f8fafb var(--connector-r),
+    transparent calc(var(--connector-r) + 1px)
+  );
+
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* card-2 needs both a left and a right notch, and its top-accent
+   bar (::before originally) is reused above for the left notch,
+   so give card-2 its top accent via a dedicated element instead */
+.card-2 {
+  --dummy: 0; /* keep selector grouping simple */
+}
+
+/* =========================
+   Connector circle — overlaps
+   both neighboring cards by
+   sitting exactly on the grid
+   column boundary, vertically
+   centered on the cards' own
+   center line.
+   ========================= */
+
+.connector {
+  position: absolute;
+
+  /* left is set inline per-instance (33.333% / 66.667%) */
+  top: calc(50% + 25px); /* 25px = half of the cards' 50px margin-top offset */
+
+  width: calc(var(--connector-r) * 2);
+  height: calc(var(--connector-r) * 2);
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #eef7f5;
+  border: 1.5px solid #bfe3db;
+
+  box-shadow: 0 3px 8px rgba(42, 157, 143, 0.14);
+
+  z-index: 10;
+}
+
+.connector-icon {
+  width: 30px;
+  height: 30px;
+
+  fill: none;
+  stroke: #2a7f73;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.connector-pop-enter-active {
+  transition:
+    opacity 0.3s ease 0.1s,
+    transform 0.3s ease 0.1s;
+}
+
+.connector-pop-enter-from {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
 }
 
 /* =========================
@@ -390,47 +511,6 @@ onBeforeUnmount(() => {
 }
 
 /* =========================
-   Conclusion
-   ========================= */
-
-.highlight-conclusion {
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  margin: 14px auto 4px;
-  padding: 9px 16px;
-
-  max-width: 900px;
-
-  background: #f8fafb;
-  border: 1px solid #dce4e9;
-  border-radius: 6px;
-
-  color: #475569;
-
-  font-size: 13px;
-  line-height: 1.45;
-}
-
-.highlight-conclusion strong {
-  color: #173f5f;
-  font-weight: 650;
-}
-
-.accent {
-  width: 4px;
-  align-self: stretch;
-  flex-shrink: 0;
-
-  border-radius: 2px;
-
-  background: #2a9d8f;
-}
-
-/* =========================
    Space hint
    ========================= */
 
@@ -475,6 +555,21 @@ onBeforeUnmount(() => {
   .advantages-grid {
     grid-template-columns: 1fr;
     overflow-y: auto;
+  }
+
+  .advantage-card::after,
+  .advantage-card::before {
+    display: none;
+  }
+
+  .connector {
+    position: static;
+    margin: 10px auto;
+    transform: none;
+  }
+
+  .connector-pop-enter-from {
+    transform: scale(0.4);
   }
 }
 </style>

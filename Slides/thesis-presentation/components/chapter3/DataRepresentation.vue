@@ -1,8 +1,10 @@
+
 <script setup>
 import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNav } from '@slidev/client'
 
 const { currentPage } = useNav()
+
 const isExporting =
   typeof window !== 'undefined' &&
   (
@@ -11,35 +13,41 @@ const isExporting =
     new URLSearchParams(window.location.search).has('range')
   )
 
-watch(currentPage, () => {
-  if(isExporting)
-{
-  visibleCount.value = 4
-}
-else
-{
-  visibleCount.value = 0
-}
-})
-
 const visibleCount = ref(0)
+const totalItems = 4
+
+watch(currentPage, () => {
+  visibleCount.value = isExporting ? totalItems : 0
+})
 
 function handleKeydown(event) {
   if (event.code !== 'Space') return
 
+  const target = event.target
+  const tagName = target?.tagName?.toUpperCase()
+
+  if (
+    target?.isContentEditable ||
+    ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'].includes(tagName)
+  ) {
+    return
+  }
+
+  if (event.repeat) return
+
   event.preventDefault()
   event.stopPropagation()
 
-  if (visibleCount.value < 4) {
+  if (visibleCount.value < totalItems) {
     visibleCount.value += 1
   }
 }
 
 onMounted(() => {
-  if(isExporting)
-{
-  visibleCount.value = 4
-}
+  if (isExporting) {
+    visibleCount.value = totalItems
+  }
+
   window.addEventListener('keydown', handleKeydown, true)
 })
 
@@ -55,18 +63,11 @@ onBeforeUnmount(() => {
 
       <!-- Step 1 -->
       <Transition name="fade-up">
-        <section v-if="visibleCount >= 1" class="step-card">
+        <section v-if="visibleCount >= 1" class="step-card card-1">
           <div class="step-number">01</div>
 
           <div class="step-body">
             <h2>Expression Profile</h2>
-
-            <!-- <p>
-              Each gene <span class="gene">G<sub>i</sub></span>
-              is represented by its
-              <strong>time-series expression vector</strong>
-              over <em>T</em> observed time points.
-            </p> -->
 
             <div class="formula-box">
               <span class="formula">
@@ -87,18 +88,13 @@ onBeforeUnmount(() => {
 
       <!-- Step 2 -->
       <Transition name="fade-up">
-        <section v-if="visibleCount >= 2" class="step-card">
+        <section v-if="visibleCount >= 2" class="step-card card-2">
           <div class="step-number">02</div>
 
           <div class="step-body">
             <h2>Pairwise Feature Vector</h2>
 
             <p>
-              <!-- Concatenates the expression profiles of regulator
-              <span class="gene">G<sub>j</sub></span>
-              and target
-              <span class="gene">G<sub>i</sub></span>
-              into one feature vector. -->
             </p>
 
             <div class="formula-box">
@@ -126,16 +122,13 @@ onBeforeUnmount(() => {
 
       <!-- Step 3 -->
       <Transition name="fade-up">
-        <section v-if="visibleCount >= 3" class="step-card">
+        <section v-if="visibleCount >= 3" class="step-card card-3">
           <div class="step-number">03</div>
 
           <div class="step-body">
             <h2>Binary Class Labeling</h2>
 
             <p>
-              <!-- Each ordered gene pair is labeled according to whether
-              a directed regulatory interaction exists in the gold
-              standard network. -->
             </p>
 
             <div class="label-box">
@@ -161,15 +154,13 @@ onBeforeUnmount(() => {
 
       <!-- Step 4 -->
       <Transition name="fade-up">
-        <section v-if="visibleCount >= 4" class="step-card">
+        <section v-if="visibleCount >= 4" class="step-card card-4">
           <div class="step-number">04</div>
 
           <div class="step-body">
             <h2>Labeled Dataset</h2>
 
             <p>
-              <!-- Applying this transformation across all ordered gene
-              pairs yields a fully supervised dataset for GRN inference. -->
             </p>
 
             <div class="formula-box">
@@ -189,9 +180,51 @@ onBeforeUnmount(() => {
         </section>
       </Transition>
 
+      <!-- Connector 1 -> 2 -->
+      <Transition name="connector-pop">
+        <div
+          v-if="visibleCount >= 2"
+          class="connector-icon-wrapper"
+          style="left: 25%"
+        >
+          <svg viewBox="0 0 24 24" class="flow-icon" aria-hidden="true">
+            <path d="M5 12 H19" />
+            <path d="M13 6 L19 12 L13 18" />
+          </svg>
+        </div>
+      </Transition>
+
+      <!-- Connector 2 -> 3 -->
+      <Transition name="connector-pop">
+        <div
+          v-if="visibleCount >= 3"
+          class="connector-icon-wrapper"
+          style="left: 50%"
+        >
+          <svg viewBox="0 0 24 24" class="flow-icon" aria-hidden="true">
+            <path d="M5 12 H19" />
+            <path d="M13 6 L19 12 L13 18" />
+          </svg>
+        </div>
+      </Transition>
+
+      <!-- Connector 3 -> 4 -->
+      <Transition name="connector-pop">
+        <div
+          v-if="visibleCount >= 4"
+          class="connector-icon-wrapper"
+          style="left: 75%"
+        >
+          <svg viewBox="0 0 24 24" class="flow-icon" aria-hidden="true">
+            <path d="M5 12 H19" />
+            <path d="M13 6 L19 12 L13 18" />
+          </svg>
+        </div>
+      </Transition>
+
     </div>
 
-    <div v-if="visibleCount < 4" class="space-hint">
+    <div v-if="visibleCount < totalItems" class="space-hint">
       Press SPACE to reveal the next step
     </div>
 
@@ -218,13 +251,20 @@ onBeforeUnmount(() => {
   flex: 1;
   min-height: 0;
 
+  position: relative;
+
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 12px;
 
   align-items: stretch;
+
   margin-top: 50px;
 }
+
+/* =========================
+   Step cards
+   ========================= */
 
 .step-card {
   position: relative;
@@ -239,23 +279,59 @@ onBeforeUnmount(() => {
   background: #ffffff;
   border: 1px solid #dce4e9;
   border-radius: 8px;
+  border-top: 4px solid #20639b;
 
   box-sizing: border-box;
 }
 
-.step-card::before {
-  content: '';
+/* =========================
+   Connector circle
+   ========================= */
 
+.connector-icon-wrapper {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
 
-  height: 4px;
+  top: 50%;
 
-  background: #20639b;
+  width: 32px;
+  height: 32px;
 
-  border-radius: 8px 8px 0 0;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #eef7f5;
+  border: 1.5px solid #bfe3db;
+
+  box-shadow: 0 3px 8px rgba(42, 157, 143, 0.14);
+
+  z-index: 10;
+}
+
+.flow-icon {
+  width: 22px;
+  height: 22px;
+
+  fill: none;
+  stroke: #2a7f73;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.connector-pop-enter-active {
+  transition:
+    opacity 0.3s ease 0.1s,
+    transform 0.3s ease 0.1s;
+}
+
+.connector-pop-enter-from {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
 }
 
 /* =========================
@@ -326,7 +402,7 @@ onBeforeUnmount(() => {
 }
 
 /* =========================
-   Formula box (steps 1, 2, 4)
+   Formula box
    ========================= */
 
 .formula-box {
@@ -479,6 +555,10 @@ onBeforeUnmount(() => {
 @media (max-width: 1100px) {
   .steps {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .connector-icon-wrapper {
+    display: none;
   }
 }
 

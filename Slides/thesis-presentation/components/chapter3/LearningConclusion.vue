@@ -1,3 +1,4 @@
+
 <template>
 <div class="conditions-slide">
 
@@ -38,55 +39,47 @@
 
             </section>
         </Transition>
+
         <!-- =====================================================
-           04. CROSS-SCALE GENERALIZATION
+           02. CLASS IMBALANCE MITIGATION
            ===================================================== -->
         <Transition name="fade-up">
             <section v-if="visibleCount >= 2" class="condition-card">
 
                 <div class="card-header">
                     <span class="step">02</span>
-                    <span class="tag generalization">GENERALIZATION</span>
+                    <span class="tag mitigation">MITIGATION</span>
                 </div>
 
-                <h2>Cross-Scale Generalization</h2>
+                <h2>Class Imbalance Mitigation</h2>
 
                 <p>
-                    Train small, infer large — strong performance.
+                    Resolves sparsity via cross-scale augmentation.
                 </p>
 
-                <div class="transfer-visual">
+                <div class="augment-visual">
 
-                    <div class="transfer-row">
-                        <div class="transfer-icon small-net">
-                            <span class="transfer-node"></span>
-                            <span class="transfer-node"></span>
-                            <span class="transfer-node"></span>
-                        </div>
-
-                        <span class="transfer-arrow">→</span>
-
-                        <div class="transfer-icon large-net">
-                            <span class="transfer-node"></span>
-                            <span class="transfer-node"></span>
-                            <span class="transfer-node"></span>
-                            <span class="transfer-node"></span>
-                            <span class="transfer-node"></span>
-                            <span class="transfer-node"></span>
-                        </div>
+                    <div class="augment-scales">
+                        <div class="scale-box tiny">10</div>
+                        <div class="scale-box small">50</div>
+                        <div class="scale-box mid">100</div>
                     </div>
 
-                    <div class="transfer-caption">
-                        <span class="transfer-tag train">train (N=10)</span>
-                        <span class="transfer-sep">→</span>
-                        <span class="transfer-tag infer">infer (N=100+)</span>
+                    <span class="augment-arrow">→</span>
+
+                    <div class="augment-pool">
+                        <span class="pool-dot"></span>
+                        <span class="pool-dot"></span>
+                        <span class="pool-dot"></span>
+                        <span class="pool-dot"></span>
+                        <span class="pool-dot"></span>
+                        <span class="pool-dot"></span>
                     </div>
+
                 </div>
 
             </section>
         </Transition>
-
-        
 
         <!-- =====================================================
            03. SCALABLE BIOLOGICAL DEPLOYMENT
@@ -127,47 +120,102 @@
 
             </section>
         </Transition>
+
         <!-- =====================================================
-           04. CLASS IMBALANCE MITIGATION
+           04. CROSS-SCALE GENERALIZATION
            ===================================================== -->
         <Transition name="fade-up">
             <section v-if="visibleCount >= 4" class="condition-card">
 
                 <div class="card-header">
                     <span class="step">04</span>
-                    <span class="tag mitigation">MITIGATION</span>
+                    <span class="tag generalization">GENERALIZATION</span>
                 </div>
 
-                <h2>Class Imbalance Mitigation</h2>
+                <h2>Cross-Scale Generalization</h2>
 
                 <p>
-                    Resolves sparsity via cross-scale augmentation.
+                    Train small, infer large — strong performance.
                 </p>
 
-                <div class="augment-visual">
+                <div class="transfer-visual">
 
-                    <div class="augment-scales">
-                        <div class="scale-box tiny">10</div>
-                        <div class="scale-box small">50</div>
-                        <div class="scale-box mid">100</div>
+                    <div class="transfer-row">
+                        <div class="transfer-icon small-net">
+                            <span class="transfer-node"></span>
+                            <span class="transfer-node"></span>
+                            <span class="transfer-node"></span>
+                        </div>
+
+                        <span class="transfer-arrow">→</span>
+
+                        <div class="transfer-icon large-net">
+                            <span class="transfer-node"></span>
+                            <span class="transfer-node"></span>
+                            <span class="transfer-node"></span>
+                            <span class="transfer-node"></span>
+                            <span class="transfer-node"></span>
+                            <span class="transfer-node"></span>
+                        </div>
                     </div>
 
-                    <span class="augment-arrow">→</span>
-
-                    <div class="augment-pool">
-                        <span class="pool-dot"></span>
-                        <span class="pool-dot"></span>
-                        <span class="pool-dot"></span>
-                        <span class="pool-dot"></span>
-                        <span class="pool-dot"></span>
-                        <span class="pool-dot"></span>
+                    <div class="transfer-caption">
+                        <span class="transfer-tag train">train (N=10)</span>
+                        <span class="transfer-sep">→</span>
+                        <span class="transfer-tag infer">infer (N=100+)</span>
                     </div>
-
                 </div>
 
             </section>
         </Transition>
-        
+
+        <!-- =====================================================
+             PLUS ICON: BETWEEN CARD 01 AND 02
+             ===================================================== -->
+        <Transition name="plus-pop">
+            <div
+                v-if="visibleCount >= 2"
+                class="plus-icon-wrapper plus-first"
+                aria-label="Plus"
+            >
+                <svg viewBox="0 0 24 24" class="plus-icon">
+                    <path d="M12 5 V19" />
+                    <path d="M5 12 H19" />
+                </svg>
+            </div>
+        </Transition>
+
+        <!-- =====================================================
+             PLUS ICON: BETWEEN CARD 02 AND 03
+             ===================================================== -->
+        <Transition name="plus-pop">
+            <div
+                v-if="visibleCount >= 3"
+                class="plus-icon-wrapper plus-second"
+                aria-label="Plus"
+            >
+                <svg viewBox="0 0 24 24" class="plus-icon">
+                    <path d="M12 5 V19" />
+                    <path d="M5 12 H19" />
+                </svg>
+            </div>
+        </Transition>
+
+        <!-- =====================================================
+             PLUS ICON: BETWEEN CARD 03 AND 04
+             ===================================================== -->
+        <Transition name="plus-pop">
+            <div
+                v-if="visibleCount >= 4"
+                class="plus-icon-wrapper plus-third"
+                aria-label="Plus"
+            >
+                <svg viewBox="0 0 24 24" class="plus-icon">
+                    <path d="M12 5 V19" />
+                    <path d="M5 12 H19" />
+                </svg>
+            </div>
+        </Transition>
 
     </div>
 
@@ -187,6 +235,7 @@ import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNav } from '@slidev/client'
 
 const { currentPage } = useNav()
+
 const isExporting =
   typeof window !== 'undefined' &&
   (
@@ -195,16 +244,12 @@ const isExporting =
     new URLSearchParams(window.location.search).has('range')
   )
 
-watch(currentPage, () => {
-  if(isExporting)
-{
-  visibleCount.value = 4
-}
-else{
-  visibleCount.value = 0
-}
-})
 const visibleCount = ref(0)
+const totalItems = 4
+
+watch(currentPage, () => {
+    visibleCount.value = isExporting ? totalItems : 0
+})
 
 /* =========================================================
    SPACE NAVIGATION
@@ -213,10 +258,17 @@ const visibleCount = ref(0)
 function handleKeydown(event) {
     if (event.code !== 'Space') return
 
+    const target = event.target
+    const isEditable =
+        target?.isContentEditable ||
+        ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'].includes(target?.tagName)
+
+    if (isEditable || event.repeat) return
+
     event.preventDefault()
     event.stopPropagation()
 
-    if (visibleCount.value < 4) {
+    if (visibleCount.value < totalItems) {
         visibleCount.value += 1
     }
 }
@@ -226,10 +278,10 @@ function handleKeydown(event) {
    ========================================================= */
 
 onMounted(() => {
-    if(isExporting)
-{
-    visibleCount.value = 4
-}
+    if (isExporting) {
+        visibleCount.value = totalItems
+    }
+
     window.addEventListener('keydown', handleKeydown, true)
 })
 
@@ -269,6 +321,8 @@ onBeforeUnmount(() => {
 
     gap: 14px;
     margin-top: 60px;
+
+    position: relative;
 }
 
 /* =========================================================
@@ -290,6 +344,57 @@ onBeforeUnmount(() => {
     flex-direction: column;
 
     box-sizing: border-box;
+}
+
+/* =========================================================
+   PLUS CONNECTORS
+   ========================================================= */
+
+.plus-icon-wrapper {
+    position: absolute;
+    top: 50%;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform: translate(-50%, -50%);
+
+    z-index: 10;
+
+    background: #eafaf7;
+    border: 1px solid #b9e4dc;
+    border-radius: 50%;
+
+    box-shadow: 0 2px 7px rgba(23, 63, 95, 0.12);
+
+    box-sizing: border-box;
+}
+
+/* Center each icon in the gap between adjacent cards */
+.plus-first {
+    left: calc(25% - 3.5px);
+}
+
+.plus-second {
+    left: 50%;
+}
+
+.plus-third {
+    left: calc(75% + 3.5px);
+}
+
+.plus-icon {
+    width: 19px;
+    height: 19px;
+
+    fill: none;
+    stroke: #2a9d8f;
+    stroke-width: 2.5;
+    stroke-linecap: round;
 }
 
 /* =========================================================
@@ -739,6 +844,17 @@ onBeforeUnmount(() => {
     transform: translateY(10px);
 }
 
+.plus-pop-enter-active {
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.plus-pop-enter-from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+}
+
 /* =========================================================
    RESPONSIVE
    ========================================================= */
@@ -749,13 +865,15 @@ onBeforeUnmount(() => {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .plus-icon-wrapper {
+        display: none;
+    }
 }
 
 @media (max-width: 600px) {
 
     .conditions-list {
         grid-template-columns: 1fr;
-
         overflow-y: auto;
     }
 
@@ -766,6 +884,5 @@ onBeforeUnmount(() => {
     .space-hint {
         display: none;
     }
-
 }
 </style>

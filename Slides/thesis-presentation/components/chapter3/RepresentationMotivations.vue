@@ -1,8 +1,10 @@
+
 <script setup>
-import { ref,watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useNav } from '@slidev/client'
 
 const { currentPage } = useNav()
+
 const isExporting =
   typeof window !== 'undefined' &&
   (
@@ -12,32 +14,36 @@ const isExporting =
   )
 
 const visibleCount = ref(0)
+const totalItems = 3
 
 watch(currentPage, () => {
-  if(isExporting)
-{
-  visibleCount.value=3
-}
-else{
-  visibleCount.value = 0
-}
+  visibleCount.value = isExporting ? totalItems : 0
 })
+
 function handleKeydown(event) {
   if (event.code !== 'Space') return
+
+  // Avoid interfering with text inputs or repeated key events
+  const target = event.target
+  const isEditable =
+    target?.isContentEditable ||
+    ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'].includes(target?.tagName)
+
+  if (isEditable || event.repeat) return
 
   event.preventDefault()
   event.stopPropagation()
 
-  if (visibleCount.value < 3) {
+  if (visibleCount.value < totalItems) {
     visibleCount.value += 1
   }
 }
 
 onMounted(() => {
-  if(isExporting)
-{
-  visibleCount.value = 3
-}
+  if (isExporting) {
+    visibleCount.value = totalItems
+  }
+
   window.addEventListener('keydown', handleKeydown, true)
 })
 
@@ -49,10 +55,9 @@ onBeforeUnmount(() => {
 <template>
   <div class="research-gap-slide">
 
-    <!-- Three limitations -->
     <div class="limitations-grid">
 
-      <!-- 01 -->
+      <!-- 01: Separated Encoding -->
       <Transition name="fade-up">
         <section v-if="visibleCount >= 1" class="gap-card">
           <div class="card-header">
@@ -60,13 +65,21 @@ onBeforeUnmount(() => {
             <h2>Separated Encoding</h2>
           </div>
 
-          <svg class="gap-visual" viewBox="0 0 260 130" aria-label="Temporal dynamics and local structure encoded separately">
-
+          <svg
+            class="gap-visual"
+            viewBox="0 0 260 130"
+            aria-label="Temporal dynamics and local structure encoded separately"
+          >
             <!-- Temporal stream -->
             <g class="viz-group">
               <rect x="10" y="18" width="110" height="38" rx="8" class="viz-box box-a" />
-              <path d="M22 37 L34 30 L46 42 L58 28 L70 40 L82 32 L94 38 L106 34" class="viz-wave" />
-              <text x="65" y="70" text-anchor="middle" class="viz-label">Temporal dynamics</text>
+              <path
+                d="M22 37 L34 30 L46 42 L58 28 L70 40 L82 32 L94 38 L106 34"
+                class="viz-wave"
+              />
+              <text x="65" y="70" text-anchor="middle" class="viz-label">
+                Temporal dynamics
+              </text>
             </g>
 
             <!-- Structural stream -->
@@ -80,17 +93,21 @@ onBeforeUnmount(() => {
               <line x1="163" y1="37" x2="188" y2="46" class="viz-edge" />
               <line x1="188" y1="30" x2="213" y2="37" class="viz-edge" />
               <line x1="188" y1="46" x2="213" y2="37" class="viz-edge" />
-              <text x="195" y="70" text-anchor="middle" class="viz-label">Local structure</text>
+              <text x="195" y="70" text-anchor="middle" class="viz-label">
+                Local structure
+              </text>
             </g>
 
-            <!-- broken link in the middle -->
+            <!-- Broken link in the middle -->
             <line x1="124" y1="37" x2="136" y2="37" class="viz-broken" />
-            <text x="130" y="97" text-anchor="middle" class="viz-caption">encoded independently, no shared representation</text>
+            <text x="130" y="97" text-anchor="middle" class="viz-caption">
+              encoded independently, no shared representation
+            </text>
           </svg>
         </section>
       </Transition>
 
-      <!-- 02 -->
+      <!-- 02: Rigid Hyperparameter Assumptions -->
       <Transition name="fade-up">
         <section v-if="visibleCount >= 2" class="gap-card">
           <div class="card-header">
@@ -98,22 +115,31 @@ onBeforeUnmount(() => {
             <h2>Rigid Hyperparameter Assumptions</h2>
           </div>
 
-          <svg class="gap-visual" viewBox="0 0 260 130" aria-label="Models locked to fixed time delay, candidate set and kernel choice">
-
+          <svg
+            class="gap-visual"
+            viewBox="0 0 260 130"
+            aria-label="Models locked to fixed time delay, candidate set and kernel choice"
+          >
             <g class="viz-group">
-              <rect x="8"   y="22" width="72" height="48" rx="8" class="viz-box box-c" />
+              <rect x="8" y="22" width="72" height="48" rx="8" class="viz-box box-c" />
               <text x="44" y="42" text-anchor="middle" class="viz-mono">Δt</text>
-              <text x="44" y="56" text-anchor="middle" class="viz-mono-sub">fixed lag</text>
+              <text x="44" y="56" text-anchor="middle" class="viz-mono-sub">
+                fixed lag
+              </text>
 
               <rect x="94" y="22" width="72" height="48" rx="8" class="viz-box box-c" />
               <text x="130" y="42" text-anchor="middle" class="viz-mono">{g}</text>
-              <text x="130" y="56" text-anchor="middle" class="viz-mono-sub">candidate set</text>
+              <text x="130" y="56" text-anchor="middle" class="viz-mono-sub">
+                candidate set
+              </text>
 
               <rect x="180" y="22" width="72" height="48" rx="8" class="viz-box box-c" />
               <text x="216" y="42" text-anchor="middle" class="viz-mono">K(·)</text>
-              <text x="216" y="56" text-anchor="middle" class="viz-mono-sub">kernel</text>
+              <text x="216" y="56" text-anchor="middle" class="viz-mono-sub">
+                kernel
+              </text>
 
-              <!-- lock icons on top -->
+              <!-- Lock icons -->
               <g class="viz-lock" transform="translate(37,6)">
                 <rect x="0" y="5" width="14" height="10" rx="2" />
                 <path d="M3 5 V2.5 a4 4 0 0 1 8 0 V5" />
@@ -128,12 +154,14 @@ onBeforeUnmount(() => {
               </g>
             </g>
 
-            <text x="130" y="97" text-anchor="middle" class="viz-caption">locked to pre-defined, dataset-specific settings</text>
+            <text x="130" y="97" text-anchor="middle" class="viz-caption">
+              locked to pre-defined, dataset-specific settings
+            </text>
           </svg>
         </section>
       </Transition>
 
-      <!-- 03 -->
+      <!-- 03: Severe Class Imbalance -->
       <Transition name="fade-up">
         <section v-if="visibleCount >= 3" class="gap-card">
           <div class="card-header">
@@ -141,40 +169,88 @@ onBeforeUnmount(() => {
             <h2>Severe Class Imbalance</h2>
           </div>
 
-          <svg class="gap-visual" viewBox="0 0 260 130" aria-label="Positive regulatory interactions become rarer as network size grows">
-
-            <!-- small network -->
+          <svg
+            class="gap-visual"
+            viewBox="0 0 260 130"
+            aria-label="Positive regulatory interactions become rarer as network size grows"
+          >
+            <!-- Small network -->
             <g class="viz-group">
-              <text x="48" y="20" text-anchor="middle" class="viz-mono-sub">N = 10</text>
+              <text x="48" y="20" text-anchor="middle" class="viz-mono-sub">
+                N = 10
+              </text>
               <rect x="18" y="30" width="60" height="20" rx="10" class="ratio-bar">
-                <title>small network ratio</title>
+                <title>Small network ratio</title>
               </rect>
               <rect x="18" y="30" width="22" height="20" rx="10" class="ratio-bar-pos" />
-              <text x="48" y="63" text-anchor="middle" class="viz-mono-sub pos-color">~35% positive</text>
+              <text x="48" y="63" text-anchor="middle" class="viz-mono-sub pos-color">
+                ~35% positive
+              </text>
             </g>
 
-            <!-- large network -->
+            <!-- Large network -->
             <g class="viz-group">
-              <text x="195" y="20" text-anchor="middle" class="viz-mono-sub">N = 200</text>
+              <text x="195" y="20" text-anchor="middle" class="viz-mono-sub">
+                N = 200
+              </text>
               <rect x="150" y="30" width="90" height="20" rx="10" class="ratio-bar" />
-              <rect x="150" y="30" width="6"  height="20" rx="10" class="ratio-bar-pos" />
-              <text x="195" y="63" text-anchor="middle" class="viz-mono-sub pos-color">~3% positive</text>
+              <rect x="150" y="30" width="6" height="20" rx="10" class="ratio-bar-pos" />
+              <text x="195" y="63" text-anchor="middle" class="viz-mono-sub pos-color">
+                ~3% positive
+              </text>
             </g>
 
             <path d="M86 40 L142 40" class="viz-arrow-line" marker-end="url(#gapArrow)" />
+
             <defs>
-              <marker id="gapArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+              <marker
+                id="gapArrow"
+                markerWidth="8"
+                markerHeight="8"
+                refX="6"
+                refY="4"
+                orient="auto"
+              >
                 <path d="M0 0 L8 4 L0 8 Z" class="viz-arrow-head" />
               </marker>
             </defs>
 
-            <text x="130" y="97" text-anchor="middle" class="viz-caption">positive interactions grow sparser as N increases</text>
+            <text x="130" y="97" text-anchor="middle" class="viz-caption">
+              positive interactions grow sparser as N increases
+            </text>
           </svg>
         </section>
       </Transition>
 
-    </div>
+      <!-- Plus icon between Card 01 and Card 02 -->
+      <Transition name="plus-pop">
+        <div
+          v-if="visibleCount >= 2"
+          class="plus-icon-wrapper plus-first"
+          aria-label="Plus"
+        >
+          <svg viewBox="0 0 24 24" class="plus-icon">
+            <path d="M12 5 V19" />
+            <path d="M5 12 H19" />
+          </svg>
+        </div>
+      </Transition>
 
+      <!-- Plus icon between Card 02 and Card 03 -->
+      <Transition name="plus-pop">
+        <div
+          v-if="visibleCount >= 3"
+          class="plus-icon-wrapper plus-second"
+          aria-label="Plus"
+        >
+          <svg viewBox="0 0 24 24" class="plus-icon">
+            <path d="M12 5 V19" />
+            <path d="M5 12 H19" />
+          </svg>
+        </div>
+      </Transition>
+
+    </div>
   </div>
 </template>
 
@@ -191,7 +267,7 @@ onBeforeUnmount(() => {
 }
 
 /* =========================
-   Limitations
+   Limitations grid
    ========================= */
 
 .limitations-grid {
@@ -204,7 +280,13 @@ onBeforeUnmount(() => {
 
   align-items: stretch;
   margin-top: 60px;
+
+  position: relative;
 }
+
+/* =========================
+   Cards
+   ========================= */
 
 .gap-card {
   position: relative;
@@ -234,8 +316,52 @@ onBeforeUnmount(() => {
   height: 4px;
 
   background: #20639b;
-
   border-radius: 8px 8px 0 0;
+}
+
+/* =========================
+   Plus connectors
+   ========================= */
+
+.plus-icon-wrapper {
+  position: absolute;
+  top: 50%;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 10;
+
+  background: #eafaf7;
+  border: 1px solid #b9e4dc;
+  border-radius: 50%;
+
+  box-shadow: 0 2px 7px rgba(23, 63, 95, 0.12);
+  box-sizing: border-box;
+}
+
+.plus-first {
+  left: calc(33.333333% - 3px);
+}
+
+.plus-second {
+  left: calc(66.666667% + 3px);
+}
+
+.plus-icon {
+  width: 19px;
+  height: 19px;
+
+  fill: none;
+  stroke: #2a9d8f;
+  stroke-width: 2.5;
+  stroke-linecap: round;
 }
 
 /* =========================
@@ -281,7 +407,7 @@ onBeforeUnmount(() => {
 }
 
 /* =========================
-   Visualization (replaces <p>)
+   Visualizations
    ========================= */
 
 .gap-visual {
@@ -480,6 +606,17 @@ onBeforeUnmount(() => {
   transform: translateY(12px);
 }
 
+.plus-pop-enter-active {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.plus-pop-enter-from {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+}
+
 /* =========================
    Responsive
    ========================= */
@@ -492,6 +629,10 @@ onBeforeUnmount(() => {
 
   .gap-card {
     min-height: 220px;
+  }
+
+  .plus-icon-wrapper {
+    display: none;
   }
 
   .research-gap-box {

@@ -195,21 +195,6 @@ onBeforeUnmount(() => {
 
     </div>
 
-    <!-- Bottom message -->
-    <!-- <Transition name="reveal">
-      <div
-        v-if="visibleCount >= 3"
-        class="bottom-message"
-      >
-        <span class="arrow">→</span>
-
-        <span>
-          This motivates a generative framework designed
-          specifically for limited temporal observations.
-        </span>
-      </div>
-    </Transition> -->
-
   </div>
 </template>
 

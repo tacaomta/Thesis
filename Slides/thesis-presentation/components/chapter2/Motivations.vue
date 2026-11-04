@@ -1,9 +1,5 @@
 <template>
   <div class="motivation-slide">
-    <div class="intro">
-      Three directions for improvement.
-    </div>
-
     <div class="goals">
       <!-- Goal 1 — bottom step, full width, left-aligned -->
       <section

@@ -84,8 +84,8 @@ onBeforeUnmount(() => {
 
             <path d="M100 35 L120 35" class="v-arrow" marker-end="url(#a1)" />
 
-            <rect x="122" y="27" width="34" height="16" rx="4" class="v-io v-io-out" />
-            <text x="139" y="37" text-anchor="middle" class="v-io-text out">synthetic</text>
+            <rect x="125" y="27" width="40" height="16" rx="4" class="v-io v-io-out" />
+            <text x="145" y="37" text-anchor="middle" class="v-io-text out">synthetic</text>
 
             <defs>
               <marker id="a1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">

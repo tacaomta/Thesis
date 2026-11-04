@@ -128,7 +128,7 @@
       <span class="message-label">OVERALL CONTRIBUTION</span>
 
       <div class="message-title">
-        From <span>Better Inference</span> to <span>Better Data</span>
+        From <span>Better Representation</span> to <span>Better Data</span>
       </div>
 
       <div class="message-subtitle">

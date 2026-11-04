@@ -610,7 +610,7 @@ eyebrow: RESULTS - BOOLEAN DATASETS
 <!--
 Moving to Boolean datasets, we observe the exact same positive trend.   
 - Synthetic data enhances inference performance without introducing any negative artifacts in any scenario. 
-- Smaller 50-gene networks saw larger recall boosts, whereas larger 100-gene networks achieved higher precision gains.
+- Smaller 50-gene networks saw larger recall boosts, whereas larger 100-gene networks achieved higher precision improvement.
 -->
 ---
 layout: default

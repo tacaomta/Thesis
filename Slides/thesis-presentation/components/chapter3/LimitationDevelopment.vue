@@ -7,7 +7,7 @@
            01. TEMPORAL ALIGNMENT CONDITION
            ===================================================== -->
         <Transition name="fade-up">
-            <section v-if="visibleCount >= 1" class="condition-card">
+            <section v-if="visibleCount >= 1" class="condition-card card-1">
 
                 <div class="card-header">
                     <span class="step">01</span>
@@ -49,7 +49,7 @@
            02. SHORT-PROFILE HANDLING
            ===================================================== -->
         <Transition name="fade-up">
-            <section v-if="visibleCount >= 2" class="condition-card">
+            <section v-if="visibleCount >= 2" class="condition-card card-2">
 
                 <div class="card-header">
                     <span class="step">02</span>
@@ -83,7 +83,7 @@
            03. CROSS-REGIME STABILITY
            ===================================================== -->
         <Transition name="fade-up">
-            <section v-if="visibleCount >= 3" class="condition-card">
+            <section v-if="visibleCount >= 3" class="condition-card card-3">
 
                 <div class="card-header">
                     <span class="step">03</span>
@@ -124,6 +124,26 @@
             </section>
         </Transition>
 
+        <!-- Connector 1 -> 2, overlapping both cards -->
+        <Transition name="connector-pop">
+            <div v-if="visibleCount >= 2" class="connector" style="left: 33.333%;">
+                <svg viewBox="0 0 24 24" class="connector-icon" aria-hidden="true">
+                    <!-- <rect x="4" y="4" width="16" height="16" rx="4" /> -->
+                    <path d="M8 12.5 L10.8 15.3 L16 9" />
+                </svg>
+            </div>
+        </Transition>
+
+        <!-- Connector 2 -> 3, overlapping both cards -->
+        <Transition name="connector-pop">
+            <div v-if="visibleCount >= 3" class="connector" style="left: 66.667%;">
+                <svg viewBox="0 0 24 24" class="connector-icon" aria-hidden="true">
+                    <!-- <rect x="4" y="4" width="16" height="16" rx="4" /> -->
+                    <path d="M8 12.5 L10.8 15.3 L16 9" />
+                </svg>
+            </div>
+        </Transition>
+
     </div>
 
     <!-- =====================================================
@@ -153,7 +173,7 @@ const isExporting =
 const visibleCount = ref(0)
 watch(currentPage, () => {
   if (isExporting) {
-    visibleCount.value = total
+    visibleCount.value = 3
   }
   else
   {
@@ -204,7 +224,7 @@ onBeforeUnmount(() => {
     display: flex;
     flex-direction: column;
 
-    padding: 12px 20px 0;
+    padding: 12px 10px 0;
 
     position: relative;
 }
@@ -217,18 +237,28 @@ onBeforeUnmount(() => {
     flex: 1;
     min-height: 0;
 
+    position: relative;
+
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 
-    gap: 16px;
-    margin-top: 60px;
+    gap: 6px;
+    margin-top: 30px;
 }
 
 /* =========================================================
    CARD
    ========================================================= */
 
+:root {
+    /* radius of the connector circle AND the matching edge
+       notch carved into each card's touching edges */
+    --cond-connector-r: 18px;
+}
+
 .condition-card {
+    position: relative;
+
     min-width: 0;
     min-height: 0;
 
@@ -243,6 +273,109 @@ onBeforeUnmount(() => {
     flex-direction: column;
 
     box-sizing: border-box;
+
+    overflow: hidden;
+}
+
+/* right-edge notch: cards 1 and 2 */
+.card-1::after,
+.card-2::after {
+    content: '';
+    position: absolute;
+
+    top: 50%;
+    right: calc(var(--cond-connector-r) * -1);
+
+    width: calc(var(--cond-connector-r) * 2);
+    height: calc(var(--cond-connector-r) * 2);
+
+    transform: translateY(-50%);
+
+    background: radial-gradient(
+        circle,
+        #f8fafb var(--cond-connector-r),
+        transparent calc(var(--cond-connector-r) + 1px)
+    );
+
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* left-edge notch: cards 2 and 3 */
+.card-2::before,
+.card-3::before {
+    content: '';
+    position: absolute;
+
+    top: 50%;
+    left: calc(var(--cond-connector-r) * -1);
+
+    width: calc(var(--cond-connector-r) * 2);
+    height: calc(var(--cond-connector-r) * 2);
+
+    transform: translateY(-50%);
+
+    background: radial-gradient(
+        circle,
+        #f8fafb var(--cond-connector-r),
+        transparent calc(var(--cond-connector-r) + 1px)
+    );
+
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* =========================================================
+   CONNECTOR — "requirement" icon overlapping both cards,
+   centered on the shared column boundary and on the cards'
+   vertical center (cards sit at margin-top 60px via the
+   list's own margin-top, so 50% is already their true center)
+   ========================================================= */
+
+.connector {
+    position: absolute;
+
+    top: 50%;
+
+    width: calc(var(--cond-connector-r) * 2);
+    height: calc(var(--cond-connector-r) * 2);
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eef5fa;
+    border: 1.5px solid #bcd8ec;
+
+    box-shadow: 0 3px 8px rgba(32, 99, 155, 0.14);
+
+    z-index: 10;
+}
+
+.connector-icon {
+    width: 32px;
+    height: 32px;
+
+    fill: none;
+    stroke: #20639b;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.connector-pop-enter-active {
+    transition:
+        opacity 0.3s ease 0.1s,
+        transform 0.3s ease 0.1s;
+}
+
+.connector-pop-enter-from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
 }
 
 /* =========================================================
@@ -576,6 +709,21 @@ onBeforeUnmount(() => {
 
     .condition-card {
         min-height: 220px;
+    }
+
+    .condition-card::after,
+    .condition-card::before {
+        display: none;
+    }
+
+    .connector {
+        position: static;
+        margin: 10px auto;
+        transform: none;
+    }
+
+    .connector-pop-enter-from {
+        transform: scale(0.4);
     }
 
     .space-hint {

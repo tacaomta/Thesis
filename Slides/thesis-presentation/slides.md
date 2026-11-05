@@ -329,8 +329,8 @@ eyebrow: CONCLUSION
 <Conclusion />
 <!--
 What we achieved?
-- Infer regulatory networks using a multiple level representation beyond Boolean states
-- Achieve higher structural and dynamics accuracy than the comparison methods   
+- The proposed framwork infers regulatory networks using a multiple level representation beyond Boolean states
+- It achieves higher structural and dynamics accuracy than the comparison methods   
 - Maintain reliable inference performance as network size and connectivity increase     
 
 Although MIDNI improves GRN inference through multi-level discretization, it still has limitations.?  

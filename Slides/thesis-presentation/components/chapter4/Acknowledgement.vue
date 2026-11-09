@@ -4,222 +4,223 @@
     <!-- Title -->
     <div class="title">
       <div class="title-main">Thank You</div>
-      <div class="title-line"></div>
+      <div class="title-line" :class="{ complete: visibleCount >= totalItems }"></div>
     </div>
 
-    <!-- Visual story -->
-    <div class="people">
+    <!-- =========================
+         JOURNEY PATHWAY
+    ========================== -->
+    <div class="journey-stage">
 
-      <!-- Supervisor -->
-      <div class="person-card supervisor" style="--accent: #173F5F; --accent-soft: rgba(23, 63, 95, 0.07);">
+      <svg
+        class="journey-svg"
+        viewBox="0 0 1000 300"
+        preserveAspectRatio="none"
+        aria-label="PhD journey pathway with four people who supported it"
+      >
 
-        <div class="badge">
-          <svg viewBox="0 0 24 24" class="badge-icon">
-            <path d="M12 3L2 9l10 6 10-6-10-6z" />
-            <path d="M6 11.5V17c0 1.6 2.8 3 6 3s6-1.4 6-3v-5.5" />
-          </svg>
-        </div>
+        <!-- background track, always visible -->
+        <path
+          d="M20,150 C70,120 90,120 130,150 C220,190 290,190 380,150 C470,110 550,110 630,150 C720,190 790,190 880,150 C920,120 950,120 980,150"
+          class="track-bg"
+        />
 
-        <div class="scene-wrap">
-          <div class="portrait">
-            <div class="head"></div>
-            <div class="body"></div>
-            <div class="book">
-              <span></span>
-              <span></span>
+        <!-- progress segments — each "draws in" with its own
+             accent color as the matching node is revealed -->
+        <path
+          d="M20,150 C70,120 90,120 130,150"
+          pathLength="1"
+          class="progress-seg"
+          :class="{ active: visibleCount >= 1 }"
+          style="--seg-color:#173F5F"
+        />
+        <path
+          d="M130,150 C220,190 290,190 380,150"
+          pathLength="1"
+          class="progress-seg"
+          :class="{ active: visibleCount >= 2 }"
+          style="--seg-color:#7A5AF8"
+        />
+        <path
+          d="M380,150 C470,110 550,110 630,150"
+          pathLength="1"
+          class="progress-seg"
+          :class="{ active: visibleCount >= 3 }"
+          style="--seg-color:#2A9D8F"
+        />
+        <path
+          d="M630,150 C720,190 790,190 880,150"
+          pathLength="1"
+          class="progress-seg"
+          :class="{ active: visibleCount >= 4 }"
+          style="--seg-color:#D98C3D"
+        />
+        <path
+          d="M880,150 C920,120 950,120 980,150"
+          pathLength="1"
+          class="progress-seg tail-seg"
+          :class="{ active: visibleCount >= 4 }"
+          style="--seg-color:#D98C3D"
+        />
+
+        <!-- nodes -->
+        <g
+          v-for="node in nodes"
+          :key="node.id"
+          class="node-dot"
+          :class="{ active: visibleCount >= node.id }"
+          :style="{ '--node-color': node.color }"
+        >
+          <circle :cx="node.x" :cy="150" r="17" class="node-circle" />
+          <text :x="node.x" :y="154" text-anchor="middle" class="node-number">
+            {{ String(node.id).padStart(2, '0') }}
+          </text>
+        </g>
+
+      </svg>
+
+      <!-- =========================
+           ICON CARDS — anchored to
+           each node's x position,
+           alternating above/below
+      ========================== -->
+      <Transition
+        v-for="node in nodes"
+        :key="`card-${node.id}`"
+        name="card-pop"
+      >
+        <div
+          v-if="visibleCount >= node.id"
+          class="node-card"
+          :class="node.side"
+          :style="{ left: node.xPct + '%', '--accent': node.color, '--accent-soft': node.colorSoft }"
+        >
+          <div class="node-card-stem"></div>
+
+          <div class="node-card-body">
+            <div class="node-icon">
+              <svg viewBox="0 0 24 24" class="node-icon-svg" v-html="node.icon"></svg>
             </div>
+
+            <div class="node-role">{{ node.role }}</div>
+            <div v-if="node.name" class="node-name">{{ node.name }}</div>
+            <div class="node-tagline">{{ node.tagline }}</div>
           </div>
         </div>
-
-        <div class="label">
-          <div class="role">SUPERVISOR</div>
-          <div class="name">Prof. Yung Keun Kwon</div>
-          <div class="tagline">Guidance that shaped this work</div>
-        </div>
-      </div>
-
-
-      <!-- Committee Members -->
-      <div class="person-card committee" style="--accent: #7A5AF8; --accent-soft: rgba(122, 90, 248, 0.08);">
-
-        <div class="badge">
-          <svg viewBox="0 0 24 24" class="badge-icon">
-            <circle cx="12" cy="7" r="3" />
-            <circle cx="5" cy="9" r="2.3" />
-            <circle cx="19" cy="9" r="2.3" />
-            <path d="M12 12c-3.3 0-6 2-6 5.5V19h12v-1.5c0-3.5-2.7-5.5-6-5.5z" />
-            <path d="M5 13.3c-2 .4-3.3 1.9-3.3 4.2V19h3.3" />
-            <path d="M19 13.3c2 .4 3.3 1.9 3.3 4.2V19H19" />
-          </svg>
-        </div>
-
-        <div class="scene-wrap">
-          <div class="committee-scene">
-
-            <div class="committee-member cm1">
-              <div class="cap"></div>
-              <div class="head"></div>
-              <div class="body"></div>
-            </div>
-
-            <div class="committee-member cm2">
-              <div class="cap"></div>
-              <div class="head"></div>
-              <div class="body"></div>
-            </div>
-
-            <div class="committee-member cm3">
-              <div class="cap"></div>
-              <div class="head"></div>
-              <div class="body"></div>
-            </div>
-
-            <div class="panel-desk"></div>
-          </div>
-        </div>
-
-        <div class="label">
-          <div class="role">COMMITTEE MEMBERS</div>
-          <div class="tagline">Insightful questions &amp; valuable feedback</div>
-        </div>
-      </div>
-
-
-      <!-- Family -->
-      <div class="person-card family" style="--accent: #2A9D8F; --accent-soft: rgba(42, 157, 143, 0.08);">
-
-        <div class="badge">
-          <svg viewBox="0 0 24 24" class="badge-icon">
-            <path d="M3 11l9-8 9 8" />
-            <path d="M5 10v10h14V10" />
-          </svg>
-        </div>
-
-        <div class="scene-wrap">
-          <div class="family-scene">
-
-            <!-- Father -->
-            <div class="person father">
-              <div class="head"></div>
-              <div class="body"></div>
-            </div>
-
-            <!-- Mother -->
-            <div class="person mother">
-              <div class="head"></div>
-              <div class="body"></div>
-            </div>
-
-            <!-- Child 1 -->
-            <div class="person child child-one">
-              <div class="head"></div>
-              <div class="body"></div>
-            </div>
-
-            <!-- Child 2 -->
-            <div class="person child child-two">
-              <div class="head"></div>
-              <div class="body"></div>
-            </div>
-
-            <!-- Heart -->
-            <div class="heart">♥</div>
-          </div>
-        </div>
-
-        <div class="label">
-          <div class="role">FAMILY</div>
-          <div class="tagline">Unconditional support, every step</div>
-        </div>
-      </div>
-
-
-      <!-- Friends -->
-      <div class="person-card friends" style="--accent: #D98C3D; --accent-soft: rgba(217, 140, 61, 0.09);">
-
-        <div class="badge">
-          <svg viewBox="0 0 24 24" class="badge-icon">
-            <circle cx="9" cy="8" r="3" />
-            <circle cx="16.5" cy="9.5" r="2.3" />
-            <path d="M3 20c0-3.2 3-5.3 6-5.3s6 2.1 6 5.3" />
-            <path d="M13.5 15c2.2 0.1 5 1.6 5 5" />
-          </svg>
-        </div>
-
-        <div class="scene-wrap">
-          <div class="friends-scene">
-
-            <div class="friend f1">
-              <div class="head"></div>
-              <div class="body"></div>
-            </div>
-
-            <div class="friend f2">
-              <div class="head"></div>
-              <div class="body"></div>
-            </div>
-
-            <div class="friend f3">
-              <div class="head"></div>
-              <div class="body"></div>
-            </div>
-
-            <div class="friend f4">
-              <div class="head"></div>
-              <div class="body"></div>
-            </div>
-
-            <div class="circle"></div>
-          </div>
-        </div>
-
-        <div class="label">
-          <div class="role">FRIENDS</div>
-          <div class="tagline">Shared laughter &amp; encouragement</div>
-        </div>
-      </div>
+      </Transition>
 
     </div>
 
-    <!-- Connection -->
-    <div class="connection">
-
-      <div class="connection-line"></div>
-
-      <div class="connection-dots">
-        <span style="--c: #173F5F"></span>
-        <span style="--c: #7A5AF8"></span>
-        <span style="--c: #2A9D8F"></span>
-        <span style="--c: #D98C3D"></span>
-      </div>
-
-      <div class="connection-line"></div>
-
-    </div>
-
-    <!-- Bottom visual -->
+    <!-- Bottom caption -->
     <div class="bottom">
-
-      <div class="journey">
-
-        <div class="dot start"></div>
-        <div class="path"></div>
-        <div class="dot committee-dot"></div>
-        <div class="path"></div>
-        <div class="dot middle"></div>
-        <div class="path"></div>
-        <div class="dot end"></div>
-
-      </div>
-
-      <div class="journey-caption">
-        A journey made possible by many people
-      </div>
-
+      <Transition name="caption-swap" mode="out-in">
+        <div v-if="visibleCount < totalItems" key="hint" class="journey-caption hint">
+          Press <strong>SPACE</strong> to continue the journey
+        </div>
+        <div v-else key="done" class="journey-caption done">
+          A journey made possible by these four pillars
+        </div>
+      </Transition>
     </div>
 
   </div>
 </template>
+
+
+<script setup>
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { useNav } from '@slidev/client'
+
+const { currentPage } = useNav()
+
+const isExporting =
+  typeof window !== 'undefined' &&
+  (
+    window.location.pathname.startsWith('/export') ||
+    new URLSearchParams(window.location.search).has('print') ||
+    new URLSearchParams(window.location.search).has('range')
+  )
+
+const totalItems = 4
+const visibleCount = ref(0)
+
+watch(currentPage, () => {
+  visibleCount.value = isExporting ? totalItems : 0
+})
+
+const nodes = [
+  {
+    id: 1,
+    x: 130,
+    xPct: 13,
+    side: 'above',
+    color: '#173F5F',
+    colorSoft: 'rgba(23, 63, 95, 0.08)',
+    role: 'SUPERVISOR',
+    name: 'Prof. Yung Keun Kwon',
+    tagline: 'Guidance that shaped this work',
+    icon: '<path d="M12 3L2 9l10 6 10-6-10-6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M6 11.5V17c0 1.6 2.8 3 6 3s6-1.4 6-3v-5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />'
+  },
+  {
+    id: 2,
+    x: 380,
+    xPct: 38,
+    side: 'below',
+    color: '#7A5AF8',
+    colorSoft: 'rgba(122, 90, 248, 0.08)',
+    role: 'COMMITTEE MEMBERS',
+    name: '',
+    tagline: 'Insightful questions & valuable feedback',
+    icon: '<circle cx="12" cy="7" r="3" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="5" cy="9" r="2.3" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="19" cy="9" r="2.3" fill="none" stroke="currentColor" stroke-width="1.8" /><path d="M12 12c-3.3 0-6 2-6 5.5V19h12v-1.5c0-3.5-2.7-5.5-6-5.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M5 13.3c-2 .4-3.3 1.9-3.3 4.2V19h3.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /><path d="M19 13.3c2 .4 3.3 1.9 3.3 4.2V19H19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />'
+  },
+  {
+    id: 3,
+    x: 630,
+    xPct: 63,
+    side: 'above',
+    color: '#2A9D8F',
+    colorSoft: 'rgba(42, 157, 143, 0.08)',
+    role: 'FAMILY',
+    name: '',
+    tagline: 'Unconditional support, every step',
+    icon: '<path d="M3 11l9-8 9 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M5 10v10h14V10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /><path d="M12 22v-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />'
+  },
+  {
+    id: 4,
+    x: 880,
+    xPct: 88,
+    side: 'below',
+    color: '#D98C3D',
+    colorSoft: 'rgba(217, 140, 61, 0.09)',
+    role: 'FRIENDS',
+    name: '',
+    tagline: 'Shared laughter & encouragement',
+    icon: '<circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.8" /><circle cx="16.5" cy="9.5" r="2.3" fill="none" stroke="currentColor" stroke-width="1.8" /><path d="M3 20c0-3.2 3-5.3 6-5.3s6 2.1 6 5.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /><path d="M13.5 15c2.2 0.1 5 1.6 5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />'
+  }
+]
+
+function handleKeydown(event) {
+  if (event.code !== 'Space') return
+
+  event.preventDefault()
+  event.stopPropagation()
+
+  if (visibleCount.value < totalItems) {
+    visibleCount.value += 1
+  }
+}
+
+onMounted(() => {
+  if (isExporting) {
+    visibleCount.value = totalItems
+  }
+  window.addEventListener('keydown', handleKeydown, true)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeydown, true)
+})
+</script>
 
 
 <style scoped>
@@ -233,7 +234,7 @@
 
   box-sizing: border-box;
 
-  padding: 10px 30px 18px;
+  padding: 10px 30px 14px;
 
   color: #24313A;
   font-family: Inter, 'Segoe UI', sans-serif;
@@ -246,11 +247,13 @@
 
 .title {
   text-align: center;
-  margin-top: 4px;
+  margin-top: 2px;
+
+  flex-shrink: 0;
 }
 
 .title-main {
-  font-size: 38px;
+  font-size: 34px;
   font-weight: 700;
   letter-spacing: -0.03em;
   color: #173F5F;
@@ -260,700 +263,285 @@
   width: 60px;
   height: 3px;
 
-  margin: 9px auto 0;
+  margin: 8px auto 0;
 
   border-radius: 3px;
+
+  background: #dce4e9;
+
+  transition: background 0.5s ease, width 0.5s ease;
+}
+
+.title-line.complete {
+  width: 120px;
 
   background: linear-gradient(90deg, #173F5F, #7A5AF8, #2A9D8F, #D98C3D);
 }
 
 
 /* ─────────────────────────────
-   PEOPLE
+   JOURNEY STAGE
 ───────────────────────────── */
 
-.people {
-  flex: 1;
-
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-
-  align-items: stretch;
-
-  gap: 18px;
-
-  margin-top: 5px;
-}
-
-
-/* Cards */
-
-.person-card {
-  height: 235px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 16px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #FFFFFF 0%,
-      var(--accent-soft) 100%
-    );
-
-  border: 1px solid #DCE4E9;
-
-  box-sizing: border-box;
-
-  padding: 10px 8px 14px;
-
+.journey-stage {
   position: relative;
 
-  opacity: 0;
-  transform: translateY(14px);
-  animation: cardIn 0.5s ease forwards;
-}
+  flex: 1;
+  min-height: 0;
 
-.supervisor { animation-delay: 0.08s; }
-.committee  { animation-delay: 0.22s; }
-.family     { animation-delay: 0.36s; }
-.friends    { animation-delay: 0.5s; }
-
-@keyframes cardIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.person-card::before {
-  content: '';
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  height: 4px;
-
-  background: var(--accent);
-
-  border-radius: 16px 16px 0 0;
-}
-
-
-/* ─────────────────────────────
-   ROLE BADGE (icon motif)
-───────────────────────────── */
-
-.badge {
-  position: absolute;
-
-  top: 12px;
-  left: 12px;
-
-  width: 28px;
-  height: 28px;
-
-  border-radius: 8px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: var(--accent-soft);
-  border: 1px solid var(--accent);
-}
-
-.badge-icon {
-  width: 15px;
-  height: 15px;
-
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-
-/* ─────────────────────────────
-   SCENE WRAPPER (keeps illustrations
-   a consistent footprint across 4 cards)
-───────────────────────────── */
-
-.scene-wrap {
   width: 100%;
-  height: 128px;
+  aspect-ratio: 1000 / 300;
 
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  margin: 18px auto 0;
+}
+
+.journey-svg {
+  width: 100%;
+  height: 100%;
 
   overflow: visible;
 }
 
+/* background track */
+
+.track-bg {
+  fill: none;
+  stroke: #e2e8ee;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+/* progress segments — "draw in" using the pathLength=1 trick */
+
+.progress-seg {
+  fill: none;
+  stroke: var(--seg-color);
+  stroke-width: 4;
+  stroke-linecap: round;
+
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+
+  transition: stroke-dashoffset 0.65s ease;
+}
+
+.progress-seg.active {
+  stroke-dashoffset: 0;
+}
+
+.tail-seg {
+  opacity: 0.55;
+}
+
+/* nodes */
+
+.node-dot {
+  transition: filter 0.3s ease;
+}
+
+.node-circle {
+  fill: #ffffff;
+  stroke: #cbd5dc;
+  stroke-width: 2;
+
+  transition: fill 0.35s ease, stroke 0.35s ease;
+}
+
+.node-number {
+  fill: #94a3b8;
+
+  font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+
+  transition: fill 0.35s ease;
+}
+
+.node-dot.active .node-circle {
+  fill: var(--node-color);
+  stroke: var(--node-color);
+}
+
+.node-dot.active .node-number {
+  fill: #ffffff;
+}
+
 
 /* ─────────────────────────────
-   SUPERVISOR ILLUSTRATION
+   ICON CARDS
 ───────────────────────────── */
 
-.portrait {
-  width: 108px;
-  height: 122px;
-
-  position: relative;
-
-  transform: scale(0.86);
-  transform-origin: bottom center;
-}
-
-.portrait .head {
-  width: 52px;
-  height: 52px;
-
+.node-card {
   position: absolute;
 
-  top: 5px;
-  left: 28px;
+  top: 50%;
 
-  border-radius: 50%;
+  width: 160px;
 
-  background: #F2C7A5;
-
-  border: 2px solid #173F5F;
-}
-
-.portrait .body {
-  width: 86px;
-  height: 70px;
-
-  position: absolute;
-
-  bottom: 8px;
-  left: 11px;
-
-  border-radius: 45px 45px 12px 12px;
-
-  background: #173F5F;
-}
-
-.book {
-  position: absolute;
-
-  bottom: 0;
-  left: 26px;
-
-  width: 56px;
-  height: 28px;
-
-  border-radius: 4px;
-
-  background: #E9C46A;
-
-  transform: rotate(-3deg);
+  transform: translateX(-50%);
 
   display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  pointer-events: none;
 }
 
-.book span {
-  flex: 1;
-
-  border-right: 1px solid rgba(255,255,255,.6);
+.node-card.above {
+  top: calc(50% - 40px);
+  flex-direction: column-reverse;
+  transform: translate(-50%, -100%);
 }
 
-
-/* ─────────────────────────────
-   COMMITTEE MEMBERS
-───────────────────────────── */
-
-.committee-scene {
-  width: 168px;
-  height: 128px;
-
-  position: relative;
-
-  transform: scale(0.84);
-  transform-origin: bottom center;
+.node-card.below {
+  top: calc(50% + 40px);
+  transform: translateX(-50%);
 }
 
-.panel-desk {
-  position: absolute;
+.node-card-stem {
+  width: 1.5px;
+  height: 16px;
 
-  left: 4px;
-  right: 4px;
-  bottom: 6px;
+  background: var(--accent);
 
-  height: 3px;
-
-  border-radius: 2px;
-
-  background: rgba(122, 90, 248, 0.35);
+  opacity: 0.55;
 }
 
-.committee-member {
-  position: absolute;
-  bottom: 9px;
+.node-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  width: 42px;
-  height: 92px;
-}
+  margin-top: 2px;
+  padding: 10px 12px 11px;
 
-.committee-member .head {
-  width: 34px;
-  height: 34px;
+  border-radius: 12px;
 
-  position: absolute;
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--accent-soft) 100%);
+  border: 1px solid #DCE4E9;
 
-  top: 12px;
-  left: 4px;
+  box-shadow: 0 6px 16px rgba(23, 63, 95, 0.09);
 
-  border-radius: 50%;
-
-  background: #F2C7A5;
-
-  border: 2px solid #5B3FBF;
-}
-
-.committee-member .body {
-  width: 42px;
-  height: 58px;
-
-  position: absolute;
-
-  bottom: 0;
-
-  border-radius: 36px 36px 9px 9px;
-
-  background: #7A5AF8;
-}
-
-.committee-member .cap {
-  position: absolute;
-
-  top: 0;
-  left: -3px;
-
-  width: 48px;
-  height: 10px;
-
-  background: #5B3FBF;
-
-  clip-path: polygon(50% 0%, 100% 55%, 50% 100%, 0% 55%);
-}
-
-.cm1 {
-  left: 2px;
-}
-
-.cm1 .body { background: #7A5AF8; }
-.cm1 .head { border-color: #5B3FBF; }
-
-.cm2 {
-  left: 63px;
-
-  transform: translateY(-6px);
-}
-
-.cm2 .body { background: #9B86FA; }
-.cm2 .head { border-color: #5B3FBF; }
-
-.cm3 {
-  left: 124px;
-}
-
-.cm3 .body { background: #7A5AF8; }
-.cm3 .head { border-color: #5B3FBF; }
-
-
-/* ─────────────────────────────
-   FAMILY
-───────────────────────────── */
-
-.family-scene {
-  width: 190px;
-  height: 128px;
-
-  position: relative;
-
-  transform: scale(0.82);
-  transform-origin: bottom center;
-}
-
-.person {
-  position: absolute;
-  bottom: 4px;
-}
-
-.person .head {
-  position: absolute;
-
-  border-radius: 50%;
-
-  background: #F2C7A5;
-
-  border: 2px solid #1F6E63;
-}
-
-.person .body {
-  position: absolute;
-
-  border-radius: 40px 40px 10px 10px;
-}
-
-.father {
-  width: 50px;
-  height: 105px;
-
-  left: 10px;
-}
-
-.father .head {
-  width: 38px;
-  height: 38px;
-
-  top: 0;
-  left: 6px;
-}
-
-.father .body {
-  width: 50px;
-  height: 67px;
-
-  bottom: 0;
-
-  background: #1F6E63;
-}
-
-.mother {
-  width: 50px;
-  height: 112px;
-
-  left: 65px;
-}
-
-.mother .head {
-  width: 38px;
-  height: 38px;
-
-  top: 0;
-  left: 6px;
-}
-
-.mother .body {
-  width: 50px;
-  height: 74px;
-
-  bottom: 0;
-
-  background: #2A9D8F;
-}
-
-.child {
-  width: 32px;
-  height: 75px;
-}
-
-.child .head {
-  width: 27px;
-  height: 27px;
-
-  left: 2px;
-  top: 0;
-  border-color: #1F6E63;
-}
-
-.child .body {
-  width: 32px;
-  height: 45px;
-
-  bottom: 0;
-
-  background: #7FC4B8;
-}
-
-.child-one {
-  left: 115px;
-}
-
-.child-two {
-  left: 150px;
-
-  transform: scale(.82);
-  transform-origin: bottom;
-}
-
-.heart {
-  position: absolute;
-
-  top: 2px;
-  right: 6px;
-
-  font-size: 23px;
-
-  color: #D96C5F;
-
-  animation: heartbeat 2s ease-in-out infinite;
-}
-
-@keyframes heartbeat {
-  0%, 100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.12);
-  }
-}
-
-
-/* ─────────────────────────────
-   FRIENDS
-───────────────────────────── */
-
-.friends-scene {
-  width: 175px;
-  height: 128px;
-
-  position: relative;
-
-  transform: scale(0.84);
-  transform-origin: bottom center;
-}
-
-.circle {
-  position: absolute;
-
-  width: 122px;
-  height: 122px;
-
-  left: 26px;
-  top: 4px;
-
-  border-radius: 50%;
-
-  border: 2px dashed rgba(217, 140, 61, 0.45);
-}
-
-.friend {
-  position: absolute;
-
-  width: 36px;
-  height: 84px;
-
-  bottom: 18px;
-
-  z-index: 2;
-}
-
-.friend .head {
-  width: 28px;
-  height: 28px;
-
-  position: absolute;
-
-  top: 0;
-  left: 4px;
-
-  border-radius: 50%;
-
-  background: #F2C7A5;
-
-  border: 2px solid #B5651A;
-}
-
-.friend .body {
-  width: 36px;
-  height: 51px;
-
-  position: absolute;
-
-  bottom: 0;
-
-  border-radius: 30px 30px 8px 8px;
-}
-
-.f1 {
-  left: 20px;
-  transform: translateY(9px);
-}
-
-.f1 .body { background: #D98C3D; }
-
-.f2 {
-  left: 60px;
-}
-
-.f2 .body { background: #E3A565; }
-
-.f3 {
-  left: 100px;
-  transform: translateY(4px);
-}
-
-.f3 .body { background: #D98C3D; }
-
-.f4 {
-  left: 132px;
-  transform: translateY(11px);
-}
-
-.f4 .body { background: #E3A565; }
-
-
-/* ─────────────────────────────
-   LABELS
-───────────────────────────── */
-
-.label {
   text-align: center;
-
-  margin-top: 4px;
 }
 
-.role {
-  font-family:
-    "IBM Plex Mono",
-    "JetBrains Mono",
-    monospace;
+.node-card.above .node-card-body {
+  margin-top: 0;
+  margin-bottom: 2px;
+}
 
-  font-size: 9px;
-  font-weight: 600;
+.node-icon {
+  width: 36px;
+  height: 36px;
 
-  letter-spacing: .14em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 7px;
+
+  border-radius: 10px;
+
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
 
   color: var(--accent);
 }
 
-.name {
-  margin-top: 5px;
+.node-icon-svg {
+  width: 19px;
+  height: 19px;
+}
 
-  font-size: 12.5px;
+.node-role {
+  font-family: "IBM Plex Mono", "JetBrains Mono", monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .12em;
 
+  color: var(--accent);
+}
+
+.node-name {
+  margin-top: 4px;
+
+  font-size: 11px;
   font-weight: 600;
 
   color: #173F5F;
 }
 
-.tagline {
+.node-tagline {
   margin-top: 4px;
 
-  font-size: 9.8px;
+  font-size: 8.8px;
   line-height: 1.35;
 
   color: #64748B;
 }
 
+/* card enter animation */
 
-/* ─────────────────────────────
-   CONNECTION
-───────────────────────────── */
+.card-pop-enter-active {
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
 
-.connection {
-  display: grid;
-
-  grid-template-columns: 1fr auto 1fr;
-
-  align-items: center;
-
-  gap: 15px;
-
-  margin: 2px 80px 0;
-
+.card-pop-enter-from {
   opacity: 0;
-  animation: cardIn 0.5s ease forwards 0.68s;
 }
 
-.connection-line {
-  height: 1px;
-
-  background: #DCE4E9;
+.node-card.above.card-pop-enter-from {
+  transform: translate(-50%, -100%) translateY(10px);
 }
 
-.connection-dots {
-  display: flex;
-  gap: 8px;
-}
-
-.connection-dots span {
-  width: 5px;
-  height: 5px;
-
-  border-radius: 50%;
-
-  background: var(--c);
+.node-card.below.card-pop-enter-from {
+  transform: translateX(-50%) translateY(-10px);
 }
 
 
 /* ─────────────────────────────
-   BOTTOM JOURNEY
+   BOTTOM CAPTION
 ───────────────────────────── */
 
 .bottom {
-  text-align: center;
-
-  margin-top: 8px;
-
-  opacity: 0;
-  animation: cardIn 0.5s ease forwards 0.82s;
-}
-
-.journey {
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  width: 300px;
-
-  margin: auto;
-}
-
-.path {
-  width: 46px;
-  height: 2px;
-
-  background: #DCE4E9;
-}
-
-.dot {
-  width: 9px;
-  height: 9px;
-
   flex-shrink: 0;
 
-  border-radius: 50%;
-}
+  text-align: center;
 
-.start {
-  background: #173F5F;
-}
+  margin-top: 10px;
 
-.committee-dot {
-  background: #7A5AF8;
-}
-
-.middle {
-  background: #2A9D8F;
-}
-
-.end {
-  background: #D98C3D;
+  height: 20px;
 }
 
 .journey-caption {
-  margin-top: 7px;
+  font-size: 10.5px;
+  letter-spacing: .03em;
+}
 
-  font-size: 10px;
-
+.journey-caption.hint {
   color: #94A3B8;
+}
 
-  letter-spacing: .04em;
+.journey-caption.hint strong {
+  color: #64748B;
+  font-weight: 700;
+}
+
+.journey-caption.done {
+  color: #2A9D8F;
+  font-weight: 600;
+}
+
+.caption-swap-enter-active,
+.caption-swap-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.caption-swap-enter-from,
+.caption-swap-leave-to {
+  opacity: 0;
 }
 
 
@@ -962,13 +550,14 @@
 ───────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  .person-card,
-  .connection,
-  .bottom,
-  .heart {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
+  .progress-seg,
+  .node-circle,
+  .node-number,
+  .title-line,
+  .card-pop-enter-active,
+  .caption-swap-enter-active,
+  .caption-swap-leave-active {
+    transition: none !important;
   }
 }
 

@@ -685,7 +685,7 @@ eyebrow: ACKNOWLEDGEMENT
 <Acknowledgement />
 <!--
 Before the end, I would like to express my sincere gratitude to the people who have supported me throughout this journey.
-- First, I would like to thank **Professor Kwon** for his guidance in shaping this research, his continuous support throughout my PhD, and his financial support that made this work possible.
+- First, I would like to thank **Professor Kwon**. His guidance shaped not only this research, but the way I think as a researcher. I am deeply grateful for his patience, his insight, and his continuous support throughout my PhD.
 - I also would like to express my sincere appreciation to the committee members for taking the time to review my dissertation, evaluate my research, and provide valuable comments and suggestions. Your feedback is greatly appreciated and will help me further improve this work.
 - Next, I am deeply grateful to **my family** for their unwavering support and encouragement. They have always given me peace of mind and the freedom to focus on my research, even when we had to be apart.
 - Finally, I would like to thank **my friends** for sharing the joys of everyday life with me. Their friendship helped me maintain a healthy balance between research and relaxation, making this journey more enjoyable and meaningful.

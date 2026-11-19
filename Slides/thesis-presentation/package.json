@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "slidev",
-    "build:main": "slidev build slides.md --out dist --base=/Thesis/y2026/",
-    "build:share": "slidev build slides_share.md --out dist/share --base=/Thesis/share/",
+    "build:main": "slidev build slides.md --out dist/y2026 --base=/Thesis/",
+    "build:share": "slidev build slides_share.md --out dist/share --base=/Thesis/",
     "build": "npm run build:main && npm run build:share"
   },
   "dependencies": {

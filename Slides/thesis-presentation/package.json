@@ -3,9 +3,10 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "slidev build slides.md --out dist --base /Thesis2026/ && slidev build slides_share.md --out dist/share --base /Thesis/share/",
-    "dev": "slidev --open",
-    "export": "slidev export"
+    "dev": "slidev",
+    "build:main": "slidev build slides.md --out dist --base=/Thesis2026/",
+    "build:share": "slidev build slides_share.md --out dist/share --base=/Thesis/share/",
+    "build": "npm run build:main && npm run build:share"
   },
   "dependencies": {
     "@slidev/cli": "^52.19.1",

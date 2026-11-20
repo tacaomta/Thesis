@@ -396,6 +396,12 @@ eyebrow: GRNs
 <GRNExample />
 ---
 layout: default
+title: How is MI computed?
+eyebrow: MUTUAL INFORMATION
+---
+<MutualInformation />
+---
+layout: default
 title: How does MIFS select candidate regulators?
 eyebrow: MIDNI
 ---

@@ -9,14 +9,15 @@ layout: thesis-cover
 </template>
 
 <!--
-* Good morning, committee members, and good morning, everyone.
+- Good morning, committee members, and good morning, everyone.
 
-* My name is Kao, and I am a Ph.D. student from the Complex Systems Computing Lab.
+- My name is Kao, and I am a Ph.D. student from the Complex Systems Computing Lab.
 
-* Today, I am going to present my Ph.D. thesis, entitled **“Inferring Gene Regulatory Networks from Time-Series Gene Expression Data.”**
+- Today, I am going to present my Ph.D. thesis, entitled **“Inferring Gene Regulatory Networks from Time-Series Gene Expression Data.”**
 
-* This work was conducted under the supervision of Professor Yung Keun Kwon.
+- This work was conducted under the supervision of Professor Yung Keun Kwon.
 -->
+
 ---
 layout: default
 title: "From Better Inference to Better Data"
@@ -26,113 +27,122 @@ eyebrow: "THESIS OVERVIEW"
 <ThesisOverview />
 
 <!--
-* Here is an overview of my thesis.
-
-* First, I will introduce the **research problem**, answering two fundamental questions: **What is a Gene Regulatory Network, and why do we need time-series gene expression data?**. This part defines the research challenges, identifies the existing gaps, and presents the objectives of the thesis.
-
-* Second, I will present a Gene Regulatory Network inference method based on **multiple-level discretization and mutual information**.
-
-* Next, I will introduce a **Scale-Invariant Task Transformation Framework for Gene Regulatory Network inference**. This work addresses the question: **“Can informative representations be learned automatically from time-series gene expression data?”**
-
-* Finally, I address the question: **“How can we improve Gene Regulatory Network inference performance when only limited time-series gene expression data are available?”**
+- Here is an overview of my thesis. 
+- First, I will introduce the **research problem**, answering two fundamental questions: **What is a Gene Regulatory Network, and why do we need time-series gene expression data?**. This part defines the research challenges, identifies the existing gaps, and presents the objectives of the thesis.   
+- Second, I will present a Gene Regulatory Network inference method based on **multiple-level discretization and mutual information**.  
+- Next, I will introduce a **Scale-Invariant Task Transformation Framework for Gene Regulatory Network inference**. This work addresses the question: **“Can informative representations be learned automatically from time-series gene expression data?”**  
+- Finally, I address the question: **“How can we improve Gene Regulatory Network inference performance when only limited time-series gene expression data are available?”**
 -->
 
 ---
 layout: default
-title: What is a Gene Regulatory Network?
-eyebrow: GENE REGULATORY NETWORK
+title: "What is a Gene Regulatory Network?"
+eyebrow: "GENE REGULATORY NETWORK"
 ---
 
 <GRNs />
-<!---
+<!--
 * Now, let me clarify what a **Gene Regulatory Network**, or GRN, is.  
 * A GRN describes the regulatory relationships among genes and how these relationships influence gene expression. On this slide, you can see an example of a GRN (100 genes).  
 * Each **node represents a gene**. A gene can act as a **regulator**, influencing other genes, or as a **target gene**, whose expression is regulated.   
 * The **directed edge represents a regulatory influence** from one gene to another.  
 * There are two main types of regulatory influence. An **enhancing or activating interaction** increases the expression of the target gene, while an **inhibitory interaction** decreases its expression. So, briefly, a **GRN is a set of genes connected by directed regulatory relationships**.
 -->
+
 ---
 layout: default
-title: What are we actually Trying to Infer?
-eyebrow: RESEARCH PROBLEM
+title: "What are we actually Trying to Infer?"
+eyebrow: "RESEARCH PROBLEM"
 ---
 
 <InferenceProblem />
+
 <!--
 So, what are we actually trying to infer?  
-* To answer this question, let us first look at what happens in the biological world.  
-* Inside a cell, regulatory mechanisms and regulatory processes are continuously taking place. However, we cannot directly observe these processes.  
-* Instead, we assume that there is a **hidden regulatory network** that describes **who regulates whom**.  
-* Through these regulatory interactions, the activity of regulatory genes influences the expression of their target genes. As a result, gene expression levels change over time.  
-* Importantly, **these changes in gene expression are something that we can observe and measure**.    
-* Therefore, in experiments, what we actually obtain are **gene expression profiles** — measurements of gene expression collected across multiple time points.  
-* However, what we really want to know is not just the expression levels themselves. We want to uncover the **underlying regulatory relationships among genes**
-* By applying computational techniques and GRN inference methods, we try to reconstruct the **hidden regulatory network from the observed time-series gene expression profiles**.  
-* In other words, **we observe gene expression, but we want to infer the regulatory relationships behind it**.  
+- To answer this question, let us first look at what happens in the biological world.  
+- Inside a cell, regulatory mechanisms and regulatory processes are continuously taking place. However, we cannot directly observe these processes.  
+- Instead, we assume that there is a **hidden regulatory network** that describes **who regulates whom**.  
+- Through these regulatory interactions, the activity of regulatory genes influences the expression of their target genes. As a result, gene expression levels change over time.  
+- Importantly, **these changes in gene expression are something that we can observe and measure**.    
+- Therefore, in experiments, what we actually obtain are **gene expression profiles** — measurements of gene expression collected across multiple time points.  
+- However, what we really want to know is not just the expression levels themselves. We want to uncover the **underlying regulatory relationships among genes**
+- By applying computational techniques and GRN inference methods, we try to reconstruct the **hidden regulatory network from the observed time-series gene expression profiles**.  
+- In other words, **we observe gene expression, but we want to infer the regulatory relationships behind it**.  
 -->
+
 ---
 layout: default
-title: Why do Regulatory Genes Matter?
-eyebrow: SIGNIFICANCE
+title: "Why do Regulatory Genes Matter?"
+eyebrow: "SIGNIFICANCE"
 ---
 
 <RegulatoryGenes />
+
 <!--
 So, why do regulatory genes matter?  
-* Identifying regulatory genes and their target genes can help us better understand how biological systems are controlled.  
-* First, it helps us understand **how genes regulate other genes**, and therefore reveals the regulatory relationships within the cell.  
-* Second, it helps us understand **how cellular processes are coordinated** by connecting gene regulation to downstream biological responses.  
-* Furthermore, regulatory networks can help us understand **how cells respond to changes in different biological or external conditions**, such as temperature, pressure, or other environmental stimuli.  
-* More importantly, by identifying regulatory genes and their targets, we can also identify **key control points within the regulatory network**.  
-* Ultimately, understanding these regulatory mechanisms can provide valuable insights into **disease mechanisms** and may help identify **potential therapeutic targets**.  
+- Identifying regulatory genes and their target genes can help us better understand how biological systems are controlled.  
+- First, it helps us understand **how genes regulate other genes**, and therefore reveals the regulatory relationships within the cell.  
+- Second, it helps us understand **how cellular processes are coordinated** by connecting gene regulation to downstream biological responses.  
+- Furthermore, regulatory networks can help us understand **how cells respond to changes in different biological or external conditions**, such as temperature, pressure, or other environmental stimuli.  
+- More importantly, by identifying regulatory genes and their targets, we can also identify **key control points within the regulatory network**.  
+- Ultimately, understanding these regulatory mechanisms can provide valuable insights into **disease mechanisms** and may help identify **potential therapeutic targets**.  
 -->
+
 ---
 layout: default
-title: Why is Time-series GRN Inference Difficult?
-eyebrow: CHALLENGES
+title: "Why is Time-series GRN Inference Difficult?"
+eyebrow: "CHALLENGES"
 ---
-<TimeSeriesDifficulty /> -->
+
+<TimeSeriesDifficulty />
+
 <!--
 So, what are the main challenges in inferring a GRN?
 There are several important challenges.  
-* **First, high dimensionality.** In real-world biological systems, we may need to infer regulatory relationships among **thousands of genes**. As the number of genes increases, the number of possible regulatory relationships grows dramatically.  
-* **Second, limited observations.** Although we may have thousands of genes, the number of available time points is often relatively small. In other words, we have a **high-dimensional problem with limited observations**.  
-* **Third, noise and biological variability.** Gene expression measurements can contain experimental noise and biological variation. These factors can make it more difficult to distinguish true regulatory signals from random variations, and therefore can reduce the accuracy of GRN inference.   
-* **Fourth, complex regulatory dependencies.** Gene regulatory systems can involve **nonlinear relationships, self-regulation, feedback loops, and other complex dependencies**. Capturing these relationships from gene expression data is challenging.  
-* **Finally, the problem is inherently ambiguous.** Different network structures may produce **similar or even indistinguishable expression patterns** under the observed conditions. 
+- **First, high dimensionality.** In real-world biological systems, we may need to infer regulatory relationships among **thousands of genes**. As the number of genes increases, the number of possible regulatory relationships grows dramatically.  
+- **Second, limited observations.** Although we may have thousands of genes, the number of available time points is often relatively small. In other words, we have a **high-dimensional problem with limited observations**.  
+- **Third, noise and biological variability.** Gene expression measurements can contain experimental noise and biological variation. These factors can make it more difficult to distinguish true regulatory signals from random variations, and therefore can reduce the accuracy of GRN inference.   
+- **Fourth, complex regulatory dependencies.** Gene regulatory systems can involve **nonlinear relationships, self-regulation, feedback loops, and other complex dependencies**. Capturing these relationships from gene expression data is challenging.  
+- **Finally, the problem is inherently ambiguous.** Different network structures may produce **similar or even indistinguishable expression patterns** under the observed conditions. 
 -->
+
 ---
 layout: default
-title: Where Does This Thesis Fit?
-eyebrow: RESEARCH SCOPE
+title: "Where Does This Thesis Fit?"
+eyebrow: "RESEARCH SCOPE"
 ---
 
 <GRNWorkFlow />
+
 <!--
 Here present an overview of the workflow of GRN prolem:    
 * GRN inference is a broad research problem, and improvements can be made at different stages of the workflow. Some studies focus on how gene expression data are represented, while others develop inference algorithms or improve network evaluation. 
 * In this thesis, I focus on two main directions: **data representation**, addressed through multiple-level discretization and representation learning, and **data augmentation**, which aims to mitigate the limitation of available time-series observations.
 -->
+
 ---
 layout: default
-title: What Have We Done to Improve?
-eyebrow: RESEARCH GAPS
+title: "What Have We Done to Improve?"
+eyebrow: "RESEARCH GAPS"
 ---
 
 <ResearchGaps />
+
 <!--
 So, what have we done to improve?  
 **First**, We developed a mixed binary-ternary discretization strategy that preserves more regulatory state information.  
 **Second**, We developed a scale-invariant task transformation framework that transforms expression profiles into features suitable for GRN inference.  
 **Finally**, We developed a data-generation approach that synthesizes additional time-series expression data to improve inference performance.  
 -->
+
 ---
 layout: default
-title: How is gene expression commonly represented for GRN inference?
-eyebrow: EXISTING APPROACHES
+title: "How is gene expression commonly represented for GRN inference?"
+eyebrow: "EXISTING APPROACHES"
 ---
 
 <ExistingApproaches />
+
 <!--
 ### How is gene expression commonly represented for GRN inference?
 According to the **type of data processing**, existing methods can be divided into two groups: Real-value based method and Boolean models.  
@@ -142,11 +152,12 @@ According to the **type of data processing**, existing methods can be divided in
 
 ---
 layout: default
-title: What Do We Want to Improve?
-eyebrow: MOTIVATION
+title: "What Do We Want to Improve?"
+eyebrow: "MOTIVATION"
 ---
 
 <Motivations />
+
 <!--
 **What do we want to improve?**  
 - First, we want to reduce the computational cost while being less sensitive to noise in gene expression measurements.
@@ -156,11 +167,12 @@ eyebrow: MOTIVATION
 
 ---
 layout: default
-title: How Does the Discretization Network Model Represent Gene Dynamics?
-eyebrow: DISCRETIZATION NETWORK MODEL
+title: "How Does the Discretization Network Model Represent Gene Dynamics?"
+eyebrow: "DISCRETIZATION NETWORK MODEL"
 ---
 
 <DiscretizationNetworkModel />
+
 <!--
 Before going into our proposed model, let us first take a quick look at some basic concepts of a **discrete-state network model**.  
 - First, a discretized network can be represented as a **directed graph**. It denotes as a combination set V and A where set **V** contains all the nodes in the network, and a set **A** represents the interactions between these nodes.  
@@ -169,13 +181,15 @@ Before going into our proposed model, let us first take a quick look at some bas
 The discrete function takes state of *u₁* to *uₖ* at time t as input parameters. 
 - In other words, the future state of a target gene is determined by the current states of its regulatory genes.  
 -->
+
 ---
 layout: default
-title: How Do We Evaluate an Inferred Network?
-eyebrow: PERFORMANCE EVALUATION
+title: "How Do We Evaluate an Inferred Network?"
+eyebrow: "PERFORMANCE EVALUATION"
 ---
 
 <NetworkInference />
+
 <!--
 How do we evaluate an inferred network?  
 - We evaluate the inferred networks from two perspectives: **dynamics and structure**.  
@@ -185,13 +199,15 @@ How do we evaluate an inferred network?
 - **Recall** measures the proportion of true regulatory interactions that are successfully recovered.  
 - Finally, **Structural Accuracy** measures the overall agreement between the inferred network and the ground-truth network structure.
 -->
+
 ---
 layout: default
-title: What is the experimental framework?
-eyebrow: METHODOLOGY
+title: "What is the experimental framework?"
+eyebrow: "METHODOLOGY"
 ---
 
 <Methodology />
+
 <!--
 Let me now give you an overview of the proposed framework.  
 - We start with a **two-dimensional microarray of real-valued gene expression data**. Importantly, **the original network itself is unseen during the inference process**.  
@@ -201,165 +217,188 @@ Let me now give you an overview of the proposed framework.
 - Based on the inferred regulatory relationships, we reconstruct the **predicted network**. At the same time, the predicted network provides the corresponding **inferred discretized expression values**.  
 - Finally, at the evaluation stage, we compare the **inferred network with the ground-truth network** to evaluate the structural accuracy. For the dynamics accuracy, we compare the **observed and inferred discretized expression matrices**.
 -->
+
 ---
 layout: default
-title: How Do We Determine the Optimal Discretization Level?
-eyebrow: DISCRETIZATION
+title: "How Do We Determine the Optimal Discretization Level?"
+eyebrow: "DISCRETIZATION"
 ---
 
 <Discretization />
-<!--As mentioned above, in our study, the discretization level of each gene can be either two or three.  
+
+<!--
+As mentioned above, in our study, the discretization level of each gene can be either two or three.  
 - To determine the optimal level, we apply a validity index, which is defined as the ratio of the **Intra value** to the **Inter value**.   
 - The **Intra value** is the average squared distance between data points and their corresponding centroids.   
 - The **Inter value** is the minimum squared distance between two different centroids. Therefore, the optimal discretization level is selected by minimizing the validity index.
 -->
+
 ---
 layout: default
-title: How Are Potential Regulators Selected and Refined?
-eyebrow: FEATURE SELECTION
+title: "How Are Potential Regulators Selected and Refined?"
+eyebrow: "FEATURE SELECTION"
 ---
 
 <FeatureSelectionStage />
+
 <!--
 Let see how are potential regulators selected and refined?   
-* For each target gene, MIFS selects a set of k potential regulator genes. The value of k is a user-defined parameter. In this study, the maximum value of k is 8.
-* MIFS can be described in 3 steps:  
-  * Step 1: Select a gene that maximizes the mutual information with target gene.   
-  * Next, select the gene that maximizes the mutual information with target gene while considering its dependency on the already selected candidates.   
-  * Repeat Step 2 until the desired number of k candidates has been selected.  
-
+- For each target gene, MIFS selects a set of k potential regulator genes. The value of k is a user-defined parameter. In this study, the maximum value of k is 8.
+- MIFS can be described in 3 steps:  
+  - Step 1: Select a gene that maximizes the mutual information with target gene.   
+  - Next, select the gene that maximizes the mutual information with target gene while considering its dependency on the already selected candidates.   
+  - Repeat Step 2 until the desired number of k candidates has been selected.  
 - The main drawback of the MIFS subroutine is that it does not compute the exact multivariate mutual information and may fail to find the optimal set of regulatory variables.  
 - To overcome this problem, we propose a simple iterative SWAP subroutine to improve the dynamics accuracy by swapping the same number of variables between the selected and unselected sets. The swapping process is repeated until the gene-wise dynamics consistency reaches 1.0, meaning that there is no further improvement, or until the number of potential candidates in the selected set equals k.  
 -->
+
 ---
 layout: default
-title: Which Datasets Are Used for Evaluation?
-eyebrow: DATASETS
+title: "Which Datasets Are Used for Evaluation?"
+eyebrow: "DATASETS"
 ---
 
 <Datasets01 />
+
 <!--
 We tested the proposed method using two types of datasets: Artificial Discretized and Realistic Ecoli datasets.  
-* The Artificial Discretized dataset consists of 20 network groups, with network sizes ranging from 10 to 200. Each group contains 20 randomly generated networks, resulting in a total of 400 networks.
-* The realistic Ecoli dataset consists of 4 network groups with network sizes of 50, 100, 200, and 300. Each group contains 20 networks, a total of 80 networks were tested.
+- The Artificial Discretized dataset consists of 20 network groups, with network sizes ranging from 10 to 200. Each group contains 20 randomly generated networks, resulting in a total of 400 networks.
+- The realistic Ecoli dataset consists of 4 network groups with network sizes of 50, 100, 200, and 300. Each group contains 20 networks, a total of 80 networks were tested.
 -->
+
 ---
 layout: default
-title: How Does Three-Level Proportion Vary?
-eyebrow: THREE-LEVEL PROPORTION
+title: "How Does Three-Level Proportion Vary?"
+eyebrow: "THREE-LEVEL PROPORTION"
 ---
 
 <Proportion />
+
 <!--
 We first examined the proportion of three-level discretized genes in the networks.   
 As shown in the figure, the proportions of the binarized and three-level discretized genes are considerably similar to each other.  
 This indicates that three-level discretization is observed as frequently as two-level discretization in our method.  
 -->
+
 ---
 layout: default
-title: Does the Proposed Method Perform Well across All Metrics?
-eyebrow: RESULTS - ARTIFICIAL DATASET
+title: "Does the Proposed Method Perform Well across All Metrics?"
+eyebrow: "RESULTS - ARTIFICIAL DATASET"
 ---
 
 <ArtificialResults />
+
 <!--
-* This figure shows the performance of our method on the Artificial Discretized dataset using four evaluation metrics.
-* The X-axis represents the network size, ranging from 10 to 200, while the Y-axis shows the average value of each performance metric.
-* Looking at the figure, we can see that:  
+- This figure shows the performance of our method on the Artificial Discretized dataset using four evaluation metrics.
+- The X-axis represents the network size, ranging from 10 to 200, while the Y-axis shows the average value of each performance metric.
+- Looking at the figure, we can see that:  
   * Dynamics accuracy consistently reaches a perfect value of 1.0 across all network sizes.   
   * Structural accuracy remains above 0.9.  
   * Precision and recall decrease as the network size increases, but both remain above 0.5 at a network size of 200.  
-* In short, our method shows reliable performance on this dataset.  
+- In short, our method shows reliable performance on this dataset.  
 -->
+
 ---
 layout: default
-title: How Does Network Complexity Affect Inference Performance?
-eyebrow: RESULTS - ARTIFICIAL DATASET
+title: "How Does Network Complexity Affect Inference Performance?"
+eyebrow: "RESULTS - ARTIFICIAL DATASET"
 ---
 
 <IncomingLinksResults />
+
 <!--
 * We also show the performance on this dataset by grouping the number of regulatory genes for each target gene in the gold-standard network, as shown on this slide.
 * As the number of incoming links increases, the performance metrics decrease because a larger number of incoming links indicates a more difficult inference problem.
 * As shown in this figure:
   * Dynamics accuracy remains almost stable, even in the most difficult case, when the number of incoming links is 8.
 -->
+
 ---
 layout: default
-title: How Well Does the Inferred Network Recover the True Structure?
-eyebrow: RESULTS - ECOLI DATASET
+title: "How Well Does the Inferred Network Recover the True Structure?"
+eyebrow: "RESULTS - ECOLI DATASET"
 ---
 
 <StructuralAccuracy />
+
 <!--
 This slide shows the structural accuracy of our method and four comparison methods across four network sizes:  
 * Overall, MIDNI shows better performance than the other methods.
 * Furthermore, across the four network sizes, when the number of incoming links is 1 or 2, the performance of all methods is relatively similar. However, as the number of incoming links increases, our method shows better performance than the others. This indicates the effectiveness of our method for large-scale and difficult-to-solve GRN inference problems.
 -->
+
 ---
 layout: default
-title: How Well Does the Model Explain the Underlying Mechanism?
-eyebrow: RESULTS - ECOLI DATASET
+title: "How Well Does the Model Explain the Underlying Mechanism?"
+eyebrow: "RESULTS - ECOLI DATASET"
 ---
 
 <DynamicsAccuracy />
+
 <!--
 Here, we show the dynamics accuracy of all methods across four network sizes: 50, 100, 200, and 300.    
-* Similar to the structural accuracy, the dynamics accuracy of the proposed method is higher than that of the other methods, especially for larger networks of size 200 and 300.  
-* Taken together, MIDNI outperforms the comparison methods in terms of both structural and dynamics accuracy.  
+- Similar to the structural accuracy, the dynamics accuracy of the proposed method is higher than that of the other methods, especially for larger networks of size 200 and 300.  
+- Taken together, MIDNI outperforms the comparison methods in terms of both structural and dynamics accuracy.  
 -->
+
 ---
 layout: default
-title: How Does Computational Efficiency Vary Across Methods?
-eyebrow: RUNNING TIME
+title: "How Does Computational Efficiency Vary Across Methods?"
+eyebrow: "RUNNING TIME"
 ---
 
 <RunningTime />
-<!---
+
+<!--
 We also conducted a comparison with running time among the methods. The result is shown on this figure.   
 - Look at the chart, our method is comparable to others except dbn method.  
 - Briefly, MIDNI is a promising tool for predicting both the structure and the dynamics of a gene regulatory network, especially for large-scale and dense input networks.  
 -->
+
 ---
 layout: default
-title: What Have We Achieved, and What Remains to Be Improved?
-eyebrow: CONCLUSION
+title: "What Have We Achieved, and What Remains to Be Improved?"
+eyebrow: "CONCLUSION"
 ---
 
 <Conclusion />
+
 <!--
 What we achieved?
 - The proposed framwork infers regulatory networks using a multiple level representation beyond Boolean states
 - It achieves higher structural and dynamics accuracy than the comparison methods   
 - Maintain reliable inference performance as network size and connectivity increase     
-
-Although MIDNI improves GRN inference through multi-level discretization, it still has limitations.?  
+Although MIDNI improves GRN inference through multi-level discretization, it still has limitations:  
 - First, K-means is sensitive to centroid initialization, so different initial centroids may lead to different clustering results.
 - Second, mutual information measures pairwise statistical dependence, which may not fully capture the complexity of real biological regulatory relationships.
 - Third, the greedy feature selection strategy makes locally optimal choices at each step, so it does not guarantee a globally optimal solution.
 -->
+
 ---
 layout: default
-title: Why do existing machine learning frameworks still fail to generalize?
-eyebrow: RESEARCH GAP 02
+title: "Why do existing machine learning frameworks still fail to generalize?"
+eyebrow: "RESEARCH GAP 02"
 ---
 
 <RepresentationMotivations />
-<!-- CHAPTER 3 -->
+
 <!--
 In the first issue, I focused on the inference method. By introducing multiple-level discretization, we can preserve more information from gene expression dynamics than a purely Boolean representation.   
 However, when moving toward machine learning, another question arises: **"How should a regulatory relationship be represented so that a learning model can actually learn from it?"** This question motivates the second issue addressed in this chapter.  
 First, let us look at why existing machine learning frameworks still fail to generalize.   
-* First, temporal expression dynamics and local regulatory structures are encoded separately or indirectly.
-* Second, models depend heavily on fixed time delays, restricted candidate regulator sets, or specific kernel configurations. 
-* Finally, sparse networks lead to class imbalance, meaning that as the network scale increases, the ratio of positive regulatory interactions to non-interactions becomes increasingly skewed.
+- First, temporal expression dynamics and local regulatory structures are encoded separately or indirectly.
+- Second, models depend heavily on fixed time delays, restricted candidate regulator sets, or specific kernel configurations. 
+- Finally, sparse networks lead to class imbalance, meaning that as the network scale increases, the ratio of positive regulatory interactions to non-interactions becomes increasingly skewed.
  -->
+
 ---
 layout: default
-title: How did we build a learning framework for GRN inference?
-eyebrow: PROPOSED FRAMEWORK
+title: "How did we build a learning framework for GRN inference?"
+eyebrow: "PROPOSED FRAMEWORK"
 ---
+
 <LearningFramework />
+
 <!--
 This slide shows an overview of the proposed GRN inference framework.  
 - We start with labeled gene regulatory networks with known regulatory interactions. These networks are transformed into a supervised learning dataset using our representation scheme, which converts time-series expression profiles into feature-label pairs.  
@@ -367,12 +406,15 @@ This slide shows an overview of the proposed GRN inference framework.
 - For inference, the test expression data are represented in the same way and processed by a selected model to predict pairwise regulatory interactions. These predictions are then aggregated to reconstruct the inferred GRN.  
 - Importantly, our representation is independent of network size, allowing models trained on one network size to generalize to networks of different sizes.
 -->
+
 ---
 layout: default
-title: How is gene profile reformulated into a binary classification task?
-eyebrow: DATA REPRESENTATION
+title: "How is gene profile reformulated into a binary classification task?"
+eyebrow: "DATA REPRESENTATION"
 ---
+
 <DataRepresentation />
+
 <!--
 Let's look at how we represent the data to turn GRN inference into a task machine learning can solve.   
 - First, each gene is represented as a time-series vector across T observed time points — this is our raw input. 
@@ -380,47 +422,60 @@ Let's look at how we represent the data to turn GRN inference into a task machin
 - Then, each gene pair is labeled 1 if a directed interaction exists in the gold standard, and otherwise by 0. 
 - Finally, applying this across all gene pairs gives us a fully labeled dataset, where each sample is one candidate regulatory interaction.
 -->
+
 ---
 layout: default
-title: What unique advantages does the unified representation offer?
-eyebrow: METHODOLOGICAL HIGTLIGHTS
+title: "What unique advantages does the unified representation offer?"
+eyebrow: "METHODOLOGICAL HIGTLIGHTS"
 ---
+
 <MethodAdvantages />
-<!--What makes this representation so effective? 
+
+<!--
+What makes this representation so effective? 
 - First, it’s completely assumption-free—the model learns temporal dependencies implicitly without manual time-lag tuning.  
 - Second, it encodes structure and time dynamics together.   
 - And most importantly, because feature length depends only on time steps $T$ rather than gene count, it creates a scale-invariant feature space.
 -->
+
 ---
 layout: default
-title: How were the datasets and evaluation metrics configured?
-eyebrow: EXPERIMENTAL SETUP
+title: "How were the datasets and evaluation metrics configured?"
+eyebrow: "EXPERIMENTAL SETUP"
 ---
+
 <ExperimentalSetup />
+
 <!--
 Moving on to our experimental setup, we evaluated the framework on two benchmarks: Topological networks and realistic E. coli networks.   
-* For the topological datasets, we tested three network sizes: 10, 50, and 100. The training set contains 20,000, 2,000, and 2,000 ground-truth networks for each size, respectively. The validation and test sets contain 2,000, 400, and 400 networks, respectively.
-* For the E. coli dataset, we also tested three network sizes: 10, 50, and 100. The training set contains 200, 20, and 20 network structures, respectively, with 100 time-series samples generated for each structure. The validation sets contain 20, 4, and 4 structures, while the test sets contain 10, 4, and 4 structures, respectively.
-* Because true regulatory interactions are extremely sparse in biological networks, we use AUPR as our primary evaluation metric. AUPR ranges from 0 to 1, with a value closer to 1 indicating better performance.
+- For the topological datasets, we tested three network sizes: 10, 50, and 100. The training set contains 20,000, 2,000, and 2,000 ground-truth networks for each size, respectively. The validation and test sets contain 2,000, 400, and 400 networks, respectively.
+- For the E. coli dataset, we also tested three network sizes: 10, 50, and 100. The training set contains 200, 20, and 20 network structures, respectively, with 100 time-series samples generated for each structure. The validation sets contain 20, 4, and 4 structures, while the test sets contain 10, 4, and 4 structures, respectively.
+- Because true regulatory interactions are extremely sparse in biological networks, we use AUPR as our primary evaluation metric. AUPR ranges from 0 to 1, with a value closer to 1 indicating better performance.
 -->
+
 ---
 layout: default
-title: How did models perform on scale-free topological networks?
-eyebrow: RESULTS - TOPOLOGICAL NETWORKS
+title: "How did models perform on scale-free topological networks?"
+eyebrow: "RESULTS - TOPOLOGICAL NETWORKS"
 ---
+
 <AUPRToys />
+
 <!--
 The slide shows the performance of the method on the synthetic topological datasets:  
 - On this datasets, every single machine learning model outperformed the random baseline.   
 - Random Forest shows the highest overall accuracy across all network sizes.   
 - Gaussian Naive Bayes was the only model whose performance actually improved as network size grew, it is because of strong probabilistic inductive bias of the model.
 -->
+
 ---
 layout: default
-title: How Does the Performance on Biological Data?
-eyebrow: RESULTS - BIOLOGICAL NETWORKS
+title: "How Does the Performance on Biological Data?"
+eyebrow: "RESULTS - BIOLOGICAL NETWORKS"
 ---
+
 <AUPREcoli />
+
 <!--
 When tested on realistic biological E. coli networks, the performance gap expanded even further as shown on the charts. 
 Here, we can point out that: 
@@ -428,12 +483,15 @@ Here, we can point out that:
 - Second, at size 10, Average ML AUPR reaches over 0.5 (0.518) compared to traditional alrogithms.
 - Third, GNB consistently emerged as the most reliable model across all network dimensions.  
 -->
+
 ---
 layout: default
-title: Can models trained on small networks effectively infer large-scale GRNs?
-eyebrow: RESULTS - KEY FINDINGS
+title: "Can models trained on small networks effectively infer large-scale GRNs?"
+eyebrow: "RESULTS - KEY FINDINGS"
 ---
+
 <KeyFindings />
+
 <!--
 Now, let’s highlight our key discovery: **scale invariance**.   
 - We trained three GNB models using training sets of network size 10 with different number of network structures: 5,000, 10,000, and 20,000. After training, each model was evaluated on test networks with three different sizes: 10, 50, and 100 genes. We then compared these results with models trained directly on networks of the corresponding sizes.  
@@ -442,48 +500,59 @@ The results are shown in the chart on the left.
 - We can highlight that a GNB model trained exclusively on small 10-gene networks achieved an AUPR, which are comparable to, and in some cases better than, models trained directly on larger networks. This demonstrates that interaction-level knowledge can transfer effectively across different network scales.  
 - The chart on the right shows the training time of the models. The results demonstrate that training on smaller networks can significantly reduce training time and computational resources, while maintaining comparable inference performance to models trained on larger networks.  
 -->
+
 ---
 layout: default
-title: Can the Model Maintain Its Performance with Fewer Time Steps?
-eyebrow: RESULTS - KEY FINDINGS
+title: "Can the Model Maintain Its Performance with Fewer Time Steps?"
+eyebrow: "RESULTS - KEY FINDINGS"
 ---
+
 <TimeStepVariation />
+
 <!--
 Now, in real-world experiments, gene expression data often contain only a limited number of time points. Therefore, we conducted an experiment to investigate whether the model can maintain its performance with fewer time points.  
 - We trained the models using three datasets with different numbers of time points: 10, 20, and 50, across the three network sizes. The results are shown in the chart on this slide.  
 - Except for the size-10 networks, where fewer time points actually achieved better performance, the results are generally consistent across the different time-point settings. One possible explanation is that, for smaller networks, fewer time points may reduce noise and help the model make more accurate predictions.    
 - More importantly, even with only 10 time points, the model still achieves relatively high inference performance in the other cases. This suggests that the proposed framework has promising potential for practical applications with limited time-series observations.
 -->
+
 ---
 layout: default
-title: What are the computational cost advantages of small-network training?
-eyebrow: COMPUTATIONAL PERFORMANCE
+title: "What are the computational cost advantages of small-network training?"
+eyebrow: "COMPUTATIONAL PERFORMANCE"
 ---
+
 <ComputationalComparison />
+
 <!--
 About computational comparison within the methods:  
 - As shown in the chart, the total time for training and inference is higher than that of traditional methods.   
 - However, once the model has been trained, it can infer each network much faster because traditional methods must repeat the computational process from scratch for every network. Therefore, our proposed approach becomes more efficient when inferring multiple networks.
-
 -->
+
 ---
 layout: default
-title: What are the operational requirements and scope of applicability?
-eyebrow: LIMITATION & DEVELOPMENT
+title: "What are the operational requirements and scope of applicability?"
+eyebrow: "LIMITATION & DEVELOPMENT"
 ---
+
 <LimitationDevelopment />
+
 <!--
 To be realistic about deployment, there is one key operational constraint: 
 - The test time-series length must match or exceed the training length $T$. 
 - For shorter profiles, temporal extension techniques are required. 
 - Nevertheless, the representation has proven remarkably robust across both discrete and continuous data types.
 -->
+
 ---
 layout: default
-title: What are the main contributions of this representation learning framework?
-eyebrow: CONCLUSION
+title: "What are the main contributions of this representation learning framework?"
+eyebrow: "CONCLUSION"
 ---
+
 <LearningConclusion />
+
 <!--
 To conclude this chapter, our proposed framework offers four key advantages.
 - First, it removes heuristic time-lag assumptions by encoding gene pairs directly.
@@ -491,144 +560,179 @@ To conclude this chapter, our proposed framework offers four key advantages.
 - Third, this results in a flexible and computationally efficient solution for GRN inference.
 - Most importantly, a model trained on small networks generalizes well to larger ones — without retraining.
 -->
+
 ---
 layout: default
-title:  Why is time-series data scarcity a critical bottleneck in GRN inference?
-eyebrow: RESEARCH GAP 03
+title: "Why is time-series data scarcity a critical bottleneck in GRN inference?"
+eyebrow: "RESEARCH GAP 03"
 ---
+
 <ResearchGap03 />
+
 <!--
 Now, let’s move to the third issue: **time-series data scarcity**.   
 Limited time-series data poses a significant challenge in GRN inference. But why is the availability of temporal data so critical?     
 - First, reconstructing GRNs requires observing coordinated gene expression trajectories across multiple time points.
 - Second, biological experiments face high costs, measurement noise, and strict environmental constraints, resulting in severely limited temporal observations.
 - Finally, short time-series data can significantly reduce the accuracy and stability of computational GRN inference methods.
-
 -->
+
 ---
 layout: default
-title:  Why do conventional data augmentation methods struggle with sparse transcriptomic data?
-eyebrow: LIMITATIONS OF EXISTING METHODS
+title: "Why do conventional data augmentation methods struggle with sparse transcriptomic data?"
+eyebrow: "LIMITATIONS OF EXISTING METHODS"
 ---
+
 <LimitationsExistingMethods />
+
 <!--
 Now, let’s look at the limitations of existing data augmentation methods. Why do conventional approaches struggle with sparse transcriptomic data?   
 - First, GAN-based variants are difficult to train on small datasets and are prone to problems such as mode collapse.
 - Second, other generative models, such as AGN, rely on relatively rigid assumptions about the underlying data distribution and fail to capture non-linear temporal dynamics.
 - Finally, there is still a lack of generative approaches that can effectively synthesize additional data from a limited number of observed samples.
 -->
+
 ---
 layout: default
-title:  Can an Autoencoder framework synthesize realistic time-series expression data to restore GRN inference accuracy?
-eyebrow: RESEARCH GOALS & HYPOTHESIS
+title: "Can an Autoencoder framework synthesize realistic time-series expression data to restore GRN inference accuracy?"
+eyebrow: "RESEARCH GOALS & HYPOTHESIS"
 ---
+
 <ResearchGoals />
+
 <!--
 To address this gap, this study asks a fundamental question: **Can an Autoencoder framework synthesize realistic time-series expression data to restore GRN inference accuracy?**  
 - Our core objective is to use an Autoencoder to generate additional time-series gene expression data from limited observations.
 - We chose an Autoencoder because it has a relatively simple architecture, is easy to implement and train with a small number of samples, and is well suited to learning representations from time-series data.
 - Based on this idea, we encode adjacent time-step pairs and use the learned representation to iteratively generate future time steps. In this way, the model can supplement missing temporal observations and provide additional data for downstream GRN inference methods such as MIDNI.
 -->
+
 ---
 layout: default
-title:  How is the end-to-end Synthetic-MIDNI framework structured?
-eyebrow: ARCHITECHTURAL OVERVIEW
+title: "How is the end-to-end Synthetic-MIDNI framework structured?"
+eyebrow: "ARCHITECHTURAL OVERVIEW"
 ---
+
 <SyntheticFramework />
-<!--Here is the complete workflow of the Synthetic-MIDNI pipeline. 
+
+<!--
+Here is the complete workflow of the Synthetic-MIDNI pipeline. 
 - First, raw discretized time-series data is reformatted into concatenated pairwise vectors. 
 - Next, we train a custom Autoencoder on these state transitions. 
 - The trained model then autoregressively generates the remaining time steps. 
 - Finally, both original and synthetic data are concatenated and fed into the MIDNI algorithm for network reconstruction.
 -->
+
 ---
 layout: default
-title:  How does pairwise temporal vector concatenation preserve transition dynamics?
-eyebrow: FEATURE ENGINEERING
+title: "How does pairwise temporal vector concatenation preserve transition dynamics?"
+eyebrow: "FEATURE ENGINEERING"
 ---
+
 <FeatureEngineering />
+
 <!--
 How to preserve transition dynamics?  
 - A critical innovation here lies in data representation. We have an observed expression data as two-dimentional matrix. This is our input. Instead of feeding single time steps, we concatenate expression values from two consecutive steps, $t_i$ and $t_{i+1}$. 
 - And why this transformation?, 
 - This $2n$-dimensional vector explicitly captures state-transition relationships, giving the neural network the exact temporal signals it needs to predict the next time step.
 -->
+
 ---
 layout: default
-title:   How does the model perform iterative auto-regressive time-series synthesis?
-eyebrow: GENERATIVE MECHANISM
+title: "How does the model perform iterative auto-regressive time-series synthesis?"
+eyebrow: "GENERATIVE MECHANISM"
 ---
+
 <GenerativeMechanism />
+
 <!--
 So how does the model actually generate new time points?  
 - It works iteratively. When you pass the last concatenated vector of the training set $\mathbf{T}(t_i \oplus t_{i+1})$ into the trained model, it outputs the predicted state for $\mathbf{T}(t_{i+1} \oplus t_{i+2})$. 
 - We extract the newly predicted time point and loop it back into the model as input for the next step, repeating this until we reach our target series length.
 -->
+
 ---
 layout: default
-title:   How Was the Experimental Setup Designed?
-eyebrow: EXPERIMENTAL SETUP
+title: "How Was the Experimental Setup Designed?
+eyebrow: "EXPERIMENTAL SETUP"
 ---
+
 <ExperimentalSetup04 />
+
 <!--
 - To evaluate the performance, we generated 20 ground-truth networks for each of two network sizes: 50 and 100 genes.
 - For each network, we generated a trajectory of 100 time steps and then varied the number of observed time steps as observation window, K, from 10 to 90. 
 - This allowed us to evaluate how the proposed framework improves GRN inference under different levels of data availability.
 - We tested the framework on two types of datasets: Boolean and ternary.
 -->
+
 ---
 layout: default
-title:  Which Metrics Are Used to Evaluate GRN Inference?
-eyebrow: EVALUATION METRICS
+title: "Which Metrics Are Used to Evaluate GRN Inference?"
+eyebrow: "EVALUATION METRICS"
 ---
+
 <EvaluationMetrics />
+
 <!--
 We evaluated performance using also four quantitative metrics: Precision, Recall, Structural Accuracy and Dynamics accuracy.
 -->
+
 ---
 layout: default
-title:  How well performance gains on ternary datasets?
-eyebrow: RESULTS - TERNARY DATASETS
+title: "How well performance gains on ternary datasets?"
+eyebrow: "RESULTS - TERNARY DATASETS"
 ---
+
 <TernaryDatasetsRecovery />
+
 <!--
 Looking at the results for ternary datasets:  
 - The Figures show results of precision, recall, and structural accuracy on the multi-level discretization dataset. Figures (a-c). Results for the network with |𝑉|=50. Figures (d–f). Results for the network with |𝑉|=100 The Y-axis denotes the performance metrics, and the X-axis indicates the number of observed time steps in the original gene expression data. For the synthesized dataset, gene expression data are generated for (100−𝐾) time steps. Solid and dashed lines represent the results based on the synthesized and the original dataset, respectively. Each point and error bar indicates the average value and the standard deviation, respectively, over 10 random networks. The bar charts show the performance improvement of the synthesized dataset over the original dataset.  
-
 Look at the figures we can see that:   
 - Synthetic data consistently increases precision and recall across almost all observed time steps window (K)
 - The largest gains occur when real observations are scarcest, especially at K=10, 20
 - Similar performace gains are observed for both 50, 100 gene-scale networks.
 - Structural accuracy changes only slightly because of the large true-negative baseline.
 -->
+
 ---
 layout: default
-title:  How well performance gains on Boolean datasets?
-eyebrow: RESULTS - BOOLEAN DATASETS
+title: "How well performance gains on Boolean datasets?"
+eyebrow: "RESULTS - BOOLEAN DATASETS"
 ---
+
 <BooleanDatasetsRecovery />
+
 <!--
 Moving to Boolean datasets, we observe the exact same positive trend.   
 - Synthetic data enhances inference performance without introducing any negative artifacts in any scenario. 
 - Smaller 50-gene networks saw larger recall boosts, whereas larger 100-gene networks achieved higher precision improvement.
 -->
+
 ---
 layout: default
-title: How Well Is Dynamic Fidelity Preserved?
-eyebrow: RESULTS - DYNAMICS FIDELITY
+title: "How Well Is Dynamic Fidelity Preserved?"
+eyebrow: "RESULTS - DYNAMICS FIDELITY"
 ---
+
 <DynamicsFidelity />
+
 <!--
 Now, addressing dynamic accuracy: Two charts on left are performance on Ternary, while two on right are performance on Boolean dataset.
 - You might notice a slight downward trend as time steps increase. This happens because synthetic-driven networks are evaluated over the entire 100-step timeline, while original data is tested over shorter $K$ steps. 
 - Nevertheless, dynamic accuracy remains well above 97%, proving that generated time-series retain strong biological state fidelity.
 -->
+
 ---
 layout: default
-title: How Diverse Are the Synthesized Expression Profiles?
-eyebrow: RESULTS - DATA DIVERSITY ANALYSIS
+title: "How Diverse Are the Synthesized Expression Profiles?"
+eyebrow: "RESULTS - DATA DIVERSITY ANALYSIS"
 ---
+
 <DataDiversity />
+
 <!--
 Now, let see how diverse are output profiles?
 - On this slide, figure A is an example of a similarity matrix between a pair of synthesized gene expression data values when K equals 10. The white or black dot indicates that the corresponding gene values between two expression data values are identical or not, respectively. 
@@ -639,12 +743,15 @@ The chart reveals that:
 - 3. Althought high variation but downstream GRN reconstruction accuracy remains highly consistent
 - 4. This is once again, confirm that multiple expression pathways map to identical underlying regulatory logic.
 -->
+
 ---
 layout: default
-title: What are Key Findings and Biological Significance?
-eyebrow: SUMMARY AND IMPLICATIONS
+title: "What are Key Findings and Biological Significance?"
+eyebrow: "SUMMARY AND IMPLICATIONS"
 ---
+
 <SummaryOfCoreFindings />
+
 <!--
 To summarize our core findings:   
 - First, we demonstrated the first autoencoder-based temporal data synthesis method specifically for GRN inference.
@@ -652,12 +759,15 @@ To summarize our core findings:
 - Third, substantially improve precision and recall across network scales size 50, 100, two discretization levels (binary/ternary), and low sample regimes (K = 10, 20).
 - Allows researchers to infer higher-quality gene networks without running costly long-term laboratory experiments.
 -->
+
 ---
 layout: default
-title: Where Can This Research Go Next?
-eyebrow: FUTURE HORIZONS
+title: "Where Can This Research Go Next?"
+eyebrow: "FUTURE HORIZONS"
 ---
+
 <FutureHorizons />
+
 <!--
 Looking forward, there are several promising avenues for future research. 
 - First, integrating GNNs could let the model capture network topology directly, rather than inferring it indirectly.. 
@@ -665,24 +775,30 @@ Looking forward, there are several promising avenues for future research.
 - Third, more advanced generative models — such as conditional GANs or diffusion models — could better capture continuous dynamics
 - Finally, and most importantly, validating this approach on real clinical data — rare disease transcriptomics and single-cell RNA-seq — would confirm its real-world impact.
 -->
+
 ---
 layout: default
-title: What Have We Achieved?
-eyebrow: THESIS SYMMARY
+title: "What Have We Achieved?"
+eyebrow: "THESIS SYMMARY"
 ---
+
 <ThesisSummary />
+
 <!--
 To summarize, this thesis addresses three key issues in GRN inference, progressing from better data representation to data augmentation.
 - First, we introduced multi-level discretization to preserve more expression-level information than conventional Boolean representations. This provides more informative expression states for network inference.
 - Second, we developed Scale-Invariant Task Transformation Framework, which transforms time-series gene expression data into a scale-independent representation. This enables learning-based inference models to be reused across networks of different sizes.
 - Finally, proposed an autoencoder-based temporal data synthesis framework to generate additional time-series expression data. By expanding the available observations, this approach aims to improve the reliability of GRN inference.
 -->
+
 ---
 layout: default
-title: Who Made This Journey Possible?
-eyebrow: ACKNOWLEDGEMENT
+title: "Who Made This Journey Possible?"
+eyebrow: "ACKNOWLEDGEMENT"
 ---
+
 <Acknowledgement />
+
 <!--
 Before the end, I would like to express my sincere gratitude to the people who have supported me throughout this journey.
 - First, I would like to thank **Professor Kwon**. His guidance shaped not only this research, but the way I think as a researcher. I am deeply grateful for his patience, his insight, and his continuous support throughout my PhD.
@@ -691,87 +807,116 @@ Before the end, I would like to express my sincere gratitude to the people who h
 - Finally, I would like to thank **my friends** for sharing the joys of everyday life with me. Their friendship helped me maintain a healthy balance between research and relaxation, making this journey more enjoyable and meaningful.
 - Thank you so much for being part of this journey.
 -->
+
 ---
 layout: default
-title:
-eyebrow: QAs 
+title: ""
+eyebrow: "QAs"
 ---
+
 <QAs />
+
 ---
 layout: default
-title: How do GRNs look like?
-eyebrow: GRNs 
+title: "How do GRNs look like?"
+eyebrow: "GRNs"
 ---
+
 <GRNExample />
+
 ---
 layout: default
-title: How does MIFS select candidate regulators?
-eyebrow: MIDNI
+title: "How is MI computed?"
+eyebrow: "MUTUAL INFORMATION"
 ---
+
+<MutualInformation />
+
+---
+layout: default
+title: "How does MIFS select candidate regulators?"
+eyebrow: "MIDNI"
+---
+
 <MIFSS />
+
 ---
 layout: default
-title: How does SWAP refine?
-eyebrow: MIDNI
+title: "How does SWAP refine?"
+eyebrow: "MIDNI"
 ---
+
 <SWAP />
+
 ---
 layout: default
-title: Synthetic network simulation
-eyebrow: SITTF
+title: "Synthetic network simulation"
+eyebrow: "SITTF"
 ---
+
 <BAmodels />
+
 ---
 layout: default
-title: Classifier Hyperparameters
-eyebrow: SITTF
+title: "Classifier Hyperparameters"
+eyebrow: "SITTF"
 ---
+
 <ArgsModels />
+
 ---
 layout: default
-title: Topological Dataset Symmary
-eyebrow: SITTF
+title: "Topological Dataset Symmary"
+eyebrow: "SITTF"
 ---
+
 <TopologicalDatasetTable />
+
 ---
 layout: default
-title: E.coli Dataset Symmary
-eyebrow: SITTF
+title: "E.coli Dataset Symmary"
+eyebrow: "SITTF"
 ---
+
 <EcoliTable />
+
 ---
 layout: default
-title: Detail Performance on E.coli Datasets
-eyebrow: SITTF
+title: "Detail Performance on E.coli Datasets"
+eyebrow: "SITTF"
 ---
+
 <EcoliDetails10 />
+
 ---
 layout: default
-title: Detail Performance on E.coli Datasets
-eyebrow: SITTF
+title: "Detail Performance on E.coli Datasets"
+eyebrow: "SITTF"
 ---
+
 <EcoliDetails50 />
+
 ---
 layout: default
-title: Detail Performance on E.coli Datasets
-eyebrow: SITTF
+title: "Detail Performance on E.coli Datasets"
+eyebrow: "SITTF"
 ---
+
 <EcoliDetails100 />
+
 ---
 layout: default
-title: Effect of Training Set Size on AUPR
-eyebrow: SITTF
+title: "Effect of Training Set Size on AUPR"
+eyebrow: "SITTF"
 ---
+
 <EcoliScale />
+
 ---
 layout: default
-title:   What is the design and parameter configuration of the generative Autoencoder?
-eyebrow: AUTOENCODER ARCHITECTURE
+title: "What is the design and parameter configuration of the generative Autoencoder?"
+eyebrow: "AUTOENCODER ARCHITECTURE"
 ---
+
 <DeepLearningArchitecture />
-<!--
-Let's examine the Autoencoder architecture itself. 
-- We chose a lightweight 3-hidden-layer design with a 32-neuron bottleneck layer. 
-- Why keep it compact? Because a smaller architecture prevents overfitting on limited biological samples and keeps training stable. 
-- It uses ReLU activations in hidden layers and minimizes mean squared error during training.
--->
+
